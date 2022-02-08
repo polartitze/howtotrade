@@ -1,14 +1,11 @@
 package com.skripsi.howtotrade.model;
 
-
-
-
-public class User {
+public class Users {
     private int userId;
     private String userName;
     private String userEmail;
     private String userPassword;
-    private String userRole;
+    private int userRole;
     private String userStatus;
 
     public int getUserId() {
@@ -43,11 +40,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getUserRole() {
+    public int getUserRole() {
         return this.userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(int userRole) {
         this.userRole = userRole;
     }
 
