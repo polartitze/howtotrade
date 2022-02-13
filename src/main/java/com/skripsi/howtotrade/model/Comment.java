@@ -6,8 +6,25 @@ public class Comment {
     private int commentId;
     private String description;
     private Date createdDate;
-    private Topic topicId;
+    private int topicId;
     private int userId;
+    private String userName;
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getTopicId() {
+        return this.topicId;
+    }
+
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
+    }
 
     public int getUserId() {
         return this.userId;
@@ -41,13 +58,7 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
-    public Topic get() {
-		return this.topicId;
-	}
-
-    public void set(Topic topicId ) {
-		this.topicId = topicId;
-	}
+  
 
     
 

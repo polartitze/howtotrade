@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
-	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
-	integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Register</title>
+	<meta charset="ISO-8859-1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+		crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Register</title>
 </head>
+
 <body>
 	<div class="container mt-5">
 		<h3 align="justify">Registration using Thymeleaf + Spring Mybatis
@@ -30,26 +27,110 @@
 			<div class="card-body">
 				<form th:action="@{/auth/save}" method="post" th:object="${users}">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Username</label> <input name="userName"
-							type="text" class="form-control" id="userName" th:field="*{userName}">
+						<label for="exampleInputEmail1">Username</label>
+						<input name="userName" type="text" maxlength="20" class="form-control" id="username"
+							th:field="*{userName}">
+						<span class="alert-warning error1"></span>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email</label> <input name="userEmail" type="email"
-							class="form-control" id="email" th:field="*{userEmail}">
+						<label for="exampleInputEmail1">Email</label>
+						<input name="userEmail" type="email" class="form-control" id="email" th:field="*{userEmail}">
+						<span class="alert-warning error2"></span>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputEmail1">Password</label> <input name="userPassword"
-							type="password" class="form-control" id="password" th:field="*{userPassword}">
+						<label for="exampleInputEmail1">Password</label>
+						<input name="userPassword" type="password" class="form-control" id="password"
+							th:field="*{userPassword}">
+						<span class="alert-warning error3"></span>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Konfirmasi Password</label> <input
-							type="password" class="form-control" id="passwordConfirmation">
+						<label for="exampleInputPassword1">Konfirmasi Password</label> <input type="password"
+							class="form-control" id="passwordConfirmation">
+						<span class="alert-warning error4"></span>
 					</div>
 
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary btn-save">Submit</button>
 				</form>
 			</div>
 		</div>
 	</div>
+
+	<!-- JAVASCRIPT CODE -->
+	<script type="text/javascript">
+		$(document).ready(function () {
+			//$('.error1').show();
+			console.log('apin botak')
+			initForm();
+		});
+
+		function initForm() {
+			let username;
+			let email;
+			let password;
+			let passwordConfirmation;
+			$('#username').on('input', function () {
+				username = $('#username').val();
+				if (username.length < 5) {
+					$('.error1').html('Username harus 5 sampai 20 karakter');
+					$('.error1').show();
+				} else {
+					$('.error1').hide();
+				}
+			});
+			$('#email').on('input', function () {
+				email = $('#email').val();
+				if (validateEmail(email) == false) {
+					$('.error2').html('Email harus mengikuti format RCC 822 ');
+					$('.error2').show();
+				} else {
+					$('.error2').hide();
+				}
+			});
+			$('#password').on('input', function () {
+				password = $('#password').val();
+				if (password.length < 8) {
+					$('.error3').html('Password minimal harus 8 karakter');
+					$('.error3').show();
+				}else{
+					$('.error3').hide();
+				}
+				if (validatePassword() == false) {
+					$('.error3').html('Password harus memiliki minimal 1 huruf kecil, 1 huruf besar, dan 1 angka');
+					$('.error3').show();
+				} else {
+					$('.error3').hide();
+				}
+			});
+
+			$('#passwordConfirmation').on('input', function () {
+				password = $('#password').val();
+				passwordConfirmation = $('#passwordConfirmation').val();
+				if (passwordConfirmation != password) {
+					$('.error4').html('Password tidak sesuai');
+					$('.error4').show();
+				} else {
+					$('.error4').hide();
+				}
+			});
+
+			$('.btn-save').on('click', function () {
+				if ($('.error1').length || $('.error2').length || $('.error3').length || $('.error4').length) {
+					alert('there is an error');
+					return false;
+				}
+			});
+		}
+		function validateEmail(email) {
+			var re = /\S+@\S+\.\S+/;
+			return re.test(email);
+		}
+
+		function validatePassword(pw) {
+			return /[A-Z]/.test(pw) &&
+				/[a-z]/.test(pw) &&
+				/[0-9]/.test(pw);
+		}
+	</script>
 </body>
+
 </html>

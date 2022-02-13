@@ -8,10 +8,10 @@ import com.skripsi.howtotrade.model.Users;
 
 @Mapper
 public interface UserMapper {
-	@Select("SELECT 1 FROM users WHERE username = #{username}")
+	@Select("SELECT 1 FROM USERS WHERE username = #{username}")
 	String getUser(String username);
 	
-	@Insert("INSERT INTO users (userName, userEmail, userPassword, userRole, userStatus) "
+	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus) "
 			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus})")
 	void insert(Users user);
 }

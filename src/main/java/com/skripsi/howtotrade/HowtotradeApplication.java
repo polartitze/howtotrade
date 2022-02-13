@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @AutoConfigureMybatis
-@MappedTypes(Topic.class)
+//@MappedTypes(Topic.class)
 @MapperScan("com.skripsi.howtotrade.mapper")
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class HowtotradeApplication {
