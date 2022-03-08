@@ -1,0 +1,147 @@
+package com.skripsi.howtotrade.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurity extends WebSecurityConfigurerAdapter{
+    // @Autowired
+	// private UserDetailsServiceImpl userDetailsService;
+
+	// @Bean
+	// public BCryptPasswordEncoder passwordEncoder() {
+	// 	return new BCryptPasswordEncoder();
+	// }
+
+	// @Bean
+    // public DaoAuthenticationProvider authProvider() {
+    //     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    //     authProvider.setUserDetailsService(userDetailsService);
+    //     authProvider.setPasswordEncoder(getPasswordEncoder());
+    //     return authProvider;
+    // }
+
+	
+	// @Autowired
+	// public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	// 	auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+	// }
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("user").password("user").roles("ROLE_USER")
+                                    .and()
+                                    .withUser("admin").password("admin").roles("ROLE_ADMIN");
+		// auth.authenticationProvider(authProvider());
+    }
+
+
+    @Bean 
+	public PasswordEncoder getPasswordEncoder() {
+		return NoOpPasswordEncoder.getInstance();	//artinya password gak akan di encrypt, bisa clear text doang
+	}
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+        http.authorizeRequests()
+		.antMatchers("/").permitAll()
+		.antMatchers("/resource/**").permitAll();
+            // .antMatchers("/admin", "/admin/*").hasAnyRole("ROLE_USER", "ROLE_ADMIN")
+            // .antMatchers("/user","/user/*").hasRole("ROLE_USER")
+
+        http.formLogin()
+            .permitAll()
+            .loginPage("/login.html");
+            // .usernameParameter("username")
+            // .passwordParameter("password")
+            // .loginProcessingUrl("/doLogin")
+			// .defaultSuccessUrl("/home")
+			// .failureUrl("/?error=true");
+            
+        // http.logout()
+        //     .permitAll();
+            
+    }
+	// @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    //     http.authorizeRequests()
+    //         .antMatchers("/admin", "/admin/*").hasAnyRole("USER", "ADMIN")
+    //         .antMatchers("/user","/user/*").hasRole("USER")
+    //         .antMatchers("/").permitAll()
+    //         .antMatchers("/resource/**").permitAll()
+    //         .and()
+    //     .formLogin()
+    //         .loginPage("/login")
+    //         .permitAll()
+    //         .and()
+    //     .logout()
+    //         .permitAll();
+    // }
+
+}
+
+	// @Override
+	// protected void configure(HttpSecurity http) throws Exception {
+	// 	http.csrf().disable();
+		
+	// 	http.httpBasic().
+	// 	and().
+	// 	authorizeRequests()
+	// 		.antMatchers("/").permitAll()
+	// 		.antMatchers("/home").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/user/*").access("hasRole('ROLE_Admin')")
+	// 		.antMatchers("/user/check/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/user/delete/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/user/edit/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/application/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/application/check/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/application/delete/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/application/edit/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/add/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/delete/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/download/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/category/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/category/check/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/category/delete/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/category/edit/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/url/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/url/add/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/url/delete/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/attachment/url/edit/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/interface/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/interface/sign/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/interface/sign/check/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.antMatchers("/interface/sign/check2/*").access("hasAnyRole('ROLE_User', 'ROLE_Admin')")
+	// 		.and()
+	// 		.formLogin().permitAll()
+	// 		.and()
+	// 		.logout().permitAll()
+	// 		.and()
+	// 		.exceptionHandling().accessDeniedPage("/403");
+		
+	// 	http.formLogin()
+	// 		.loginPage("/")
+	// 		.usernameParameter("username")
+	// 		.passwordParameter("password")
+	// 		.loginProcessingUrl("/doLogin")
+	// 		.defaultSuccessUrl("/home")
+	// 		.failureUrl("/?error=true");
+		
+	// 	http.logout()
+	// 		.logoutUrl("/doLogout")
+	// 		.logoutSuccessUrl("/");
+	// }
+

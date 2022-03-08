@@ -1,9 +1,8 @@
 package com.skripsi.howtotrade.controller;
 
-import javax.websocket.server.PathParam;
 
-import com.skripsi.howtotrade.mapper.TopicMapper;
 import com.skripsi.howtotrade.model.Comment;
+import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.service.TopicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,17 @@ public class TopicController {
     
     Authentication authentication;
     //String userLogged = authentication.getName(); -- right now it still return null values
+
     
     public TopicController(){
         
     }
-
+    //TOPIC
     @RequestMapping("/all")
     public String getAllTopic(Model model){
         model.addAttribute("listTopic", topicService.getAllTopic());
+        model.addAttribute("topicForm", new Topic());
+        model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topiclist";
     }
 
@@ -38,18 +40,36 @@ public class TopicController {
     public String getTopicById(Model model, @PathVariable int topicId){
         model.addAttribute("topicData", topicService.getTopicById(topicId));
         model.addAttribute("listComment", topicService.getCommentOnTopic(topicId));
-        model.addAttribute("comment", new Comment());
+        model.addAttribute("commentForm", new Comment());
         return "forum/topic";
     }
     
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addNewTopic(Topic topic){
+        topic.setAuthorId(topicService.getUserId("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
+        topicService.insertTopic(topic);
+        return "redirect:/topic/all";
+    }
+    
+    @RequestMapping("/{topicId}/delete")
+    public String deleteTopicById(@PathVariable int topicId){
+        topicService.deleteTopic(topicService.getUserId("alvin"), topicId); //FIXME: when authentication has been set, change into 'userLogged'
+        return "redirect:/topic/all";
+    }
+
+    //COMMENT
     @RequestMapping(value = "/{topicId}/comment", method = RequestMethod.POST)
     public String saveCommentOnTopicId(Model model, @PathVariable int topicId, Comment comment){
         comment.setTopicId(topicId);
         comment.setUserId(topicService.getUserId("alvin"));  //FIXME: when authentication has been set, change into 'userLogged'
-
         topicService.insertComment(comment);
-        model.addAttribute("comment", new Comment());
+        model.addAttribute("commentForm", new Comment());
         return "redirect:/topic/{topicId}";
     }
 
+    @RequestMapping("/{topicId}/comment/{commentId}/delete")
+    public String deleteCommentOnTopicId(@PathVariable int topicId, @PathVariable int commentId){
+        topicService.deleteComment(commentId, topicId);
+        return "redirect:/topic/{topicId}";
+    }
 }

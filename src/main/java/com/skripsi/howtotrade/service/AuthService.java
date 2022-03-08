@@ -2,6 +2,7 @@ package com.skripsi.howtotrade.service;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.skripsi.howtotrade.mapper.UserMapper;
@@ -15,7 +16,15 @@ public class AuthService {
 	public boolean isUsernameExist(String username) {
 		String exist = userMapper.getUser(username);
 		if (exist != null) return true;
-		
+		return false;
+	}
+
+	public boolean checkPassword(String username, String password){
+		String exist = userMapper.getPassword(username, password);
+		if (exist != null) {
+			throw new UsernameNotFoundException(username);
+			// return true;
+		}
 		return false;
 	}
 

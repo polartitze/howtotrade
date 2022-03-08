@@ -5,7 +5,7 @@ import java.util.List;
 import com.skripsi.howtotrade.mapper.TopicMapper;
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
-
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,8 @@ public class TopicService {
     @Autowired
     private TopicMapper mapper;
 
-  
+    Authentication authentication;
+    //String userLogged = authentication.getName(); -- right now it still return null values
 
     public TopicService(){
         
@@ -30,6 +31,14 @@ public class TopicService {
         return resultList;
     }
 
+    public void insertTopic(Topic topic){
+        mapper.insertTopic(topic);
+    }
+
+    public void deleteTopic(int userId, int topicId){
+        mapper.deleteTopic(userId, topicId);
+    }
+
     public List<Comment> getCommentOnTopic(int id){
         List<Comment> resultList = mapper.getCommentOnTopic(id);
         return resultList;
@@ -40,6 +49,11 @@ public class TopicService {
     }
     
     public void insertComment(Comment comment){
+       
         mapper.insertComment(comment);
+    }
+
+    public void deleteComment(int commentId, int topicId){
+        mapper.deleteComment(commentId, topicId);
     }
 }

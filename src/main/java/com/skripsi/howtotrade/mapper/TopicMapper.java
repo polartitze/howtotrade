@@ -6,6 +6,7 @@ import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.model.Users;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,13 @@ public interface TopicMapper {
 
     @Insert("INSERT INTO comment(description, createddate, userid, topicid) VALUES (#{description}, CURRENT_DATE , #{userId}, #{topicId})")
     void insertComment(Comment newComment);
+
+    @Delete("DELETE FROM comment WHERE commentid = #{commentId} AND topicid = #{topicId}")
+    void deleteComment(int commentId, int topicId);
+
+    @Insert("INSERT INTO topic(topictitle, description, createddate, authorid) VALUES (#{topicTitle}, #{description}, CURRENT_DATE, #{authorId})")
+    void insertTopic(Topic newTopic);
+
+    @Delete("DELETE FROM topic WHERE authorid = #{authorId} AND topicid = #{topicId}")
+    void deleteTopic(int authorId, int topicId);
 }

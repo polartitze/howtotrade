@@ -1,20 +1,21 @@
-package com.skripsi.howtotrade;
+package com.skripsi.howtotrade.utility;
 
-import com.skripsi.howtotrade.model.Topic;
 
 import java.io.IOException;
 
-import org.apache.ibatis.type.MappedTypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
 @AutoConfigureMybatis
 //@MappedTypes(Topic.class)
 @MapperScan("com.skripsi.howtotrade.mapper")
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@ComponentScan("com.skripsi.howtotrade")
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class })
 public class HowtotradeApplication {
 
 	public static void main(String[] args) throws IOException {

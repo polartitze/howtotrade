@@ -1,6 +1,7 @@
-package com.skripsi.howtotrade.utility;
+package com.skripsi.howtotrade.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
                                     .withUser("admin").password("admin").roles("ADMIN");
     }
 
+
+	// @Bean
+	// public AuthenticationManager authenticationManagerBean() throws Exception {
+	//   // ALTHOUGH THIS SEEMS LIKE USELESS CODE,
+	//   // IT'S REQUIRED TO PREVENT SPRING BOOT AUTO-CONFIGURATION
+	//   return super.authenticationManagerBean();
+	// }
 
     @Bean 
 	public PasswordEncoder getPasswordEncoder() {
@@ -40,3 +48,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
     }
 
 }
+

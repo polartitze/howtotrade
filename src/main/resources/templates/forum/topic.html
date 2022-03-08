@@ -33,7 +33,7 @@
               <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+              <a class="nav-link dropdown-toggle" href="/profile" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
               <div class="dropdown-menu" aria-labelledby="dropdown05">
                 <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item" href="#">Log Out</a>
@@ -91,7 +91,7 @@
                   <!-- <p> For me, getting my business website made was a lot of tech wizardry things. Thankfully i get an ad on Facebook ragarding commence website. I get connected with BBB team. They made my stunning website live in just 3 days. With the increase demand of online customers. I had to take my business online. BBB Team guided me at each step and enabled me to centralise my work and have control on all aspect of my online business. </p> -->
                   <p th:text="${topicData.description}"></p>
               </div>
-              <form th:action="@{'/topic/'+${topicData.topicId}+'/comment'}" th:object="${comment}" method="post">
+              <form th:action="@{'/topic/'+${topicData.topicId}+'/comment'}" th:object="${commentForm}" method="post">
                 <div class="panel">
                   <div class="panel-body">
                     <textarea class="form-control" th:field="*{description}" rows="2" placeholder="Type your comment"></textarea>
@@ -133,6 +133,10 @@
             <div class="btn-group">
               <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
               <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
+            </div>
+            <div class="col px-1"> <a  th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}"><i class="fa fa-trash-o icon-1x"></i></a></div>
+            <div>
+              <a class="btn btn-trans btn-icon fa-solid fa-trash-can add-tooltip" th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}"></a>
             </div>
             <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
           </div>
