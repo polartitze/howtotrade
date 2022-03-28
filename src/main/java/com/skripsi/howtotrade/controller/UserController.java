@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/profile")
@@ -25,10 +26,12 @@ public class UserController {
         return "index/profile";
     }
 
-    @RequestMapping("/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProfile(Users user){
+        System.out.println("------------------user.getUserEmail(): "+user.getUserEmail());
+        user.setUserId(userService.getUserId("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
         userService.saveProfile(user);
-        System.out.println("Update user berhasil!");
+        System.out.println("----------------Update user berhasil!");
         return "redirect:/profile";
     }
 }

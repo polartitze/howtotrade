@@ -3,6 +3,7 @@ package com.skripsi.howtotrade.service;
 import java.util.List;
 
 import com.skripsi.howtotrade.mapper.TopicMapper;
+import com.skripsi.howtotrade.mapper.UserMapper;
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 public class TopicService {
     @Autowired
     private TopicMapper mapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     Authentication authentication;
     //String userLogged = authentication.getName(); -- right now it still return null values
@@ -45,7 +49,7 @@ public class TopicService {
     }
 
     public int getUserId(String userName){
-        return mapper.getUserId(userName);
+        return userMapper.getUserId(userName);
     }
     
     public void insertComment(Comment comment){

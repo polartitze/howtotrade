@@ -28,6 +28,9 @@ public interface UserMapper {
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users getUserProfile(String username);
 
-	@Update("UPDATE USERS SET userName = #{userName}, userEmail = #{userEmail}")
+	@Update("UPDATE USERS SET userName = #{userName}, userEmail = #{userEmail} WHERE USERID = #{userId}")
 	void saveProfile(Users user);
+	
+	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
+    int getUserId(String userName);
 }

@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/style.css">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,7 @@
         </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-        <form th:action="@{/profile/save}" th:object="${profileForm}" method="post"></form>
+        <form th:action="@{/profile/save}" th:object="${profileForm}" method="post">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row gutters">
@@ -41,13 +42,13 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="userName">Username</label>
-                                <input type="text" class="form-control" id="userName" placeholder="Enter full name" th:text="${data.userName}" th:field="${profileForm.userName}">
+                                <input type="text" class="form-control" id="userName" readonly th:field="${profileForm.userName}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
-                                <input type="email" class="form-control" id="userEmail" placeholder="Enter email ID" th:text="${data.userEmail}" th:field="${profileForm.userEmail}">
+                                <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" required>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -96,7 +97,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
                                 <!-- <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> -->
-                                <button type="button" id="submit" name="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -106,5 +107,25 @@
         </div>
         </div>
         </div>
+    <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 
+    <input type="hidden" th:value="${data.userEmail}" id="hiddenUserEmail"/> 
+	<!-- JAVASCRIPT CODE -->
+	<script type="text/javascript">
+		$(document).ready(function () {
+			//$('.error1').show();
+			console.log('halo');
+			initForm();
+		});
+
+		function initForm() {
+            const hiddenUserName = $('#hiddenUserName').val();
+            const hiddenUserEmail = $('#hiddenUserEmail').val();
+            console.log(hiddenUserEmail);
+            console.log(hiddenUserName);
+            $('#userName').val(hiddenUserName);
+            $('#userEmail').val(hiddenUserEmail);
+		}
+		
+	</script>
 </body>
 </html>

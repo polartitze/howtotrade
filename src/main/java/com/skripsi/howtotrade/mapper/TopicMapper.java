@@ -22,8 +22,7 @@ public interface TopicMapper {
     @Select("SELECT * FROM COMMENT C LEFT JOIN USERS U ON U.USERID = C.USERID WHERE topicId = #{id}")
     List<Comment> getCommentOnTopic(int id);
 
-    @Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
-    int getUserId(String userName);
+    
 
     @Insert("INSERT INTO comment(description, createddate, userid, topicid) VALUES (#{description}, CURRENT_DATE , #{userId}, #{topicId})")
     void insertComment(Comment newComment);

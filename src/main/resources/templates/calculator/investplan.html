@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style.css">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">  
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                                </div>
+                                <!-- <h5 class="user-name" th:text="${data.userName}"></h5> -->
+                                <!-- <h6 class="user-email" th:text="${data.userEmail}"></h6> -->
+                            </div>
+                            <div class="about">
+                                <h5>About</h5>
+                                <p>Sekuy di hitung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <form th:action="@{/calculator/save-calculation}" th:object="${calculatorForm}" method="post">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary">Hitung keuntungan mu!</h6>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="userName">Mau dapatin apa?</label>
+                                        <select class="form-select" id="jenisPerhitungan" th:field="${calculatorForm.jenisPerhitungan}">
+                                            <option value="00"></option>
+                                            <option value="10">Koin yang cocok untuk kamu</option>
+                                            <option value="20">Total investasi kamu di hari tua</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="param1">Total Investasi Yang Ingin Dicapai</label>
+                                        <input type="number" class="form-control" id="totalInvestasi" th:field="${calculatorForm.totalInvestasi}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="param2">Koin</label>
+                                        <select class="form-select" id="koin" th:field="${calculatorForm.koin}">
+                                            <option value=""></option>
+                                            <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option> <!-- TODO: Manipulate dropdown from database coin  -->
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="param3">Waktu</label>
+                                        <div>
+                                            <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.waktu}" >
+                                            <span>Tahun</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="param4">Jumlah Investasi per Bulan</label>
+                                        <input type="number" class="form-control" id="perBulan" th:field="${calculatorForm.perBulan}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary btn-calculate">Hitung</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters result">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-primary">
+                                        <!-- <h1>Hasil: <span id="score"></span></h1> -->
+                                        <h1>Hasil: <input type="text" id="score" readonly></h1>
+                                        <button type="submit" class="btn btn-primary btn-save">Save Result</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="card-body" >
+                    <div class="row gutters">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="text-primary">
+                                <button type="button" class="btn btn-primary btn-history">Riwayat</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="table-history">
+                        <thead>
+                            <tr>
+                                <th> Target </th>
+                                <th> Waktu </th>
+                                <th> Coin </th>
+                                <th> Investasi Awal </th>
+                                <!-- TARGET, DURATION, COINCODE, CURRENTBALANCE -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${history.empty}">
+                                <td colspan="2"> No Data Available </td>
+                            </tr>
+                            <tr th:each="list : ${history}">
+                                <td><span th:text="${list.target}"> </span></td>
+                                <td><span th:text="${list.duration}">  </span></td>
+                                <td><span th:text="${list.coincode}"> </span></td>
+                                <td><span th:text="${list.currentbalance}">  </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- JAVASCRIPT CODE -->
+	<script type="text/javascript">
+		$(document).ready(function () {
+        /*<![CDATA[*/
+        // var contextPath = [[@{/}]];
+        /*]]>*/
+            var jenisPerhitungan;
+            var totalInvestasi;
+            var koin;
+            var waktu;
+            var perBulan;
+            // console.log(contextPath);
+            console.log($('#hidContextPath').val());
+            $('#table-history').hide();
+            $('.result').hide();
+			initForm();
+		});
+        
+		function initForm() {
+            $('#hiddenFlag').val('0');
+            $('.btn-history').click(function(){
+              $('#table-history').show();
+            });
+            $('.btn-calculate').click(function(){
+                var hasil;
+                jenisPerhitungan = $('#jenisPerhitungan').val();
+                totalInvestasi = $('#totalInvestasi').val();
+                koin = $('#koin').val();
+                waktu = $('#waktu').val();
+                perBulan = $('#perBulan').val();
+                hasil = getResult(jenisPerhitungan,totalInvestasi,koin,waktu,perBulan);
+                if(hasil == null || '' == hasil) $('.result').hide();
+                else {
+                    $('#score').val(hasil);
+                    $('.result').show();
+                }
+                
+            });
+          
+		}
+
+        function getResult(jenisPerhitungan,totalInvestasi,koin,waktu,perBulan){
+            var retval;
+            console.log(jenisPerhitungan);
+            $.ajax({
+                method: 'GET',
+                async: false,
+                data: {
+                    'jenisPerhitungan' : jenisPerhitungan,
+                    'totalInvestasi' : totalInvestasi,
+                    'koin' : koin,
+                    'waktu' : waktu,
+                    'perBulan' : perBulan
+                },
+                url: 'http://localhost:8080/calculator/calculate-result',
+                success: function(data){
+                    if(data != null || data != ''){
+                        retval = data;
+                    } 
+                }
+            });
+            console.log(retval);
+            return retval;
+        }
+		
+	</script>
+</body>
+</html>

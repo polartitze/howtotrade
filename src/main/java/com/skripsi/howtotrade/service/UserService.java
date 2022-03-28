@@ -12,11 +12,15 @@ public class UserService {
     private UserMapper userMapper;
 
     public Users getUserProfile(String username){
-        System.out.println("Get User Data : "+userMapper.getUserProfile(username));
+        System.out.println("----------------Get User Data : "+userMapper.getUserProfile(username));
         return userMapper.getUserProfile(username);
     }
     
     public void saveProfile(Users user){
         userMapper.saveProfile(user);
+    }
+
+    public int getUserId(String userName){
+        return userMapper.getUserId(userName);
     }
 }
