@@ -2,8 +2,10 @@ package com.skripsi.howtotrade.model;
 
 public class Question {
 	int questionId;
+	int stepNo;
 	String questionDesc;
 	int correctAnswer;
+	int userAnswer;
 	String choiceOne;
 	String choiceTwo;
 	String choiceThree;
@@ -14,6 +16,12 @@ public class Question {
 	}
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
+	}
+	public int getStepNo() {
+		return stepNo;
+	}
+	public void setStepNo(int stepNo) {
+		this.stepNo = stepNo;
 	}
 	public String getQuestionDesc() {
 		return questionDesc;
@@ -26,6 +34,12 @@ public class Question {
 	}
 	public void setCorrectAnswer(int correctAnswer) {
 		this.correctAnswer = correctAnswer;
+	}
+	public int getUserAnswer() {
+		return userAnswer;
+	}
+	public void setUserAnswer(int userAnswer) {
+		this.userAnswer = userAnswer;
 	}
 	public String getChoiceOne() {
 		return choiceOne;

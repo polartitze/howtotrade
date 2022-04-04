@@ -21,13 +21,12 @@ public class CourseService {
 	
 	public Course getCourseById(int courseId) {
 		Course course = mapper.getCourseById(courseId);
-		course.setActivityList(loadCourseActivity(courseId));
+		course.setActivityList(getCourseActivity(courseId));
 		
 		return course;
 	}
 	
-	
-	private List<Activity> loadCourseActivity(int courseId) {
+	private List<Activity> getCourseActivity(int courseId) {
 		List<Activity> activityList = mapper.getAllCourseActivity(courseId);
 		for (Activity activity : activityList) {
 			activity.setQuestion(mapper.getQuestion(activity.getActivityId()));			
@@ -35,4 +34,20 @@ public class CourseService {
 		return activityList;
 	}
 	
+	public boolean saveProgress(int userId, int courseId) {
+		try {
+			mapper.saveCourseEnroll(userId, courseId);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isEnroll(int userId, int courseId) {
+		if(mapper.isExistCourseEnroll(userId, courseId) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -11,7 +11,7 @@ public class Course {
 	Time courseduration;
 	Timestamp enrollDate;
 	List<Activity> activityList;
-	
+	boolean isenroll;
 	
 	public Integer getCourseId() {
 		return courseId;
@@ -49,5 +49,10 @@ public class Course {
 	public void setActivityList(List<Activity> activityList) {
 		this.activityList = activityList;
 	}
-	
+	public boolean isIsenroll() {
+		return isenroll;
+	}
+	public void setIsenroll(boolean isenroll) {
+		this.isenroll = isenroll;
+	}
 }
