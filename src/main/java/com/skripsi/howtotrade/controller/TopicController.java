@@ -1,6 +1,7 @@
 package com.skripsi.howtotrade.controller;
 
 
+import com.skripsi.howtotrade.mapper.UserMapper;
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.service.TopicService;
@@ -30,9 +31,11 @@ public class TopicController {
     //TOPIC
     @RequestMapping("/all")
     public String getAllTopic(Model model){
+        System.out.println("==========="+topicService.getAllTopic());
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
         model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
+        model.addAttribute("roles", topicService.getRole("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topiclist";
     }
 
@@ -41,6 +44,7 @@ public class TopicController {
         model.addAttribute("topicData", topicService.getTopicById(topicId));
         model.addAttribute("listComment", topicService.getCommentOnTopic(topicId));
         model.addAttribute("commentForm", new Comment());
+        model.addAttribute("roles", topicService.getRole("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topic";
     }
     
@@ -71,5 +75,12 @@ public class TopicController {
     public String deleteCommentOnTopicId(@PathVariable int topicId, @PathVariable int commentId){
         topicService.deleteComment(commentId, topicId);
         return "redirect:/topic/{topicId}";
+    }
+
+    //BLOCK USER ON TOPIC PAGE
+    @RequestMapping("/block/{username}")
+    public String blockMember(@PathVariable String username){
+        topicService.blockMember(topicService.getUserId(username)); //FIXME: when authentication has been set, change into 'userLogged'
+        return "redirect:/topic/all";
     }
 }

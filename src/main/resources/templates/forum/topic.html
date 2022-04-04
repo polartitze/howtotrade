@@ -42,10 +42,16 @@
           </ul>
         </div>
     </nav>
-	<div>
-		<h1>INI HALAMAN topic</h1>
-	</div>
-        
+  <div class="container" style="width: 100%; margin: 0;" >
+    <div class="row" style="background:navajowhite; text-align: center; width: fit-content;" th:if="${roles == 'ROLE_ADMIN'}">
+      <div class="container">
+        <span>Admin Page</span>
+      </div>
+    </div/>
+    <div class="row">
+        <h1>INI HALAMAN TOPIC</h1>
+    </div>
+  </div>  
 	<table>
 		<thead>
 			<tr>
@@ -125,7 +131,7 @@
         <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
         <div class="media-body">
           <div class="mar-btm">
-            <a href="#" class="btn-link text-semibold media-heading box-inline"><span th:text="${comment.userId}"></span></a>
+            <span class="text-semibold media-heading box-inline" th:text="${comment.userName}"></span>
             <p class="text-muted text-sm" th:text="${comment.createdDate}"><i class="fa fa-mobile fa-lg"></i></p>
           </div>
           <p th:text="${comment.description}"></p>
@@ -135,10 +141,12 @@
               <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
             </div>
             <div class="col px-1"> <a  th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}"><i class="fa fa-trash-o icon-1x"></i></a></div>
-            <div>
-              <a class="btn btn-trans btn-icon fa-solid fa-trash-can add-tooltip" th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}"></a>
-            </div>
-            <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
+            <div class="col px-1" th:if="${roles == 'ROLE_ADMIN'}"> 
+              <!-- <i class="ion-ios-eye-outline icon-1x"></i>  -->
+              <!-- <span class="d-block text-sm">290 Views</span> -->
+              <a th:href="@{'/topic/block/'+${comment.userName}}" class="btn-primary">Blokir</a>
+             </div>
+            <!-- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a> -->
           </div>
           <hr>
 

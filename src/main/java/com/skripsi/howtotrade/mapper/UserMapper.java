@@ -22,7 +22,7 @@ public interface UserMapper {
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users findUserAccount(String username);
 
-	@Select("SELECT ROLENAME FROM USERS U JOIN ROLE R ON U.ROLEID = R.ROLEID WHERE U.USERNAME = #{username}")
+	@Select("SELECT ROLENAME FROM USERS U JOIN ROLES R ON U.USERROLE = R.ROLEID WHERE U.USERNAME = #{username}")
 	String getRole(String username);
 
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
@@ -33,4 +33,5 @@ public interface UserMapper {
 	
 	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
     int getUserId(String userName);
+
 }

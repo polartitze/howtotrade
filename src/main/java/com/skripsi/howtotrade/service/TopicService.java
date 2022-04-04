@@ -1,6 +1,7 @@
 package com.skripsi.howtotrade.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.skripsi.howtotrade.mapper.TopicMapper;
 import com.skripsi.howtotrade.mapper.UserMapper;
@@ -25,8 +26,8 @@ public class TopicService {
         
     }
 
-    public List<Topic> getAllTopic(){
-        List<Topic> resultList = mapper.getAllTopics();
+    public List<Map<String,String>> getAllTopic(){
+        List<Map<String,String>> resultList = mapper.getAllTopics();
         return resultList;
     }
 
@@ -59,5 +60,14 @@ public class TopicService {
 
     public void deleteComment(int commentId, int topicId){
         mapper.deleteComment(commentId, topicId);
+    }
+
+    public String getRole(String username){
+        System.out.println("==============ROLES: "+userMapper.getRole(username));
+        return userMapper.getRole(username);
+    }
+
+    public void blockMember(int userId){
+        mapper.blockMember(userId);
     }
 }

@@ -1,20 +1,27 @@
 package com.skripsi.howtotrade.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
-import com.skripsi.howtotrade.model.Users;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface TopicMapper {
-    @Select("SELECT * FROM TOPIC T LEFT JOIN USERS U ON T.AUTHORID = U.USERID")
-    List<Topic> getAllTopics();
+    // @Select("SELECT * FROM TOPIC T LEFT JOIN USERS U ON T.AUTHORID = U.USERID")
+    // List<Topic> getAllTopics();
+    @Select("SELECT T.TOPICID, T.TOPICTITLE, t.description, T.CREATEDDATE, T.AUTHORID, U.USERNAME, COUNT(C.COMMENTID) AS COUNTCOMMENT "
+        + "FROM TOPIC T "
+        + "LEFT JOIN USERS U ON T.AUTHORID = U.USERID "
+        + "LEFT JOIN COMMENT C ON C.TOPICID = T.TOPICID "
+        + "GROUP BY T.TOPICID, T.TOPICTITLE, t.description, T.CREATEDDATE, T.AUTHORID, U.USERNAME")
+    List<Map<String,String>> getAllTopics();
 
     @Select("SELECT * FROM TOPIC WHERE topicId = #{id}")
     Topic getTopicById(int id);
@@ -35,4 +42,10 @@ public interface TopicMapper {
 
     @Delete("DELETE FROM topic WHERE authorid = #{authorId} AND topicid = #{topicId}")
     void deleteTopic(int authorId, int topicId);
+
+    @Select("SELECT COUNT(*) FROM TOPIC WHERE topicId = #{id}")
+    int countComment(int topicId);
+
+    @Update("UPDATE USERS SET USERSTATUS = '0' WHERE USERID = #{userId}")
+    void blockMember(int userId);
 }
