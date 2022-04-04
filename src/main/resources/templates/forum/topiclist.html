@@ -44,43 +44,9 @@
           </ul>
         </div>
     </nav>
-  <div class="container" style="width: 100%; margin: 0;" >
-    <div class="row" style="background:navajowhite; text-align: center; width: fit-content;" th:if="${roles == 'ROLE_ADMIN'}">
-      <div class="container">
-        <span>Admin Page</span>
-      </div>
-    </div/>
-    <div class="row">
-        <h1>INI HALAMAN FORUM</h1>
-    </div>
-  </div>
-        
-	<table>
-		<thead>
-			<tr>
-				<th> Title </th>
-				<th> Author </th>
-				<th> Description </th>
-				<th> Created Date </th>
-			</tr>
-		</thead>
-		<tbody>
-		<tr th:if="${listTopic.empty}">
-				<td colspan="2"> No Topic Available </td>
-			</tr>
-			<tr th:each="topic : ${listTopic}">
-				<td><span th:text="${topic.topictitle}"> Title </span></td>
-				<td><span th:text="${topic.username}"> Author </span></td>
-				<td><span th:text="${topic.description}"> Description </span></td>
-				<td><span th:text="${topic.createddate}"> Created Date </span></td>
-        <td>
-          <button class="btn btn-info">
-            <a th:href="@{'/topic/'+${topic.topicid}}">Press</a>
-        </button>
-        </td>
-			</tr>
-		</tbody>
-	</table>
+    
+    
+    
 
   <!-- NGAMBIL PUNYA ORANG LAIN -->
   
@@ -88,59 +54,29 @@
       <div class="row">
         <!-- Main content -->
         <div class="col-lg-12 mb-3">
-          <div class="row text-left mb-5">
-            <div class="col-lg-4 mb-3 mb-sm-0">
-              <div class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50" style="width: 100%;">
-              <select class="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50" data-toggle="select" tabindex="-98">
-                <option> Categories </option>
-                <option> Learn </option>
-                <option> Share </option>
-                <option> Build </option>
-              </select>
-              </div>
-            </div>
-            <div class="col-lg-4 text-lg-right">
-              <div class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50" style="width: 100%;">
-                  <select class="form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50" data-toggle="select" tabindex="-98">
-                    <option> Filter by </option>
-                    <option> Votes </option>
-                    <option> Replys </option>
-                    <option> Views </option>
-                  </select>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-3 mb-sm-0">
-              <button class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold btn-add-new">Add New Topic</button>
-            </div>
-          </div>
+              <button class="btn btn-lg btn-success btn-add-new my-5">Add New Topic</button>
+            
           <div class="container-fluid mt-100 add-new-topic">
+          
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 px-0">
                     <div class="card mb-4">
                         <div class="card-header">
                             <div class="media flex-wrap w-100 align-items-center"> <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
                                 <div class="media-body ml-3"> 
-                                  <a th:href="@{/}" class="text-primary" >Alvin</a> <!-- FIXME: add this th:text="${userLogged}" -->
-                                  <!-- <div class="text-muted small">13 days ago</div>  -->
+                                  <a th:href="@{/}" class="text-primary" >Alvin</a> 
                                 </div>
                                 <div class="text-muted small ml-3">
-                                    <!-- <div>
-                                      Posted on <strong><span th:text="${topicData.createdDate}"></span> </strong>
-                                    </div> -->
+                                    
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="card-body">
-                          <h1 th:text="${topicData.topicTitle}"></h1>
-                        </div>
-                        <div class="card-body">
-                            <p th:text="${topicData.description}"></p>
-                        </div> -->
+                        
                         <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post">
                           <div class="panel">
-                            <div class="panel-body">
+                            <div class="panel-body p-3">
                               <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Your title"></input>
-                              <textarea class="form-control" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
+                              <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
                               <div class="mar-top clearfix">
                                 <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
                                 <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
@@ -154,92 +90,40 @@
                 </div>
             </div>
           </div>
+          
           <!-- End of post 1 -->
           <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0" th:each="topic : ${listTopic}">
+          
             <div class="row align-items-center">
               <div class="col-md-8 mb-3 mb-sm-0">
                 <h5>
-                  <a th:href="@{'/topic/'+${topic.topicid}}" class="text-primary" th:text="${topic.topictitle}"></a>
+                  <a th:href="@{'/topic/'+${topic.topicId}}" class="text-primary" th:text="${topic.topicTitle}"></a>
                 </h5>
-                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.userName}"></a></p>
                 <p th:text="${topic.description}"></p>
-                <!-- <div class="text-sm op-5"> <a class="text-black mr-2" href="#">#C++</a> <a class="text-black mr-2" href="#">#AppStrap Theme</a> <a class="text-black mr-2" href="#">#Wordpress</a> </div> -->
+                
               </div>
               <div class="col-md-4 op-7">
                 <div class="row text-center op-7">
-                  <!-- <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div> -->
-                  <div class="col px-1"> 
-                    <i class="ion-ios-chatboxes-outline icon-1x"></i> 
-                    <span class="d-block text-sm" th:text="${topic.countcomment}"></span> 
-                    <span class="d-block text-sm">Comment</span>
-                  </div>
-                  <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o icon-1x"></i></a></div>
+                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
+                  <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">122 Replys</span> </div>
+                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
+                  <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicId}+'/delete'}"><i class="fa fa-trash-o icon-1x"></i></a></div>
                 </div>
               </div>
-              <!-- <div>
-                <a class="btn btn-trans btn-icon fa-solid fa-trash-can add-tooltip" th:href="@{'/topic/'+${topic.topicId}+'/delete'}"></a>
-              </div> -->
             </div>
           </div>
           <!-- /End of post 1 -->
         </div>
         
         <!-- Sidebar content -->
-        <!-- <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
-          <div style="visibility: hidden; display: none; width: 285px; height: 801px; margin: 0px; float: none; position: static; inset: 85px auto auto;"></div><div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style="top: 85px;"><div class="sticky-inner">
-            <a class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" href="#">Ask Question</a>
-            <div class="bg-white mb-3">
-              <h4 class="px-3 py-4 op-5 m-0">
-                Active Topics
-              </h4>
-              <hr class="m-0">
-              <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="#" class="text-primary">Why Bootstrap 4 is so awesome? </a>
-                </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">39 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">AppStrapMaster</a></p>
-              </div>
-              <hr class="m-0">
-              <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="#" class="text-primary">Custom shortcut or command to launch command in terminal? </a>
-                </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">58 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-              </div>
-              <hr class="m-0">
-              <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">48 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-              </div>
-              <hr class="m-0">
-              <div class="pos-relative px-3 py-3">
-                <h6 class="text-primary text-sm">
-                  <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                </h6>
-                <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">38 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-              </div>
-              <hr class="m-0">
-            </div>
-            <div class="bg-white text-sm">
-              <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
-                Stats
-              </h4>
-              <hr class="my-0">
-              <div class="row text-center d-flex flex-row op-7 mx-0">
-                <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="#">58</a> Topics </div>
-                <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="#">1.856</a> Posts </div>
-              </div>
-              <div class="row d-flex flex-row op-7">
-                <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="#">300</a> Members </div>
-                <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="#">DanielD</a> Newest Member </div>
-              </div>
-            </div>
-          </div></div>
-        </div> -->
+        
       </div>
     </div>
+    
+    
+
+
 
 <!-- JAVASCRIPT CODE -->
 	<script type="text/javascript">
