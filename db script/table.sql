@@ -12,12 +12,31 @@ create table course_enroll(
     CONSTRAINT courseenroll_pkey PRIMARY KEY (userid, courseid)
 );
 
+
+create table quiz(
+	quizid serial primary key,
+	courseId int,
+	quizname character varying(50),
+	quizdesc character varying(500)
+);
+
+create table quiz_enroll(
+    userid integer NOT NULL,
+    quizid integer NOT NULL,
+	attemptno integer NOT NULL,
+	score integer NOT NULL,
+    enrolldate timestamp without time zone,
+    CONSTRAINT quizenroll_pkey PRIMARY KEY (userid, quizid, attemptno)
+);
+
 create table question(
 	questionid serial primary key,
+	stepno int not null,
 	questiondesc character varying(500),
 	quizid int,
 	actionid int,
 	correctanswer int not null,
+	useranswer int not null,
 	choiceone character varying(500) not null,
 	choicetwo character varying(500) not null,
 	choicethree character varying(500),

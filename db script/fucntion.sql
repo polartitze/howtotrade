@@ -16,3 +16,29 @@ begin
 	return current_timestamp;
 end;
 $BODY$;
+
+CREATE OR REPLACE FUNCTION public.fn_save_quiz_enroll(
+	i_userid integer,
+	i_quizid integer,
+	i_score integer)
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+	v_maxattempt int;
+	v_response character varying (20);
+BEGIN
+
+	--check sudah berapa kali coba
+	select max(attemptno) into v_maxattempt from quiz_enroll 
+	where userid = i_userid and quizid = i_quizid;
+	
+	--insert percobaan selanjutnya
+	insert into quiz_enroll
+	values (i_userid, i_quizid, v_maxattempt + 1, i_score, current_timestamp);
+	
+	return current_timestamp;
+END;
+$BODY$;
