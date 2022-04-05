@@ -9,6 +9,7 @@ import com.skripsi.howtotrade.model.Topic;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -35,13 +36,13 @@ public interface TopicMapper {
     void insertComment(Comment newComment);
 
     @Delete("DELETE FROM comment WHERE commentid = #{commentId} AND topicid = #{topicId}")
-    void deleteComment(int commentId, int topicId);
+    void deleteComment(@Param("commentId") int commentId, @Param("topicId") int topicId);
 
     @Insert("INSERT INTO topic(topictitle, description, createddate, authorid) VALUES (#{topicTitle}, #{description}, CURRENT_DATE, #{authorId})")
     void insertTopic(Topic newTopic);
 
     @Delete("DELETE FROM topic WHERE authorid = #{authorId} AND topicid = #{topicId}")
-    void deleteTopic(int authorId, int topicId);
+    void deleteTopic(@Param("authorId") int authorId, @Param("topicId") int topicId);
 
     @Select("SELECT COUNT(*) FROM TOPIC WHERE topicId = #{id}")
     int countComment(int topicId);

@@ -86,3 +86,18 @@
   font-size: 15px;
   margin-bottom: 10px;
 }
+
+.items:hover{
+  background-color: whitesmoke;
+  transition: all ease-in-out 1s;
+}
+
+.zoom{
+  transition: transform 0.7s;
+}
+
+.zoom:hover{
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1); 
+}
