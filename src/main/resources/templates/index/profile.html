@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
@@ -10,89 +15,46 @@
     <title>Profile</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row gutters">
-        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="account-settings">
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-                        </div>
-                        <h5 class="user-name" th:text="${data.userName}"></h5>
-                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
-                    </div>
-                    <div class="about">
-                        <h5>About</h5>
-                        <p>I'm Alvin. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                    </div>
+<div class="wrapper">
+        <div class="profile">
+            <div class="overlay">
+                <div class="about d-flex flex-column">
+                    <h4>Bryan Jayanto</h4> <span>Software Developer</span>
                 </div>
             </div>
         </div>
-        </div>
-        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+    </div>
+    
+    
+    
+        <div class="container mb-5">
         <form th:action="@{/profile/save}" th:object="${profileForm}" method="post">
-            <div class="card h-100">
-                <div class="card-body">
+            <div class="card">
+                <div class="card-body p-5">
                     <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="container">
                             <h6 class="mb-2 text-primary">Personal Details</h6>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="container">
                             <div class="form-group">
                                 <label for="userName">Username</label>
                                 <input type="text" class="form-control" id="userName" readonly th:field="${profileForm.userName}">
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="container">
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
                                 <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" required>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="container">
                             <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="website">Website URL</label>
-                                <input type="url" class="form-control" id="website" placeholder="Website url" >
+                                <label for="password">Change Password</label>
+                                <input type="password" class="form-control" id="phone" placeholder="Enter new password">
                             </div>
                         </div>
                     </div>
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mt-3 mb-2 text-primary">Address</h6>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="Street">Street</label>
-                                <input type="name" class="form-control" id="Street" placeholder="Enter Street">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="ciTy">City</label>
-                                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="sTate">State</label>
-                                <input type="text" class="form-control" id="sTate" placeholder="Enter State">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="zIp">Zip Code</label>
-                                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row gutters">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
@@ -104,7 +66,6 @@
                 </div>
             </div>
         </form>
-        </div>
         </div>
         </div>
     <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 

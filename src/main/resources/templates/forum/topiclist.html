@@ -51,7 +51,7 @@
       <div class="row">
         <!-- Main content -->
         <div class="col-lg-12 mb-3">
-              <button class="btn btn-lg btn-success btn-add-new my-5">Add New Topic</button>
+              <button class="btn btn-lg btn-primary btn-add-new my-5">Add New Topic</button>
             
           <div class="container-fluid mt-100 add-new-topic">
           
@@ -89,10 +89,10 @@
           </div>
           
           <!-- End of post 1 -->
-          <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0" th:each="topic : ${listTopic}">
+          <div class="card row-hover pos-relative py-3 px-5 mb-3 border-primary rounded-0 align-self-center" th:each="topic : ${listTopic}">
           
             <div class="row align-items-center">
-              <div class="col-md-8 mb-3 mb-sm-0">
+              <div class="col-md-10 text-justify">
                 <h5>
                   <a th:href="@{'/topic/'+${topic.topicid}}" class="text-primary" th:text="${topic.topictitle}"></a>
                 </h5>
@@ -100,7 +100,7 @@
                 <p th:text="${topic.description}"></p>
                 
               </div>
-              <div class="col-md-4 op-7">
+              <div class="col-md op-7">
                 <div class="row text-center op-7">
                   
                    <div class="col px-1"> 
@@ -108,7 +108,7 @@
                     <span class="d-block text-sm" th:text="${topic.countcomment}"></span> 
                     <span class="d-block text-sm">Comment</span>
                   </div>
-                  <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o icon-1x"></i></a></div>
+                  <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o text-danger fa-lg"></i></a></div>
                   
                   
                 </div>
