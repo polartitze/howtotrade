@@ -6,12 +6,13 @@ import java.util.List;
 
 public class Course {
 	int courseId;
-	String coursename;
-	String coursedesc;
-	Time courseduration;
+	String courseName;
+	String courseDesc;
+	Time courseDuration;
 	Timestamp enrollDate;
 	List<Activity> activityList;
-	boolean isenroll;
+	boolean isEnroll;
+	String imageUrl;
 	
 	public Integer getCourseId() {
 		return courseId;
@@ -19,23 +20,23 @@ public class Course {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-	public String getCoursename() {
-		return coursename;
+	public String getCourseName() {
+		return courseName;
 	}
-	public void setCoursename(String coursename) {
-		this.coursename = coursename;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
-	public String getCoursedesc() {
-		return coursedesc;
+	public String getCourseDesc() {
+		return courseDesc;
 	}
-	public void setCoursedesc(String coursedesc) {
-		this.coursedesc = coursedesc;
+	public void setCourseDesc(String courseDesc) {
+		this.courseDesc = courseDesc;
 	}
-	public Time getCourseduration() {
-		return courseduration;
+	public Time getCourseDuration() {
+		return courseDuration;
 	}
-	public void setCourseduration(Time courseduration) {
-		this.courseduration = courseduration;
+	public void setCourseDuration(Time courseDuration) {
+		this.courseDuration = courseDuration;
 	}
 	public Timestamp getEnrollDate() {
 		return enrollDate;
@@ -49,10 +50,18 @@ public class Course {
 	public void setActivityList(List<Activity> activityList) {
 		this.activityList = activityList;
 	}
-	public boolean isIsenroll() {
-		return isenroll;
+	public boolean isEnroll() {
+		return isEnroll;
 	}
-	public void setIsenroll(boolean isenroll) {
-		this.isenroll = isenroll;
+	public void setEnroll(boolean isEnroll) {
+		this.isEnroll = isEnroll;
 	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 }
