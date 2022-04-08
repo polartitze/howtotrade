@@ -3,52 +3,15 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <script th:src="@{/assets/js/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/bootstrap.min.js}"></script>
   <head>
-    <!-- <link href="/index/header.html" rel="import" /> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      $(function() {
-        $("head").load("header.html")
-      });
-    </script>
     <title>Welcome</title>
   </head>
   <body>
-    <!-- <iframe src="/index/header.htm" frameborder="0"></iframe> -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <i class="fas fa-cloud text-white mr-auto"></i>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarsExample05">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/topic/all">Forum</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/course/all">Course</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav my-4 my-md-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/profile" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown05">
-              <a class="dropdown-item" href="/profile">Profile</a>
-              <a class="dropdown-item" href="#">Log Out</a>
-            </div>
-          </li>
-          <li>
-            <i class="fa fa-user text-white nav-item"></i>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+
     <section id="speakers">
       <div class="container-fluid py-5">
         <div class="row justify-content-center">
@@ -86,5 +49,77 @@
         </div>
       </div>
     </section>
+
+    <!-- MODAL LOGIN -- START-->
+    <div class="modal" id="loginModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 pb-0"><h4>Login</h4></div>
+          <div class="modal-body">
+            <div th:if="${#request.getParameter('error') == 'true'}" class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              Username or password is wrong!
+            </div>
+          
+            <form th:action="@{/doLogin}" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" name="username" required="required">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" id="myInput" name="password" required="required">
+              </div>
+              <div class="form-group">
+                <input type="checkbox" th:onclick="myFunction()"><span th:style="'margin-left:15px;'">Show Password hello</span>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-block" value="Login">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL LOGIN -- END-->
+
+    <!-- MODAL LOGOUT -- START-->
+    <div class="modal" id="logoutModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Logout</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure you want to logout?</p>
+          </div>
+          <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+              <input type="submit" value="Logout" />
+          </form>
+          <div class="modal-footer">
+            <a href="javascript: logoutForm.submit();" class="btn btn-danger">Yes</a>
+            <a href="#" class="btn btn-info" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL LOGOUT -- END-->
+
+    <script th:if="${#request.getParameter('error') == 'true'}">
+      $(document).ready(function(){
+          $('#loginModal').modal('show');
+      });
+    </script>
+    
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+          x.type = "text";
+        } 
+        else {
+          x.type = "password";
+        }
+      }
+    </script>
   </body>
 </html>

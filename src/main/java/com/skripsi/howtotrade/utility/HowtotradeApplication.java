@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 
 @AutoConfigureMybatis
-//@MappedTypes(Topic.class)
 @MapperScan("com.skripsi.howtotrade.mapper")
 @ComponentScan("com.skripsi.howtotrade")
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class })
@@ -20,7 +19,8 @@ public class HowtotradeApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(HowtotradeApplication.class, args);
-		openHomePage();
+		
+		// openHomePage();
 	}
 	
 	private static void openHomePage() throws IOException {

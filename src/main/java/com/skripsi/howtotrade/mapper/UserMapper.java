@@ -17,7 +17,7 @@ public interface UserMapper {
 
 	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus) "
 			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus})")
-	void insert(Users user);
+	void insertUser(String userName, String userEmail, String userPassword, int userRole, String userStatus);
 
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users findUserAccount(String username);

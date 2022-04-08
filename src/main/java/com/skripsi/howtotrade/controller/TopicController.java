@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,19 +19,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/topic")
 public class TopicController {
     @Autowired
-    //TopicMapper mapper;
     TopicService topicService;
     
     Authentication authentication;
-    //String userLogged = authentication.getName(); -- right now it still return null values
-
+    String userLogged;
+    
     
     public TopicController(){
-        
     }
+    
+    @ModelAttribute("module")
+    public String module() {
+        return "forum";
+    }
+    
     //TOPIC
     @RequestMapping("/all")
     public String getAllTopic(Model model){
+        if (authentication != null) {
+            userLogged = authentication.getName();
+            System.out.println("==========userlogged: "+userLogged);
+        }else{
+            System.out.println("authentication null");
+        }
         System.out.println("==========="+topicService.getAllTopic());
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());

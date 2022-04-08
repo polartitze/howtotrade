@@ -1,14 +1,6 @@
 package com.skripsi.howtotrade.model;
 
-import java.sql.Array;
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-public class Users implements UserDetails{
+public class Users{
     private int userId;
     private String userName;
     private String userEmail;
@@ -66,47 +58,6 @@ public class Users implements UserDetails{
         this.userStatus = userStatus;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-        // return null;
-    }
-
-    @Override
-    public String getPassword() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
    
 

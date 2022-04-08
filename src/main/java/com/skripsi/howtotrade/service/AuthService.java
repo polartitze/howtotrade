@@ -14,6 +14,7 @@ public class AuthService {
 	private UserMapper userMapper;
 	
 	public boolean isUsernameExist(String username) {
+		System.out.println("Cheking username...");
 		String exist = userMapper.getUser(username);
 		if (exist != null) return true;
 		return false;
@@ -28,15 +29,13 @@ public class AuthService {
 		return false;
 	}
 
-	public String insertUser(Users user) {
-		user.setUserRole(1);
-		user.setUserStatus("1");
-		try {
-			userMapper.insert(user);			
-		} catch (PersistenceException e) {
-			return e.getMessage();
+	
+	public boolean insertUser(String username, String password, int userRole) {
+		if(isUsernameExist(username)){
+			System.out.println("Username exist!...");
+			return false;
 		}
-		
-		return "OK";
+		userMapper.insertUser(username, "test@email.com", password, userRole, "1");
+		return true;
 	}
 }
