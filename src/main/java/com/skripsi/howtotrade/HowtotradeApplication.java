@@ -1,4 +1,4 @@
-package com.skripsi.howtotrade.utility;
+package com.skripsi.howtotrade;
 
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class HowtotradeApplication {
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(HowtotradeApplication.class, args);
 		
-		// openHomePage();
+		 openHomePage();
 	}
 	
 	private static void openHomePage() throws IOException {
