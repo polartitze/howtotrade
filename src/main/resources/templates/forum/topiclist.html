@@ -52,14 +52,14 @@
               </div>
             </div>
             
-            <div class="card row-hover pos-relative py-3 px-5 mb-3 border-primary rounded-0 align-self-center" th:each="topic : ${listTopic}">
+            <div class="card row-hover pos-relative py-3 px-5 mb-3 rounded-0 align-self-center" th:each="topic : ${listTopic}">
             
               <div class="row align-items-center">
                 <div class="col-md-10 text-justify">
                   <h5>
-                    <a th:href="@{'/topic/'+${topic.topicid}}" class="text-primary" th:text="${topic.topictitle}"></a>
+                    <a th:href="@{'/topic/'+${topic.topicid}}" class="text-dark" th:text="${topic.topictitle}"></a>
                   </h5>
-                  <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
                   <p th:text="${topic.description}"></p>
                   
                 </div>
