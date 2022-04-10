@@ -1,5 +1,7 @@
 package com.skripsi.howtotrade.controller;
 
+import java.security.Principal;
+
 import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.UserService;
 
@@ -16,13 +18,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    Authentication authentication;
+    // Authentication authentication;
     //String userLogged = authentication.getName(); -- right now it still return null values
 
     @RequestMapping("")
-    public String getUserProfile(Model model){
+    public String getUserProfile(Model model, Principal principal){
         model.addAttribute("profileForm", new Users());
-        model.addAttribute("data", userService.getUserProfile("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
+        model.addAttribute("data", userService.getUserProfile(principal.getName())); //FIXME: when authentication has been set, change into 'userLogged'
         return "index/profile";
     }
 

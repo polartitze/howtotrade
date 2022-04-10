@@ -1,4 +1,4 @@
-drop table course;
+drop table if exists course;
 create table course(
     courseid serial primary key,
     coursename character varying(50),
@@ -7,7 +7,7 @@ create table course(
 	imageUrl character varying(500)
 );
 
-drop table course_enroll;
+drop table if exists course_enroll;
 create table course_enroll(
     userid integer NOT NULL,
     courseid integer NOT NULL,
@@ -15,7 +15,7 @@ create table course_enroll(
     CONSTRAINT courseenroll_pkey PRIMARY KEY (userid, courseid)
 );
 
-drop table quiz;
+drop table if exists quiz;
 create table quiz(
 	quizid serial primary key,
 	courseId int,
@@ -24,7 +24,7 @@ create table quiz(
 	imageUrl character varying(500)
 );
 
-drop table quiz_enroll;
+drop table if exists quiz_enroll;
 create table quiz_enroll(
     userid integer NOT NULL,
     quizid integer NOT NULL,
@@ -34,7 +34,7 @@ create table quiz_enroll(
     CONSTRAINT quizenroll_pkey PRIMARY KEY (userid, quizid, attemptno)
 );
 
-drop table question;
+drop table if exists question;
 create table question(
 	questionid serial primary key,
 	quizid int,
@@ -50,7 +50,7 @@ create table question(
 	imageUrl character varying(500)
 );
 
-drop table activity;
+drop table if exists activity;
 create table activity(
 	activityid serial primary key,
 	courseid int,
@@ -60,13 +60,13 @@ create table activity(
 	imageUrl character varying(500)
 );
 
-drop table activity_type;
+drop table if exists activity_type;
 create table activity_type(
 	id serial primary key,
 	name character varying(100)
 );
 
-drop table coin;
+drop table if exists coin;
 CREATE TABLE coin
 (
     coinid serial NOT NULL PRIMARY KEY,
@@ -76,7 +76,7 @@ CREATE TABLE coin
     active VARCHAR(1)
 );
 
-drop table comment;
+drop table if exists comment;
 CREATE TABLE comment
 (
     commentid SERIAL NOT NULL PRIMARY KEY,
@@ -86,7 +86,7 @@ CREATE TABLE comment
     topicid integer
 );
 
-drop table investmentplanning;
+drop table if exists investmentplanning;
 CREATE TABLE investmentplanning
 (
     planningid SERIAL NOT NULL PRIMARY KEY,
@@ -97,14 +97,14 @@ CREATE TABLE investmentplanning
     currentbalance integer
 );
 
-drop table roles;
+drop table if exists roles;
 CREATE TABLE roles
 (
     roleid integer NOT NULL PRIMARY KEY,
     rolename VARCHAR(10)
 );
 
-drop table topic;
+drop table if exists topic;
 CREATE TABLE topic
 (
     topicid SERIAL NOT NULL PRIMARY KEY,
@@ -114,13 +114,13 @@ CREATE TABLE topic
     authorid integer NOT NULL
 );
 
-drop table users;
+drop table if exists users;
 CREATE TABLE public.users
 (
     userid SERIAL NOT NULL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     useremail VARCHAR(50),
-    userpassword VARCHAR(50),
+    userpassword VARCHAR(65),
     userrole integer,
     userstatus VARCHAR(1)
 );
