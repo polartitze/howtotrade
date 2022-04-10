@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/quiz.css">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quiz</title>
+</head>
+<body>
+	<div class="quiz-container" id="quiz" th:each="question : ${quizData.questionList}">
+		<div class="quiz-header">
+			<h2 id="question" th:text="${question.questionDesc}"></h2>
+			<ul>
+				<li>
+					<input type="radio" name="answer" id="a" class="answer">
+					<label for="a" id="a_text" th:text="${question.choiceOne}">Answer 1</label>
+				</li>
+
+				<li>
+					<input type="radio" name="answer" id="b" class="answer">
+					<label for="b" id="b_text" th:text="${question.choiceTwo}">Answer 2</label>
+				</li>
+
+				<li>
+					<input type="radio" name="answer" id="c" class="answer">
+					<label for="c" id="c_text" th:text="${question.choiceThree}">Answer 3</label>
+				</li>
+
+				<li>
+					<input type="radio" name="answer" id="d" class="answer">
+					<label for="d" id="d_text" th:text="${question.choiceFour}">Answer 4</label>
+				</li>
+
+			</ul>
+		</div>
+
+		<button id="submit">Submit</button>
+
+	</div>
+</body>
+</html>
+

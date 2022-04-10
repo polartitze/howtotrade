@@ -20,7 +20,8 @@ create table quiz(
 	quizid serial primary key,
 	courseId int,
 	quizname character varying(50),
-	quizdesc character varying(500)
+	quizdesc character varying(500),
+	imageUrl character varying(500)
 );
 
 drop table quiz_enroll;
@@ -36,12 +37,12 @@ create table quiz_enroll(
 drop table question;
 create table question(
 	questionid serial primary key,
-	stepno int not null,
-	questiondesc character varying(500),
 	quizid int,
 	actionid int,
+	stepno int not null,
+	questiondesc character varying(500),
 	correctanswer int not null,
-	useranswer int not null,
+	useranswer int,
 	choiceone character varying(500) not null,
 	choicetwo character varying(500) not null,
 	choicethree character varying(500),

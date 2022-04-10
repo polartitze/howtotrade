@@ -2,10 +2,11 @@
 <html>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/css/course.css">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Course</title>
+	<title>Course Dashboard</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,26 +54,70 @@
 		</div>
 	</section>
 	
+	<!-- featured course -->
 	<section class="probootstrap-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="probootstrap-flex-block">
-                <div class="probootstrap-text probootstrap-animate">
-                  <div class="text-uppercase probootstrap-uppercase">Featured Course</div>
-                  <h3 th:text="${listCourse[0].courseName}"></h3>
-                  <p th:text=${listCourse[0].courseDesc}></p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">2,928 students enrolled</span></p>
-                </div>
-                <div class="probootstrap-image probootstrap-animate" 
-                	th:style="'background-image:url(' + @{${listCourse[0].imageUrl}} + ');'">
-                  <a href="https://www.instagram.com/jovanreynardo/" class="btn-video popup-vimeo"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="probootstrap-flex-block">
+						<div class="probootstrap-text probootstrap-animate">
+							<div class="text-uppercase probootstrap-uppercase">Featured Course</div>
+							<h3 th:text="${listCourse[0].courseName}"></h3>
+							<p th:text="${listCourse[0].courseDesc}"></p>
+							<p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">2,928 students enrolled</span></p>
+						</div>
+						<div class="probootstrap-image probootstrap-animate" 
+						th:style="'background-image:url(' + @{${listCourse[0].imageUrl}} + ');'">
+						<a href="https://www.instagram.com/jovanreynardo/" class="btn-video popup-vimeo"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- course and quiz list -->
+
+<section class="probootstrap-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row" th:each="course : ${listCourse}">
+					<div class="probootstrap-service-2 probootstrap-animate">
+						<div class="image">
+							<div class="image-bg">
+								<img th:src="@{${course.imageUrl}}" alt="Free Bootstrap Template by uicookies.com">
+							</div>
+						</div>
+						<div class="text">
+							<span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
+							<h3 th:text="${course.courseName}"></h3>
+							<p th:text="${course.courseDesc}"></p>
+							<p><a th:href="@{'/course/'+${course.courseId}}" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">7,202 students enrolled</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row" th:each="quiz : ${listQuiz}">
+					<div class="probootstrap-service-2 probootstrap-animate">
+						<div class="image">
+							<div class="image-bg">
+								<img th:src="@{${quiz.imageUrl}}" alt="Free Bootstrap Template by uicookies.com">
+							</div>
+						</div>
+						<div class="text">
+							<span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
+							<h3 th:text="${quiz.quizName}"></h3>
+							<p th:text="${quiz.quizDesc}"></p>
+							<p><a th:href="@{'/course/quiz/'+${quiz.quizId}}" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">7,202 students enrolled</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 </body>
 </html>

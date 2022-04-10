@@ -30,7 +30,7 @@ public class QuizService {
 		int score = countScore(quiz);
 		
 		quiz.setFinalScore(score);
-		mapper.saveQuizEnroll(userId, quiz.getQuizid(), score);
+		mapper.saveQuizEnroll(userId, quiz.getQuizId(), score);
 		return quiz;
 	}
 	

@@ -49,7 +49,7 @@ public class CourseController {
 		return "redirect:/course/all";			
 	}
 	
-	@RequestMapping("/{quizId}")
+	@RequestMapping("/quiz/{quizId}")
 	public String getQuizById(Model model, @PathVariable int quizId) {
 		model.addAttribute("quizData", quizService.getQuizById(quizId));
 		model.addAttribute("quizForm", new Quiz());
