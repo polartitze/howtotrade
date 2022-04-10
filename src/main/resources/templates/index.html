@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css2/all.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<title>Investment Knowledge Center</title>
+</head>
+<body>
+	<nav class="navbar bg-darkblue">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<span class="title">Investment Knowledge Center</span>
+			</li>
+		</ul>
+
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<button class="btn" data-toggle="modal" data-target="#loginModal">
+					<i class="fas fa-sign-in-alt fa-lg text-white"></i>
+				</button>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container-fluid mt-4">
+		<h3 class="font-weight-bold mb-4">HALLOOO TEST</h3>
+		<a href="/user/add">REGISTER</a>
+	</div>
+
+	<div class="modal" id="loginModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header border-0 pb-0"><h4>Login</h4></div>
+				<div class="modal-body">
+					<div th:if="${#request.getParameter('error') == 'true'}" class="alert alert-danger alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						Username or password is wrong!
+					</div>
+				
+					<form th:action="@{/doLogin}" method="post">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Username" name="username" required="required">
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Password" id="myInput" name="password" required="required">
+						</div>
+						<div class="form-group">
+							<input type="checkbox" th:onclick="myFunction()"><span th:style="'margin-left:15px;'">Show Password hello</span>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary btn-block" value="Login">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script th:if="${#request.getParameter('error') == 'true'}">
+		$(document).ready(function(){
+		    $('#loginModal').modal('show');
+		});
+	</script>
+	
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myInput");
+			if (x.type === "password") {
+				x.type = "text";
+			} 
+			else {
+				x.type = "password";
+			}
+		}
+	</script>
+</body>
+</html>

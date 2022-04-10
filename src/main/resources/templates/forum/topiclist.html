@@ -11,84 +11,80 @@
 </head>
 <body>
   <div th:replace="fragments/header :: header">&nbsp;</div>
-          
-	<div class="container">
+  
+<div class="container">
       <div class="row">
         <!-- Main content -->
-        
-       
-        <div class="col-lg-12 mb-3">
-              <button class="btn btn-lg btn-primary btn-add-new my-5">Add New Topic</button>
+          <div class="col-lg-12 mb-3">
+              <div class="my-5" sec:authorize="isAnonymous()"></div>
+              <button class="btn btn-lg btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">Add New Topic</button>
+              
+            <div class="container-fluid mt-100 add-new-topic" sec:authorize="isAuthenticated()">
             
-          <div class="container-fluid mt-100 add-new-topic">
-          
-            <div class="row">
-                <div class="col-md-12 px-0">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <div class="media flex-wrap w-100 align-items-center"> <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
-                                <div class="media-body ml-3"> 
-                                  <a th:href="@{/}" class="text-primary" >Alvin</a> 
+              <div class="row">
+                  <div class="col-md-12 px-0">
+                      <div class="card mb-4">
+                          <div class="card-header">
+                              <div class="media flex-wrap w-100 align-items-center"> <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
+                                  <div class="media-body ml-3"> 
+                                    <a th:href="@{/}" class="text-primary" sec:authentication="name"></a> 
+                                  </div>
+                                  <div class="text-muted small ml-3">
+                                  </div>
+                              </div>
+                          </div>
+                          <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post">
+                            <div class="panel">
+                              <div class="panel-body p-3">
+                                <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Your title"></input>
+                                <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
+                                <div class="mar-top clearfix">
+                                  <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
+                                  <!-- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a> -->
+                                  <!-- <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a> -->
+                                  <!-- <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a> -->
                                 </div>
-                                <div class="text-muted small ml-3">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post">
-                          <div class="panel">
-                            <div class="panel-body p-3">
-                              <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Your title"></input>
-                              <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
-                              <div class="mar-top clearfix">
-                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
-                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-                                <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-                                <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
                               </div>
                             </div>
-                          </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-          </div>
-          
-          <!-- End of post 1 -->
-          <div class="card row-hover pos-relative py-3 px-5 mb-3 border-primary rounded-0 align-self-center" th:each="topic : ${listTopic}">
-          
-            <div class="row align-items-center">
-              <div class="col-md-10 text-justify">
-                <h5>
-                  <a th:href="@{'/topic/'+${topic.topicid}}" class="text-primary" th:text="${topic.topictitle}"></a>
-                </h5>
-                <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
-                <p th:text="${topic.description}"></p>
-                
-              </div>
-              <div class="col-md op-7">
-                <div class="row text-center op-7">
-                  
-                   <div class="col px-1"> 
-                    <i class="ion-ios-chatboxes-outline icon-1x"></i> 
-                    <span class="d-block text-sm" th:text="${topic.countcomment}"></span> 
-                    <span class="d-block text-sm">Comment</span>
+                          </form>
+                      </div>
                   </div>
-                  <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o text-danger fa-lg"></i></a></div>
+              </div>
+            </div>
+            
+            <div class="card row-hover pos-relative py-3 px-5 mb-3 border-primary rounded-0 align-self-center" th:each="topic : ${listTopic}">
+            
+              <div class="row align-items-center">
+                <div class="col-md-10 text-justify">
+                  <h5>
+                    <a th:href="@{'/topic/'+${topic.topicid}}" class="text-primary" th:text="${topic.topictitle}"></a>
+                  </h5>
+                  <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                  <p th:text="${topic.description}"></p>
                   
-                  
+                </div>
+                <div class="col-md op-7">
+                  <div class="row text-center op-7">
+                    
+                    <div class="col px-1"> 
+                      <i class="ion-ios-chatboxes-outline icon-1x"></i> 
+                      <span class="d-block text-sm" th:text="${topic.countcomment}"></span> 
+                      <span class="d-block text-sm">Comment</span>
+                    </div>
+                    <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o text-danger fa-lg"></i></a></div>
+                    
+                    
+                  </div>
                 </div>
               </div>
             </div>
+            
           </div>
-          <!-- /End of post 1 -->
+          
         </div>
-        
-        <!-- Sidebar content -->
-        
       </div>
     </div>
+    
     
 
 

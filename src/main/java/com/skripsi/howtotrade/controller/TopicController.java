@@ -1,13 +1,13 @@
 package com.skripsi.howtotrade.controller;
 
 
-import com.skripsi.howtotrade.mapper.UserMapper;
+import java.security.Principal;
+
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.service.TopicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +21,7 @@ public class TopicController {
     @Autowired
     TopicService topicService;
     
-    Authentication authentication;
+    // Authentication authentication;
     String userLogged;
     
     
@@ -35,18 +35,16 @@ public class TopicController {
     
     //TOPIC
     @RequestMapping("/all")
-    public String getAllTopic(Model model){
-        if (authentication != null) {
-            userLogged = authentication.getName();
-            System.out.println("==========userlogged: "+userLogged);
-        }else{
-            System.out.println("authentication null");
-        }
+    public String getAllTopic(Model model, Principal principal){
+    //    if(principal.getName() != null || "".equals(principal.getName())){
+    //        userLogged = principal.getName();
+    //        model.addAttribute("userLogged", userLogged); //FIXME: when authentication has been set, change into 'userLogged'
+    //    }
+
         System.out.println("==========="+topicService.getAllTopic());
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
-        model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
-        model.addAttribute("roles", topicService.getRole("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
+        // model.addAttribute("roles", topicService.getRole(userLogged)); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topiclist";
     }
 
