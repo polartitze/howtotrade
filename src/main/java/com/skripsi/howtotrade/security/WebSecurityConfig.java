@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/").permitAll()
 			.antMatchers("/user/*").permitAll()
 			.antMatchers("/topic/all").permitAll()
+			.antMatchers("/topic/*").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+			.antMatchers("/calculator").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 			// .antMatchers("/topic/*").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 			// .antMatchers("/course/*").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 			// .antMatchers("/home").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
