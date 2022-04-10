@@ -2,12 +2,12 @@
 # Speakers Section
 --------------------------------------------------------------*/
 
-#speakers .speaker {
+.speaker {
   position: relative;
   overflow: hidden;
   margin-bottom: 30px;
 }
-#speakers .speaker .details {
+.speaker .details {
   background: rgba(6, 12, 34, 0.76);
   position: absolute;
   left: 0;
@@ -17,48 +17,45 @@
   padding-top: 10px;
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-#speakers .speaker .details h3 {
+.speaker .details h3 {
   color: #fff;
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 5px;
 }
-#speakers .speaker .details p {
+.speaker .details p {
   color: #fff;
   font-size: 15px;
   margin-bottom: 10px;
   font-style: italic;
 }
-#speakers .speaker .details .social {
+.speaker .details .social {
   height: 40px;
 }
-#speakers .speaker .details .social i {
+.speaker .details .social i {
   line-height: 0;
   margin: 0 2px;
 }
-#speakers .speaker .details a {
+.speaker .details a {
   color: #fff;
 }
-#speakers .speaker .details a:hover {
+.speaker .details a:hover {
   color: #f82249;
 }
-#speakers .speaker:hover .details {
+.speaker:hover .details {
   bottom: 0;
 }
 
-#speakers-details {
-  padding: 60px 0;
-}
-#speakers-details .details h2 {
+.details h3 {
   color: #112363;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 10px;
 }
-#speakers-details .details .social {
+.details .social {
   margin-bottom: 15px;
 }
-#speakers-details .details .social a {
+.details .social a {
   background: #e9edfb;
   color: #112363;
   line-height: 1;
@@ -71,15 +68,15 @@
   align-items: center;
   justify-content: center;
 }
-#speakers-details .details .social a:hover {
+.details .social a:hover {
   background: #f82249;
   color: #fff;
 }
-#speakers-details .details .social a i {
+.details .social a i {
   font-size: 16px;
   line-height: 0;
 }
-#speakers-details .details p {
+.details p {
   color: #112363;
   font-size: 15px;
   margin-bottom: 10px;
@@ -100,19 +97,20 @@
   transform: scale(1.1); 
 }
 
+/*--------------------------------------------------------------
+# Profile
+--------------------------------------------------------------*/
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: whitesmoke
 }
 
 .profile {
     position: relative;
     width: 300px;
     height: 350px;
-    background: url("https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8&w=1000&q=80");
+    background: url("../assets/images/a.jpg");
     background-size: cover;
     cursor: pointer;
     border: 12px;
@@ -136,36 +134,6 @@
     opacity: 1
 }
 
-.icons {
-    display: flex;
-    list-style: none;
-    bottom: 10px;
-    position: absolute;
-    text-align: center;
-    justify-content: center;
-    left: 22px
-}
-
-.icons li {
-    width: 25px;
-    height: 25px;
-    border: 1px solid #eee;
-    padding: 20px;
-    margin-right: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    border-radius: 5px;
-    transition: all 1s
-}
-
-.icons li:hover {
-    background: #fff;
-    color: #000
-}
-
 .overlay .about {
     position: relative;
     justify-content: center;
@@ -174,4 +142,163 @@
     top: 40%;
     color: #fff;
     flex: column
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+}
+@media (max-height: 500px) {
+  #hero {
+    height: 150vh;
+  }
+}
+#hero .carousel, #hero .carousel-inner, #hero .carousel-item, #hero .carousel-item::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+#hero .carousel-item {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#hero .carousel-item::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#hero .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  top: 70px;
+  left: 50px;
+  right: 50px;
+}
+#hero .container {
+  text-align: center;
+}
+#hero h2 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  #hero h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}
+#hero p {
+  width: 80%;
+  font-size: 38px;
+  line-height: 1.2;
+  margin: 0 auto 30px auto;
+  color: #fff;
+}
+@media (min-width: 1024px) {
+  #hero p {
+    width: 60%;
+  }
+}
+@media (max-width: 768px) {
+  #hero p {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+}
+#hero .carousel-fade {
+  overflow: hidden;
+}
+#hero .carousel-fade .carousel-inner .carousel-item {
+  transition-property: opacity;
+}
+#hero .carousel-fade .carousel-inner .carousel-item,
+#hero .carousel-fade .carousel-inner .active.carousel-item-start,
+#hero .carousel-fade .carousel-inner .active.carousel-item-end {
+  opacity: 0;
+}
+#hero .carousel-fade .carousel-inner .active,
+#hero .carousel-fade .carousel-inner .carousel-item-next.carousel-item-start,
+#hero .carousel-fade .carousel-inner .carousel-item-prev.carousel-item-end {
+  opacity: 1;
+  transition: 0.5s;
+}
+#hero .carousel-fade .carousel-inner .carousel-item-next,
+#hero .carousel-fade .carousel-inner .carousel-item-prev,
+#hero .carousel-fade .carousel-inner .active.carousel-item-start,
+#hero .carousel-fade .carousel-inner .active.carousel-item-end {
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+#hero .carousel-control-prev, #hero .carousel-control-next {
+  width: 10%;
+}
+@media (min-width: 1024px) {
+  #hero .carousel-control-prev, #hero .carousel-control-next {
+    width: 5%;
+  }
+}
+#hero .carousel-control-next-icon, #hero .carousel-control-prev-icon {
+  background: none;
+  font-size: 32px;
+  line-height: 1;
+}
+#hero .carousel-indicators li {
+  cursor: pointer;
+}
+#hero .btn-get-started {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  margin: 10px;
+  color: #fff;
+  background: #3ec1d5;
+}
+#hero .btn-get-started:hover {
+  background: #fff;
+  color: #3ec1d5;
+}
+
+
+*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about-area {
+  background-color: #f9f9f9;
+}
+
+.single-well > a {
+  display: block;
+}
+
+.single-well ul li {
+  color: #444;
+  display: block;
+  padding: 5px 0;
+}
+
+.single-well ul li i {
+  color: #3EC1D5;
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.single-well p {
+  color: #444;
 }

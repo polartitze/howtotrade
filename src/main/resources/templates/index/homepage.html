@@ -3,8 +3,14 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  
   <script th:src="@{/assets/js/jquery.min.js}"></script>
   <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+ 
+ <link href="assets/slider/css/bootstrap.min.css" rel="stylesheet">
+ <link href="assets/slider/css/bootstrap-icons.css" rel="stylesheet">
+  	
   <head>
     <title>Welcome</title>
   </head>
@@ -12,43 +18,309 @@
     
     <div th:replace="fragments/header :: header">&nbsp;</div>
 
-    <section id="speakers">
-      <div class="container-fluid py-5">
-        <div class="row justify-content-center">
-          <div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
-            <img src="https://blog-media.lifepal.co.id/app/uploads/sites/3/2020/05/02071341/pola-candlestick-768x432.jpg" alt="Speaker 1" class="img-fluid">
-            <div class="details">
-              <h3 class="mb-4 mt-1">
-                <a href="/course/all">Course</a>
-              </h3>
-              <p>Dapatkan Kelas Sekarang</p>
+	<section id="hero">
+	    <div class="hero-container">
+	      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+	
+	        <ol id="hero-carousel-indicators" class="carousel-indicators"></ol>
+	
+	        <div class="carousel-inner" role="listbox">
+	
+	          <div class="carousel-item active" style="background-image: url(https://image.freepik.com/free-photo/landscape-morning-fog-mountains-with-hot-air-balloons-sunrise_335224-794.jpg)">
+	            <div class="carousel-container">
+	              <div class="container">
+	                <h2 class="animate__animated animate__fadeInDown">Course Trading Investing Terbaik</h2>
+	                <p class="animate__animated animate__fadeInUp">Edukasi Terbaik Mengenai Dasar-Dasar Trading/Investing Kripto</p>
+	                <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
+	              </div>
+	            </div>
+	          </div>
+	
+	          <div class="carousel-item" style="background-image: url(https://www.akseleran.co.id/blog/wp-content/uploads/2021/08/Sungai-Terpanjang-di-Dunia.jpg)">
+	            <div class="carousel-container">
+	              <div class="container">
+	                <h2 class="animate__animated animate__fadeInDown">Forum dan Komunitas</h2>
+	                <p class="animate__animated animate__fadeInUp">
+	                	Dapatkan informasi faktual dan diskusi dengan para pemain kripto lainnya.
+	                </p>
+	                <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
+	              </div>
+	            </div>
+	          </div>
+	
+	          <div class="carousel-item" style="background-image: url(https://hariannusantara.com/wp-content/uploads/2019/06/gambar-pemandangan-hutan.jpg)">
+	            <div class="carousel-container">
+	              <div class="container">
+	                <h2 class="animate__animated animate__fadeInDown">Kuis Pembelajaran Trading Investing Kripto</h2>
+	                <p class="animate__animated animate__fadeInUp">
+	                	Uji kembali pengetahuan yang telah didapatkan melalui course trading investing terbaik.
+	                </p>
+	                <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
+	              </div>
+	            </div>
+	          </div>
+	
+	        </div>
+	
+	        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+	          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+	        </a>
+	
+	        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+	          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+	        </a>
+	
+	      </div>
+	    </div>
+	  </section><!-- End Hero Section -->
+
+
+
+	<main id="main">
+	
+	    <!-- ======= About Section ======= -->
+	    <div id="about" class="about-area area-padding">
+	      <div class="container">
+	      
+	        <div class="row">
+	          <div class="col-md-12 col-sm-12 col-xs-12">
+	            <div class="section-headline text-center my-5">
+	              <h2>About Features</h2>
+	            </div>
+	          </div>
+	        </div>
+	        
+	        <div class="row mb-5">
+	          <!-- single-well start-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-left">
+	              <div class="single-well">
+	                <a href="#">
+	                
+	                	<div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
+				            <img src="https://hariannusantara.com/wp-content/uploads/2019/06/gambar-pemandangan-hutan.jpg" alt="Speaker 1" class="img-fluid">
+				            <div class="details">
+				              <h3 class="mb-4 mt-1">
+				                <a href="/course/all">Course</a>
+				              </h3>
+				              <p>Dapatkan Kelas Sekarang</p>
+				            </div>
+				        </div>
+			          
+	                </a>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- single-well end-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-middle">
+	              <div class="single-well">
+	                <a href="#">
+	                  <h4 class="sec-head">Course Trading Investing</h4>
+	                </a>
+	                <p class="text-justify">
+	                  Pembelajaran Trading Investing No. 1 di Indonesia dengan kelebihan yang tidak akan ditemukan di platform pembelajaran
+	                  trading lainnya. Di sini, Anda akan mendalami dan memahami secara intens bagaimana cara melakukan trading
+	                  investing dengan tepat.
+	                </p>
+	                <ul>
+	                  <li>
+	                    <i class="bi bi-check"></i> Interior design Package
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Building House
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Reparing of Residentail Roof
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Renovaion of Commercial Office
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Make Quality Products
+	                  </li>
+	                </ul>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- End col-->
+	        </div>
+	        
+	        <div class="row mb-5">
+	          <!-- single-well start-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-left">
+	              <div class="single-well">
+	                <a href="#">
+	                  <div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
+			            <img src="https://www.akseleran.co.id/blog/wp-content/uploads/2021/08/Sungai-Terpanjang-di-Dunia.jpg" alt="Speaker 1" class="img-fluid">
+			            <div class="details">
+			              <h3 class="mb-4 mt-1">
+			                <a href="/topic/all">Forum</a>
+			              </h3>
+			              <p>Bicarakan Mengenai Kripto di Forum</p>
+			            </div>
+			          </div>
+	                </a>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- single-well end-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-middle">
+	              <div class="single-well">
+	                <a href="#">
+	                  <h4 class="sec-head">Forum Trading Investing</h4>
+	                </a>
+	                <p class="text-justify">
+	                  Dapatkan informasi aktual dan perbanyak relasi Anda dengan para trader investor cryptocurrency lainnya. Jadilah
+	                  trader investor sukses dan bagikan pengalaman maupun pertanyaan yang ingin disampaikan pada fitur Forum!
+	                </p>
+	                <ul>
+	                  <li>
+	                    <i class="bi bi-check"></i> Interior design Package
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Building House
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Reparing of Residentail Roof
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Renovaion of Commercial Office
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Make Quality Products
+	                  </li>
+	                </ul>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- End col-->
+	        </div>
+	        
+	        <div class="row mb-5">
+	          <!-- single-well start-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-left">
+	              <div class="single-well">
+	                <a href="#">
+	                  <div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
+			            <img src="https://cdn1-production-images-kly.akamaized.net/z0xgsXJ-kI2TTa7P1uVx1XIsfyg=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2405028/original/013648100_1541841610-Julien_R.jpg" alt="Speaker 1" class="img-fluid">
+			            <div class="details">
+			              <h3 class="mb-4 mt-1">
+			                <a href="speaker-details.html">Kalkulator</a>
+			              </h3>
+			              <p>Hitung Hasil Investasimu Sekarang!</p>
+			            </div>
+			          </div>
+	                </a>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- single-well end-->
+	          <div class="col-md-6 col-sm-6 col-xs-12">
+	            <div class="well-middle">
+	              <div class="single-well">
+	                <a href="#">
+	                  <h4 class="sec-head">Kalkulator Investasi</h4>
+	                </a>
+	                <p class="text-justify">
+	                  Investasi bermain dengan waktu dan kesabaran. Sambil menunggu, Anda dapat melakukan simulasi perhitungan
+	                  dan melihat seberapa banyak yang dapat Anda hasilkan dalam jangka waktu tertentu. Psttt, Ada koin dengan return
+	                  yang fantastis lho!
+	                </p>
+	                <ul>
+	                  <li>
+	                    <i class="bi bi-check"></i> Interior design Package
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Building House
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Reparing of Residentail Roof
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Renovaion of Commercial Office
+	                  </li>
+	                  <li>
+	                    <i class="bi bi-check"></i> Make Quality Products
+	                  </li>
+	                </ul>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- End col-->
+	        </div>
+	        
+	      </div>
+	    </div><!-- End About Section -->
+	</main>
+	
+	
+	
+	<!-- ======= Team Section ======= -->
+    <div id="team" class="our-team-area area-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center my-5">
+              <h2>Our special Team</h2>
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
-            <img src="https://blog-media.lifepal.co.id/app/uploads/sites/3/2020/05/02071341/pola-candlestick-768x432.jpg" alt="Speaker 1" class="img-fluid">
-            <div class="details">
-              <h3 class="mb-4 mt-1">
-                <a href="/topic/all">Forum</a>
-              </h3>
-              <p>Bicarakan Mengenai Kripto di Forum</p>
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="single-team-member">
+              <div class="team-img">
+                <a href="#">
+                  <img src="assets/images/bryan.jpg" alt="" style="width:100%; height:100%">
+                </a>
+              </div>
+              <div class="team-content text-center">
+                <h4>Alvin Tanjaya</h4>
+                <p>Seo</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="speaker zoom" data-aos="fade-up" data-aos-delay="100">
-            <img src="https://blog-media.lifepal.co.id/app/uploads/sites/3/2020/05/02071341/pola-candlestick-768x432.jpg" alt="Speaker 1" class="img-fluid">
-            <div class="details">
-              <h3 class="mb-4 mt-1">
-                <a href="speaker-details.html">Kalkulator</a>
-              </h3>
-              <p>Hitung Hasil Investasimu Sekarang!</p>
+          <!-- End column -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="single-team-member">
+              <div class="team-img">
+                <a href="#">
+                  <img src="assets/images/bryan.jpg" alt="" style="width:100%; height:100%">
+                </a>
+              </div>
+              <div class="team-content text-center">
+                <h4>Christian Bryan</h4>
+                <p>Web Developer</p>
+              </div>
             </div>
           </div>
+          <!-- End column -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="single-team-member">
+              <div class="team-img">
+                <a href="#">
+                  <img src="assets/images/bryan.jpg" alt="" style="width:100%; height:100%">
+                </a>
+              </div>
+              <div class="team-content text-center">
+                <h4>Jovan Reynardo</h4>
+                <p>Web Design</p>
+              </div>
+            </div>
+          </div>
+          <!-- End column -->
+          
         </div>
       </div>
-    </section>
+    </div><!-- End Team Section -->
+	
+	
+	
+	
+	
 
     <!-- MODAL LOGIN -- START-->
     <div class="modal" id="loginModal">
@@ -87,7 +359,7 @@
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
             <h4>Logout</h4>
-            <button type="button" class="close" data-dismiss="modal">×</button>
+            <button type="button" class="close" data-dismiss="modal">ï¿½</button>
           </div>
           <div class="modal-body border-0 pb-0">
             <p>Are you sure you want to logout?</p>
@@ -121,5 +393,9 @@
         }
       }
     </script>
+        
+	  <script src="assets/slider/js/bootstrap.bundle.min.js"></script>
+	  <script src="assets/slider/js/main.js"></script>
+    
   </body>
 </html>
