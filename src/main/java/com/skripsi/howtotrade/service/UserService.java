@@ -16,8 +16,8 @@ public class UserService {
         return userMapper.getUserProfile(username);
     }
     
-    public void saveProfile(Users user){
-        userMapper.saveProfile(user);
+    public void saveProfile(String userEmail, String userPassword, int userId){
+        userMapper.saveProfile(userEmail, userPassword, userId);
     }
 
     public int getUserId(String userName){

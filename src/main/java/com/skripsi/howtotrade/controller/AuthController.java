@@ -72,7 +72,7 @@ public class AuthController {
 			return "redirect:/user/add?success=false";
 		}
 	}
-
+	//
 	@ResponseBody
 	@RequestMapping(value = "/user/check/{username}", method = RequestMethod.GET)
 	public  String checkUsername(@PathVariable("username") String username) {

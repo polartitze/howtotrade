@@ -60,7 +60,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="password">Change Password</label>
-                                <input type="password" class="form-control" id="phone" placeholder="Enter new password">
+                                <input type="password" class="form-control" id="password" placeholder="Enter new password"  th:field="${profileForm.userEmail}" onchange="checkPassword()" />
                             </div>
                         </div>
                     </div>
@@ -83,19 +83,46 @@
 	<!-- JAVASCRIPT CODE -->
 	<script type="text/javascript">
 		$(document).ready(function () {
-			//$('.error1').show();
-			console.log('halo');
 			initForm();
 		});
 
 		function initForm() {
             const hiddenUserName = $('#hiddenUserName').val();
             const hiddenUserEmail = $('#hiddenUserEmail').val();
-            console.log(hiddenUserEmail);
-            console.log(hiddenUserName);
             $('#userName').val(hiddenUserName);
             $('#userEmail').val(hiddenUserEmail);
 		}
+
+        function checkPassword() {
+            var pass = $("#password").val();
+            var confirmPass = $("#confirmPassword").val();
+            
+            if (pass.length < 6 || pass.length > 50){
+                $("#passwordAlert").html("Password must be at 6-50 characters!");
+                $("#passwordAlert").show();
+                if (pass != confirmPass) {
+                    $("#confirmPasswordAlert").html("Invalid confirm password!");
+                    $("#confirmPasswordAlert").show();
+                    return false;
+                }
+                else {
+                    $("#confirmPasswordAlert").hide();
+                    return false;
+                }
+            }
+            else {
+                $("#passwordAlert").hide();
+                if (pass != confirmPass) {
+                    $("#confirmPasswordAlert").html("Invalid confirm password!");
+                    $("#confirmPasswordAlert").show();
+                    return false;
+                }
+                else {
+                    $("#confirmPasswordAlert").hide();
+                    return true;
+                }
+            }
+        }
 		
 	</script>
 </body>

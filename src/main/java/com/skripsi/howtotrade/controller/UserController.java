@@ -7,6 +7,7 @@ import com.skripsi.howtotrade.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,22 +19,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Authentication authentication;
-    //String userLogged = authentication.getName(); -- right now it still return null values
+    
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
     @RequestMapping("")
     public String getUserProfile(Model model, Principal principal){
         model.addAttribute("profileForm", new Users());
-        model.addAttribute("data", userService.getUserProfile(principal.getName())); //FIXME: when authentication has been set, change into 'userLogged'
+        model.addAttribute("data", userService.getUserProfile(principal.getName()));
         return "index/profile";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveProfile(Users user){
-        System.out.println("------------------user.getUserEmail(): "+user.getUserEmail());
-        user.setUserId(userService.getUserId("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
-        userService.saveProfile(user);
+    public String saveProfile(Users user, Principal principal){
+        System.out.println("------------------Updating profile");
+        user.setUserId(userService.getUserId(principal.getName()));
+        userService.saveProfile(user.getUserEmail(), passwordEncoder().encode(user.getUserPassword()), user.getUserId());
         System.out.println("----------------Update user berhasil!");
         return "redirect:/profile";
     }
+
 }

@@ -28,8 +28,8 @@ public interface UserMapper {
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users getUserProfile(String username);
 
-	@Update("UPDATE USERS SET userName = #{userName}, userEmail = #{userEmail} WHERE USERID = #{userId}")
-	void saveProfile(Users user);
+	@Update("UPDATE USERS SET userEmail = #{userEmail}, userPassword = #{userPassword} WHERE USERID = #{userId}")
+	void saveProfile(String userEmail, String userPassword, int userId);
 	
 	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
     int getUserId(String userName);
