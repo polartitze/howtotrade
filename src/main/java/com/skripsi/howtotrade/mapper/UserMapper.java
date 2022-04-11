@@ -2,6 +2,7 @@ package com.skripsi.howtotrade.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -17,7 +18,8 @@ public interface UserMapper {
 
 	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus) "
 			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus})")
-	void insertUser(String userName, String userEmail, String userPassword, int userRole, String userStatus);
+	void insertUser(@Param("userName") String userName, @Param("userEmail")String userEmail, 
+			@Param("userPassword")String userPassword, @Param("userRole")int userRole, @Param("userStatus")String userStatus);
 
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users findUserAccount(String username);
