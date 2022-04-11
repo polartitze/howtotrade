@@ -67,19 +67,25 @@
                   <p th:text="${topic.description}"></p>
                   
                 </div>
-                <div class="col-md op-7">
-                  <div class="row text-center op-7">
-                    
-                    <div class="col px-1"> 
-                      <i class="ion-ios-chatboxes-outline icon-1x"></i> 
-                      <span class="d-block text-sm" th:text="${topic.countcomment}"></span> 
-                      <span class="d-block text-sm">Comment</span>
+                <div class="col-md-1" style="left:50px">
+                    <div class="px-1 row align-item-center text-primary">
+                      <i class="fa fa-comments-o fa-lg my-auto"></i> 
+                      <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
                     </div>
-                    <div class="col px-1"> <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}"><i class="fa fa-trash-o text-danger fa-lg"></i></a></div>
                     
                     
-                  </div>
                 </div>
+                
+                <div class="col-md-1 text-center">
+                	<div class="px-1 align-item-center">
+                    	<a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
+	                    	<i class="fa fa-trash-o text-danger fa-lg"></i>
+                    	</a>
+                    </div>
+                </div>
+                
+                
+                
               </div>
             </div>
             

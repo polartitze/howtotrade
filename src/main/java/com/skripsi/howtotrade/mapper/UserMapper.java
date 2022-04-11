@@ -31,7 +31,8 @@ public interface UserMapper {
 	Users getUserProfile(String username);
 
 	@Update("UPDATE USERS SET userEmail = #{userEmail}, userPassword = #{userPassword} WHERE USERID = #{userId}")
-	void saveProfile(String userEmail, String userPassword, int userId);
+	void saveProfile(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword, 
+			@Param("userId") int userId);
 	
 	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
     int getUserId(String userName);
