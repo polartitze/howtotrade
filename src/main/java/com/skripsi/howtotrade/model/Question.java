@@ -10,7 +10,8 @@ public class Question {
 	String choiceTwo;
 	String choiceThree;
 	String choiceFour;
-	String imageURL;
+	String imageUrl;
+	
 	public int getQuestionId() {
 		return questionId;
 	}
@@ -65,12 +66,10 @@ public class Question {
 	public void setChoiceFour(String choiceFour) {
 		this.choiceFour = choiceFour;
 	}
-	public String getImageURL() {
-		return imageURL;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-	
-	
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}	
 }
