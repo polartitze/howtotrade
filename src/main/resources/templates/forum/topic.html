@@ -62,7 +62,7 @@
                 </div>
                   
                   <div class="mar-top mb-3 clearfix">
-                    <button class="btn btn-sm btn-primary pull-right mr-3" type="submit">
+                    <button class="btn btn-primary pull-right mr-3" type="submit">
                       <i class="fa fa-pencil fa-fw"></i> Comment </button>
                   </div>
                 </div>
@@ -75,57 +75,62 @@
       
     
     <div class="container py-3 px-5">
-		<div class="" th:each="comment : ${listComment}">
-			<div class="row border-top border-primary py-3 items">
-			
-				<div class="col-2 mr-2 align-self-center">
-					<time th:text="${comment.createdDate}"></time>
-				</div>
-				
-				<div class="mr-2 align-self-center">
-					<img class="mr-3 rounded-circle" src="https://i.imgur.com/iNmBizf.jpg">
-				</div>
-				
-				<div class="col-8 pt-2">
-					<h4 th:text="${comment.userName}"></h4>
-                	<p th:text="${comment.description}"></p>
-				</div>	
-
-				<div class="align-self-center row float-right">
-					<div class="mx-1 align-self-center" th:if="${roles == 'ROLE_ADMIN'}">
-	              		<a th:href="@{'/topic/block/'+${comment.userName}}">
-	              			<i class="fa fa-minus-circle text-danger fa-lg align-middle"></i>
-	              		</a>
-	            	</div>
-                	<a class="float-right ml-3" data-toggle="modal" data-target="#deleteModal">
-                  		<i class="fa fa-trash-o text-danger fa-lg align-middle"></i>
-                	</a>
-            	</div>
-              <!-- DELETE MODAL -->
-              <div id="deleteModal" class="modal fade">
-                <div class="modal-dialog modal-confirm modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header flex-column">
-                      <div class="icon-box">
-                        <i class="bi bi-bell"></i>
-                      </div>						
-                      <h4 class="modal-title w-100">Are you sure?</h4>	
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Do you really want to delete these records? This process cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                      <a th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}" class="btn btn-danger">Delete</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
-                  </div>
-                </div>
-              </div>    
-            
+      <div class="" th:each="comment : ${listComment}">
+        <div class="row border-top border-primary py-3 items">
+    
+          <div class="col-2 mr-2 align-self-center">
+            <time th:text="${comment.createdDate}"></time>
+          </div>
+    
+          <div class="mr-2 align-self-center">
+            <img class="mr-3 rounded-circle" src="https://i.imgur.com/iNmBizf.jpg">
+          </div>
+    
+          <div class="col-8 pt-2">
+            <h4 th:text="${comment.userName}"></h4>
+            <p th:text="${comment.description}"></p>
+          </div>
+    
+          <div class="align-self-center row float-right">
+            <div class="mx-1 align-self-center" th:if="${roles == 'ROLE_ADMIN'}">
+              <a th:href="@{'/topic/block/'+${comment.userName}}">
+                <i class="fa fa-minus-circle text-danger fa-lg align-middle"></i>
+              </a>
+            </div>
+    
+            <div>
+              <a class="float-right ml-3"
+                th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}">
+                <i class="fa fa-trash-o text-danger fa-lg align-middle"></i>
+              </a>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+        
+        <!-- DELETE MODAL -->
+        <!-- <div id="deleteModal" class="modal fade">
+          <div class="modal-dialog modal-confirm modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header flex-column">
+                <div class="icon-box">
+                  <i class="bi bi-bell"></i>
+                </div>						
+                <h4 class="modal-title w-100">Are you sure?</h4>	
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>Do you really want to delete these records? This process cannot be undone.</p>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>    -->
+        
         
         <div th:replace="fragments/logout :: logout">&nbsp;</div>
         

@@ -138,6 +138,24 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
             $('#changePassword').hide();
+            
+            // $('#btn-save-with-password').click(function(){
+            //     console.log("whyyyy");
+            //     if(!checkExistingPassword()){
+            //         console.log("haii");
+            //         $("#oldPassAlert").html("Incorect Old Password!");
+            //         return false;
+            //     }
+            // });
+            $( "#btn-save-with-password" ).click(function() {
+                console.log("whyyyy");
+                if(!checkExistingPassword()){
+                    console.log("haii");
+                    $("#oldPassAlert").html("Incorect Old Password!");
+                    return false;
+                }
+            });
+
 			initForm();
 		});
 
@@ -150,17 +168,12 @@
             $('.btn-changePassword').click(function(){
                 // $('#newPassword').attr('th:field','${profileForm.userPassword}');
                 $('#changePassword').show();
-                $('.btn-save').addClass('btn-save-with-password');
+                // $('.btn-save').addClass('btn-save-with-password');
+                $('.btn-save').attr('id','btn-save-with-password');
                 
                 
             });
 
-            $('.btn-save-with-password').click(function(){
-                if(!checkExistingPassword()){
-                    $("#oldPassAlert").html("Incorect Old Password!");
-                    return false;
-                }
-            });
 		}
 
         function checkExistingPassword(){

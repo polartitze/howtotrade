@@ -24,7 +24,3 @@ values
 	'https://canopylab.com/wp-content/uploads/2020/05/Working-with-adaptive-quizzes-A-beginners-guide.jpg'),
 (3, 1, 3, 3, 'Saham apakah ini?', 2, 'BSML', 'DEWA', 'TAMA', 'GOTO',  
 	'https://facsekuritas.co.id/storage/media/original/dewa.jpg');
-
-
-DELETE FROM ROLES;
-INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN');

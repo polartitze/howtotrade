@@ -253,7 +253,7 @@
 				url: "/user/check/" + username,
 				async: false,
 				success: function(response) {
-					if (response == "Failed") {
+					if (response == "Success") {
 						$("#usernameAlert").html("Username must be unique!");
 						$("#usernameAlert").show();
 						result = false;
