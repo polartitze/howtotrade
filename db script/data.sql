@@ -28,3 +28,7 @@ values
 
 DELETE FROM ROLES;
 INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN');
+
+DELETE FROM COIN;
+INSERT INTO public.coin(coincode, coinname, coinreturn, active) VALUES ('BTC', 'BITCOIN', 10, '1'),
+('DOGE', 'DOGECOIN', 10, '1'), ('ETH', 'ETHREUM', 10, '1');
