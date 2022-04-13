@@ -294,65 +294,8 @@
         </div>
       </div>
     </div><!-- End Team Section -->
-	
-	
-	
-	
-	
 
-    <!-- MODAL LOGIN -- START-->
-    <div class="modal" id="loginModal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0 pb-0"><h4>Login</h4></div>
-          <div class="modal-body">
-            <div th:if="${#request.getParameter('error') == 'true'}" class="alert alert-danger alert-dismissible">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              Username or password is wrong!
-            </div>
-          
-            <form th:action="@{/doLogin}" method="post">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" name="username" required="required">
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" id="myInput" name="password" required="required">
-              </div>
-              <div class="form-group">
-                <input type="checkbox" th:onclick="myFunction()"><span th:style="'margin-left:15px;'">Show Password hello</span>
-              </div>
-              <div class="form-group">
-                <input type="submit" class="btn btn-primary btn-block" value="Login">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- MODAL LOGIN -- END-->
-
-    <!-- MODAL LOGOUT -- START-->
-    <div class="modal" id="logoutModal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0">
-          <div class="modal-header border-0 pb-0">
-            <h4>Logout</h4>
-            <button type="button" class="close" data-dismiss="modal">�</button>
-          </div>
-          <div class="modal-body border-0 pb-0">
-            <p>Are you sure you want to logout?</p>
-          </div>
-          <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
-              <input type="submit" value="Logout" />
-          </form>
-          <div class="modal-footer">
-            <a href="javascript: logoutForm.submit();" class="btn btn-danger">Yes</a>
-            <a href="#" class="btn btn-info" data-dismiss="modal">No</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- MODAL LOGOUT -- END-->
+	<div th:replace="fragments/logout :: logout">&nbsp;</div>
 
     <script th:if="${#request.getParameter('error') == 'true'}">
       $(document).ready(function(){

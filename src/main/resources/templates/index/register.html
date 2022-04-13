@@ -162,7 +162,7 @@
 	</div>
 
 	<!-- JAVASCRIPT CODE -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		$(document).ready(function () {
 			//$('.error1').show();
 			console.log('apin botak')
@@ -236,7 +236,7 @@
 				/[a-z]/.test(pw) &&
 				/[0-9]/.test(pw);
 		}
-	</script>
+	</script> -->
 
 <script>
 	function checkUsername() {
@@ -253,8 +253,8 @@
 				url: "/user/check/" + username,
 				async: false,
 				success: function(response) {
-					$("#usernameAlert").html("Username must be unique!");
 					if (response == "Failed") {
+						$("#usernameAlert").html("Username must be unique!");
 						$("#usernameAlert").show();
 						result = false;
 					}

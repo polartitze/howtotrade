@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style.css">
+<head>
+	<title>Welcome</title>
+</head>
+<body>
+    <!-- MODAL LOGOUT -- START-->
+    <div class="modal" id="logoutModal" th:fragment="logout">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Logout</h4>
+            <button type="button" class="close" data-dismiss="modal">?</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure you want to logout?</p>
+          </div>
+          <form name="logoutForm" th:hidden="true" method="post" th:action="@{/doLogout}">
+              <input type="submit" value="Logout" />
+          </form>
+          <div class="modal-footer">
+            <a href="javascript: logoutForm.submit();" class="btn btn-danger">Yes</a>
+            <a href="#" class="btn btn-info" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL LOGOUT -- END-->
+
+
+
+
+</body>
+</html>

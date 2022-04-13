@@ -37,7 +37,7 @@
 	        </div>
         </div>
         <div class="container mb-3">
-        <form th:action="@{/profile/save}" th:object="${profileForm}" method="post">
+        <form th:action="@{/profile/save}" th:object="${profileForm}" method="post" name="profileForm">
             <div class="card">
                 <div class="card-body p-5">
                     <div class="row gutters">
@@ -79,6 +79,8 @@
         </div>
     <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 
     <input type="hidden" th:value="${data.userEmail}" id="hiddenUserEmail"/> 
+  	
+  	<div th:replace="fragments/logout :: logout">&nbsp;</div>
 	<!-- JAVASCRIPT CODE -->
 	<script type="text/javascript">
 		$(document).ready(function () {
