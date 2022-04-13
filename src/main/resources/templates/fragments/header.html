@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 <head>
-	<title>Welcome</title>
+	<title>Header</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
-    <i class="fas fa-cloud text-white mr-auto"></i>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarsExample05">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" th:classappend="${module == 'home' ? 'active' : ''}">
-          <a class="nav-link" href="/">Home</a>
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+          	<img th:src="@{/assets/images/httlogo.png}" alt="howToTradeLogo" class ="httlogo"></img>
+          </a>
         </li>
-        <li class="nav-item" th:classappend="${module == 'forum' ? 'active' : ''}">
+        <li class="nav-item" th:classappend="${module == 'forum' ? 'active' : ''}" sec:authorize="isAuthenticated()">
           <a class="nav-link" href="/topic/all">Forum</a>
         </li>
-        <li class="nav-item" th:classappend="${module == 'course' ? 'active' : ''}">
+        <li class="nav-item" th:classappend="${module == 'course' ? 'active' : ''}" sec:authorize="isAuthenticated()">
           <a class="nav-link" href="/course/all">Course</a>
         </li>
       </ul>
