@@ -16,11 +16,19 @@ public class UserService {
         return userMapper.getUserProfile(username);
     }
     
-    public void saveProfile(String userEmail, String userPassword, int userId){
-        userMapper.saveProfile(userEmail, userPassword, userId);
+    public void saveProfile(String userEmail, int userId){
+        userMapper.saveProfile(userEmail, userId);
+    }
+    
+    public void saveProfileWithPassword(String userEmail, String userPassword, int userId){
+        userMapper.saveProfileWithPassword(userEmail, userPassword, userId);
     }
 
     public int getUserId(String userName){
         return userMapper.getUserId(userName);
+    }
+
+    public String getOldPassword(String userName){
+        return userMapper.getOldPassword(userName);
     }
 }

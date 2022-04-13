@@ -63,7 +63,7 @@ public class TopicService {
     }
 
     public String getRole(String username){
-        System.out.println("==============ROLES: "+userMapper.getRole(username));
+        // System.out.println("==============ROLES: "+userMapper.getRole(username));
         return userMapper.getRole(username);
     }
 

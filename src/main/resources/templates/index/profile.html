@@ -56,10 +56,36 @@
                                 <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" required>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="form-group">
-                                <label for="password">Change Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter new password"  th:field="${profileForm.userPassword}" onchange="checkPassword()" />
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-left">
+                                    <button type="button" class="btn btn-primary btn-changePassword">Change Password</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="container" id="changePassword">
+                            <div class="row">
+                                <div class="col-md-12 col-12">
+                                    <div class="alert alert-danger" id="oldPassAlert" style="display: none;"> </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="form-group">
+                                    <label for="password">Old Password</label>
+                                    <input type="password" class="form-control" id="oldPassword" placeholder="Enter new password" name="oldPassword"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-12">
+                                    <div class="alert alert-danger" id="passwordAlert" style="display: none;"> </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="form-group">
+                                    <label for="password">New Password</label>
+                                    <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="newPassword"  onchange="checkPassword()" th:field="${profileForm.userPassword}"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,8 +93,8 @@
                     <div class="row gutters">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
-                                <!-- <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> -->
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary btn-save">Save</button>
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Save</button> -->
                             </div>
                         </div>
                     </div>
@@ -79,11 +105,39 @@
         </div>
     <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 
     <input type="hidden" th:value="${data.userEmail}" id="hiddenUserEmail"/> 
-  	
-  	<div th:replace="fragments/logout :: logout">&nbsp;</div>
+
+    <div th:replace="fragments/logout :: logout">&nbsp;</div>
+
+
+<!-- MODAL CONFIRM -->
+<div id="confirmModal" class="modal fade">
+	<div class="modal-dialog modal-confirm modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+					<i class="bi bi-bell"></i>
+				</div>						
+				<h4 class="modal-title w-100 headmsg">Are you sure?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p class="msg">Remember your new password after you change it</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+                <a href="javascript: profileForm.submit();" class="btn btn-success">Save</a>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>     
+
+
+
+
 	<!-- JAVASCRIPT CODE -->
 	<script type="text/javascript">
 		$(document).ready(function () {
+            $('#changePassword').hide();
 			initForm();
 		});
 
@@ -92,36 +146,54 @@
             const hiddenUserEmail = $('#hiddenUserEmail').val();
             $('#userName').val(hiddenUserName);
             $('#userEmail').val(hiddenUserEmail);
+
+            $('.btn-changePassword').click(function(){
+                // $('#newPassword').attr('th:field','${profileForm.userPassword}');
+                $('#changePassword').show();
+                $('.btn-save').addClass('btn-save-with-password');
+                
+                
+            });
+
+            $('.btn-save-with-password').click(function(){
+                if(!checkExistingPassword()){
+                    $("#oldPassAlert").html("Incorect Old Password!");
+                    return false;
+                }
+            });
 		}
 
+        function checkExistingPassword(){
+            var old = $('#oldPassword').val();
+            var username = $('#hiddenUserName').val();
+            var result = false;
+            $.ajax({
+				type: "GET",
+				url: "/profile/check-old-pass",
+                data: {"oldPassword" : old,
+                        "username" : username
+                },
+				async: false,
+				success: function(data) {
+                    if (data != "" || data != null) {
+						result = data;
+					}
+					
+				}
+			});
+            console.log("result: "+result)
+            return result;
+        }
+
         function checkPassword() {
-            var pass = $("#password").val();
-            var confirmPass = $("#confirmPassword").val();
+            var pass = $("#newPassword").val();
             
             if (pass.length < 6 || pass.length > 50){
                 $("#passwordAlert").html("Password must be at 6-50 characters!");
                 $("#passwordAlert").show();
-                if (pass != confirmPass) {
-                    $("#confirmPasswordAlert").html("Invalid confirm password!");
-                    $("#confirmPasswordAlert").show();
-                    return false;
-                }
-                else {
-                    $("#confirmPasswordAlert").hide();
-                    return false;
-                }
-            }
+                            }
             else {
                 $("#passwordAlert").hide();
-                if (pass != confirmPass) {
-                    $("#confirmPasswordAlert").html("Invalid confirm password!");
-                    $("#confirmPasswordAlert").show();
-                    return false;
-                }
-                else {
-                    $("#confirmPasswordAlert").hide();
-                    return true;
-                }
             }
         }
 		

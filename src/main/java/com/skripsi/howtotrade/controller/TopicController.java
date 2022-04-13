@@ -21,7 +21,6 @@ public class TopicController {
     @Autowired
     TopicService topicService;
     
-    // Authentication authentication;
     String userLogged;
     
     

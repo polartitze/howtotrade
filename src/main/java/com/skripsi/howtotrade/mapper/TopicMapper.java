@@ -15,8 +15,7 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface TopicMapper {
-    // @Select("SELECT * FROM TOPIC T LEFT JOIN USERS U ON T.AUTHORID = U.USERID")
-    // List<Topic> getAllTopics();
+
     @Select("SELECT T.TOPICID, T.TOPICTITLE, t.description, T.CREATEDDATE, T.AUTHORID, U.USERNAME, COUNT(C.COMMENTID) AS COUNTCOMMENT "
         + "FROM TOPIC T "
         + "LEFT JOIN USERS U ON T.AUTHORID = U.USERID "

@@ -31,10 +31,15 @@ public interface UserMapper {
 	Users getUserProfile(String username);
 
 	@Update("UPDATE USERS SET userEmail = #{userEmail}, userPassword = #{userPassword} WHERE USERID = #{userId}")
-	void saveProfile(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword, 
+	void saveProfileWithPassword(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword, 
 			@Param("userId") int userId);
 	
+	@Update("UPDATE USERS SET userEmail = #{userEmail} WHERE USERID = #{userId}")
+	void saveProfile(@Param("userEmail") String userEmail,	@Param("userId") int userId);
+
 	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
     int getUserId(String userName);
-
+	
+	@Select("SELECT USERPASSWORD FROM USERS WHERE USERNAME = #{userName}")
+    String getOldPassword(String userName);
 }

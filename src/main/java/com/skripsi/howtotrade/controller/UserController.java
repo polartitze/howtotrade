@@ -6,12 +6,13 @@ import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/profile")
@@ -33,11 +34,34 @@ public class UserController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProfile(Users user, Principal principal){
-        System.out.println("------------------Updating profile");
         user.setUserId(userService.getUserId(principal.getName()));
-        userService.saveProfile(user.getUserEmail(), passwordEncoder().encode(user.getUserPassword()), user.getUserId());
+        
+        System.out.println("------------------Updating profile");
+        System.out.println(user.getUserPassword());
+        
+        if("".equals(user.getUserPassword()) || user.getUserPassword() == null){
+            userService.saveProfile(user.getUserEmail(), user.getUserId());
+        }else{
+            String encoded = passwordEncoder().encode(user.getUserPassword());
+            System.out.println("encoded: "+encoded); 
+            userService.saveProfileWithPassword(user.getUserEmail(), encoded, user.getUserId());
+        }
+        
         System.out.println("----------------Update user berhasil!");
         return "redirect:/profile";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/check-old-pass", method = RequestMethod.GET)
+    public boolean checkOldPassword(@RequestParam("oldPassword") String oldPassword,
+                                    @RequestParam("username") String username){
+        String dbPassword = userService.getOldPassword(username);
+        System.out.println(username);
+        System.out.println(dbPassword);
+        if(passwordEncoder().matches(oldPassword, dbPassword)){
+            System.out.println("old pass match");
+            return true;
+        }
+        return false;
+    }
 }
