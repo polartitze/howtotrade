@@ -19,7 +19,7 @@
     <div th:replace="fragments/header :: header">&nbsp;</div>
 
     <div class="container" style="width: 100%; margin: 0;">
-      <div class="row" style="background:navajowhite; text-align: center; width: fit-content;" th:if="${roles == 'ROLE_ADMIN'}">
+      <div class="row" style="background:navajowhite; text-align: center; width: fit-content;" sec:authorize="hasRole('ROLE_ADMIN')">
         <div class="container">
           <span>Admin Page</span>
         </div>
@@ -37,24 +37,26 @@
               <div class="media flex-wrap w-100 align-items-center">
                 <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
                 <div class="media-body ml-3">
-                  <span th:text="${topicData.userName}"></span>
-                  <div class="text-muted small">13 days ago</div>
+                  <span th:text="${topicData.username}"></span>
+                  <div class="text-muted small">
+                    <span th:text="${topicData.countdate}"></span>
+                  </div>
                 </div>
                 <div class="text-muted small ml-3">
                   <div> Posted on <strong>
-                      <span th:text="${topicData.createdDate}"></span>
+                      <span th:text="${topicData.posted}"></span>
                     </strong>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-body">
-              <h3 th:text="${topicData.topicTitle}"></h3>
+              <h3 th:text="${topicData.topictitle}"></h3>
             </div>
             <div class="card-body pt-1">
               <p th:text="${topicData.description}"></p>
             </div>
-            <form th:action="@{'/topic/'+${topicData.topicId}+'/comment'}" th:object="${commentForm}" method="post">
+            <form th:action="@{'/topic/'+${topicData.topicid}+'/comment'}" th:object="${commentForm}" method="post">
               <div class="panel">
                 <div class="panel-body">
                 <div class="d-flex">
@@ -79,7 +81,7 @@
         <div class="row border-top border-primary py-3 items">
     
           <div class="col-2 mr-2 align-self-center">
-            <time th:text="${comment.createdDate}"></time>
+            <time th:text="${comment.posted}"></time>
           </div>
     
           <div class="mr-2 align-self-center">
@@ -87,20 +89,19 @@
           </div>
     
           <div class="col-8 pt-2">
-            <h4 th:text="${comment.userName}"></h4>
+            <h4 th:text="${comment.username}"></h4>
             <p th:text="${comment.description}"></p>
           </div>
     
           <div class="align-self-center row float-right">
-            <div class="mx-1 align-self-center" th:if="${roles == 'ROLE_ADMIN'}">
-              <a th:href="@{'/topic/block/'+${comment.userName}}">
+            <div class="mx-1 align-self-center" sec:authorize="hasRole('ROLE_ADMIN')">
+              <a th:href="@{'/topic/block/'+${comment.username}}">
                 <i class="fa fa-minus-circle text-danger fa-lg align-middle"></i>
               </a>
             </div>
-    
-            <div>
+            <div th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${comment.username}">
               <a class="float-right ml-3"
-                th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}">
+                th:href="@{'/topic/'+${comment.topicid}+'/comment/'+${comment.commentid}+'/delete'}">
                 <i class="fa fa-trash-o text-danger fa-lg align-middle"></i>
               </a>
             </div>

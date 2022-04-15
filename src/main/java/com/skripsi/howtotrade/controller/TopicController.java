@@ -33,47 +33,40 @@ public class TopicController {
     }
     
     //TOPIC
-    @RequestMapping("/all")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllTopic(Model model, Principal principal){
-    //    if(principal.getName() != null || "".equals(principal.getName())){
-    //        userLogged = principal.getName();
-    //        model.addAttribute("userLogged", userLogged); //FIXME: when authentication has been set, change into 'userLogged'
-    //    }
 
-        System.out.println("==========="+topicService.getAllTopic());
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
-        // model.addAttribute("roles", topicService.getRole(userLogged)); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topiclist";
     }
 
-    @RequestMapping("/{topicId}")
-    public String getTopicById(Model model, @PathVariable int topicId){
+    @RequestMapping(value = "/{topicId}", method = RequestMethod.GET)
+    public String getTopicById(Model model, @PathVariable int topicId, Principal principal){
         model.addAttribute("topicData", topicService.getTopicById(topicId));
         model.addAttribute("listComment", topicService.getCommentOnTopic(topicId));
         model.addAttribute("commentForm", new Comment());
-        model.addAttribute("roles", topicService.getRole("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
         return "forum/topic";
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addNewTopic(Topic topic){
-        topic.setAuthorId(topicService.getUserId("alvin")); //FIXME: when authentication has been set, change into 'userLogged'
+    public String addNewTopic(Topic topic, Principal principal){
+        topic.setAuthorId(topicService.getUserId(principal.getName()));
         topicService.insertTopic(topic);
         return "redirect:/topic/all";
     }
     
     @RequestMapping("/{topicId}/delete")
-    public String deleteTopicById(@PathVariable int topicId){
-        topicService.deleteTopic(topicService.getUserId("alvin"), topicId); //FIXME: when authentication has been set, change into 'userLogged'
+    public String deleteTopicById(@PathVariable int topicId, Principal principal){
+        topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
         return "redirect:/topic/all";
     }
 
     //COMMENT
     @RequestMapping(value = "/{topicId}/comment", method = RequestMethod.POST)
-    public String saveCommentOnTopicId(Model model, @PathVariable int topicId, Comment comment){
+    public String saveCommentOnTopicId(Model model, @PathVariable int topicId, Comment comment, Principal principal){
         comment.setTopicId(topicId);
-        comment.setUserId(topicService.getUserId("alvin"));  //FIXME: when authentication has been set, change into 'userLogged'
+        comment.setUserId(topicService.getUserId(principal.getName()));
         topicService.insertComment(comment);
         model.addAttribute("commentForm", new Comment());
         return "redirect:/topic/{topicId}";

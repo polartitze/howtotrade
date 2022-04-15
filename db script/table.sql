@@ -124,3 +124,6 @@ CREATE TABLE public.users
     userrole integer,
     userstatus VARCHAR(1)
 );
+
+alter table topic alter column createddate type TIMESTAMP;
+alter table comment alter column createddate type TIMESTAMP;

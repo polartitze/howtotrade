@@ -1,5 +1,6 @@
 package com.skripsi.howtotrade.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,6 @@ import com.skripsi.howtotrade.mapper.TopicMapper;
 import com.skripsi.howtotrade.mapper.UserMapper;
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
-import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +19,16 @@ public class TopicService {
     @Autowired
     private UserMapper userMapper;
 
-    Authentication authentication;
-    //String userLogged = authentication.getName(); -- right now it still return null values
-
     public TopicService(){
         
     }
 
     public List<Map<String,String>> getAllTopic(){
-        List<Map<String,String>> resultList = mapper.getAllTopics();
-        return resultList;
+        return mapper.getAllTopics();
     }
 
-    public Topic getTopicById(int id){
-        Topic resultList = mapper.getTopicById(id);
-        return resultList;
+    public HashMap<String, String> getTopicById(int id){
+        return mapper.getTopicById(id);
     }
 
     public void insertTopic(Topic topic){
@@ -44,9 +39,8 @@ public class TopicService {
         mapper.deleteTopic(userId, topicId);
     }
 
-    public List<Comment> getCommentOnTopic(int id){
-        List<Comment> resultList = mapper.getCommentOnTopic(id);
-        return resultList;
+    public List<HashMap<String, String>> getCommentOnTopic(int id){
+        return mapper.getCommentOnTopic(id);
     }
 
     public int getUserId(String userName){
@@ -63,7 +57,6 @@ public class TopicService {
     }
 
     public String getRole(String username){
-        // System.out.println("==============ROLES: "+userMapper.getRole(username));
         return userMapper.getRole(username);
     }
 

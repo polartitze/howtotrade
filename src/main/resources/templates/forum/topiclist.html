@@ -16,7 +16,7 @@
 <head>
 	<title>Forum</title>
 </head>
-<body>
+<body style="background-color: #eee;">
   <div th:replace="fragments/header :: header">&nbsp;</div>
   
 <div class="container">
@@ -47,6 +47,9 @@
                                 <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
                                 <div class="mar-top clearfix">
                                   <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
+                                  <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                                  <!-- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a> -->
+                                  <!-- <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a> -->
                                 </div>
                               </div>
                             </div>
@@ -63,7 +66,7 @@
                   <h5>
                     <a th:href="@{'/topic/'+${topic.topicid}}" class="text-dark" th:text="${topic.topictitle}"></a>
                   </h5>
-                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#">20 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#" th:text="${topic.createddate}"></a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
                   <p th:text="${topic.description}"></p>
                   
                 </div>
@@ -72,18 +75,15 @@
                       <i class="fa fa-comments-o fa-lg my-auto"></i> 
                       <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
                     </div>
-                    
-                    
                 </div>
-                
-                <div class="col-md-1 text-center">
+               
+                <div class="col-md-1 text-center"  th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
                 	<div class="px-1 align-item-center">
                     	<a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
 	                    	<i class="fa fa-trash-o text-danger fa-lg"></i>
                     	</a>
                     </div>
                 </div>
-                
                 
                 
               </div>
