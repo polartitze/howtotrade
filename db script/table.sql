@@ -127,3 +127,5 @@ CREATE TABLE public.users
 
 alter table topic alter column createddate type TIMESTAMP;
 alter table comment alter column createddate type TIMESTAMP;
+
+alter table topic add column imagepath varchar(65) default '-';
