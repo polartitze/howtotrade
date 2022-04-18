@@ -55,7 +55,7 @@
             </div>
             <div class="card-body pt-1">
               <p th:text="${topicData.description}"></p>
-              <div th:if="${topicData.imagepath} != '-' OR ${topicData.imagepath} != NULL ">
+              <div th:if="${topicData.imagepath} != '-'">
                 <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topicData.username} + '/topic/' + ${topicData.topictitle} + '/' + ${topicData.imagepath} }" 
                 alt="Failed to load image">
               </div>

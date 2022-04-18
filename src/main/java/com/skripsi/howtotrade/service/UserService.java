@@ -31,4 +31,8 @@ public class UserService {
     public String getOldPassword(String userName){
         return userMapper.getOldPassword(userName);
     }
+
+    public void changeProfile(String imagePath, int userId){
+        userMapper.changeProfile(imagePath, userId);
+    }
 }

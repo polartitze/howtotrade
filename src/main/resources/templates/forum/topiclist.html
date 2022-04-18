@@ -43,14 +43,17 @@
                                   </div>
                               </div>
                           </div>
-                          <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post">
+                          <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post" enctype="multipart/form-data">
                             <div class="panel">
                               <div class="panel-body p-3">
                                 <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Your title"></input>
                                 <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it"></textarea>
                                 <div class="mar-top clearfix">
                                   <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
-                                  <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                                  <label class="btn btn-trans btn-icon fa fa-camera add-tooltip" for="inputImage">
+		                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" style="opacity: 0;"/>
+		                          </label>
+		                          <div class="alert alert-danger" id="alert" style="display: none;">Maksimal file 1MB</div>
                                 </div>
                               </div>
                             </div>
@@ -67,33 +70,36 @@
                   <h5>
                     <a th:href="@{'/topic/'+${topic.topicid}}" class="text-dark" th:text="${topic.topictitle}"></a>
                   </h5>
-                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#" th:text="${topic.createddate}"></a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#" th:text="${topic.createddate}"></a>
+                    <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
                   <p th:text="${topic.description}"></p>
-                  <div th:if="${topic.imagepath} != '-' OR ${topicData.imagepath} != NULL">
-	                <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }" 
-	                alt="Failed to load image">
-	              </div>
+                  <div th:if="${topic.imagepath} != '-'">
+                    <img class="img-thumbnail"
+                      th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }"
+                      alt="Failed to load image">
+                  </div>
                 </div>
                 
-                <div class="col-1 text-center"  th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
-                	<div class="align-item-center">
-                    	<a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
-	                    	<button type="button" class="btn btn-danger btn-floating">
-							  <i class="fa fa-trash"></i>
-							</button>
-                    	</a>
-                    </div>
-                </div>    
+                <div class="col-1 text-center" th:each="authority : ${#authentication.getAuthorities()}"
+                  th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
+                  <div class="align-item-center">
+                    <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
+                      <button type="button" class="btn btn-danger btn-floating">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </a>
+                  </div>
+                </div>
                 
                 <div class="col-1 align-item-right">
-                	<a th:href="@{'/topic/'+${topic.topicid}}" style="text-decoration:none">
-                    	<div class="row align-item-center text-primary">
-                    		<button type="button" class="btn btn-primary btn-floating">
-							  <i class="fa fa-comments-o fa-lg my-auto"></i>
-                      		  <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
-							</button>
-                    	</div>
-                    </a>
+                  <a th:href="@{'/topic/'+${topic.topicid}}" style="text-decoration:none">
+                    <div class="row align-item-center text-primary">
+                      <button type="button" class="btn btn-primary btn-floating">
+                        <i class="fa fa-comments-o fa-lg my-auto"></i>
+                        <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
+                      </button>
+                    </div>
+                  </a>
                 </div>
                
                             
@@ -124,6 +130,14 @@
 				$('.add-new-topic').show();
 			});
 			
+		$("#inputImage").change(function(){
+	          if((this.files[0].size / 1024 / 1024) > 1){
+	              $("#alert").show();
+	          } 
+	          else{
+	             $("#alert").hide();
+	          } 
+	      });
 		}
 
 	</script>

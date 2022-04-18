@@ -24,14 +24,34 @@
     <div class="container mt-3">
         <div class="container ">
 	        <div class="card mb-1">
-	            <div class="wrapper py-5">
-			        <div class="profile" style="background-image: url(/assets/images/bryan.jpg)";>
-			            <div class="overlay">
+                <div class="row">
+                    <div class="col-md-3 col-3 text-center">
+                        <div class="alert alert-danger" id="alert" style="display: none;">Maksimal file 1MB</div>
+                    </div>
+                </div>
+                <!-- jika belum memiliki profile picture -->
+                <div class="wrapper py-5" th:if="${data.imagePath} == '-' ">
+			        <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg' ";>
+			            <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
 			                <div class="about d-flex flex-column">
 			                    <h5 class="user-name" th:text="${data.userName}"></h5>
 		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
+                                <label for="changeProfile">Change Picture</label>
+                                <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;">
 			                </div>
-			            </div>
+			            </form>
+			        </div>
+		    	</div>
+	            <div class="wrapper py-5" th:if="${data.imagePath} != '-' ">
+			        <div class="profile" th:style=" 'background-image: url(/assets/images/' + ${data.userName} + '/' + ${data.imagePath} + ')' ";>
+			            <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
+			                <div class="about d-flex flex-column">
+			                    <h5 class="user-name" th:text="${data.userName}"></h5>
+		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
+                                <label for="changeProfile">Change Picture</label>
+                                <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;">
+			                </div>
+			            </form>
 			        </div>
 		    	</div>
 	        </div>
@@ -59,7 +79,7 @@
                         <div class="row gutters mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-left">
-                                    <button type="button" class="btn btn-primary btn-changePassword">Change Password</button>
+                                    <button type="button" class="btn btn-outline-dark btn-changePassword">Change Password</button>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +113,7 @@
                     <div class="row gutters">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary btn-save">Save</button>
+                                <button type="submit" class="btn btn-outline-warning btn-save">Save</button>
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Save</button> -->
                             </div>
                         </div>
@@ -148,14 +168,27 @@
             $('#userEmail').val(hiddenUserEmail);
 
             $('.btn-changePassword').click(function(){
-                // $('#newPassword').attr('th:field','${profileForm.userPassword}');
                 $('#changePassword').show();
-                // $('.btn-save').addClass('btn-save-with-password');
                 $('.btn-save').attr('id','btn-save-with-password');
-                
                 checkPass();
             });
 
+            $("#changeProfile").change(function(){
+                if((this.files[0].size / 1024 / 1024) > 1){
+                    $("#alert").show();
+                } 
+                else{
+                    $("#profilepic").submit();
+                } 
+            });
+
+            // $('.overlay').click(function(){
+            //     $("#changeProfile").click();
+            // }).css("cursor", "pointer");
+
+            $('.overlay').on('click mouseover', function () {
+                $("#changeProfile").click();
+            }).css("cursor", "pointer");
 		}
 
         function checkPass() {

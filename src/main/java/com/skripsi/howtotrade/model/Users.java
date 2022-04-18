@@ -7,6 +7,15 @@ public class Users{
     private String userPassword;
     private int userRole;
     private String userStatus;
+    private String imagePath;
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public int getUserId() {
         return this.userId;

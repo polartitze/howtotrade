@@ -3,8 +3,6 @@ package com.skripsi.howtotrade.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.skripsi.howtotrade.mapper.UserMapper;
 import com.skripsi.howtotrade.model.Users;
 
@@ -16,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

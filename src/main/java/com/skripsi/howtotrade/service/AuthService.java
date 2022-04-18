@@ -1,12 +1,10 @@
 package com.skripsi.howtotrade.service;
 
-import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.skripsi.howtotrade.mapper.UserMapper;
-import com.skripsi.howtotrade.model.Users;
 
 @Service
 public class AuthService {

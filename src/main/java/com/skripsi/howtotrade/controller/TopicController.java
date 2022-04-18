@@ -56,7 +56,7 @@ public class TopicController {
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addNewTopic(Topic topic, Principal principal, @RequestParam("image") MultipartFile multipartFile) throws IOException{
+    public String addNewTopic(Topic topic, Principal principal, @RequestParam("image") MultipartFile multipartFile){
         String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
         String uploadDir = Constant.TOPIC_IMAGE_PATH + principal.getName() + "/topic/" + topic.getTopicTitle();
         
@@ -65,7 +65,13 @@ public class TopicController {
         } 
         else{
             topic.setImagePath(filename);
-            FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+            try {
+                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+                
+            } catch (IOException exception) {
+                System.out.println("File uploaded with error");
+                exception.printStackTrace();
+            }
         } 
 
         topic.setAuthorId(topicService.getUserId(principal.getName()));
@@ -99,7 +105,7 @@ public class TopicController {
     //BLOCK USER ON TOPIC PAGE
     @RequestMapping("/block/{username}")
     public String blockMember(@PathVariable String username){
-        topicService.blockMember(topicService.getUserId(username)); //FIXME: when authentication has been set, change into 'userLogged'
+        topicService.blockMember(topicService.getUserId(username));
         return "redirect:/topic/all";
     }
 }

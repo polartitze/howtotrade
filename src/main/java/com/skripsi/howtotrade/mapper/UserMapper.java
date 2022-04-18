@@ -42,4 +42,7 @@ public interface UserMapper {
 	
 	@Select("SELECT USERPASSWORD FROM USERS WHERE USERNAME = #{userName}")
     String getOldPassword(String userName);
+
+	@Update("UPDATE USERS SET imagePath = #{imagePath} WHERE USERID = #{userId}")
+	void changeProfile(@Param("imagePath") String imagePath, @Param("userId") int userId);
 }
