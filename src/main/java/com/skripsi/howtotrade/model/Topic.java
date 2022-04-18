@@ -2,13 +2,33 @@ package com.skripsi.howtotrade.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Topic extends Users{
     private int topicId;
     private String topicTitle;
     private String description;
     private Date createdDate;
-    private int authorId; // yg punya topic
+    private int authorId;
     private String userName;
+    private MultipartFile image;
+    private String imagePath;
+
+    public MultipartFile getImage() {
+        return this.image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imgPath) {
+        this.imagePath = imgPath;
+    }
 
     public String getUserName() {
         return this.userName;

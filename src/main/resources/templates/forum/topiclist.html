@@ -69,7 +69,10 @@
                   </h5>
                   <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#" th:text="${topic.createddate}"></a> <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
                   <p th:text="${topic.description}"></p>
-                  
+                  <div th:if="${topic.imagepath} != '-' OR ${topicData.imagepath} != NULL">
+	                <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }" 
+	                alt="Failed to load image">
+	              </div>
                 </div>
                 
                 <div class="col-1 text-center"  th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
