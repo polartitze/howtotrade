@@ -309,3 +309,15 @@
 .single-well p {
   color: #444;
 }
+
+/*--------------------------------------------------------------
+# INVEST PLAN BANNER (CALCULATOR)
+--------------------------------------------------------------*/
+.investplan_banner {
+  background-image: url("../assets/images/invest_calculator.jpg");
+  height: 35vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: -5px 10px 18px #888888;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 <head>
     
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
     <title>Profile</title>
     
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link href="assets/slider/css/bootstrap.min.css" rel="stylesheet">
@@ -18,137 +17,216 @@
 	
 	<script th:src="@{/assets/js/jquery.min.js}"></script>
 	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="account-settings">  
-                            <div class="user-profile">
-                                <div class="user-avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-                                </div>
-                                <!-- <h5 class="user-name" th:text="${data.userName}"></h5> -->
-                                <!-- <h6 class="user-email" th:text="${data.userEmail}"></h6> -->
-                            </div>
-                            <div class="about">
-                                <h5>About</h5>
-                                <p>Sekuy di hitung</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <form th:action="@{/calculator/save-calculation}" th:object="${calculatorForm}" method="post">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mb-2 text-primary">Hitung keuntungan mu!</h6>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="userName">Mau dapatin apa?</label>
-                                        <select class="form-select" id="jenisPerhitungan" th:field="${calculatorForm.jenisPerhitungan}">
-                                            <option value="00"></option>
-                                            <option value="10">Koin yang cocok untuk kamu</option>
-                                            <option value="20">Total investasi kamu di hari tua</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="param1">Total Investasi Yang Ingin Dicapai</label>
-                                        <input type="number" class="form-control" id="totalInvestasi" th:field="${calculatorForm.totalInvestasi}">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="param2">Koin</label>
-                                        <select class="form-select" id="koin" th:field="${calculatorForm.koin}">
-                                            <option value=""></option>
-                                            <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option> <!-- TODO: Manipulate dropdown from database coin  -->
-                                        </select>
+	
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+	<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+	<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+	<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="param3">Waktu</label>
-                                        <div>
-                                            <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.waktu}" >
-                                            <span>Tahun</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="param4">Jumlah Investasi per Bulan</label>
-                                        <input type="number" class="form-control" id="perBulan" th:field="${calculatorForm.perBulan}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-primary btn-calculate">Hitung</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gutters result">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-primary">
-                                        <!-- <h1>Hasil: <span id="score"></span></h1> -->
-                                        <h1>Hasil: <input type="text" id="score" readonly></h1>
-                                        <button type="submit" class="btn btn-primary btn-save">Save Result</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="card-body" >
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="text-primary">
-                                <button type="button" class="btn btn-primary btn-history">Riwayat</button>
-                            </div>
-                        </div>
-                    </div>
-                    <table id="table-history">
-                        <thead>
-                            <tr>
-                                <th> Target </th>
-                                <th> Waktu </th>
-                                <th> Coin </th>
-                                <th> Investasi Awal </th>
-                                <!-- TARGET, DURATION, COINCODE, CURRENTBALANCE -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:if="${history.empty}">
-                                <td colspan="2"> No Data Available </td>
-                            </tr>
-                            <tr th:each="list : ${history}">
-                                <td><span th:text="${list.target}"> </span></td>
-                                <td><span th:text="${list.duration}">  </span></td>
-                                <td><span th:text="${list.coincode}"> </span></td>
-                                <td><span th:text="${list.currentbalance}">  </span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+</head>
+<body style="background-color: #eee">
+	<div class="row gutters">
+    	<div class="">
+      		<div class="">
+        		<button onclick="history.back()" class="btn text-black">
+        			<i class="fa fa-arrow-left"></i>
+        		</button>
+      		</div>
+    	</div>
+  	</div>
+  <div class="investplan_banner"></div>
+  <div class="container-fluid">
+    <div class="">
+    	
+          
+      <form th:action="@{/calculator/save-calculation}" th:object="${calculatorForm}" method="post">
+        <section id="stats-subtitle">
+          <div class="row">
+            <div class="col-12 mt-3 mb-1 text-center text-black">
+              <h2 class="text-uppercase">Kalkulator Investasi</h2>
+              <p>Mulai Perhitungkan, Cicil Berinvestasi, dan Nikmati Hasilnya Kelak!</p>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-12">
+              <div class="card overflow-hidden">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-pencil primary font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Output Perhitungan</h4>
+                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="jenisPerhitungan" th:field="${calculatorForm.jenisPerhitungan}">
+                          <option value="00"></option>
+                          <option value="10">Koin yang cocok untuk kamu</option>
+                          <option value="20">Total investasi kamu di hari tua</option>
+                        </select>
+                      </div>
+                      <div class="align-self-center">
+                        <h1></h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-speech warning font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Total Investasi yang Diinginkan</h4>
+                        <input type="number" class="form-control" id="totalInvestasi" th:field="${calculatorForm.totalInvestasi}">
+                      </div>
+                      <div class="align-self-center">
+                        <h1></h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-heart danger font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Coin Pilihan</h4>
+                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}">
+                          <option value=""></option>
+                          <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option>
+                          <!-- TODO: Manipulate dropdown from database coin  -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-wallet success font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Waktu Investasi</h4>
+                        <div>
+                          <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.waktu}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-heart danger font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Jumlah Investasi Per Bulan</h4>
+                        <input type="number" class="form-control" id="perBulan" th:field="${calculatorForm.perBulan}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <div class="row gutters">
+          <div class="col-xl-12">
+            <div class="text-center">
+              <button type="button" class="btn btn-primary btn-calculate">Hitung</button>
+            </div>
+          </div>
+        </div>
+        <div class="row gutters result">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="text-primary">
+              <h1>Hasil: <input type="text" id="score" readonly>
+              </h1>
+              <button type="submit" class="btn btn-primary btn-save">Save Result</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="text-primary">
+                <button type="button" class="btn btn-primary btn-history">Riwayat</button>
+              </div>
+            </div>
+          </div>
+          <table id="table-history">
+            <thead>
+              <tr>
+                <th> Target </th>
+                <th> Waktu </th>
+                <th> Coin </th>
+                <th> Investasi Awal </th>
+                <!-- TARGET, DURATION, COINCODE, CURRENTBALANCE -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${history.empty}">
+                <td colspan="2"> No Data Available </td>
+              </tr>
+              <tr th:each="list : ${history}">
+                <td>
+                  <span th:text="${list.target}"></span>
+                </td>
+                <td>
+                  <span th:text="${list.duration}"></span>
+                </td>
+                <td>
+                  <span th:text="${list.coincode}"></span>
+                </td>
+                <td>
+                  <span th:text="${list.currentbalance}"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
     </div>
-
-	<!-- JAVASCRIPT CODE -->
-	<script type="text/javascript">
+    </form>
+  </div>
+  <div th:replace="fragments/logout :: logout">&nbsp;</div>
+  <script th:if="${#request.getParameter('error') == 'true'}">
+      $(document).ready(function(){
+          $('#loginModal').modal('show');
+      });
+    </script>
+					<!-- JAVASCRIPT CODE -->
+					<script type="text/javascript">
 		$(document).ready(function () {
-        /*<![CDATA[*/
+        /*
+						<![CDATA[*/
         // var contextPath = [[@{/}]];
         /*]]>*/
             var jenisPerhitungan;
@@ -210,6 +288,7 @@
             return retval;
         }
 		
-	</script>
+	
+					</script>
 </body>
 </html>

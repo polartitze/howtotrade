@@ -102,7 +102,9 @@
             <div th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${comment.username}">
               <a class="float-right ml-3"
                 th:href="@{'/topic/'+${comment.topicid}+'/comment/'+${comment.commentid}+'/delete'}">
-                <i class="fa fa-trash-o text-danger fa-lg align-middle"></i>
+                <button type="button" class="btn btn-danger">
+				  <i class="fa fa-trash"></i>
+				</button>
               </a>
             </div>
           </div>

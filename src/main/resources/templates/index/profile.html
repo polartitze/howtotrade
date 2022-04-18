@@ -56,7 +56,7 @@
                                 <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" required>
                             </div>
                         </div>
-                        <div class="row gutters">
+                        <div class="row gutters mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-left">
                                     <button type="button" class="btn btn-primary btn-changePassword">Change Password</button>
@@ -70,7 +70,7 @@
                                     <div class="alert alert-danger" id="oldPassAlert" style="display: none;"> </div>
                                 </div>
                             </div>
-                            <div class="container">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="password">Old Password</label>
                                     <input type="password" class="form-control" id="oldPassword" placeholder="Enter new password" name="oldPassword"/>
@@ -81,7 +81,7 @@
                                     <div class="alert alert-danger" id="passwordAlert" style="display: none;"> </div>
                                 </div>
                             </div>
-                            <div class="container">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="password">New Password</label>
                                     <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="newPassword"  onchange="checkPassword()" th:field="${profileForm.userPassword}"/>
@@ -196,7 +196,7 @@
             var pass = $("#newPassword").val();
             
             if (pass.length < 6 || pass.length > 50){
-                $("#passwordAlert").html("Password must be at 6-50 characters!");
+                $("#passwordAlert").html("New Password must be at 6-50 characters!");
                 $("#passwordAlert").show();
                             }
             else {

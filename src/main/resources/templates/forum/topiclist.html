@@ -24,7 +24,10 @@
         <!-- Main content -->
           <div class="col-lg-12 mb-3">
               <div class="my-5" sec:authorize="isAnonymous()"></div>
-              <button class="btn btn-lg btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">Add New Topic</button>
+              <button class="btn btn-lg btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">
+              		<i class="fa fa-plus mr-2"></i>
+              		<span>Tambah Topik<span>
+              </button>
               
             <div class="container-fluid mt-100 add-new-topic" sec:authorize="isAuthenticated()">
             
@@ -48,8 +51,6 @@
                                 <div class="mar-top clearfix">
                                   <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
                                   <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-                                  <!-- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a> -->
-                                  <!-- <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a> -->
                                 </div>
                               </div>
                             </div>
@@ -70,23 +71,32 @@
                   <p th:text="${topic.description}"></p>
                   
                 </div>
-                <div class="col-md-1" style="left:50px">
-                    <div class="px-1 row align-item-center text-primary">
-                      <i class="fa fa-comments-o fa-lg my-auto"></i> 
-                      <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
-                    </div>
-                </div>
-               
-                <div class="col-md-1 text-center"  th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
-                	<div class="px-1 align-item-center">
+                
+                <div class="col-1 text-center"  th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
+                	<div class="align-item-center">
                     	<a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
-	                    	<i class="fa fa-trash-o text-danger fa-lg"></i>
+	                    	<button type="button" class="btn btn-danger btn-floating">
+							  <i class="fa fa-trash"></i>
+							</button>
                     	</a>
                     </div>
+                </div>    
+                
+                <div class="col-1 align-item-right">
+                	<a th:href="@{'/topic/'+${topic.topicid}}" style="text-decoration:none">
+                    	<div class="row align-item-center text-primary">
+                    		<button type="button" class="btn btn-primary btn-floating">
+							  <i class="fa fa-comments-o fa-lg my-auto"></i>
+                      		  <span class="text-xl ml-2 align-self-center" th:text="${topic.countcomment}"></span>
+							</button>
+                    	</div>
+                    </a>
                 </div>
-                
-                
+               
+                            
               </div>
+              
+              
             </div>
             
           </div>
