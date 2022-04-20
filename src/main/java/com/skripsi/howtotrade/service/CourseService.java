@@ -29,7 +29,9 @@ public class CourseService {
 	private List<Activity> getCourseActivity(int courseId) {
 		List<Activity> activityList = mapper.getAllCourseActivity(courseId);
 		for (Activity activity : activityList) {
-			activity.setQuestion(mapper.getQuestion(activity.getActivityId()));			
+			if(activity.isIsquestion()) {
+				activity.setQuestion(mapper.getQuestion(activity.getActivityId()));
+			}
 		}
 		return activityList;
 	}

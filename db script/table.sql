@@ -38,7 +38,7 @@ drop table if exists question;
 create table question(
 	questionid serial primary key,
 	quizid int,
-	actionid int,
+	activityid int,
 	stepno int not null,
 	questiondesc character varying(500),
 	correctanswer int not null,
@@ -56,8 +56,9 @@ create table activity(
 	courseid int,
 	stepno int,
 	activitytypeid int,
-	name character varying(100),
-	imageUrl character varying(500)
+	activitydesc character varying(100),
+	imageUrl character varying(500),
+	isquestion boolean
 );
 
 drop table if exists activity_type;

@@ -4,9 +4,10 @@ public class Activity {
 
 	int activityId;
 	int stepNo;
-	int activityType;
-	String activityName;
-	String imageURL;
+	String activityType;
+	String activityDesc;
+	String imageUrl;
+	boolean isquestion;
 	Question question;
 	
 	
@@ -22,23 +23,29 @@ public class Activity {
 	public void setStepNo(int stepNo) {
 		this.stepNo = stepNo;
 	}
-	public int getActivityType() {
+	public String getActivityType() {
 		return activityType;
 	}
-	public void setActivityType(int activityType) {
+	public void setActivityType(String activityType) {
 		this.activityType = activityType;
 	}
-	public String getActivityName() {
-		return activityName;
+	public String getActivityDesc() {
+		return activityDesc;
 	}
-	public void setActivityName(String activityName) {
-		this.activityName = activityName;
+	public void setActivityName(String activityDesc) {
+		this.activityDesc = activityDesc;
 	}
-	public String getImageURL() {
-		return imageURL;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImageURL(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public boolean isIsquestion() {
+		return isquestion;
+	}
+	public void setIsquestion(boolean isquestion) {
+		this.isquestion = isquestion;
 	}
 	public Question getQuestion() {
 		return question;

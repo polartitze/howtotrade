@@ -10,7 +10,6 @@ public class Quiz {
 	String quizDesc;
 	List<Question> questionList;
 	boolean isEnroll;
-	List<Map<String, String>> scoreList;
 	int finalScore;
 	String imageUrl;
 	
@@ -49,12 +48,6 @@ public class Quiz {
 	}
 	public void setEnroll(boolean isEnroll) {
 		this.isEnroll = isEnroll;
-	}
-	public List<Map<String, String>> getScoreList() {
-		return scoreList;
-	}
-	public void setScoreList(List<Map<String, String>> scoreList) {
-		this.scoreList = scoreList;
 	}
 	public int getFinalScore() {
 		return finalScore;

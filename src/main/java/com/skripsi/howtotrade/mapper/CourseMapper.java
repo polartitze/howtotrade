@@ -21,7 +21,9 @@ public interface CourseMapper {
 	@Select("SELECT * FROM course WHERE courseid = #{courseId}")
 	Course getCourseById(int courseId);
 	
-	@Select("SELECT * FROM activity where courseId = #{courseId}")
+	@Select("SELECT a.*, at.name as activitytype FROM activity a "
+			+ "JOIN activity_type at ON at.id = a.activitytypeid "
+			+ "WHERE courseId = #{courseId}")
 	List<Activity> getAllCourseActivity(int courseId);
 	
 	@Select("SELECT * FROM question where activityId = #{activityId}")

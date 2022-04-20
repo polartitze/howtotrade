@@ -26,12 +26,10 @@ public class QuizService {
 		return quiz;
 	}
 	
-	public Quiz checkAnswer(Quiz quiz, int userId) {
-		int score = countScore(quiz);
+	public void finishQuiz(int quizId, int userId, int score) {
 		
-		quiz.setFinalScore(score);
-		mapper.saveQuizEnroll(userId, quiz.getQuizId(), score);
-		return quiz;
+		mapper.saveQuizEnroll(userId, quizId, score);
+		return;
 	}
 	
 	public int countScore(Quiz quiz) {
@@ -43,5 +41,9 @@ public class QuizService {
 			}
 		}
 		return score;
+	}
+	
+	public void saveQuizEnroll(int quizId, int userId, int score) {
+		mapper.saveQuizEnroll(userId, quizId, score);
 	}
 }

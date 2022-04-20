@@ -10,7 +10,7 @@
 	<title>Quiz</title>
 </head>
 <body>
-	<div>
+	<div class="quiz">
 		<div class="quiz-container" id="quiz">
 			<div class="quiz-header">
 				<img class="col-md-12" id="question_img" alt="Gambar Pertanyaan">
@@ -38,11 +38,19 @@
 	
 				</ul>
 			</div>
-			<button id="back">Back</button>
-			<button id="next">Next</button>
-			
+			<button id="back-btn">Back</button>
+			<button id="next-btn">Next</button>
+			<button id="finish-btn" style="display: none;">Finish</button>		
 		</div>
 	</div>
+	
+	<div id="quiz-modal" class="modal">
+		<div class="modal-content">
+			<h2 class="modal-text"></h2>
+			<a th:href="@{'/course/all'}" >Continue</button>		
+		</div>
+	</div>
+	
 </body>
 
 <script th:inline="javascript">
@@ -54,8 +62,10 @@
 	const b_text = document.getElementById('b_text');
 	const c_text = document.getElementById('c_text');
 	const d_text = document.getElementById('d_text');
-	const nextBtn = document.getElementById('next')
-	const backBtn = document.getElementById("back")
+	const nextBtn = document.getElementById('next-btn')
+	const backBtn = document.getElementById("back-btn")
+	const finishBtn = document.getElementById("finish-btn")
+	const modal = document.getElementById("quiz-modal");
 	
 	let quizData = /*[[${quizData}]]*/ 'default';
 	let currentQuiz = 0;
@@ -63,6 +73,7 @@
 	loadQuiz();
 	nextBtn.onclick = function() {next()};
 	backBtn.onclick = function() {back()};
+	finishBtn.onclick = function() {finish()};	
 	
 	function loadQuiz() {
 		
@@ -74,7 +85,6 @@
 
 	    questionEl.innerText = currentQuizData.questionDesc;
 		questionImg.src = currentQuizData.imageUrl;
-		console.log(currentQuizData.imageUrl)
 	    a_text.innerText = currentQuizData.choiceOne;
 	    b_text.innerText = currentQuizData.choiceTwo;
 	    c_text.innerText = currentQuizData.choiceThree;
@@ -108,6 +118,7 @@
 		if(currentQuiz == quizData.questionList.length-1){
 	    	nextBtn.style.display = "none"
 	    	backBtn.style.display = "block"
+	    	finishBtn.style.display = "block"
 	    } else if(currentQuiz == 0){
 	    	backBtn.style.display = "none"
 	    	nextBtn.style.display = "block"
@@ -128,6 +139,22 @@
        	currentQuiz--;
        	loadQuiz();        
     };
+    
+    function finish(){
+    	quizData.questionList[currentQuiz].userAnswer = getSelected()
+    	quizData.finalScore = 0;
+    	for (let i = 0; i < quizData.questionList.length; i++) {
+			if(quizData.questionList[i].userAnswer == quizData.questionList[i].correctAnswer) {
+				quizData.finalScore++;
+    		}
+		}
+    	
+    	modal.style.display = "block";
+    	
+    	$("#quiz-modal .modal-text").text(` You answered ${quizData.finalScore}/${quizData.questionList.length} questions correctly `);
+    	
+    	
+    }
     
 </script>
 

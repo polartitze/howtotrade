@@ -1,13 +1,185 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/css/course.css">
+<link rel="stylesheet" type="text/css" href="/css/quiz.css">
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>	
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Course</title>
 </head>
 <body>
-
+	<div class="quiz">
+		<div class="quiz-container" id="quiz">
+			<div class="quiz-header">
+				<div class="col-md-12" id="activity-container" alt="Chart course">
+				<img id="activity-image"></img>
+				<div id="activity-chart"></div>
+				<h2 id="activity-desc"></h2>
+				<div id="question-container">
+					<h2 id="question-desc"></h2>
+					<ul>
+						<li>
+							<input type="radio" name="answer" id="1" class="answer">
+							<label for="a" id="a_text"></label>
+						</li>
+		
+						<li>
+							<input type="radio" name="answer" id="2" class="answer">
+							<label for="b" id="b_text"></label>
+						</li>
+		
+						<li>
+							<input type="radio" name="answer" id="3" class="answer">
+							<label for="c" id="c_text"></label>
+						</li>
+		
+						<li>
+							<input type="radio" name="answer" id="4" class="answer">
+							<label for="d" id="d_text"></label>
+						</li>
+		
+					</ul>
+				</div>
+			</div>
+			<button id="back-btn">Back</button>
+			<button id="next-btn">Next</button>
+			<button id="finish-btn" style="display: none;">Finish</button>		
+		</div>
+	</div>
+	
+	<div id="course-modal" class="modal">
+		<div class="modal-content">
+			<h2 class="modal-text"></h2>
+			<a th:href="@{'/course/all'}" >Continue</button>		
+		</div>
+	</div>
+	
 </body>
+<script th:inline="javascript">
+	const answerEls = document.querySelectorAll('.answer');
+	const activityChart = document.getElementById('activity-chart');
+	const activityImg = document.getElementById('activity-image');
+	const activityDesc = document.getElementById('activity-desc');
+	const questionDesc = document.getElementById('question-desc');
+	const questionContainer = document.getElementById('question-container');
+	const a_text = document.getElementById('a_text');
+	const b_text = document.getElementById('b_text');
+	const c_text = document.getElementById('c_text');
+	const d_text = document.getElementById('d_text');
+	const nextBtn = document.getElementById('next-btn')
+	const backBtn = document.getElementById("back-btn")
+	const finishBtn = document.getElementById("finish-btn")
+	const modal = document.getElementById("course-modal");
+	
+	let courseData = /*[[${courseData}]]*/ 'default';
+	let currentActivity = 0;
+	
+	loadCourse();
+	nextBtn.onclick = function() {next()};
+	backBtn.onclick = function() {back()};
+	finishBtn.onclick = function() {finish()};
+	
+	function loadCourse() {
+		let currentActivityData = courseData.activityList[currentActivity];
+		
+		deselectAnswers()
+		
+		if(currentActivityData.activityType == "chart"){
+			activityChart.style.display = "block";
+			activityImg.style.display = "none";
+		}else if(currentActivityData.activityType == "picture"){
+			activityChart.style.display = "none";
+			activityImg.style.display = "block";
+			activityImg.src = currentActivityData.imageUrl;
+		}else if(currentActivityData.activityType == "text"){
+			activityChart.style.display = "none";
+			activityImg.style.display = "none";
+		}
+		
+		activityDesc.innerText = currentActivityData.activityDesc;
+		
+		
+		if(currentActivityData.isquestion){
+			questionContainer.style.display = "block";
+			
+			selectAnswers(currentActivityData.userAnswer)
+	
+		    questionDesc.innerText = currentActivityData.question.questionDesc;
+		    a_text.innerText = currentActivityData.question.choiceOne;
+		    b_text.innerText = currentActivityData.question.choiceTwo;
+		    c_text.innerText = currentActivityData.question.choiceThree;
+		    d_text.innerText = currentActivityData.question.choiceFour;
+			
+		} else {
+			questionContainer.style.display = "none";
+		}
+	    
+	    displayBtn();
+	}
+	
+	function deselectAnswers() {
+	    answerEls.forEach(answerEl => answerEl.checked = false)
+	}
+	
+	function selectAnswers(userAnswer) {
+	    if(userAnswer > 0){
+	    	answerEls[userAnswer-1].checked = true
+	    }
+	}
+	
+
+	function getSelected() {
+	    let answer
+	    answerEls.forEach(answerEl => {
+	        if(answerEl.checked) {
+	            answer = answerEl.id
+	        }
+	    })
+	    return answer
+	}
+
+	function displayBtn(){
+		if(currentActivity == courseData.activityList.length-1){
+	    	nextBtn.style.display = "none"
+	    	backBtn.style.display = "block"
+	    	finishBtn.style.display = "block"
+	    } else if(currentActivity == 0){
+	    	backBtn.style.display = "none"
+	    	nextBtn.style.display = "block"
+	    } else {
+	    	nextBtn.style.display = "block"
+	    	backBtn.style.display = "block"
+	    }
+	}
+	
+	function saveAnswer(){
+		if(courseData.activityList[currentActivity].isquestion){
+			courseData.activityList[currentActivity].question.userAnswer = getSelected();			
+		}
+	}
+	function next(){
+		saveAnswer();
+		currentActivity++;
+       	loadCourse();
+       	
+    };
+    function back(){
+    	saveAnswer();
+    	currentActivity--;
+       	loadCourse();        
+    };
+    
+    function finish(){
+    	saveAnswer()
+    	
+    	modal.style.display = "block";
+    	
+    	$("#course-modal .modal-text").text(` You finish the course `);
+    	
+    	
+    }
+	
+</script>
 </html>

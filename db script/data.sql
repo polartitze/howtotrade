@@ -15,16 +15,23 @@ values
 	'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1378&q=80');
 	
 delete from question;
-
 insert into question
 values
 (1, 1, 1, 1, 'Quiz 1 Question 1', 1, null, 'Choice 1', 'Choice 2', 'Choice 3', 'Choice 4', 
 	'https://canopylab.com/wp-content/uploads/2020/05/Working-with-adaptive-quizzes-A-beginners-guide.jpg'),
 (2, 1, 2, 2, 'Quiz 1 Question 2', 1, null, 'Choice 1', 'Choice 2', 'Choice 3', 'Choice 4', 
 	'https://canopylab.com/wp-content/uploads/2020/05/Working-with-adaptive-quizzes-A-beginners-guide.jpg'),
-(3, 1, 3, 3, 'Saham apakah ini?', 2, 'BSML', 'DEWA', 'TAMA', 'GOTO',  
+(3, 1, 3, 3, 'Saham apakah ini?', 2, null, 'BSML', 'DEWA', 'TAMA', 'GOTO',  
 	'https://facsekuritas.co.id/storage/media/original/dewa.jpg');
 
+delete from activity_type;
+insert into activity_type 
+values (1, 'chart'), (2, 'picture'), (3, 'text');
+
+INSERT INTO public.activity
+VALUES 
+(1, 1, 1, 2, 'Halo semua, selamat datang di howtotrade :D', 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80', 'y'),
+(2, 1, 2, 2, 'Pada course kali ini kita akan mempelajari mengenai analisa teknikal dan cara membaca chart', 'https://wallpaperaccess.com/full/4040865.jpg', 'n');
 
 DELETE FROM ROLES;
 INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN');
