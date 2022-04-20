@@ -24,7 +24,7 @@
         <!-- Main content -->
           <div class="col-lg-12 mb-3">
               <div class="my-5" sec:authorize="isAnonymous()"></div>
-              <button class="btn btn-lg btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">
+              <button class="btn btn-md btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">
               		<i class="fa fa-plus mr-2"></i>
               		<span>Tambah Topik<span>
               </button>
@@ -70,8 +70,8 @@
                   <h5>
                     <a th:href="@{'/topic/'+${topic.topicid}}" class="text-dark" th:text="${topic.topictitle}"></a>
                   </h5>
-                  <p class="text-sm"><span class="op-6"></span> <a class="text-black" href="#" th:text="${topic.createddate}"></a>
-                    <span class="op-6">ago by</span> <a class="text-black" href="#" th:text="${topic.username}"></a></p>
+                  <p class="text-sm"><span class="op-6"></span> <span class="text-primary" th:text="${topic.createddate}"></span>
+                    <span class="op-6">ago by</span> <span class="text-primary" th:text="${topic.username}"></span></p>
                   <p th:text="${topic.description}"></p>
                   <div th:if="${topic.imagepath} != '-'">
                     <img class="img-thumbnail"
