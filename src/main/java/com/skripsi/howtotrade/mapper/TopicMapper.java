@@ -50,7 +50,7 @@ public interface TopicMapper {
 
     @Select("SELECT T.*, "
     + "	U.USERNAME, "
-    + "	TO_CHAR(T.CREATEDDATE,'DD Mon YYYY hh24:mm') AS POSTED , "
+    + "	TO_CHAR(T.CREATEDDATE,'DD Mon YYYY hh24:mi') AS POSTED , "
     + "		CASE  "
     + "		WHEN (DATE_PART('day', CURRENT_TIMESTAMP - T.CREATEDDATE)) > 0 "
     + "			THEN CONCAT(DATE_PART('day', CURRENT_TIMESTAMP - T.CREATEDDATE), ' day ago') "
@@ -73,7 +73,7 @@ public interface TopicMapper {
     + "WHERE topicId = #{id}")
     HashMap<String,String> getTopicById(int id);
 
-    @Select("SELECT C.*, U.*, TO_CHAR(C.CREATEDDATE,'DD Mon YYYY hh24:mm') AS POSTED FROM COMMENT C LEFT JOIN USERS U ON U.USERID = C.USERID WHERE C.topicId = #{id} "
+    @Select("SELECT C.*, U.*, TO_CHAR(C.CREATEDDATE,'DD Mon YYYY hh24:mi') AS POSTED FROM COMMENT C LEFT JOIN USERS U ON U.USERID = C.USERID WHERE C.topicId = #{id} "
     + "ORDER BY C.CREATEDDATE DESC")
     List<HashMap<String, String>> getCommentOnTopic(int id);
 
