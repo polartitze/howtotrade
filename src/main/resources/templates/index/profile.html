@@ -37,7 +37,7 @@
 			                    <h5 class="user-name" th:text="${data.userName}"></h5>
 		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
                                 <label for="changeProfile">Change Picture</label>
-                                <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;">
+                                <input type="file" name="image"  accept="image/png, image/jpeg" id="changeProfile" class="inputFile" style="opacity: 0;">
 			                </div>
 			            </form>
 			        </div>
@@ -179,6 +179,7 @@
                 } 
                 else{
                     $("#profilepic").submit();
+                    return;
                 } 
             });
 

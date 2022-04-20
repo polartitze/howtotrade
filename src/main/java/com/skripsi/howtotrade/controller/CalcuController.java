@@ -1,5 +1,7 @@
 package com.skripsi.howtotrade.controller;
 
+import java.security.Principal;
+
 import com.skripsi.howtotrade.model.Calculator;
 import com.skripsi.howtotrade.service.CalcuService;
 
@@ -18,12 +20,11 @@ public class CalcuController {
     private CalcuService calcuService;
 
     @RequestMapping("")
-    private String page(Model model){
+    private String page(Model model, Principal principal){
         System.out.println("================: "+calcuService.getAllCoin());
         model.addAttribute("listCoin", calcuService.getAllCoin());
         model.addAttribute("calculatorForm", new Calculator());
-        //FIXME: when authentication has been set, change into 'userLogged'
-        model.addAttribute("history", calcuService.checkInvestmentData("alvin")); //doesnt show up on the first load
+        model.addAttribute("history", calcuService.checkInvestmentData(principal.getName()));
         return "calculator/investplan" ;
     }
 
