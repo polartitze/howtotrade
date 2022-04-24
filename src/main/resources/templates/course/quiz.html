@@ -38,9 +38,9 @@
 	
 				</ul>
 			</div>
-			<button id="back-btn">Back</button>
-			<button id="next-btn">Next</button>
-			<button id="finish-btn" style="display: none;">Finish</button>		
+			<button id="back-btn" class="btn-floating">Back</button>
+			<button id="next-btn" class="btn-floating float-right">Next</button>
+			<button id="finish-btn" style="display: none;" class="float-right">Finish</button>		
 		</div>
 	</div>
 	
@@ -117,14 +117,25 @@
 	function displayBtn(){
 		if(currentQuiz == quizData.questionList.length-1){
 	    	nextBtn.style.display = "none"
-	    	backBtn.style.display = "block"
-	    	finishBtn.style.display = "block"
+	    	backBtn.style.display = "inline"
+	    	finishBtn.style.display = "inline"
+	    	backBtn.style.borderRadius = "0px"
+	    	finishBtn.style.borderRadius = "0px"
+	    	nextBtn.style.width = "50%"
+	    	backBtn.style.borderRight = "2px white"
 	    } else if(currentQuiz == 0){
 	    	backBtn.style.display = "none"
-	    	nextBtn.style.display = "block"
+	    	nextBtn.style.display = "inline"
+	    	finishBtn.style.display = "none"
+	    	nextBtn.style.width = "100%"
 	    } else {
-	    	nextBtn.style.display = "block"
-	    	backBtn.style.display = "block"
+	    	nextBtn.style.display = "inline"
+	    	nextBtn.style.borderRadius = "0px"
+	    	backBtn.style.display = "inline"
+	    	backBtn.style.borderRadius = "0px"
+	    	finishBtn.style.display = "none"
+	    	nextBtn.style.width = "50%"
+	    	backBtn.style.borderTop = "2px white"
 	    }
 	}
 	
