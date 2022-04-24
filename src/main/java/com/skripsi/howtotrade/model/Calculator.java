@@ -4,25 +4,10 @@ public class Calculator {
     private String jenisPerhitungan;
     private String totalInvestasi;
     private String koin;
-    private int waktu;
-    private int perBulan;
+    private String waktu;
+    private String perBulan;
     private String flag;
-
-    public String getFlag() {
-        return this.flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
-
-    public int getPerBulan() {
-        return this.perBulan;
-    }
-
-    public void setPerBulan(int perBulan) {
-        this.perBulan = perBulan;
-    }
+    private String results;
 
     public String getJenisPerhitungan() {
         return this.jenisPerhitungan;
@@ -48,12 +33,37 @@ public class Calculator {
         this.koin = koin;
     }
 
-    public int getWaktu() {
+    public String getWaktu() {
         return this.waktu;
     }
 
-    public void setWaktu(int waktu) {
+    public void setWaktu(String waktu) {
         this.waktu = waktu;
     }
 
+    public String getPerBulan() {
+        return this.perBulan;
+    }
+
+    public void setPerBulan(String perBulan) {
+        this.perBulan = perBulan;
+    }
+
+    public String getFlag() {
+        return this.flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getResults() {
+        return this.results;
+    }
+
+    public void setResults(String results) {
+        this.results = results;
+    }
+
+  
 }

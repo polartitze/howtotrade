@@ -4,10 +4,12 @@ import java.security.Principal;
 
 import com.skripsi.howtotrade.model.Calculator;
 import com.skripsi.howtotrade.service.CalcuService;
+import com.skripsi.howtotrade.utility.Constant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,58 +31,58 @@ public class CalcuController {
     }
 
     @RequestMapping("/save-calculation")
-    private String saveResult(Model model, Calculator calc){
-        
+    private String saveResult(Model model, Calculator calc, Principal principal){
+        System.out.println("===========SAVE RESULT===============");
         System.out.println("calc.jenisPerhitungan: "+calc.getJenisPerhitungan());
         System.out.println("calc.totalInvestasi: "+calc.getTotalInvestasi());
         System.out.println("calc.koin: "+calc.getKoin());
         System.out.println("calc.waktu: "+calc.getWaktu());
         System.out.println("calc.perBulan: "+calc.getPerBulan());
+        System.out.println("calc.getResult(): "+calc.getResults());
 
-        calcuService.saveResult(calc);
+        if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
+            calc.setTotalInvestasi("-");
+        }
+        else if("".equals(calc.getKoin()) || calc.getKoin() == null){
+            calc.setKoin("-");
+        }
+        calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
+        calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
+        
+        calcuService.saveResult(calc, principal.getName());
 
         return "redirect:/calculator" ;
     }
 
     @ResponseBody
     @RequestMapping("/calculate-result")
-    private Double calculateResult(Model model, 
+    private String calculateResult(Model model, 
         @RequestParam("jenisPerhitungan") String jenisPerhitungan,
         @RequestParam("totalInvestasi") String totalInvestasi,
         @RequestParam("koin") String koin,
         @RequestParam("waktu") int waktu,
         @RequestParam("perBulan") int perBulan){
-
+            
+        String retval = "";
         System.out.println("jenisPerhitungan: "+jenisPerhitungan);
         System.out.println("totalInvestasi: "+totalInvestasi);
         System.out.println("koin: "+koin);
         System.out.println("waktu: "+waktu);
         System.out.println("perBulan: "+perBulan);
 
-        Double retval;
-        retval = calcuService.calculateResult(jenisPerhitungan, totalInvestasi, koin, waktu, perBulan);
-        System.out.println("==========retval: "+retval);
+        if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
+            retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
+        }
+        else if(Constant.HITUNG_TOTAL_INVESTASI.equals(jenisPerhitungan)){
+            retval = String.valueOf(calcuService.calcTotalInvestment(koin, waktu, perBulan));
+        }
+        System.out.println("==========HASIL PERHITUNGAN: "+retval);
         return retval;
     }
 
-    // @ResponseBody
-    // @RequestMapping("/get-history")
-    // private Double getHistory(Model model, 
-    //     @RequestParam("jenisPerhitungan") String jenisPerhitungan,
-    //     @RequestParam("totalInvestasi") String totalInvestasi,
-    //     @RequestParam("koin") String koin,
-    //     @RequestParam("waktu") int waktu,
-    //     @RequestParam("perBulan") int perBulan){
-
-    //     System.out.println("jenisPerhitungan: "+jenisPerhitungan);
-    //     System.out.println("totalInvestasi: "+totalInvestasi);
-    //     System.out.println("koin: "+koin);
-    //     System.out.println("waktu: "+waktu);
-    //     System.out.println("perBulan: "+perBulan);
-
-    //     Double retval;
-    //     retval = calcuService.calculateResult(jenisPerhitungan, totalInvestasi, koin, waktu, perBulan);
-    //     System.out.println("==========retval: "+retval);
-    //     return retval;
-    // }
+    @RequestMapping("/delete/{planningId}")
+    private String page(Model model, Principal principal, @PathVariable int planningId){
+        calcuService.deletePlanning(planningId);
+        return "redirect:/calculator" ;
+    }
 }

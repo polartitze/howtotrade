@@ -132,3 +132,12 @@ alter table comment alter column createddate type TIMESTAMP;
 alter table topic add column imagepath varchar(65) default '-';
 
 alter table users add column imagepath varchar(65) default '-';
+
+alter table investmentplanning add column calcType varchar(20);
+alter table investmentplanning add column result varchar(255);
+alter table investmentplanning add column createddate timestamp;
+alter table investmentplanning add column coincode varchar(20) default '-';
+alter table investmentplanning alter column duration type varchar(20);
+alter table investmentplanning alter column currentbalance type varchar(20);
+alter table investmentplanning drop column target;
+alter table investmentplanning add column target varchar(50) default '-';
