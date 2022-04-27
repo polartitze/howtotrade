@@ -10,7 +10,7 @@ import com.skripsi.howtotrade.model.Users;
 
 @Mapper
 public interface UserMapper {
-	@Select("SELECT 1 FROM USERS WHERE USERNAME = #{username}")
+	@Select("SELECT USERSTATUS FROM USERS WHERE USERNAME = #{username}")
 	String getUser(String username);
 	
 	@Select("SELECT 1 FROM USERS WHERE USERNAME = #{username} AND USERPASSWORD = #{password}")

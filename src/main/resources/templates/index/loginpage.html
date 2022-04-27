@@ -86,6 +86,29 @@
         $(document).ready(function(){
             // location.reload();
             $(".alert").show();
+            var result;
+          //  $("").click(function(){
+            
+	            $.ajax({
+					type: "GET",
+					url: "/user/check" + username,
+					async: false,
+					success: function(response) {
+						if (response == "Blokir") {
+							$("#usernameAlert").html("User Anda Terblokir!");
+							$("#usernameAlert").show();
+							result = false;
+						}
+						else {
+							$("#usernameAlert").hide();
+							result = true;
+						}
+					}
+				});
+            
+          //  });
+			
+			
         });
       </script>
       

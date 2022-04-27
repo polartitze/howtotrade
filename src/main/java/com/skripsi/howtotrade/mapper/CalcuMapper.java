@@ -28,7 +28,9 @@ public interface CalcuMapper {
 
     @Insert("INSERT INTO INVESTMENTPLANNING(USERID, TARGET, DURATION, COINID, CURRENTBALANCE, CALCTYPE, RESULT, CREATEDDATE, COINCODE) "
         + "VALUES (#{userId}, #{totalInvestasi}, #{waktu}, null, #{perBulan}, #{jenisPerhitungan}, #{results}, CURRENT_TIMESTAMP, #{koin})")
-    void insertCalculate(String totalInvestasi, String waktu, String perBulan, String jenisPerhitungan, String results, String koin, int userId);
+    void insertCalculate(@Param("totalInvestasi") String totalInvestasi, @Param("waktu") String waktu, @Param("perBulan") String perBulan
+    		, @Param("jenisPerhitungan") String jenisPerhitungan, @Param("results") String results, @Param("koin") String koin, 
+    		@Param("userId") int userId);
 
     @Select("SELECT TO_CHAR(IP.CREATEDDATE,'DD Mon YYYY hh24:mi') AS CREATED, IP.*, "
         + "CASE WHEN IP.CALCTYPE = '10_COIN' THEN 'Koin yang cocok untuk kamu' "

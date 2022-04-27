@@ -11,11 +11,12 @@ public class AuthService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public boolean isUsernameExist(String username) {
+	public String isUsernameExist(String username) {
 		System.out.println("Cheking username...");
-		String exist = userMapper.getUser(username);
-		if (exist != null) return true;
-		return false;
+		String status = userMapper.getUser(username);
+		if (status.equals("0")) return "Blokir";
+		else if (status.equals("1")) return "Aktif";
+		else return "TidakTerdaftar";
 	}
 
 	public boolean checkPassword(String username, String password){
@@ -29,7 +30,7 @@ public class AuthService {
 
 	
 	public boolean insertUser(String username, String password, int userRole) {
-		if(isUsernameExist(username)){
+		if(!isUsernameExist(username).equals("TidakTerdaftar")){
 			System.out.println("Username exist!...");
 			return false;
 		}

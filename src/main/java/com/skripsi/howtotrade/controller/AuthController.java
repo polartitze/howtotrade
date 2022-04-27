@@ -72,15 +72,12 @@ public class AuthController {
 			return "redirect:/user/add?success=false";
 		}
 	}
-	//
+
 	@ResponseBody
 	@RequestMapping(value = "/user/check/{username}", method = RequestMethod.GET)
 	public  String checkUsername(@PathVariable("username") String username) {
 		System.out.println("FrontEnd - Username exist!...");
-		boolean isExist =  authService.isUsernameExist(username);
-		if (isExist) {
-			return "Success";
-		}
-		return "Failed";
+		String isExist =  authService.isUsernameExist(username);
+		return isExist;
 	}
 }

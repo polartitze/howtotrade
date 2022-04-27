@@ -108,7 +108,7 @@ public class CalcuService {
     }
 
     //ekspektasi mendapatkan TOTAL INVESTASI 
-    public Double calcTotalInvestment(String koin, int waktu, int perBulan){
+    public String calcTotalInvestment(String koin, int waktu, int perBulan){
         Double totalInvestasi = 0.0;
         Double persentase = Double.valueOf(calcuMapper.getCoinReturn(koin));
         persentase /= 100;
@@ -122,7 +122,8 @@ public class CalcuService {
 
         System.out.println("===============calcTotalInvestment(): "+totalInvestasi);
         totalInvestasi = round(totalInvestasi, 2);
-        return totalInvestasi;
+        String totalInvestString = "Hasil investasi Anda dalam waktu mendatang : " + totalInvestasi;
+        return totalInvestString;
     }
 
     public Double round(double value, int places) {
