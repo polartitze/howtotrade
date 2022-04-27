@@ -12,7 +12,6 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 100vh;
   margin-top: 50px;
   margin-bottom: 50px;
 }
@@ -28,6 +27,7 @@ body{
 }
 h2{
   padding: 1rem;
+  font-size: 2rem;
   text-align: center;
   margin: 0;
 }
@@ -37,7 +37,6 @@ ul{
   padding: 0;
 }
 ul li{
-  font-size: 1.2rem;
   margin: 1rem 0;
 }
 ul li label{

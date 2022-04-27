@@ -17,7 +17,7 @@ public interface CourseMapper {
 	@Select ("SELECT COUNT(*) FROM courseEnroll WHERE userid = #{userId} AND courseid = #{courseId}")
 	int isExistCourseEnroll(int userId, int courseId);
 	
-	@Select("SELECT * FROM course")
+	@Select("SELECT * FROM course ORDER BY courseid")
 	List<Course> getAllCourse();
 	
 	@Select("SELECT * FROM course WHERE courseid = #{courseId}")
