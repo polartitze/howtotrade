@@ -14,8 +14,8 @@ public class AuthService {
 	public String isUsernameExist(String username) {
 		System.out.println("Cheking username...");
 		String status = userMapper.getUser(username);
-		if (status.equals("0")) return "Blokir";
-		else if (status.equals("1")) return "Aktif";
+		if ("0".equals(status)) return "Blokir";
+		else if ("1".equals(status)) return "Aktif";
 		else return "TidakTerdaftar";
 	}
 
