@@ -22,6 +22,14 @@ body{
   width: 600px;
   overflow: hidden;
 }
+
+.course-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgb(100 100 100 / 10%);
+    width: 900px;
+    overflow: hidden;
+}
 .quiz-header{
   padding: 4rem;
 }
