@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.skripsi.howtotrade.model.Activity;
+import com.skripsi.howtotrade.model.Candle;
+import com.skripsi.howtotrade.model.Chart;
 import com.skripsi.howtotrade.model.Course;
 import com.skripsi.howtotrade.model.Question;
 
@@ -31,4 +33,10 @@ public interface CourseMapper {
 	
 	@Select("SELECT * FROM fn_save_course_enroll(#{userId}, #{courseId}")
 	void saveCourseEnroll(int userId, int courseId);
+	
+	@Select("SELECT * from chart where activityId = #{activityId}")
+	Chart getChartByActivityId(int activityId);
+	
+	@Select("SELECT * FROM candle where chartId = #{chartId}")
+	List<Candle> getAllCandleByChartId(int chartId);
 }

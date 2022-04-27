@@ -9,6 +9,7 @@ public class Activity {
 	String imageUrl;
 	boolean isquestion;
 	Question question;
+	Chart chart;
 	
 	
 	public int getActivityId() {
@@ -29,18 +30,6 @@ public class Activity {
 	public void setActivityType(String activityType) {
 		this.activityType = activityType;
 	}
-	public String getActivityDesc() {
-		return activityDesc;
-	}
-	public void setActivityName(String activityDesc) {
-		this.activityDesc = activityDesc;
-	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageURL(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 	public boolean isIsquestion() {
 		return isquestion;
 	}
@@ -52,6 +41,24 @@ public class Activity {
 	}
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+	public Chart getChart() {
+		return chart;
+	}
+	public void setChart(Chart chart) {
+		this.chart = chart;
+	}
+	public String getActivityDesc() {
+		return activityDesc;
+	}
+	public void setActivityDesc(String activityDesc) {
+		this.activityDesc = activityDesc;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 }

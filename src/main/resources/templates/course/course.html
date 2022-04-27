@@ -3,7 +3,9 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/css/quiz.css">
 
-<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>	
+<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>	
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +17,12 @@
 			<div class="quiz-header">
 				<div class="col-md-12" id="activity-container" alt="Chart course">
 				<img id="activity-image"></img>
-				<div id="activity-chart"></div>
-				<h2 id="activity-desc"></h2>
+				<div id="activity-chart">
+					<h2 id="chart-name"></h2>
+					<div id="chart-container"></div>
+				</div>
+				<div id="activity-desc"></div>
+				<h2 id="activity-question"></h2>
 				<div id="question-container">
 					<h2 id="question-desc"></h2>
 					<ul>
@@ -43,10 +49,10 @@
 					</ul>
 				</div>
 			</div>
-			<button id="back-btn">Back</button>
-			<button id="next-btn">Next</button>
-			<button id="finish-btn" style="display: none;">Finish</button>		
 		</div>
+		<button id="back-btn">Back</button>
+		<button id="next-btn">Next</button>
+		<button id="finish-btn" style="display: none;">Finish</button>		
 	</div>
 	
 	<div id="course-modal" class="modal">
@@ -59,11 +65,11 @@
 </body>
 <script th:inline="javascript">
 	const answerEls = document.querySelectorAll('.answer');
-	const activityChart = document.getElementById('activity-chart');
 	const activityImg = document.getElementById('activity-image');
 	const activityDesc = document.getElementById('activity-desc');
 	const questionDesc = document.getElementById('question-desc');
-	const questionContainer = document.getElementById('question-container');
+	const activityChart = document.getElementById('activity-chart');
+	const questionContainer = document.getElementById('activity-question');
 	const a_text = document.getElementById('a_text');
 	const b_text = document.getElementById('b_text');
 	const c_text = document.getElementById('c_text');
@@ -89,6 +95,7 @@
 		if(currentActivityData.activityType == "chart"){
 			activityChart.style.display = "block";
 			activityImg.style.display = "none";
+			drawChart(currentActivityData);
 		}else if(currentActivityData.activityType == "picture"){
 			activityChart.style.display = "none";
 			activityImg.style.display = "block";
@@ -177,9 +184,54 @@
     	modal.style.display = "block";
     	
     	$("#course-modal .modal-text").text(` You finish the course `);
-    	
-    	
     }
+    
+   
+	
+    function drawChart(){
+    	anychart.onDocumentReady(function () {
+    		let table = anychart.data.table();
+    		
+    		let currentActivityData = courseData.activityList[currentActivity];
+    			
+   			let map = new Map(Object.entries(currentActivityData.chart.candleList));
+   			
+   			let res = []
+   			for(let idx of map.keys()){
+   				let temp =[];
+   				temp.push(map.get(idx).candleTime);
+   				temp.push(map.get(idx).openPrice);
+   				temp.push(map.get(idx).highPrice);
+   				temp.push(map.get(idx).lowPrice);
+   				temp.push(map.get(idx).closePrice)
+   				
+   				res.push(temp);
+   			}
+   			
+    		table.addData(res);
+    		
+    		mapping = table.mapAs();
+    	    mapping.addField('open', 1);
+    	    mapping.addField('high', 2);
+    	    mapping.addField('low', 3);
+    	    mapping.addField('close', 4);
+    	    
+    	 	// chart type
+    	    let chart = anychart.stock();
+
+    	    // set the series
+    	    let series = chart.plot(0).candlestick(mapping);
+    	    
+    	    series.name(currentActivityData.chart.chartName);
+
+    	    chart.title(currentActivityData.chart.chartName);
+    	 	
+    	 
+    	    chart.container('chart-container');
+
+    	    chart.draw();
+    	});
+    };
 	
 </script>
 </html>

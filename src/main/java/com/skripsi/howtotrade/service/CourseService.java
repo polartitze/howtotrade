@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skripsi.howtotrade.mapper.CourseMapper;
 import com.skripsi.howtotrade.model.Activity;
+import com.skripsi.howtotrade.model.Chart;
 import com.skripsi.howtotrade.model.Course;
 
 @Service
@@ -32,8 +33,27 @@ public class CourseService {
 			if(activity.isIsquestion()) {
 				activity.setQuestion(mapper.getQuestion(activity.getActivityId()));
 			}
+			if(activity.getActivityType().equals("chart")) {
+				activity.setChart(getChart(activity.getActivityId()));				
+			}
 		}
 		return activityList;
+	}
+	
+	
+	private boolean isEnroll(int userId, int courseId) {
+		if(mapper.isExistCourseEnroll(userId, courseId) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private Chart getChart(int activityId) {
+		Chart chart = mapper.getChartByActivityId(activityId);
+		chart.setCandleList(mapper.getAllCandleByChartId(chart.getChartId()));
+		
+		return chart;
 	}
 	
 	public boolean saveProgress(int userId, int courseId) {
@@ -45,11 +65,4 @@ public class CourseService {
 		return true;
 	}
 	
-	private boolean isEnroll(int userId, int courseId) {
-		if(mapper.isExistCourseEnroll(userId, courseId) == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
