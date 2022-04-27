@@ -86,7 +86,7 @@
                         <i class="icon-wallet danger font-large-2 mr-2"></i>
                       </div>
                       <div class="media-body">
-                        <h4>Coin Pilihan</h4>
+                        <h4>Koin Pilihan</h4>
                         <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}" disabled="disabled">
                           <option value=""></option>
                           <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option>
@@ -178,7 +178,7 @@
                     </div>
                     <div class="media-body">
                       <h4>Hasil</h4>
-                      <textarea rows="4" class="form-control" id="score" readonly="readonly" th:field="${calculatorForm.results}"></textarea>
+                      <textarea rows="4" class="form-control" id="score" readonly="readonly" th:field="${calculatorForm.results}" style="white-space: pre-wrap;"></textarea>
                       <button type="submit" class="btn btn-primary btn-save float-right mt-2">Save Result</button>
                     </div>
                     <div class="align-self-center">
@@ -208,7 +208,7 @@
                 <th scope="col" class="text-center align-middle"> Investasi Awal </th>
                 <th scope="col" class="text-center align-middle"> Waktu Investasi </th>
                 <th scope="col" class="text-center align-middle"> Total Investasi </th>
-                <th scope="col" class="text-center align-middle"> Coin </th>
+                <th scope="col" class="text-center align-middle"> Koin </th>
                 <th scope="col" class="text-center align-middle"> Hasil </th>
                 <th scope="col" class="text-center align-middle"> Action </th>
               </tr>

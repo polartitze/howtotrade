@@ -40,17 +40,7 @@ public class CalcuController {
         System.out.println("calc.perBulan: "+calc.getPerBulan());
         System.out.println("calc.getResult(): "+calc.getResults());
 
-        if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
-            calc.setTotalInvestasi("-");
-        }
-        else if("".equals(calc.getKoin()) || calc.getKoin() == null){
-            calc.setKoin("-");
-        }
-        calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
-        calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
-        
         calcuService.saveResult(calc, principal.getName());
-
         return "redirect:/calculator" ;
     }
 

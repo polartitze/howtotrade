@@ -32,6 +32,16 @@ public class CalcuService {
 
     public void saveResult(Calculator calc, String username){
         int userId = userService.getUserId(username); 
+
+        if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
+            calc.setTotalInvestasi("-");
+        }
+        else if("".equals(calc.getKoin()) || calc.getKoin() == null){
+            calc.setKoin("-");
+        }
+        calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
+        calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
+        
         calcuMapper.insertCalculate(calc.getTotalInvestasi(), calc.getWaktu(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
     }
 
