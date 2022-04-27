@@ -67,6 +67,21 @@ create table activity_type(
 	name character varying(100)
 );
 
+drop table if exists candle;
+CREATE TABLE IF NOT EXISTS candle
+(
+	candleid SERIAL PRIMARY KEY, 
+	chartid integer,
+	candletime character varying(20),
+	openprice integer,
+	highprice integer,
+	lowprice integer,
+	closeprice integer,
+	volumebuy float,
+	volumesell float,
+	tradecount integer
+);
+
 drop table if exists coin;
 CREATE TABLE coin
 (
