@@ -67,6 +67,14 @@ create table activity_type(
 	name character varying(100)
 );
 
+drop table if exists chart;
+CREATE TABLE IF NOT EXISTS chart
+(
+    chartid serial primary key,
+    activityid integer,
+    chartname character varying(100)
+)
+
 drop table if exists candle;
 CREATE TABLE IF NOT EXISTS candle
 (
