@@ -38,7 +38,7 @@ public interface CalcuMapper {
         + "END AS JENIS "
         + "FROM INVESTMENTPLANNING IP LEFT JOIN COIN C ON IP.COINID = C.COINID "
         + "WHERE USERID = #{userId} "
-        + "ORDER BY IP.CREATEDDATE ASC ")
+        + "ORDER BY IP.CREATEDDATE DESC ")
     List<Map<String,String>> checkInvestmentData(int userId);
 
     @Select("SELECT COINRETURN FROM COIN")
