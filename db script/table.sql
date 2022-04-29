@@ -28,10 +28,9 @@ drop table if exists quiz_enroll;
 create table quiz_enroll(
     userid integer NOT NULL,
     quizid integer NOT NULL,
-	attemptno integer NOT NULL,
 	score integer NOT NULL,
     enrolldate timestamp without time zone,
-    CONSTRAINT quizenroll_pkey PRIMARY KEY (userid, quizid, attemptno)
+    CONSTRAINT quizenroll_pkey PRIMARY KEY (userid, quizid)
 );
 
 drop table if exists question;
