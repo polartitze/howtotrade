@@ -332,19 +332,29 @@
 		}
 	}
 	
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const fixUsername = urlParams.get('username')
 	var url = window.location.href;
 	if(url.indexOf('?success=true') != -1) {
 		$('#successModal').modal('show');
 		
 		window.onclick = function(event) {
-		 	if (event.target != $('#successModal').modal) {
-		    	window.location.href = "http://localhost:8080/login";
-		  	}
+			if (event.target != $('#successModal').modal) {
+				window.location.href = "http://localhost:8080/validate-mail/"+fixUsername;
+			}
 		}
 	}
 	if(url.indexOf('?success=false') != -1) {
 		$('#failModal').modal('show');
 	}
+	
+	
+	$(".validate-mail").click(function(){
+		// var username = $("#username").val();
+		// alert(fixUsername);
+		window.location.href = "http://localhost:8080/validate-mail/"+fixUsername;
+	});
 </script>
 </body>
 

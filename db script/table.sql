@@ -163,3 +163,5 @@ alter table investmentplanning alter column duration type varchar(20);
 alter table investmentplanning alter column currentbalance type varchar(20);
 alter table investmentplanning drop column target;
 alter table investmentplanning add column target varchar(50) default '-';
+
+alter table users add column isverified varchar(1) default '0';

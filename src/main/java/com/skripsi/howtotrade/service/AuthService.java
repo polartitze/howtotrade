@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.skripsi.howtotrade.mapper.UserMapper;
+import com.skripsi.howtotrade.model.Users;
 
 @Service
 public class AuthService {
@@ -14,6 +15,9 @@ public class AuthService {
 	public String isUsernameExist(String username) {
 		System.out.println("Cheking username...");
 		String status = userMapper.getUser(username);
+		String isVerified = userMapper.checkVerified(username);
+		if("0".equals(isVerified)) return "Belum Verified";
+	
 		if ("0".equals(status)) return "Blokir";
 		else if ("1".equals(status)) return "Aktif";
 		else return "TidakTerdaftar";
@@ -29,12 +33,20 @@ public class AuthService {
 	}
 
 	
-	public boolean insertUser(String username, String password, int userRole) {
+	public boolean insertUser(String username, String userEmail, String password, int userRole) {
 		if(!isUsernameExist(username).equals("TidakTerdaftar")){
 			System.out.println("Username exist!...");
 			return false;
 		}
-		userMapper.insertUser(username, "test@email.com", password, userRole, "1");
+		userMapper.insertUser(username, userEmail, password, userRole, "1");
 		return true;
 	}
+
+	public void validateAccount(String username){
+        userMapper.validateAccount(username);
+    }
+
+	public Users userDetaiil(String username){
+		return userMapper.userDetail(username);
+    }
 }

@@ -118,6 +118,11 @@
                   $("#usernameAlert").show();
                   return false;
                 }
+                else if (response == "Belum Verified") {
+                  $("#usernameAlert").html("User Anda Belum Terverifikasi!");
+                  $("#usernameAlert").show();
+                  return false;
+                }
                 else {
                   $("#usernameAlert").hide();
                   $("#myForm").submit();

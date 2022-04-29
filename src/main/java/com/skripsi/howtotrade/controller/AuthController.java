@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.skripsi.howtotrade.model.Mail;
+import com.skripsi.howtotrade.service.MailService;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.security.Principal;
 
 
@@ -23,6 +28,10 @@ public class AuthController {
 	
 	String userLogged;
 
+	@Autowired
+    MailService mailSender;
+    Mail mail = new Mail();
+    
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
@@ -62,11 +71,11 @@ public class AuthController {
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("appUser") Users appUser, Model model) {
 		System.out.println("Add new user...");
-		boolean insertStatus = authService.insertUser(appUser.getUserName(),
+		boolean insertStatus = authService.insertUser(appUser.getUserName(), appUser.getUserEmail(),
 				passwordEncoder().encode(appUser.getUserPassword()), appUser.getUserRole());
 		if (insertStatus) {
 			System.out.println("Register success!...");
-			return "redirect:/user/add?success=true";
+			return "redirect:/user/add?success=true&username="+appUser.getUserName();
 		} else {
 			System.out.println("Register failed!...");
 			return "redirect:/user/add?success=false";
@@ -79,5 +88,51 @@ public class AuthController {
 		System.out.println("FrontEnd - Username exist!...");
 		String isExist =  authService.isUsernameExist(username);
 		return isExist;
+	}
+
+	
+	@RequestMapping(value = "/validate-account/{username}", method = RequestMethod.GET)
+	public String validateAccount(@PathVariable("username") String username) {
+		//if clicked will verified the account
+		authService.validateAccount(username);
+		return "redirect:/login";
+	}
+	
+	
+	
+	@RequestMapping(value = "/validate-mail/{username}", method = RequestMethod.GET)
+	public String validateMail(@PathVariable("username") String username) {
+		String content = "";
+
+		try {
+			StringBuilder contentBuilder = new StringBuilder();
+			FileReader fileIn = new FileReader("src/main/resources/templates/index/email.html");
+			BufferedReader br = new BufferedReader(fileIn);
+			String str;
+			while ((str = br.readLine()) != null) {
+				if(str.contains("@")) {
+					int count = str.length() - str.replaceAll("@","").length();
+					if(count > 1) {
+						System.out.println("Replacing parameter... ");
+						String param = str.substring(str.indexOf("@")+1, str.lastIndexOf("@"));
+						String replacedBy = username;
+						String willBeReplace = "@"+param+"@";
+						str = str.replaceAll(willBeReplace, replacedBy);
+					}
+				}
+				contentBuilder.append(str);
+			}
+			br.close();
+			content = contentBuilder.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Users users = authService.userDetaiil(username);
+		mail.setMailFrom("polaritze@gmail.com"); //TODO: MAKE BUSSINESS EMAIL
+		mail.setMailTo(users.getUserEmail());
+		mail.setMailSubject("Verify your email!");
+		mail.setMailContent(content);
+		mailSender.sendEmail(mail);
+		return "index/validate";
 	}
 }

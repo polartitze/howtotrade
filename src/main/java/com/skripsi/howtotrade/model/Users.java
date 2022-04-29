@@ -8,6 +8,15 @@ public class Users{
     private int userRole;
     private String userStatus;
     private String imagePath;
+    private String isVerified;
+
+    public String getIsVerified() {
+        return this.isVerified;
+    }
+
+    public void setIsVerified(String isVerified) {
+        this.isVerified = isVerified;
+    }
 
     public String getImagePath() {
         return this.imagePath;
