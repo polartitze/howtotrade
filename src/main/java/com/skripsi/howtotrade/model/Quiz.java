@@ -1,7 +1,6 @@
 package com.skripsi.howtotrade.model;
 
 import java.util.List;
-import java.util.Map;
 
 public class Quiz {
 	int quizId;
@@ -10,6 +9,8 @@ public class Quiz {
 	String quizDesc;
 	List<Question> questionList;
 	boolean isEnroll;
+	boolean isPass;
+	boolean isLock;
 	int highestScore;
 	int finalScore;
 	String imageUrl;
@@ -55,6 +56,18 @@ public class Quiz {
 	}
 	public void setHighestScore(int highestScore) {
 		this.highestScore = highestScore;
+	}
+	public boolean isPass() {
+		return isPass;
+	}
+	public void setPass(boolean isPass) {
+		this.isPass = isPass;
+	}
+	public boolean isLock() {
+		return isLock;
+	}
+	public void setLock(boolean isLock) {
+		this.isLock = isLock;
 	}
 	public int getFinalScore() {
 		return finalScore;

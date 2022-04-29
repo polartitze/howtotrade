@@ -20,6 +20,9 @@ public interface QuizMapper {
 	@Select("SELECT * FROM question where quizid = #{quizId}")
 	List<Question> getAllQuizQuestion(int quizId);
 	
+	@Select("SELECT count(1) FROM question where quizid = #{quizId}")
+	int getQuizTotalQuestion(int quizId);
+	
 	@Select("SELECT * FROM fn_save_quiz_enroll(#{userId}, #{courseId}, #{score})")
 	void saveQuizEnroll(int userId, int quizId, int score);
 	
@@ -29,4 +32,6 @@ public interface QuizMapper {
 	@Select ("SELECT score FROM quiz_enroll WHERE userid = #{userId} AND quizid = #{quizId}")
 	int getQuizHighestScore(int userId, int quizId);
 	
+	@Select("SELECT * FROM fn_islocked_quiz(#{userId}, #{quizId})")
+	boolean getQuizLock(int userId, int quizId);
 }

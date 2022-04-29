@@ -20,6 +20,7 @@ public class CourseService {
 		List<Course> courseList = mapper.getAllCourse();
 		for (Course course : courseList) {
 			course.setEnroll(isCourseEnroll(userId, course.getCourseId()));
+			course.setLock(mapper.getCourseLock(userId, course.getCourseId()));
 		}
 		return courseList;
 	}

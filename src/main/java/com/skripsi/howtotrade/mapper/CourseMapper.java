@@ -31,7 +31,7 @@ public interface CourseMapper {
 	@Select("SELECT * FROM question where activityId = #{activityId}")
 	Question getQuestion(int activityId);
 	
-	@Select("SELECT * FROM fn_save_course_enroll(#{userId}, #{courseId}")
+	@Select("SELECT * FROM fn_save_course_enroll(#{userId}, #{courseId})")
 	void saveCourseEnroll(int userId, int courseId);
 	
 	@Select("SELECT * from chart where activityId = #{activityId}")
@@ -39,4 +39,7 @@ public interface CourseMapper {
 	
 	@Select("SELECT * FROM candle where chartId = #{chartId}")
 	List<Candle> getAllCandleByChartId(int chartId);
+	
+	@Select("SELECT * FROM fn_islocked_course(#{userId}, #{courseId})")
+	boolean getCourseLock(int userId, int courseId);
 }

@@ -12,6 +12,7 @@ public class Course {
 	Timestamp enrollDate;
 	List<Activity> activityList;
 	boolean isEnroll;
+	boolean isLock;
 	String imageUrl;
 	
 	public Integer getCourseId() {
@@ -55,6 +56,12 @@ public class Course {
 	}
 	public void setEnroll(boolean isEnroll) {
 		this.isEnroll = isEnroll;
+	}
+	public boolean isLock() {
+		return isLock;
+	}
+	public void setLock(boolean isLock) {
+		this.isLock = isLock;
 	}
 	public String getImageUrl() {
 		return imageUrl;

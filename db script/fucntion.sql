@@ -42,3 +42,50 @@ BEGIN
 	return current_timestamp;
 END;
 $BODY$;
+
+CREATE OR REPLACE FUNCTION public.fn_islocked_quiz(
+	i_userid integer,
+	i_quizid integer)
+    RETURNS boolean
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+BEGIN
+	if exists (select * from course_enroll where userid = i_userid and courseid in (select courseid from quiz where quizid = i_quizid)) then 
+		return false;
+	else
+		return true;
+	end if;
+END;
+$BODY$;
+
+CREATE OR REPLACE FUNCTION fn_islocked_course
+(
+	i_userid integer,
+	i_courseid integer)
+    RETURNS boolean
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+	v_countquestion integer;
+	v_quizscore float;
+BEGIN
+	if(i_courseid = 1) then
+		return false;
+	end if;
+	
+	select count(*) into v_countquestion from question where quizid = 1;
+	
+	select score::float / v_countquestion into v_quizscore from quiz_enroll where quizid = 1;
+	
+	if (v_quizscore >= 0.75) then 
+		return false;
+	else
+		return true;
+	end if;
+END;
+$BODY$;

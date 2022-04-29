@@ -19,14 +19,27 @@ public class QuizService {
 		List<Quiz> quizList = mapper.getAllQuiz();
 		
 		for (Quiz quiz : quizList) {
+			quiz.setLock(mapper.getQuizLock(userId, quiz.getQuizId()));
+			
 			quiz.setEnroll(isQuizEnroll(userId, quiz.getQuizId()));
 			
 			if(quiz.isEnroll()) {
 				quiz.setHighestScore(getQuizHighestScore(userId, quiz.getQuizId()));
+				int totalQuestion = getQuizTotalQuestion(quiz.getQuizId());
+				
+				if(quiz.getHighestScore() /totalQuestion  >= 0.75) {
+					quiz.setPass(true);
+				}else {
+					quiz.setPass(false);
+				}
 			}
 		}
 		
 		return quizList;
+	}
+	
+	private int getQuizTotalQuestion (int quizId) {
+		return mapper.getQuizTotalQuestion(quizId);
 	}
 	
 	public Quiz getQuizById(int quizId) {
