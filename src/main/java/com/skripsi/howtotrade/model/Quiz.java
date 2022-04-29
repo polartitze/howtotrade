@@ -10,6 +10,7 @@ public class Quiz {
 	String quizDesc;
 	List<Question> questionList;
 	boolean isEnroll;
+	int highestScore;
 	int finalScore;
 	String imageUrl;
 	
@@ -48,6 +49,12 @@ public class Quiz {
 	}
 	public void setEnroll(boolean isEnroll) {
 		this.isEnroll = isEnroll;
+	}
+	public int getHighestScore() {
+		return highestScore;
+	}
+	public void setHighestScore(int highestScore) {
+		this.highestScore = highestScore;
 	}
 	public int getFinalScore() {
 		return finalScore;

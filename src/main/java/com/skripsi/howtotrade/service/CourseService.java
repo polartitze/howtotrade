@@ -16,8 +16,12 @@ public class CourseService {
 	@Autowired
 	CourseMapper mapper;
 	
-	public List<Course> getAllCourse(){
-		return mapper.getAllCourse();
+	public List<Course> getAllCourse(int userId){
+		List<Course> courseList = mapper.getAllCourse();
+		for (Course course : courseList) {
+			course.setEnroll(isCourseEnroll(userId, course.getCourseId()));
+		}
+		return courseList;
 	}
 	
 	public Course getCourseById(int courseId) {
@@ -41,10 +45,15 @@ public class CourseService {
 	}
 	
 	
-	private boolean isEnroll(int userId, int courseId) {
-		if(mapper.isExistCourseEnroll(userId, courseId) == 1) {
-			return true;
-		} else {
+	private boolean isCourseEnroll(int userId, int courseId) {
+		try {
+			if(mapper.isExistCourseEnroll(userId, courseId) > 0) {
+				return true;
+			} else {
+				return false;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

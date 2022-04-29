@@ -22,4 +22,11 @@ public interface QuizMapper {
 	
 	@Select("SELECT * FROM fn_save_quiz_enroll(#{userId}, #{courseId}, #{score})")
 	void saveQuizEnroll(int userId, int quizId, int score);
+	
+	@Select ("SELECT COUNT(*) FROM quiz_enroll WHERE userid = #{userId} AND quizid = #{quizId}")
+	int isExistQuizEnroll(int userId, int quizId);
+	
+	@Select ("SELECT score FROM quiz_enroll WHERE userid = #{userId} AND quizid = #{quizId}")
+	int getQuizHighestScore(int userId, int quizId);
+	
 }

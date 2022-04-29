@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skripsi.howtotrade.model.Quiz;
 import com.skripsi.howtotrade.service.CourseService;
@@ -35,10 +36,12 @@ public class CourseController {
     public String module() {
         return "course";
     }
-	@RequestMapping("/all")
-	public String getAllCourse(Model model) {
-		model.addAttribute("listCourse", courseService.getAllCourse());
-		model.addAttribute("listQuiz", quizService.getAllQuiz());
+	
+	@RequestMapping(value = "/all")
+	public String getAllCourse(Principal principal, Model model) {
+		int userId = userService.getUserId(principal.getName());
+		model.addAttribute("listCourse", courseService.getAllCourse(userId));
+		model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
 		model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
 		return "course/coursedashboard";
 	}

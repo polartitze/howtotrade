@@ -63,6 +63,7 @@
 							</div>
 						</div>
 						<div class="text">
+							<li th:if="${course.isEnroll}" class="fa fa-check-circle text-success float-right"></li>	
 							<h3 th:text="${course.courseName}"></h3>
 							<p th:text="${course.courseDesc}"></p>
 							<p><a th:href="@{'/course/'+${course.courseId}}" class="btn btn-primary" style="background:#3ec1d5">Enroll now</a></p>
@@ -80,6 +81,7 @@
 							</div>
 						</div>
 						<div class="text">
+							<li th:if="${quiz.isEnroll}" class="fa fa-check-circle text-success float-right"></li>
 							<h3 th:text="${quiz.quizName}"></h3>
 							<p th:text="${quiz.quizDesc}"></p>
 							<p><a th:href="@{'/course/quiz/'+${quiz.quizId}}" class="btn btn-primary" style="background:#3ec1d5">Enroll now</a></p>

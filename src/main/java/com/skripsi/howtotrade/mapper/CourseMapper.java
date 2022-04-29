@@ -14,7 +14,7 @@ import com.skripsi.howtotrade.model.Question;
 @Mapper
 public interface CourseMapper {
 	
-	@Select ("SELECT COUNT(*) FROM courseEnroll WHERE userid = #{userId} AND courseid = #{courseId}")
+	@Select ("SELECT COUNT(*) FROM course_enroll WHERE userid = #{userId} AND courseid = #{courseId}")
 	int isExistCourseEnroll(int userId, int courseId);
 	
 	@Select("SELECT * FROM course ORDER BY courseid")
