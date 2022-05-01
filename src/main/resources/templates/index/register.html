@@ -124,13 +124,15 @@
 			<div class="modal-content border-0">
 				<div class="modal-header border-0 pb-0">
 					<h4>Register</h4>
-					<a th:href="@{/login}" type="button" class="close">×</a>
+					<!-- <a th:href="@{/login}" type="button" class="close">×</a> -->
+					<button class="close validate-mail">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
 					<p>User has been created!</p>
 				</div>
 				<div class="modal-footer">
-					<a th:href="@{/login}" class="btn btn-success">Ok</a>
+					<button class="btn btn-success validate-mail">Ok</button>
+					<!-- <a th:href="@{/login}" class="btn btn-success">Ok</a> -->
 				</div>
 			</div>
 		</div>
