@@ -60,7 +60,7 @@ values
 (16, 1, '3/10/2022', 41941, 42039, 38539, 39422, 71950, 2853792081, 1512384);
 
 DELETE FROM ROLES;
-INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN');
+INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN'), (3, 'ROLE_PRO');
 
 DELETE FROM COIN;
 INSERT INTO public.coin(coincode, coinname, coinreturn, active) VALUES ('BTC', 'BITCOIN', 10, '1'),

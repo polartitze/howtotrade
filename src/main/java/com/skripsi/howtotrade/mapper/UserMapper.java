@@ -10,14 +10,15 @@ import com.skripsi.howtotrade.model.Users;
 
 @Mapper
 public interface UserMapper {
-	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
-	Users userDetail(String username);
 
 	@Select("SELECT USERSTATUS FROM USERS WHERE USERNAME = #{username}")
 	String getUser(String username);
 	
 	@Select("SELECT ISVERIFIED FROM USERS WHERE USERNAME = #{username}")
 	String checkVerified(String username);
+
+	@Select("SELECT USEREMAIL FROM USERS WHERE USEREMAIL = #{email}")
+	String checkMail(String email);
 
 	@Select("SELECT 1 FROM USERS WHERE USERNAME = #{username} AND USERPASSWORD = #{password}")
 	String getPassword(String username, String password);
@@ -32,9 +33,6 @@ public interface UserMapper {
 
 	@Select("SELECT ROLENAME FROM USERS U JOIN ROLES R ON U.USERROLE = R.ROLEID WHERE U.USERNAME = #{username}")
 	String getRole(String username);
-
-	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
-	Users getUserProfile(String username);
 
 	@Update("UPDATE USERS SET userEmail = #{userEmail}, userPassword = #{userPassword} WHERE USERID = #{userId}")
 	void saveProfileWithPassword(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword, 

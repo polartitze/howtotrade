@@ -27,7 +27,7 @@
 	
 									<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
 	
-									<form class="mx-1 mx-md-4" th:action="@{/user/add}" th:object="${appUser}"
+									<form class="mx-1 mx-md-4" th:action="@{/user/add}" th:object="${appUser}" id="myForm"
 										method="post">
 	
 										<div class="row">
@@ -47,13 +47,18 @@
 											</div>
 										</div>
 	
-	
+										<div class="row">
+											<div class="col-md-12 col-12">
+												<div class="alert alert-danger" id="emailAlert" style="display: none;">
+												</div>
+											</div>
+										</div>
 										<div class="align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
 												<label class="form-label" for="userEmail">Email</label>
 												<input type="email" class="form-control" th:field="*{userEmail}"
-													id="userEmail" name="userEmail" placeholder="Enter your email" />
+													onchange="checkMail()" id="userEmail" name="userEmail" placeholder="Enter your email" required/>
 											</div>
 										</div>
 	
@@ -124,7 +129,6 @@
 			<div class="modal-content border-0">
 				<div class="modal-header border-0 pb-0">
 					<h4>Register</h4>
-					<!-- <a th:href="@{/login}" type="button" class="close">×</a> -->
 					<button class="close validate-mail">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
@@ -132,7 +136,6 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success validate-mail">Ok</button>
-					<!-- <a th:href="@{/login}" class="btn btn-success">Ok</a> -->
 				</div>
 			</div>
 		</div>
@@ -156,94 +159,20 @@
 		</div>
 	</div>
 
-	<!-- JAVASCRIPT CODE -->
-	<!-- <script type="text/javascript">
-		$(document).ready(function () {
-			//$('.error1').show();
-			console.log('apin botak')
-			initForm();
-		});
-
-		function initForm() {
-			let username;
-			let email;
-			let password;
-			let passwordConfirmation;
-			$('#username').on('input', function () {
-				username = $('#username').val();
-				if (username.length < 5) {
-					$('.error1').html('Username harus 5 sampai 20 karakter');
-					$('.error1').show();
-				} else {
-					$('.error1').hide();
-				}
-			});
-			$('#email').on('input', function () {
-				email = $('#email').val();
-				if (validateEmail(email) == false) {
-					$('.error2').html('Email harus mengikuti format RCC 822 ');
-					$('.error2').show();
-				} else {
-					$('.error2').hide();
-				}
-			});
-			$('#password').on('input', function () {
-				password = $('#password').val();
-				if (password.length < 8) {
-					$('.error3').html('Password minimal harus 8 karakter');
-					$('.error3').show();
-				}else{
-					$('.error3').hide();
-				}
-				if (validatePassword() == false) {
-					$('.error3').html('Password harus memiliki minimal 1 huruf kecil, 1 huruf besar, dan 1 angka');
-					$('.error3').show();
-				} else {
-					$('.error3').hide();
-				}
-			});
-
-			$('#passwordConfirmation').on('input', function () {
-				password = $('#password').val();
-				passwordConfirmation = $('#passwordConfirmation').val();
-				if (passwordConfirmation != password) {
-					$('.error4').html('Password tidak sesuai');
-					$('.error4').show();
-				} else {
-					$('.error4').hide();
-				}
-			});
-
-			$('.btn-save').on('click', function () {
-				if ($('.error1').length || $('.error2').length || $('.error3').length || $('.error4').length) {
-					alert('there is an error');
-					return false;
-				}
-			});
-		}
-		function validateEmail(email) {
-			var re = /\S+@\S+\.\S+/;
-			return re.test(email);
-		}
-
-		function validatePassword(pw) {
-			return /[A-Z]/.test(pw) &&
-				/[a-z]/.test(pw) &&
-				/[0-9]/.test(pw);
-		}
-	</script> -->
 
 <script>
-
-	let buttonRegist = document.querySelector(".buttonRegis");
+	$(document).ready(function(){
+		$("#username").focus();
+		
+	});
 	
+
 	function checkUsername() {
 		var username = $("#username").val();
 		var result = false;
 		if (username.length < 6 || username.length > 20){
 			$("#usernameAlert").show();
 			$("#usernameAlert").html("Username must be 6-20 characters!");
-			buttonRegist.addAttribute('disabled', '');
 			return false;
 		}
 		else {
@@ -255,7 +184,6 @@
 					if (response != "TidakTerdaftar") {
 						$("#usernameAlert").html("Username must be unique!");
 						$("#usernameAlert").show();
-						buttonRegist.addAttribute('disabled', '');
 						result = false;
 					}
 					else {
@@ -267,8 +195,36 @@
 			return result;
 		}
 	}
-	
-	
+	function checkMail() {
+		var email = $("#userEmail").val();
+		var result = false;
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+		if (!email.match(mailformat)){
+			$("#emailAlert").show();
+			$("#emailAlert").html("Invalid email address!");
+			return false;
+		}
+		else {
+			$.ajax({
+				type: "GET",
+				url: "/user/check-mail/" + email,
+				async: false,
+				success: function(response) {
+					if (response == "Terdaftar") {
+						$("#emailAlert").html("Email must be unique!");
+						$("#emailAlert").show();
+						result = false;
+					}
+					else {
+						$("#emailAlert").hide();
+						result = true;
+					}
+				}
+			});
+			return result;
+		}
+	}
 
 	function checkPassword() {
 		var pass = $("#password").val();
@@ -283,12 +239,10 @@
 			if (pass != confirmPass) {
 				$("#confirmPasswordAlert").html("Invalid confirm password!");
 				$("#confirmPasswordAlert").show();
-				buttonRegist.addAttribute('disabled', '');
 				return false;
 			}
 			else {
 				$("#confirmPasswordAlert").hide();
-				buttonRegist.addAttribute('disabled', '');
 				return false;
 			}
 		}
@@ -299,13 +253,11 @@
 			if (pass != confirmPass) {
 				$("#confirmPasswordAlert").html("Invalid confirm password!");
 				$("#confirmPasswordAlert").show();
-				buttonRegist.addAttribute('disabled', '');
 				return false;
 			}
 			else {
 				$("#confirmPasswordAlert").hide();
-				buttonRegist.addAttribute('disabled', '');
-				return false;
+				return true;
 			}
 		}
 		else {
@@ -313,12 +265,10 @@
 			if (pass != confirmPass) {
 				$("#confirmPasswordAlert").html("Invalid confirm password!");
 				$("#confirmPasswordAlert").show();
-				buttonRegist.addAttribute('disabled', '');
 				return false;
 			}
 			else {
 				$("#confirmPasswordAlert").hide();
-				buttonRegist.removeAttribute('disabled', '');
 				return true;
 			}
 		}
@@ -326,10 +276,9 @@
 	
 
 	function checkData() {
-		if (checkUsername() && checkPassword()) {
+		if (checkUsername() && checkPassword() && checkMail()) {
 			return true;
 		}else{
-			buttonRegist.addAttribute('disabled', '');
 			return false;
 		}
 	}
@@ -353,9 +302,20 @@
 	
 	
 	$(".validate-mail").click(function(){
-		// var username = $("#username").val();
-		// alert(fixUsername);
 		window.location.href = "http://localhost:8080/validate-mail/"+fixUsername;
+	});
+
+	$("#myForm").on('change',function(){
+		let buttonRegist = $(".buttonRegis");
+		if( $('#usernameAlert').is(':visible') || $('#emailAlert').is(':visible') || $('#passwordAlert').is(':visible') || $('#confirmPasswordAlert').is(':visible')){
+			buttonRegist.attr("disabled","disabled");
+		}else{
+			buttonRegist.removeAttr("disabled");
+		}
+		
+		if($('#username').val() == '' || $('#userEmail').val() == '' || $('#password').val() == '' || $('#confirmPassword').val() == ''){
+			buttonRegist.attr("disabled","disabled");
+		}
 	});
 </script>
 </body>
