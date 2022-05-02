@@ -85,6 +85,7 @@
             </div>
             
           </div>
+          
           <div class="row">
             <div class="col-xl-6">
               <div class="card">
@@ -92,14 +93,13 @@
                   <div class="card-body cleartfix">
                     <div class="media align-items-stretch">
                       <div class="align-self-center">
-                        <i class="icon-wallet danger font-large-2 mr-2"></i>
+                        <i class="icon-pin purple font-large-2 mr-2"></i>
                       </div>
                       <div class="media-body">
-                        <h4>Koin Pilihan</h4>
-                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}" disabled="disabled">
-                          <option value=""></option>
-                          <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option>
-                        </select>
+                        <h4>Investasi Awal</h4>
+                        <div>
+                          <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.waktu}" maxlength="3">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -126,24 +126,31 @@
               </div>
             </div>
           </div>
+          
+          
           <div class="row">
-            <div class="col-xl-6">
+          
+          <div class="col-xl-6">
               <div class="card">
                 <div class="card-content">
                   <div class="card-body cleartfix">
                     <div class="media align-items-stretch">
                       <div class="align-self-center">
-                        <i class="icon-credit-card yellow font-large-2 mr-2"></i>
+                        <i class="icon-wallet danger font-large-2 mr-2"></i>
                       </div>
                       <div class="media-body">
-                        <h4>Jumlah Investasi Per Bulan</h4>
-                        <input type="text" class="form-control numeric" id="perBulan" th:field="${calculatorForm.perBulan}" maxlength="15">
+                        <h4>Koin Pilihan</h4>
+                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}" disabled="disabled">
+                          <option value=""></option>
+                          <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option>
+                        </select>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            
             
             <div class="col-xl-6">
               <div class="card">
@@ -166,6 +173,29 @@
               </div>
             </div>
           </div>
+          
+          
+          
+          <div class="row">
+            <div class="col-xl-6">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body cleartfix">
+                    <div class="media align-items-stretch">
+                      <div class="align-self-center">
+                        <i class="icon-credit-card yellow font-large-2 mr-2"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4>Jumlah Investasi Per Bulan</h4>
+                        <input type="text" class="form-control numeric" id="perBulan" th:field="${calculatorForm.perBulan}" maxlength="15">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </section>
         
         <div class="row gutters">
@@ -211,7 +241,7 @@
           <br><br>
           
           
-          <table id="table-history" class="table paging table-striped table-bordered table-hover mt-2 mydatatable">
+          <table id="table-history" class="table paging table-bordered table-hover bg-white mt-2 mydatatable">
             <caption>Perencanaan kamu sebelumnya</caption>
             <thead class="thead-dark">
               <tr>
@@ -252,7 +282,7 @@
                   <span th:text="${list.result}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <a th:href="@{ '/calculator/delete/' + ${list.planningid} }"><i class="fa fa-trash"></i></a>
+                  <a th:href="@{ '/calculator/delete/' + ${list.planningid} }"><i class="fa fa-trash text-danger"></i></a>
                 </td>
               </tr>
             </tbody>

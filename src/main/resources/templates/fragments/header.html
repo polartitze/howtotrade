@@ -28,6 +28,10 @@
           <a class="nav-link" href="/course/all">Course</a>
         </li>
         
+        <li class="nav-item" th:classappend="${module == 'manageuser' ? 'active' : ''}" sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="nav-link" th:href="@{/admin/manage-member}">Kelola User</a>
+        </li>
+        
         <li class="nav-item" sec:authorize="isAnonymous()">
           <a class="nav-link" href="/login">Login</a>
         </li>
