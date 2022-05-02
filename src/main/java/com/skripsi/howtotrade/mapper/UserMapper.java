@@ -1,15 +1,19 @@
 package com.skripsi.howtotrade.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.skripsi.howtotrade.model.Course;
 import com.skripsi.howtotrade.model.Users;
 
 @Mapper
 public interface UserMapper {
+	
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users userDetail(String username);
 
@@ -55,5 +59,12 @@ public interface UserMapper {
 	@Update("UPDATE USERS SET isVerified = '1' WHERE USERNAME = #{username}")
 	void validateAccount(@Param("username") String username);
 
-
+	@Select("SELECT * FROM users WHERE userrole = 1 and isVerified = '1' ORDER BY userid")
+	List<Users> getAllMember();
+	
+	@Update("UPDATE users SET userstatus = '0' WHERE userid = #{userId}")
+    void blockUser(int userId);
+	
+	@Update("UPDATE users SET userstatus = '1' WHERE userid = #{userId}")
+    void unblockUser(int userId);
 }
