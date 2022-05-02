@@ -92,6 +92,10 @@
                   </div>
                 </div>
                 
+                <div class="col-1" th:each="authority : ${#authentication.getAuthorities()}" 
+                th:if="${authority.getAuthority().startsWith('ROLE_USER')} AND ${#authentication.name} != ${topic.username}">
+                </div>
+                
                 <div class="col-1 align-item-right">
                   <a th:href="@{'/topic/'+${topic.topicid}}" style="text-decoration:none">
                     <div class="row align-item-center text-primary">
