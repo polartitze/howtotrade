@@ -23,6 +23,15 @@ public class AuthService {
 		else return "TidakTerdaftar";
 	}
 
+	public String checkMail(String email) {
+		System.out.println("Cheking user email...");
+		String check = userMapper.checkMail(email);
+		if(check != null){
+			return "Terdaftar";
+		}
+		else return "TidakTerdaftar";
+	}
+
 	public boolean checkPassword(String username, String password){
 		String exist = userMapper.getPassword(username, password);
 		if (exist != null) {
@@ -47,6 +56,6 @@ public class AuthService {
     }
 
 	public Users userDetaiil(String username){
-		return userMapper.userDetail(username);
+		return userMapper.findUserAccount(username);
     }
 }

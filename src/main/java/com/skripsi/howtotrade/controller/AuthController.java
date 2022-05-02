@@ -85,11 +85,17 @@ public class AuthController {
 	@ResponseBody
 	@RequestMapping(value = "/user/check/{username}", method = RequestMethod.GET)
 	public  String checkUsername(@PathVariable("username") String username) {
-		System.out.println("FrontEnd - Username exist!...");
 		String isExist =  authService.isUsernameExist(username);
 		return isExist;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/user/check-mail/{email}", method = RequestMethod.GET)
+	public  String checkMail(@PathVariable("email") String email) {
+		String isExist =  authService.checkMail(email);
+		System.out.println("isExist: "+isExist);
+		return isExist;
+	}
 	
 	@RequestMapping(value = "/validate-account/{username}", method = RequestMethod.GET)
 	public String validateAccount(@PathVariable("username") String username) {

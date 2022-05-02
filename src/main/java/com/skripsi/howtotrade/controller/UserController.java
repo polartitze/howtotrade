@@ -33,7 +33,7 @@ public class UserController {
     @RequestMapping("")
     public String getUserProfile(Model model, Principal principal){
         model.addAttribute("profileForm", new Users());
-        model.addAttribute("data", userService.getUserProfile(principal.getName()));
+        model.addAttribute("data", userService.findUserAccount(principal.getName()));
         return "index/profile";
     }
 
@@ -87,9 +87,9 @@ public class UserController {
 
         userService.changeProfile(filename, userId);
         
-        // model.addAttribute("profileForm", new Users());
-        // model.addAttribute("data", userService.getUserProfile(principal.getName()));
-        // return "index/profile";
-        return "redirect:/profile"; 
+        model.addAttribute("profileForm", new Users());
+        model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        return "index/profile";
+        // return "redirect:/profile"; 
     }
 }

@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
-    
-    public Users getUserProfile(String username){
-        System.out.println("----------------Get User Data : "+userMapper.getUserProfile(username));
-        return userMapper.getUserProfile(username);
+
+    public Users findUserAccount(String username){
+        return userMapper.findUserAccount(username);
     }
     
     public void saveProfile(String userEmail, int userId){

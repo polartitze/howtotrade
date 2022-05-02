@@ -73,7 +73,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
-                                <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" required>
+                                <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" readonly>
                             </div>
                         </div>
                         <div class="container row gutters mb-3">
@@ -183,16 +183,13 @@
                 } 
                 else{
                     $("#profilepic").submit();
-                    return;
+                    // return;
+                    // location.reload();
                 } 
             });
 
-            // $('.overlay').click(function(){
-            //     $("#changeProfile").click();
-            // }).css("cursor", "pointer");
 
             $('.overlay').on('click mouseover', function () {
-                $("#changeProfile").click();
             }).css("cursor", "pointer");
 		}
 

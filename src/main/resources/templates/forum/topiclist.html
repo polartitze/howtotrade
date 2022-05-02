@@ -35,9 +35,10 @@
                   <div class="col-md-12 px-0">
                       <div class="card mb-4">
                           <div class="card-header">
-                              <div class="media flex-wrap w-100 align-items-center"> <img src="https://i.imgur.com/iNmBizf.jpg" class="d-block ui-w-40 rounded-circle" alt="">
+                              <div class="media flex-wrap w-100 align-items-center"> 
+                                  <img th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
                                   <div class="media-body ml-3"> 
-                                    <a th:href="@{/}" class="text-primary" sec:authentication="name"></a> 
+                                    <span class="text-primary" sec:authentication="name"></span> 
                                   </div>
                                   <div class="text-muted small ml-3">
                                   </div>
@@ -76,7 +77,7 @@
                   <div th:if="${topic.imagepath} != '-'">
                     <img class="img-thumbnail"
                       th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }"
-                      alt="Failed to load image">
+                      alt="Failed to load image, please reload">
                   </div>
                 </div>
                 
