@@ -7,6 +7,7 @@ import java.security.Principal;
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.service.TopicService;
+import com.skripsi.howtotrade.service.UserService;
 import com.skripsi.howtotrade.utility.Constant;
 import com.skripsi.howtotrade.utility.FileUploadUtil;
 
@@ -27,7 +28,8 @@ public class TopicController {
     @Autowired
     TopicService topicService;
     
-    String userLogged;
+    @Autowired
+    UserService userService;
     
     
     public TopicController(){
@@ -41,7 +43,7 @@ public class TopicController {
     //TOPIC
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllTopic(Model model, Principal principal){
-
+        model.addAttribute("data", userService.findUserAccount(principal.getName()));
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
         return "forum/topiclist";
@@ -49,6 +51,7 @@ public class TopicController {
 
     @RequestMapping(value = "/{topicId}", method = RequestMethod.GET)
     public String getTopicById(Model model, @PathVariable int topicId, Principal principal){
+        model.addAttribute("data", userService.findUserAccount(principal.getName()));
         model.addAttribute("topicData", topicService.getTopicById(topicId));
         model.addAttribute("listComment", topicService.getCommentOnTopic(topicId));
         model.addAttribute("commentForm", new Comment());
