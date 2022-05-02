@@ -53,8 +53,9 @@ public class CourseController {
 		return "course/course";
 	}
 	
-	@RequestMapping(value = "/saveProgress/{userId}/{courseId}", method = RequestMethod.POST)
-	public String saveProgressCourse(@PathVariable int userId, @PathVariable int courseId) {
+	@RequestMapping(value = "/finish/{courseId}", method = RequestMethod.GET)
+	public String saveProgressCourse(Principal principal, @PathVariable int courseId) {
+		int userId = userService.getUserId(principal.getName());
 		courseService.saveProgress(userId, courseId);
 		return "redirect:/course/all";			
 	}
@@ -65,11 +66,11 @@ public class CourseController {
 		return "course/quiz";
 	}
 	
-	@RequestMapping(value="/finish", method = RequestMethod.POST)
-	public String finishQuiz(@RequestBody Quiz quiz, Principal principal) {
-		
+	@RequestMapping(value="/quiz/finish/{quizId}/{score}", method = RequestMethod.GET)
+	public String saveProgressQuiz(Principal principal, @PathVariable int quizId, @PathVariable int score) {
 		int userId = userService.getUserId(principal.getName());
-		quizService.finishQuiz(quiz.getQuizId(), userId, quiz.getFinalScore());
+		quizService.saveProgress(userId, quizId, score);
+		
 		return "redirect:/course/all";
 	}
 	

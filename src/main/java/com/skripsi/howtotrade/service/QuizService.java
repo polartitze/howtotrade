@@ -71,10 +71,14 @@ public class QuizService {
 		}
 	}
 	
-	public void finishQuiz(int quizId, int userId, int score) {
-		
-		mapper.saveQuizEnroll(userId, quizId, score);
-		return;
+	public boolean saveProgress(int quizId, int userId, int score) {
+		try {
+			mapper.saveQuizEnroll(userId, quizId, score);
+			return true;			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public int countScore(Quiz quiz) {

@@ -32,7 +32,7 @@ public interface CourseMapper {
 	Question getQuestion(int activityId);
 	
 	@Select("SELECT * FROM fn_save_course_enroll(#{userId}, #{courseId})")
-	void saveCourseEnroll(int userId, int courseId);
+	String saveCourseEnroll(int userId, int courseId);
 	
 	@Select("SELECT * from chart where activityId = #{activityId}")
 	Chart getChartByActivityId(int activityId);

@@ -47,7 +47,7 @@
 	<div id="quiz-modal" class="modal">
 		<div class="modal-content">
 			<h2 class="modal-text"></h2>
-			<a th:href="@{'/course/all'}" >Continue</button>		
+			<a th:href="@{'/course/quiz/finish/'  + ${quizData.quizId} + '/'+ ${quizData.finalScore} }" >Continue</button>			
 		</div>
 	</div>
 	

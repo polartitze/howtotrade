@@ -27,17 +27,25 @@ CREATE OR REPLACE FUNCTION public.fn_save_quiz_enroll(
     VOLATILE PARALLEL UNSAFE
 AS $BODY$
 DECLARE
-	v_maxattempt int;
+	v_highestscore int;
 	v_response character varying (20);
 BEGIN
 
-	--check sudah berapa kali coba
-	select max(attemptno) into v_maxattempt from quiz_enroll 
-	where userid = i_userid and quizid = i_quizid;
-	
-	--insert percobaan selanjutnya
-	insert into quiz_enroll
-	values (i_userid, i_quizid, v_maxattempt + 1, i_score, current_timestamp);
+	insert into quiz_enroll(userid, quizid, score, enrolldate)
+	values(I_USERID, I_QUIZID, I_SCORE, CURRENT_TIMESTAMP)
+	on conflict on constraint quizenroll_pkey
+	do
+		update set enrolldate = CURRENT_TIMESTAMP;
+		
+	select score 
+	into v_highestscore
+	from quiz_enroll where userid = I_USERID and quizid = I_QUIZID;
+		
+	if (i_score > v_highestscore) then
+		update quiz_enroll 
+		set score = I_SCORE
+		where userid = I_USERID and quizid = I_QUIZID;
+	end if;
 	
 	return current_timestamp;
 END;

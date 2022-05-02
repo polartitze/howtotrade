@@ -23,8 +23,8 @@ public interface QuizMapper {
 	@Select("SELECT count(1) FROM question where quizid = #{quizId}")
 	int getQuizTotalQuestion(int quizId);
 	
-	@Select("SELECT * FROM fn_save_quiz_enroll(#{userId}, #{courseId}, #{score})")
-	void saveQuizEnroll(int userId, int quizId, int score);
+	@Select("SELECT * FROM fn_save_quiz_enroll(#{userId}, #{quizId}, #{score})")
+	String saveQuizEnroll(int userId, int quizId, int score);
 	
 	@Select ("SELECT COUNT(*) FROM quiz_enroll WHERE userid = #{userId} AND quizid = #{quizId}")
 	int isExistQuizEnroll(int userId, int quizId);
