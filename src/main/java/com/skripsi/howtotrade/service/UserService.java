@@ -25,7 +25,7 @@ public class UserService {
         userMapper.saveProfileWithPassword(userEmail, userPassword, userId);
     }
 
-    public int getUserId(String userName){
+    public Integer getUserId(String userName){
         return userMapper.getUserId(userName);
     }
 
