@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/buttons.dataTables.min.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<title>Add Activity</title>
+</head>
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+    *, body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+        height: 100%;
+        background-color: #eee;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+        background-color: #495056;
+        outline: none !important;
+    }
+    .invalid-feedback{
+        color: #ff606e;
+    }
+
+    .valid-feedback{
+        color: #2acc80;
+    }
+    </style>
+<body>
+
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <div th:if="${#request.getParameter('success') == 'true'}">
+                            <div class="col-md-12 col-12">
+                                <div class="alert alert-success valid-feedback">
+                                    Insert Activity Success!
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#request.getParameter('error') == 'true'}">
+                            <div class="col-md-12 col-12">
+                                <div class=" invalid-feedback">
+                                    Insert Activity Error!
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${count}  < 10">
+                            <div class="col-md-12 col-12" style="color: #ff606e; font-size: 24px;">
+                                Minimal aktivitas harus sepuluh!
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <!-- <div class="alert alert-danger alert-dismisible" id="activityAlert" style="display: none;">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div> -->
+                                <div class="alert alert-warning alert-dismissible fade show" id="activityAlert" style="display: none;" role="alert">
+                                    <span id="alertMsg"></span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div> 
+                        <input type="hidden" th:value="${count}" id="count">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-primary">
+                    <button type="button" class="btn btn-primary btn-add" data-toggle="modal"
+                        data-target="#activityModal">Add Activity</button>
+                </div>
+            </div>
+        </div>
+    
+        <table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
+            <caption>Daftar Aktivitas Kelas</caption>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center align-middle"> Urutan </th>
+                    <th scope="col" class="text-center align-middle"> Tipe Aktivitas</th>
+                    <th scope="col" class="text-center align-middle"> Deskripsi </th>
+                    <th scope="col" class="text-center align-middle"> Gambar </th>
+                    <th scope="col" class="text-center align-middle"> Action </th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr th:if="${listActivity.empty}">
+                    <td colspan="9" class="text-center"> Data tidak ditemukan. </td>
+                </tr>
+                <tr th:each="list : ${listActivity}">
+                    <td>
+                        <span th:text="${list.stepNo}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${list.activityType}"></span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <span th:text="${list.activityDesc}"></span>
+                    </td>
+                    <td>
+                        <a th:attr="data-id=${list.imageUrl}" id="imgModal" data-toggle="modal"
+                            data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e;"></span></a>
+                    </td>
+                    <td class="text-center align-middle">
+                        <a th:href="@{ '/pro/delete-activity/' + ${list.activityId} }"><i class="bi-trash"></i></a>
+                        <!-- <i class="fa fa-trash"></i> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row gutters" th:if="${count}  >= 10">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-center">
+                    <a th:href="@{'/pro/save-all-course/' + ${courseId}}" type="button" class="btn btn-primary">Save Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- MODAL ACTIVITY -- START-->
+    <div class="modal" id="activityModal">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
+          <div class="modal-content border-0" style="padding: 20px;">
+            <div class="modal-header border-0 pb-0">
+              <h4>Add Activity</h4>
+              <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body border-0 pb-0" >
+                <div class="form-items">
+                   
+                    <div  th:if="${#request.getParameter('error') == 'true'}">
+                        <div class="col-md-12 col-12">
+                            <div class=" invalid-feedback">
+                                Insert Activity Error!
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <p>Fill in the data below.</p>
+                    <form class="requires-validation" id="myForm" th:object="${addActivity}" th:action="@{'/pro/add-activity-save'}" method="post" enctype="multipart/form-data">
+                        <!-- <div class="col-md-12 mb-2">
+                            <input class="form-control" type="number" placeholder="Urutan Aktivitas" id="stepNo"  th:field="${addActivity.stepNo}" required>
+                        </div> -->
+                        <div class="col-md-12">
+                            <select class="form-select mt-3" th:field="${addActivity.activityTypeId}" id="selectActivityType" required>
+                                 <option selected disabled value="0">Pilih tipe aktivitas</option>
+                                 <option th:each="list : ${listActivityType}" th:value="${list.id}" th:text="${list.name}"></option>
+                             </select>
+                         </div>
+                        
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Deskripsi" maxlength="500"  th:field="${addActivity.activityDesc}" required>
+                        </div>
+                        
+                        <div class="col-md-12 mb-2">
+                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
+                        </div>
+                        
+                        <div class="col-md-12 mb-2">
+                            <label for="isQuestion">Is it question?</label>
+                            <input type="checkbox" id="isQuestion" name="isquestion">
+                        </div>
+
+                        <div class="col-md-12 mb-2" id="btnQuestion" style="display: none;">
+                            <br>
+                            <h4>Add Question</h4>
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="text" placeholder="Pertanyaan" maxlength="500" th:field="${addActivity.question.questionDesc}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="text" placeholder="Pilihan 1" maxlength="500"  th:field="${addActivity.question.choiceOne}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="text" placeholder="Pilihan 2" maxlength="500"  th:field="${addActivity.question.choiceTwo}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="text" placeholder="Pilihan 3" maxlength="500"  th:field="${addActivity.question.choiceThree}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="text" placeholder="Pilihan 4" maxlength="500"  th:field="${addActivity.question.choiceFour}">
+                            </div>
+    
+                            <div class="col-md-12 mb-2">
+                                <input class="form-control" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addActivity.question.correctAnswer}">
+                            </div>
+                        </div>
+
+                        
+                        <input type="hidden" name="courseId" th:value="${courseId}" id="course">
+    
+                        <div class="form-button mt-3 text-center">
+                            <button id="btn-save-activity" type="button" class="btn btn-primary">Save</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL ACTIVITY -- END-->
+
+    <!-- MODAL IMAGE -- START-->
+    <div class="modal" id="imageModal">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
+            <div class="modal-content border-0" style="padding: 20px;">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body border-0 pb-0" id="imgInside">
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- MODAL IMAGE -- END-->   
+
+    <!-- MODAL QUESTION -- START-->
+    <!-- <div class="modal" id="questionModal">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
+          <div class="modal-content border-0" style="padding: 20px;">
+            <div class="modal-header border-0 pb-0">
+              <h4>Add Question</h4>
+              <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body border-0 pb-0" >
+                <div class="form-items">
+                   
+                    <p>Fill in the data below.</p>
+                    <form class="requires-validation" th:object="${addQuestion}" th:action="@{'/pro/activity/add-question-save'}" method="post">
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Pertanyaan" maxlength="500" th:field="${addQuestion.questionDesc}" required>
+                        </div>
+                        
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Pilihan 1" maxlength="500"  th:field="${addQuestion.choiceOne}" required>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Pilihan 2" maxlength="500"  th:field="${addQuestion.choiceTwo}" required>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Pilihan 3" maxlength="500"  th:field="${addQuestion.choiceThree}" required>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="text" placeholder="Pilihan 4" maxlength="500"  th:field="${addQuestion.choiceFour}" required>
+                        </div>
+
+                        <div class="col-md-12 mb-2">
+                            <input class="form-control" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
+                        </div>
+    
+                        <div class="form-button mt-3 text-center">
+                            <button id="submit" type="submit" class="btn btn-primary">Save Question</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- MODAL QUESTION -- END-->
+    <script>
+		$(document).ready(function(){
+            $("#correctAnswer").val('');
+            if($('#count').val() == 10 ){
+                $('.btn-add').attr("disabled", "disabled");
+            } 
+
+            image();
+
+            
+        });
+
+        $('#btn-save-activity').click(function(){
+            if($('#selectActivityType').val() == 0 || $('#selectActivityType').val() == null){
+                $('#alertMsg').html('Tipe Aktivitas harus dipilih!');
+                $('#activityAlert').show();
+                return false;
+            }
+            else{
+                $('#myForm').submit();
+            }
+        });
+
+        $("#inputImage").change(function(){
+            if((this.files[0].size / 1024 / 1024) > 1){
+                $("#alertMsg").html('Maksimal file 1MB');
+                $("#activityAlert").show();
+            } 
+            else{
+                $("#activityAlert").hide();
+            } 
+        });
+
+        function image(){
+            $("#imgModal").on('click',function(){
+                var id = $(this).data('id');
+                var courseId = $("#course").val();
+                var img = document.createElement("IMG");
+                var dom = '<img src="/assets/images/course/on_courseid_' + courseId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
+                $('#imgInside').html(dom); 
+
+            });
+
+        }
+
+        $('#isQuestion').on('change',function(){
+            if($('#isQuestion:checked').val()) $('#btnQuestion').show();
+            else $('#btnQuestion').hide();
+        });
+
+	</script>
+</body>
+</html>

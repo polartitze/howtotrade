@@ -32,7 +32,11 @@ public class UserService {
     public String getUserRole(String userName) {
     	return userMapper.getRole(userName);
     }
-
+    
+    public String getUserName(int userId){
+        return userMapper.getUserName(userId);
+    }
+    
     public String getOldPassword(String userName){
         return userMapper.getOldPassword(userName);
     }

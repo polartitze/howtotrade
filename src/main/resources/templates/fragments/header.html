@@ -20,7 +20,20 @@
         
       </ul>
       <ul class="navbar-nav">
-      	<li class="nav-item" th:classappend="${module == 'forum' ? 'active' : ''}" sec:authorize="isAuthenticated()">
+        <!-- ROLE PRO -->
+        <li class="nav-item" th:classappend="${module == 'index/addquiz' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
+          <a class="nav-link" href="/pro/add-quiz">Add Quiz</a>
+        </li>
+
+        <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
+          <a class="nav-link" href="/pro/add-course">Add Course</a>
+        </li>
+        
+        <!-- <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
+          <a class="nav-link" href="/pro/add-question">Add Question</a>
+        </li> -->
+
+      	<li class="nav-item" th:classappend="${module == 'forum' ? 'active' : ''}" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a class="nav-link" href="/topic/all">Forum</a>
         </li>
         

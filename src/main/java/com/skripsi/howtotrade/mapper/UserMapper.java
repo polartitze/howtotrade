@@ -45,7 +45,10 @@ public interface UserMapper {
 	void saveProfile(@Param("userEmail") String userEmail,	@Param("userId") int userId);
 
 	@Select("SELECT USERID FROM USERS WHERE USERNAME = #{userName}")
-    Integer getUserId(String userName);
+    int getUserId(String userName);
+
+	@Select("SELECT USERNAME FROM USERS WHERE USERID = #{userId}")
+    String getUserName(int userId);
 	
 	@Select("SELECT USERPASSWORD FROM USERS WHERE USERNAME = #{userName}")
     String getOldPassword(String userName);

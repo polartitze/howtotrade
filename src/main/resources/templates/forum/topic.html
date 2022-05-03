@@ -89,7 +89,7 @@
           </div>
     
           <div class="mr-2 align-self-center">
-            <img class="mr-3 rounded-circle" src="https://i.imgur.com/iNmBizf.jpg">
+            <img th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
           </div>
     
           <div class="col-8 pt-2">

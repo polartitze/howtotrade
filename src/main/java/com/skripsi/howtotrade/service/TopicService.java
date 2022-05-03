@@ -67,4 +67,10 @@ public class TopicService {
     public void blockMember(int userId){
         mapper.blockMember(userId);
     }
+
+    public int getAuthor(int topicId){
+        return mapper.getAuthor(topicId);
+    }
+
+    
 }

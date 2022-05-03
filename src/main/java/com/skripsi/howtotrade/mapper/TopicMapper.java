@@ -97,4 +97,8 @@ public interface TopicMapper {
 
     @Update("UPDATE USERS SET USERSTATUS = '0' WHERE USERID = #{userId}")
     void blockMember(int userId);
+
+    @Select("SELECT AUTHORID FROM TOPIC WHERE TOPICID = #{topicId}")
+    int getAuthor(int topicId);
+
 }

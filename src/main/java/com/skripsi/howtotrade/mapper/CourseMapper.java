@@ -1,9 +1,15 @@
 package com.skripsi.howtotrade.mapper;
 
+import java.sql.Time;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.skripsi.howtotrade.model.Activity;
 import com.skripsi.howtotrade.model.Candle;
@@ -17,7 +23,7 @@ public interface CourseMapper {
 	@Select ("SELECT COUNT(*) FROM course_enroll WHERE userid = #{userId} AND courseid = #{courseId}")
 	int isExistCourseEnroll(int userId, int courseId);
 	
-	@Select("SELECT * FROM course ORDER BY courseid")
+	@Select("SELECT * FROM course ORDER BY courseid WHERE ISSAVED = '1' ")
 	List<Course> getAllCourse();
 	
 	@Select("SELECT * FROM course WHERE courseid = #{courseId}")
@@ -42,4 +48,42 @@ public interface CourseMapper {
 	
 	@Select("SELECT * FROM fn_islocked_course(#{userId}, #{courseId})")
 	boolean getCourseLock(int userId, int courseId);
+
+	@Select("SELECT COURSEID, COURSENAME FROM COURSE "
+			+ "WHERE COURSEID NOT IN (SELECT DISTINCT COURSEID FROM QUIZ)")
+	List<Map<String,String>> getAllCourseName();
+
+	@Insert("INSERT INTO course(coursename, coursedesc, imageurl) "
+	+ "VALUES (#{coursename}, #{coursedesc}, #{imageurl} )")
+	void addCourse(String coursename, String coursedesc, String imageurl);
+
+	@Select("SELECT COURSEID FROM COURSE ORDER BY COURSEID DESC FETCH FIRST ROW ONLY")
+	int getLatestCourseId();
+	
+	@Select("SELECT STEPNO FROM ACTIVITY WHERE COURSEID = #{coureseId} ORDER BY STEPNO DESC FETCH FIRST ROW ONLY")
+	Integer getLatestStepNo(int courseId);
+	
+	@Select("SELECT ACTIVITYID FROM ACTIVITY ORDER BY ACTIVITYID DESC FETCH FIRST ROW ONLY")
+	int getLatestActivityId();
+
+	
+	@Delete("DELETE FROM ACTIVITY WHERE ACTIVITYID = #{activityId}")
+	void deleteActivity(int activityId);
+
+	@Update("UPDATE COURSE SET ISSAVED = '1' WHERE COURSEID = #{courseId}")
+	void saved(int courseId);
+
+	@Insert("INSERT INTO activity(courseid, stepno, activitytypeid, activitydesc, imageurl, isquestion) "
+			+ "VALUES (#{courseid}, #{stepno}, #{activitytypeid}, #{activitydesc}, #{imageurl}, #{isQuestion})")
+	void addActivity(int courseid, int stepno, int activitytypeid, String activitydesc, String imageurl, boolean isQuestion);
+
+	@Insert("INSERT INTO question(quizid, activityid, stepno, questiondesc, correctanswer, useranswer, choiceone, choicetwo, choicethree, choicefour, imageurl) "
+			+ "VALUES (NULL, #{activityId}, #{stepno}, #{questiondesc}, #{correctanswer}, NULL, #{choiceone}, #{choicetwo}, #{choicethree}, #{choicefour}, NULL)")
+	void addActivityQuestion(int activityId, int stepno, String questiondesc, int correctanswer,  String choiceone, String choicetwo, String choicethree, String choicefour);
+
+	@Select("SELECT * FROM ACTIVITY_TYPE")
+	List<Map<String,String>> getAllActivityType();
+
+	@Select("SELECT COUNT(ACTIVITYID) FROM ACTIVITY WHERE COURSEID = #{COURSEID}")
+	int countListActivity(int courseId);
 }

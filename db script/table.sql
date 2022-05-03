@@ -37,7 +37,7 @@ drop table if exists question;
 create table question(
 	questionid serial primary key,
 	quizid int,
-	activityid int,
+	-- activityid int,
 	stepno int not null,
 	questiondesc character varying(500),
 	correctanswer int not null,
@@ -165,3 +165,7 @@ alter table investmentplanning drop column target;
 alter table investmentplanning add column target varchar(50) default '-';
 
 alter table users add column isverified varchar(1) default '0';
+
+alter table quiz add column isSaved varchar(1) default '0';
+alter table course add column isSaved varchar(1) default '0';
+alter table course drop column courseduration;
