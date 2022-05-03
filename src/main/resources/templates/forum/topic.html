@@ -104,8 +104,8 @@
               </a>
             </div>
             <div th:each="authority : ${#authentication.getAuthorities()}" th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${comment.username}">
-              <a class="float-right ml-3"
-                th:href="@{'/topic/'+${comment.topicid}+'/comment/'+${comment.commentid}+'/delete'}">
+              <a href="#del-modal" th:data-id="${comment.topicid}" th:data-title="${comment.commentid}"
+                class="float-right ml-3 open-del-modal" data-toggle="modal">
                 <button type="button" class="btn btn-danger">
 				  <i class="fa fa-trash"></i>
 				</button>
@@ -116,31 +116,35 @@
       </div>
     </div>
         
-        <!-- DELETE MODAL -->
-        <!-- <div id="deleteModal" class="modal fade">
-          <div class="modal-dialog modal-confirm modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header flex-column">
-                <div class="icon-box">
-                  <i class="bi bi-bell"></i>
-                </div>						
-                <h4 class="modal-title w-100">Are you sure?</h4>	
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              </div>
-              <div class="modal-body">
-                <p>Do you really want to delete these records? This process cannot be undone.</p>
-              </div>
-              <div class="modal-footer justify-content-center">
-                <a th:href="@{'/topic/'+${comment.topicId}+'/comment/'+${comment.commentId}+'/delete'}" class="btn btn-danger">Delete</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>    -->
         
         
-        <div th:replace="fragments/logout :: logout">&nbsp;</div>
+    <div th:replace="fragments/logout :: logout">&nbsp;</div>
         
+        <div class="modal" id="del-modal">
+	      <div class="modal-dialog modal-dialog-centered">
+	        <div class="modal-content border-0">
+	          <div class="modal-header border-0 pb-0">
+	            <h4>Delete Comment</h4>
+	            <button type="button" class="close" data-dismiss="modal">X</button>
+	          </div>
+	          <div class="modal-body border-0 pb-0">
+	            <p>Are you sure to delete?</p>
+	          </div>
+	          <div class="modal-footer">
+	            <a class="btn btn-danger modal-yes">Yes</a>
+	            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+        <script>
+        	$(document).on("click", ".open-del-modal", function () {
+		     var topics = $(this).data('id');
+		     var comments = $(this).data('title');
+		     $("#del-modal .modal-yes").attr("href", "/topic/" + topics + "/comment/"
+		     		+ comments + "/delete")
+		});
+        </script>
 
   </body>
 </html>

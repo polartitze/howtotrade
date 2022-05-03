@@ -64,4 +64,7 @@ public interface UserMapper {
 	
 	@Update("UPDATE users SET userstatus = '1' WHERE userid = #{userId}")
     void unblockUser(int userId);
+	
+	@Update("UPDATE users SET userrole = '3' WHERE userid = #{userId}")
+    void changetoExpert(int userId);
 }

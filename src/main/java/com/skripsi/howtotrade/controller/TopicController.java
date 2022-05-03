@@ -85,7 +85,10 @@ public class TopicController {
     
     @RequestMapping("/{topicId}/delete")
     public String deleteTopicById(@PathVariable int topicId, Principal principal){
-        topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
+    	if(userService.getUserRole(principal.getName()).equals("ROLE_ADMIN")) {
+    		topicService.deleteTopicAdmin(topicId);
+    	}
+    	else topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
         return "redirect:/topic/all";
     }
 

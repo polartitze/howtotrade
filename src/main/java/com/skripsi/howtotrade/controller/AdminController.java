@@ -47,7 +47,8 @@ public class AdminController {
     
     @RequestMapping("/manage-member/change/{username}")
     public String changetoExpert(@PathVariable String username){
-        return "redirect:/admin/manage-member";
+    	userService.changetoExpert(userService.getUserId(username));
+    	return "redirect:/admin/manage-member";
     }
     
 }

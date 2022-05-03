@@ -39,6 +39,10 @@ public class TopicService {
         mapper.deleteTopic(userId, topicId);
     }
 
+    public void deleteTopicAdmin(int topicId){
+        mapper.deleteTopicAdmin(topicId);
+    }
+    
     public List<HashMap<String, String>> getCommentOnTopic(int id){
         return mapper.getCommentOnTopic(id);
     }

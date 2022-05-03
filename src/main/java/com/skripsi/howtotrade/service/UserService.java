@@ -28,6 +28,10 @@ public class UserService {
     public Integer getUserId(String userName){
         return userMapper.getUserId(userName);
     }
+    
+    public String getUserRole(String userName) {
+    	return userMapper.getRole(userName);
+    }
 
     public String getOldPassword(String userName){
         return userMapper.getOldPassword(userName);
@@ -60,4 +64,15 @@ public class UserService {
 			return false;
 		}
     }
+    
+    public boolean changetoExpert(int userId) {
+    	try {
+    		userMapper.changetoExpert(userId);    		
+    		return true;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+			return false;
+		}
+    }
+    
 }
