@@ -23,17 +23,23 @@ public interface CourseMapper {
 	@Select ("SELECT COUNT(*) FROM course_enroll WHERE userid = #{userId} AND courseid = #{courseId}")
 	int isExistCourseEnroll(int userId, int courseId);
 	
-	@Select("SELECT * FROM course ORDER BY courseid WHERE ISSAVED = '1' ")
+	@Select("SELECT * FROM course WHERE ISSAVED = '1' ORDER BY courseid ")
 	List<Course> getAllCourse();
 	
 	@Select("SELECT * FROM course WHERE courseid = #{courseId}")
 	Course getCourseById(int courseId);
 	
 	@Select("SELECT a.*, at.name as activitytype FROM activity a "
-			+ "JOIN activity_type at ON at.id = a.activitytypeid "
+			+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
 			+ "WHERE courseId = #{courseId}")
 	List<Activity> getAllCourseActivity(int courseId);
 	
+	@Select("SELECT a.*, at.name as activitytype, q.* FROM activity a "
+			+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
+			+ "LEFT JOIN QUESTION q ON q.activityid = a.activityid "
+			+ "WHERE courseId = #{courseId}")
+	List<HashMap<String,String>> getAllCourseActivityMap(int courseId);
+
 	@Select("SELECT * FROM question where activityId = #{activityId}")
 	Question getQuestion(int activityId);
 	

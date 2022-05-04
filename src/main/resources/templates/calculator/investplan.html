@@ -70,10 +70,10 @@
                       <div class="media-body">
                         <h4>Output Perhitungan</h4>
                         <select class="form-select" style="height: calc(2.75rem + 2px)" id="jenisPerhitungan" th:field="${calculatorForm.jenisPerhitungan}">
-                          <option value="00"></option>
-                          <option value="10_COIN">Koin yang cocok untuk kamu</option>
-                          <option value="20_TOTAL">Total investasi kamu di hari tua</option>
-                          <option value="30_COMP">Compounding Interest</option>
+                          <!-- <option value="00"></option> -->
+                          <!-- <option value="10_COIN">Koin yang cocok untuk kamu</option> -->
+                          <option value="20_TOTAL">Total Investasi (Tabung bulanan)</option>
+                          <option value="30_COMP">Total Investasi (Tabung sekali di awal)</option>
                         </select>
                       </div>
                       <div class="align-self-center">
@@ -245,8 +245,8 @@
                 <th scope="col" class="text-center align-middle"> Tanggal Dibuat </th>
                 <th scope="col" class="text-center align-middle"> Jenis Perhitungan </th>
                 <th scope="col" class="text-center align-middle"> Investasi Awal </th>
+                <th scope="col" class="text-center align-middle"> Investasi per Bulan </th>
                 <th scope="col" class="text-center align-middle"> Waktu Investasi </th>
-                <th scope="col" class="text-center align-middle"> Total Investasi </th>
                 <th scope="col" class="text-center align-middle"> Koin </th>
                 <th scope="col" class="text-center align-middle"> Hasil </th>
                 <th scope="col" class="text-center align-middle"> Action </th>
@@ -254,7 +254,7 @@
             </thead>
             <tbody>
               <tr th:if="${history.empty}">
-                <td colspan="7" class="text-center"> No Data Available </td>
+                <td colspan="8" class="text-center"> No Data Available </td>
               </tr>
               <tr th:each="list : ${history}">
                 <td>
@@ -264,13 +264,13 @@
                   <span th:text="${list.jenis}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.currentbalance}"></span>
+                  <span th:text="${list.investasiawal}"></span>
+                </td>
+                <td class="text-center align-middle">
+                  <span th:text="${list.investasiperbulan}"></span>
                 </td>
                 <td class="text-center align-middle">
                   <span th:text="${list.duration}"></span>
-                </td>
-                <td class="text-center align-middle">
-                  <span th:text="${list.target}"></span>
                 </td>
                 <td class="text-center align-middle">
                   <span th:text="${list.coincode}"></span>
@@ -303,13 +303,13 @@
         var waktu;
         var perBulan;
         var hasil;
-        $('#jenisPerhitungan').val("10_COIN");
-        $("#koin").attr("disabled", "disabled"); 
-        $("#investasiAwal").attr("disabled", "disabled"); 
-        $("#totalInvestasi").removeAttr("disabled");
+        $('#jenisPerhitungan').val("20_TOTAL");
+        $("#totalInvestasi").attr("disabled", "disabled");
+        $("#totalInvestasiBox").hide();
+        $("#koin").removeAttr("disabled");
         $("#perBulan").removeAttr("disabled");
         $("#waktu").removeAttr("disabled");
-        $("#koinBox,#investasiAwalBox").hide();
+        $("#investasiAwal").removeAttr("disabled")
 
         $('#waktu').val('');
         $('#table-history').hide();
@@ -371,18 +371,17 @@
 
         $("#jenisPerhitungan").on('change', function(){
           var option = $("#jenisPerhitungan").val();
-            if( option == '10_COIN'){
-              $("#totalInvestasiBox,#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
-              $("#koin,#investasiAwal").attr("disabled", "disabled"); 
-              $("#koinBox,#investasiAwalBox").hide();
-              // $("").attr("disabled", "disabled"); 
-              $("#totalInvestasi,#perBulan,#waktu").removeAttr("disabled");
-              // $("").removeAttr("disabled");
-              // $("").removeAttr("disabled");
-              $("#totalInvestasi,#koin,#perBulan,#waktu,#investasiAwal").val('');
-              
-            }
-            else if(option == '20_TOTAL'){
+            // if( option == '10_COIN'){
+            //   $("#totalInvestasiBox,#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
+            //   $("#koin,#investasiAwal").attr("disabled", "disabled"); 
+            //   $("#koinBox,#investasiAwalBox").hide();
+            //   // $("").attr("disabled", "disabled"); 
+            //   $("#totalInvestasi,#perBulan,#waktu").removeAttr("disabled");
+            //   // $("").removeAttr("disabled");
+            //   // $("").removeAttr("disabled");
+            //   $("#totalInvestasi,#koin,#perBulan,#waktu,#investasiAwal").val('');
+            // }
+            if(option == '20_TOTAL'){
               $("#totalInvestasiBox,#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
               $("#totalInvestasi").attr("disabled", "disabled");
               $("#totalInvestasiBox").hide();

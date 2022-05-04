@@ -44,7 +44,9 @@ public class TopicController {
     //TOPIC
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllTopic(Model model, Principal principal){
-        model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        if(!"".equals(principal.getName()) || principal.getName() != null){
+            model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        }
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
         return "forum/topiclist";

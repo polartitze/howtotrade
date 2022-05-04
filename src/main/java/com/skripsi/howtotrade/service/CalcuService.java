@@ -36,13 +36,23 @@ public class CalcuService {
         if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
             calc.setTotalInvestasi("-");
         }
-        else if("".equals(calc.getKoin()) || calc.getKoin() == null){
+        if("".equals(calc.getKoin()) || calc.getKoin() == null){
             calc.setKoin("-");
+        }
+        if("".equals(calc.getPerBulan()) || calc.getPerBulan() == null){
+            calc.setPerBulan("-");
+        }
+        if("".equals(calc.getInvestasiAwal()) || calc.getInvestasiAwal() == null){
+            calc.setInvestasiAwal("-");
+        }
+        if("".equals(calc.getWaktu()) || calc.getWaktu() == null){
+            calc.setWaktu("-");
         }
         calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
         calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
+        calc.setInvestasiAwal(calc.getInvestasiAwal().replaceAll(",", ""));
         
-        calcuMapper.insertCalculate(calc.getTotalInvestasi(), calc.getWaktu(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
+        calcuMapper.insertCalculate(calc.getWaktu(), calc.getInvestasiAwal(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
     }
 
     public String calcCoin(String totalInvestasi, String waktuString, String perBulanString){

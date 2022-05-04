@@ -169,3 +169,7 @@ alter table users add column isverified varchar(1) default '0';
 alter table quiz add column isSaved varchar(1) default '0';
 alter table course add column isSaved varchar(1) default '0';
 alter table course drop column courseduration;
+
+ALTER TABLE INVESTMENTPLANNING RENAME COLUMN CURRENTBALANCE TO INVESTASIAWAL
+ALTER TABLE INVESTMENTPLANNING ADD COLUMN INVESTASIPERBULAN VARCHAR(20) default '-'
+ALTER TABLE INVESTMENTPLANNING DROP COLUMN TARGET

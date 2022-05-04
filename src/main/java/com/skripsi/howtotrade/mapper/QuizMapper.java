@@ -18,7 +18,7 @@ public interface QuizMapper {
 	@Select("SELECT * FROM quiz WHERE quizid = #{quizId}")
 	Quiz getQuizById(int quizId);
 	
-	@Select("SELECT * FROM quiz ORDER BY quizid WHERE ISSAVED = '1' ")
+	@Select("SELECT * FROM quiz WHERE ISSAVED = '1' ORDER BY quizid ")
 	List<Quiz> getAllQuiz();
 	
 	@Select("SELECT * FROM question where quizid = #{quizId} order by quizid asc, stepno asc")

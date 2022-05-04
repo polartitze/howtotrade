@@ -171,9 +171,10 @@ public class ExpertController {
 		model.addAttribute("count", courseService.countListActivity(courseId));
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("listActivityType", courseService.getAllActivityType());
-		model.addAttribute("listActivity", courseService.getAllCourseActivity(courseId));
+		System.out.println(courseService.getAllCourseActivityMap(courseId));
+		model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId)); 
 		model.addAttribute("addActivity", new Activity());
-		model.addAttribute("addQuestion", new Question());
+		// model.addAttribute("addQuestion", new Question());
 
 		return "expert/addactivity";
 	}

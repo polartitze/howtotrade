@@ -107,7 +107,10 @@ public class CourseService {
 	public List<Activity> getAllCourseActivity(int courseId){
 		return mapper.getAllCourseActivity(courseId);
 	}
-
+	
+	public List<HashMap<String,String>> getAllCourseActivityMap(int courseId){
+		return mapper.getAllCourseActivityMap(courseId);
+	}
 	public void deleteActivity(int activityId){
 		mapper.deleteActivity(activityId);
 	}
