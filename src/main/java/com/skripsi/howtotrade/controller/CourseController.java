@@ -39,11 +39,19 @@ public class CourseController {
 	
 	@RequestMapping(value = "/all")
 	public String getAllCourse(Principal principal, Model model) {
-		int userId = userService.getUserId(principal.getName());
-		model.addAttribute("listCourse", courseService.getAllCourse(userId));
-		model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
-		model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
-		return "course/coursedashboard";
+		try {
+			int userId = userService.getUserId(principal.getName());
+			model.addAttribute("username", principal.getName());
+			model.addAttribute("listCourse", courseService.getAllCourse(userId));
+			model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
+			model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
+			return "course/coursedashboard";
+		} catch (Exception e) {
+			model.addAttribute("listCourse", courseService.getAllCourse());
+			model.addAttribute("listQuiz", quizService.getAllQuiz());
+			model.addAttribute("userLogged", "alvin"); //FIXME: when authentication has been set, change into 'userLogged'
+			return "course/coursedashboard";
+		}
 	}
 	
 	@RequestMapping("/{courseId}")

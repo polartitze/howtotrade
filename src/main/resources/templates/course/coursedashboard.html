@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/course.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/course.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/certificate.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-  <script th:src="@{/assets/js/jquery.min.js}"></script>
-  <script th:src="@{/assets/js/bootstrap.min.js}"></script>
-  
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<!-- 
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+ -->
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Course Dashboard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Dashboard</title>
 </head>
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	
-	<section class="probootstrap-section probootstrap-section-colored" style="background:#343a40">
+
+	<section class="probootstrap-section probootstrap-section-colored"
+		style="background: #343a40">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 text-left section-heading probootstrap-animate">
+				<div
+					class="col-md-12 text-left section-heading probootstrap-animate">
 					<h1>Our Courses</h1>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- featured course -->
 	<section class="probootstrap-section">
 		<div class="container">
@@ -34,83 +47,211 @@
 				<div class="col-md-12">
 					<div class="probootstrap-flex-block">
 						<div class="probootstrap-text probootstrap-animate">
-							<div class="text-uppercase probootstrap-uppercase">Featured Course</div>
+							<div class="text-uppercase probootstrap-uppercase">Featured
+								Course</div>
 							<h3 th:text="${listCourse[0].courseName}"></h3>
 							<p th:text="${listCourse[0].courseDesc}"></p>
-							<p><a href="#" class="btn btn-primary" style="background:#3ec1d5">Enroll now</a></p>
-						</div>
-						<div class="probootstrap-image probootstrap-animate" 
-						th:style="'background-image:url(' + @{${listCourse[0].imageUrl}} + ');'">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- course and quiz list -->
-
-<section class="probootstrap-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<h2>Course</h2>
-				<div class="row" th:each="course : ${listCourse}">
-					<div class="probootstrap-service-2 probootstrap-animate" style="height: 250px;">
-						<div class="image">
-							<div class="image-bg fit-in-background">
-								<img th:src="@{${course.imageUrl}}" alt="Free Bootstrap Template by uicookies.com">
-							</div>
-						</div>
-						<div class="text">
-							<li th:if="${course.isEnroll}" class="fa fa-check-circle text-success float-right"></li>
-							<h3 th:text="${course.courseName}"></h3>
-							<p th:text="${course.courseDesc}"></p>
 							<p>
-								<a th:if="${!course.isLock}" th:href="@{'/course/'+${course.courseId}}" class="btn btn-primary" style="background:#3ec1d5; border-color:#3ec1d5;">Enroll now</a>
-								<a th:if="${course.isLock}" class="btn btn-secondary">Locked!</a>
-								<span class="text-center float-right">
-									<a th:if="${!course.isLock}" th:href="@{'/course/'+${course.courseId}}" class="btn btn-primary" style="background:#3ec1d5; border-color:#3ec1d5;">
-										<i class="fa fa-download"></i> Certificate
-									</a>
-								</span>															
+								<a href="#" class="btn btn-primary"
+									style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
+									now</a>
 							</p>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<h2>Quiz</h2>
-				<div class="row" th:each="quiz : ${listQuiz}">
-					<div class="probootstrap-service-2 probootstrap-animate" style="height: 250px;">
-						<div class="image">
-							<div class="image-bg fit-in-background">
-								<img th:src="@{${quiz.imageUrl}}" alt="Free Bootstrap Template by uicookies.com">
-							</div>
-						</div>
-						<div class="text">
-							<li th:if="${quiz.isPass}" class="fa fa-check-circle text-success float-right"></li>
-							<h3 th:text="${quiz.quizName}"></h3>
-							<p th:text="${quiz.quizDesc}"></p>
-							<p>
-								<a th:if="${!quiz.isLock}" th:href="@{'/course/quiz/'+${quiz.quizId}}" class="btn btn-primary" style="background:#3ec1d5; border-color:#3ec1d5;">Enroll now</a>
-								<a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
-								<span class="text-center float-right">
-									<a th:if="${!quiz.isLock}" th:href="@{'/course/quiz/'+${quiz.quizId}}" class="btn btn-primary" style="background:#3ec1d5; border-color:#3ec1d5;">
-										<i class="fa fa-download"></i> Certificate
-									</a>
-								</span>		
-							</p>
-							
+						<div class="probootstrap-image probootstrap-animate"
+							th:style="'background-image:url(' + @{${listCourse[0].imageUrl}} + ');'">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<div th:replace="fragments/logout :: logout">&nbsp;</div>
+	<!-- course and quiz list -->
+
+	<section class="probootstrap-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Course</h2>
+					<div class="row" th:each="course : ${listCourse}">
+						<div class="probootstrap-service-2 probootstrap-animate"
+							style="height: 250px;">
+							<div class="image">
+								<div class="image-bg fit-in-background">
+									<img th:src="@{${course.imageUrl}}"
+										alt="Free Bootstrap Template by uicookies.com">
+								</div>
+							</div>
+							<div class="text">
+								<li th:if="${course.isEnroll}"
+									class="fa fa-check-circle text-success float-right"></li>
+								<h3 th:text="${course.courseName}"></h3>
+								<p th:text="${course.courseDesc}"></p>
+								<p>
+									<a th:if="${!course.isLock}"
+										th:href="@{'/course/'+${course.courseId}}"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
+										now</a> <a th:if="${course.isLock}" class="btn btn-secondary">Locked!</a>
+									<span class="text-center float-right"> <a
+										th:if="${!course.isLock}" href="javascript:genPDF()"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;"> <i
+											class="fa fa-download"></i> Certificate
+									</a>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h2>Quiz</h2>
+					<div class="row" th:each="quiz : ${listQuiz}">
+						<div class="probootstrap-service-2 probootstrap-animate"
+							style="height: 250px;">
+							<div class="image">
+								<div class="image-bg fit-in-background">
+									<img th:src="@{${quiz.imageUrl}}"
+										alt="Free Bootstrap Template by uicookies.com">
+								</div>
+							</div>
+							<div class="text">
+								<li th:if="${quiz.isPass}"
+									class="fa fa-check-circle text-success float-right"></li>
+								<h3 th:text="${quiz.quizName}"></h3>
+								<p th:text="${quiz.quizDesc}"></p>
+								<p>
+									<a th:if="${!quiz.isLock}"
+										th:href="@{'/course/quiz/'+${quiz.quizId}}"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
+										now</a> <a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
+									<span class="text-center float-right"> <a
+										th:if="${!quiz.isLock}"
+										th:href="@{'/course/quiz/'+${quiz.quizId}}"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;"> <i
+											class="fa fa-download"></i> Certificate
+									</a>
+									</span>
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="certificate d-block position-absolute" id="capture" style="top: 0; margin-left: 100vw">
+		<div class="water-mark-overlay"></div>
+		<div class="certificate-header">
+			<img src="/assets/images/httlogo.png" class="logo"
+				alt="logo how to trade">
+		</div>
+		<div class="certificate-body">
+
+			<p class="certificate-title">
+				<strong>HOWTOTRADE COURSE</strong>
+			</p>
+			<h1>Certificate of Completion</h1>
+			<p class="student-name" th:text="${username}"></p>
+			<div class="certificate-content">
+				<p class="about-certificate">has completed on topic [title here]
+					online</p>
+			</div>
+		</div>
+		<br><br>
+		<div class="certificate-footer text-muted">
+			<div class="row">
+				<div class="col-md-6">
+					<p>Principal: ______________________</p>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<p>Accredited by</p>
+						</div>
+						<div class="col-md-6">
+							<p>Endorsed by</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br> <br> <br>
+		<div class="certificate-footer text-muted">
+			<div class="row">
+				<div class="col-md-6">
+					<p>Christian Bryan Jayanto</p>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<p>Jovan Reynardo</p>
+						</div>
+						<div class="col-md-6">
+							<p>Alvin Tanjaya</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/logout :: logout">&nbsp;</div>
 
 </body>
+<script>
+	window.jsPDF = window.jspdf.jsPDF;
+	window.html2vancas = html2canvas;
+
+	//var doc = new jsPDF();
+	var specialElementHandlers = {
+	    '#hidediv': function (element, renderer) {
+	        return true;
+	    }
+	};
+	
+	function genPDF3(){
+		doc.fromHTML($('#capture').html(), 15, 15, {
+	        'width': 170,
+	            'elementHandlers': specialElementHandlers
+	    }, 
+	    function() {
+			doc.save();
+		})
+	    //() => doc.save()
+	}
+	
+	function genPDF(){
+	window.jsPDF = window.jspdf.jsPDF;
+		html2canvas(document.querySelector("#capture"),{
+			allowTaint: true,
+			useCORS: true,
+			scale: 1
+		}).then(canvas => {
+			var img = canvas.toDataURL("image/png");
+			
+			var doc = new jsPDF("l","pt", "a4");
+			
+			doc.addImage(img, 'PNG', 0, 0);
+			doc.save();
+		})
+		
+	}
+	
+	function genPDF1Failed() {
+		html2canvas(document.querySelector('#capture'), {
+			onrendered: function (canvas) {
+				var img = canvas.toDataURL("image/png");
+				var doc = new jsPDF("l", "pt", "a4");
+				
+				doc.addImage(img, 'JPEG', 20, 20);
+				doc.save('test.pdf');
+			}
+		})
+	}
+</script>
 </html>

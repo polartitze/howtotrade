@@ -25,6 +25,15 @@ public class CourseService {
 		return courseList;
 	}
 	
+	public List<Course> getAllCourse(){
+		List<Course> courseList = mapper.getAllCourse();
+		for (Course course : courseList) {
+			course.setEnroll(false);
+			course.setLock(false);
+		}
+		return courseList;
+	}
+	
 	public Course getCourseById(int courseId) {
 		Course course = mapper.getCourseById(courseId);
 		course.setActivityList(getCourseActivity(courseId));

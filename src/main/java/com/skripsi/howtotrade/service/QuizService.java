@@ -38,6 +38,19 @@ public class QuizService {
 		return quizList;
 	}
 	
+	public List<Quiz> getAllQuiz() {
+		List<Quiz> quizList = mapper.getAllQuiz();
+		
+		for (Quiz quiz : quizList) {
+			quiz.setLock(false);
+			
+			quiz.setEnroll(false);
+			quiz.setPass(false);
+		}
+		
+		return quizList;
+	}
+	
 	private int getQuizTotalQuestion (int quizId) {
 		return mapper.getQuizTotalQuestion(quizId);
 	}
