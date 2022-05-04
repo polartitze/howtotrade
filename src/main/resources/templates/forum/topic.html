@@ -99,7 +99,7 @@
     
           <div class="align-self-center row float-right">
             <div class="mx-1 align-self-center" sec:authorize="hasRole('ROLE_ADMIN')">
-              <a th:href="@{'/topic/block/'+${comment.username}}">
+              <a href="#block-modal" th:data-id="${comment.username}" class="open-block-modal" data-toggle="modal">
                 <i class="fa fa-minus-circle text-danger fa-lg align-middle"></i>
               </a>
             </div>
@@ -137,13 +137,39 @@
 	        </div>
 	      </div>
 	    </div>
+	    
+	    <div class="modal" id="block-modal">
+	      <div class="modal-dialog modal-dialog-centered">
+	        <div class="modal-content border-0">
+	          <div class="modal-header border-0 pb-0">
+	            <h4>Block User</h4>
+	            <button type="button" class="close" data-dismiss="modal">X</button>
+	          </div>
+	          <div class="modal-body border-0 pb-0">
+	            <p>Are you sure to block?</p>
+	          </div>
+	          <div class="modal-footer">
+	            <a class="btn btn-danger modal-yes">Yes</a>
+	            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    
         <script>
-        	$(document).on("click", ".open-del-modal", function () {
+        $(document).on("click", ".open-del-modal", function () {
 		     var topics = $(this).data('id');
 		     var comments = $(this).data('title');
 		     $("#del-modal .modal-yes").attr("href", "/topic/" + topics + "/comment/"
 		     		+ comments + "/delete")
 		});
+		
+		$(document).on("click", ".open-block-modal", function () {
+		     var name = $(this).data('id');
+		     $("#block-modal .modal-yes").attr("href", "/topic/block/" + name)
+		});
+		
+		
         </script>
 
   </body>

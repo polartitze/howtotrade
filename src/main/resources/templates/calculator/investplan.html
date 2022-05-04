@@ -279,7 +279,8 @@
                   <span th:text="${list.result}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <a th:href="@{ '/calculator/delete/' + ${list.planningid} }"><i class="fa fa-trash text-danger"></i></a>
+                  <a href="#del-modal" th:data-id="${list.planningid}"
+                  class="open-del-modal" data-toggle="modal"><i class="fa fa-trash text-danger"></i></a>
                 </td>
               </tr>
             </tbody>
@@ -289,6 +290,27 @@
     </form>
   </div>
   <div th:replace="fragments/logout :: logout">&nbsp;</div>
+  
+  <div class="modal" id="del-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Delete Investment Planning</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger text-white modal-yes">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+	    
+  
+  
   <script th:if="${#request.getParameter('error') == 'true'}">
       $(document).ready(function(){
           $('#loginModal').modal('show');
@@ -439,6 +461,11 @@
 			dom: 'lBfrtip',
 			"order": [0,'desc'],
 			"lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ]
+		});
+		
+		$(document).on("click", ".open-del-modal", function () {
+		     var planningId = $(this).data('id');
+		     $("#del-modal .modal-yes").attr("href", "/calculator/delete/" + planningId)
 		});
 	</script>
 </body>

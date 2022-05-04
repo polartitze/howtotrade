@@ -73,7 +73,7 @@
                   </h5>
                   <p class="text-sm"><span class="op-6"></span> <span class="text-primary" th:text="${topic.createddate}"></span>
                     <span class="op-6">ago by</span> <span class="text-primary" th:text="${topic.username}"></span></p>
-                  <p th:text="${topic.description}"></p>
+                  <p th:text="${topic.description}" style="max-height:200px; overflow:auto;"></p>
                   <div th:if="${topic.imagepath} != '-'">
                     <img class="img-thumbnail"
                       th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }"
