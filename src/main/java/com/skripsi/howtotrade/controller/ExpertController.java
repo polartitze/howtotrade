@@ -172,7 +172,7 @@ public class ExpertController {
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("listActivityType", courseService.getAllActivityType());
 		System.out.println(courseService.getAllCourseActivityMap(courseId));
-		model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId)); 
+		model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId));
 		model.addAttribute("addActivity", new Activity());
 		// model.addAttribute("addQuestion", new Question());
 
@@ -204,7 +204,8 @@ public class ExpertController {
 
 		try {
 			if(activity.isIsquestion()){
-				courseService.addActivityQuestion(latestActivityId, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
+				//activity id harus sesuai dgn activity yg terbaru
+				courseService.addActivityQuestion(latestActivityId+1, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
 			}
 			System.out.println("Insert new ActivityQuestion success!");
 			courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.isIsquestion());
