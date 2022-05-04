@@ -13,6 +13,8 @@ import com.skripsi.howtotrade.utility.Constant;
 import com.skripsi.howtotrade.utility.FileUploadUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,12 +42,15 @@ public class TopicController {
     public String module() {
         return "forum";
     }
-    
+
     //TOPIC
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllTopic(Model model, Principal principal){
-        if(!"".equals(principal.getName()) || principal.getName() != null){
+        try {
             model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        } catch (Exception e) {
+            System.out.println("LOG: USER NOT AUTHENTICATED");
+            e.printStackTrace();
         }
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());

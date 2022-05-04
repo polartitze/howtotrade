@@ -24,12 +24,13 @@
         <!-- Main content -->
           <div class="col-lg-12 mb-3">
               <div class="my-5" sec:authorize="isAnonymous()"></div>
-              <button class="btn btn-md btn-primary btn-add-new my-5" sec:authorize="isAuthenticated()">
+              <div class="my-5" sec:authorize="hasRole('ROLE_PRO')"></div>
+              <button class="btn btn-md btn-primary btn-add-new my-5" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
               		<i class="fa fa-plus mr-2"></i>
               		<span>Tambah Topik<span>
               </button>
               
-            <div class="container-fluid mt-100 add-new-topic" sec:authorize="isAuthenticated()">
+            <div class="container-fluid mt-100 add-new-topic" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
             
               <div class="row">
                   <div class="col-md-12 px-0">
