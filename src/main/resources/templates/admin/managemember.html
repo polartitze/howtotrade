@@ -13,8 +13,6 @@
 	th:href="@{/assets/css/dataTables.bootstrap4.min.css}">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script th:src="@{/assets/js_table/jquery.min.js}"></script>
 <script th:src="@{/assets/js_table/bootstrap.min.js}"></script>
@@ -253,18 +251,25 @@ table.table .avatar {
 							<td th:text="${list.userName}"><img
 								src="/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"></td>
 							<td th:text="${list.userStatus == '1' ? 'Active' : 'Inactive'}"></td>
-							<td class="text-center"><a href="#block-modal"
-								th:data-id="${list.userName}"
-								class="text-danger mr-3 open-block-modal" title="Block"
-								data-toggle="modal"> <i class="fa fa-trash"> BLOK </i>
-							</a> <a href="#unblock-modal" th:data-id="${list.userName}"
-								class="text-success open-unblock-modal" title="Unblock"
-								data-toggle="modal"> <i class="fa fa-check"> UNBLOK </i>
-							</a></td>
-							<td class="text-center"><a
-								th:href="@{'/admin/manage-member/change/' + ${list.userName}}"
-								class="text-primary" title="Change to Expert"
-								data-toggle="tooltip"><i class="fa fa-edit"></i></a></td>
+							<td class="text-center">
+							
+								<a href="#block-modal"
+									th:data-id="${list.userName}"
+									class="text-danger mr-3 open-block-modal" title="Block"
+									data-toggle="modal"> <i class="fa fa-trash"></i>
+								</a> 
+							
+								<a href="#unblock-modal" th:data-id="${list.userName}"
+									class="text-success open-unblock-modal" title="Unblock"
+									data-toggle="modal"> <i class="fa fa-check"></i>
+								</a>
+							</td>
+							<td class="text-center">
+								<a href="#change-modal" th:data-id="${list.userName}"
+									class="text-primary open-change-modal" title="Change to Expert"
+									data-toggle="modal"><i class="fa fa-edit"></i>
+								</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -272,22 +277,60 @@ table.table .avatar {
 		</div>
 	</div>
 	<div th:replace="fragments/logout :: logout">&nbsp;</div>
-
+	
 	<div class="modal" id="block-modal">
-		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
-		</div>
-		<h2 class="modal-text"></h2>
-		<a class="modal-yes"> Yes </a> <a data-dismiss="modal"> No </a>
-	</div>
-
-	<div class="modal" id="unblock-modal">
-		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
-		</div>
-		<h2 class="modal-text"></h2>
-		<a class="modal-yes"> Yes </a> <a data-dismiss="modal"> No </a>
-	</div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Block User</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to block?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger modal-yes">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal" id="unblock-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Unblock User</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to unblock?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger modal-yes text-white">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal" id="change-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Change User to Expert</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to change to expert?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger modal-yes text-white">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </body>
 
@@ -308,6 +351,12 @@ table.table .avatar {
 		     var userName = $(this).data('id');
 		     $("#unblock-modal .modal-text").text(` Do you want to block user: ${userName} ? `);
 		     $("#unblock-modal .modal-yes").attr("href", "/admin/manage-member/unblock/" + userName)
+		});
+		
+		$(document).on("click", ".open-change-modal", function () {
+		     var userName = $(this).data('id');
+		     $("#change-modal .modal-text").text(` Do you want to block user: ${userName} ? `);
+		     $("#change-modal .modal-yes").attr("href", "/admin/manage-member/change/" + userName)
 		});
 </script>
 </html>

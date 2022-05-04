@@ -88,10 +88,17 @@ public interface TopicMapper {
 
     @Delete("DELETE FROM topic WHERE authorid = #{authorId} AND topicid = #{topicId}")
     void deleteTopic(@Param("authorId") int authorId, @Param("topicId") int topicId);
+    
+    @Delete("DELETE FROM topic WHERE topicid = #{topicId}")
+    void deleteTopicAdmin(@Param("topicId") int topicId);
 
     @Select("SELECT COUNT(*) FROM TOPIC WHERE topicId = #{id}")
     int countComment(int topicId);
 
     @Update("UPDATE USERS SET USERSTATUS = '0' WHERE USERID = #{userId}")
     void blockMember(int userId);
+
+    @Select("SELECT AUTHORID FROM TOPIC WHERE TOPICID = #{topicId}")
+    int getAuthor(int topicId);
+
 }

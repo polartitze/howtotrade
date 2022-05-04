@@ -8,6 +8,15 @@ public class Calculator {
     private String perBulan;
     private String flag;
     private String results;
+    private String investasiAwal;
+
+    public String getInvestasiAwal() {
+        return this.investasiAwal;
+    }
+
+    public void setInvestasiAwal(String investasiAwal) {
+        this.investasiAwal = investasiAwal;
+    }
 
     public String getJenisPerhitungan() {
         return this.jenisPerhitungan;

@@ -3,6 +3,7 @@ package com.skripsi.howtotrade.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
 
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
@@ -43,7 +44,9 @@ public class TopicController {
     //TOPIC
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllTopic(Model model, Principal principal){
-        model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        if(!"".equals(principal.getName()) || principal.getName() != null){
+            model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        }
         model.addAttribute("listTopic", topicService.getAllTopic());
         model.addAttribute("topicForm", new Topic());
         return "forum/topiclist";
@@ -51,7 +54,8 @@ public class TopicController {
 
     @RequestMapping(value = "/{topicId}", method = RequestMethod.GET)
     public String getTopicById(Model model, @PathVariable int topicId, Principal principal){
-        model.addAttribute("data", userService.findUserAccount(principal.getName()));
+        int authorId = topicService.getAuthor(topicId);
+        model.addAttribute("data", userService.findUserAccount(userService.getUserName(authorId)));
         model.addAttribute("topicData", topicService.getTopicById(topicId));
         model.addAttribute("listComment", topicService.getCommentOnTopic(topicId));
         model.addAttribute("commentForm", new Comment());
@@ -85,7 +89,10 @@ public class TopicController {
     
     @RequestMapping("/{topicId}/delete")
     public String deleteTopicById(@PathVariable int topicId, Principal principal){
-        topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
+    	if(userService.getUserRole(principal.getName()).equals("ROLE_ADMIN")) {
+    		topicService.deleteTopicAdmin(topicId);
+    	}
+    	else topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
         return "redirect:/topic/all";
     }
 

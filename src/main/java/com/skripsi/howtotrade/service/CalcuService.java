@@ -36,16 +36,28 @@ public class CalcuService {
         if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
             calc.setTotalInvestasi("-");
         }
-        else if("".equals(calc.getKoin()) || calc.getKoin() == null){
+        if("".equals(calc.getKoin()) || calc.getKoin() == null){
             calc.setKoin("-");
+        }
+        if("".equals(calc.getPerBulan()) || calc.getPerBulan() == null){
+            calc.setPerBulan("-");
+        }
+        if("".equals(calc.getInvestasiAwal()) || calc.getInvestasiAwal() == null){
+            calc.setInvestasiAwal("-");
+        }
+        if("".equals(calc.getWaktu()) || calc.getWaktu() == null){
+            calc.setWaktu("-");
         }
         calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
         calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
+        calc.setInvestasiAwal(calc.getInvestasiAwal().replaceAll(",", ""));
         
-        calcuMapper.insertCalculate(calc.getTotalInvestasi(), calc.getWaktu(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
+        calcuMapper.insertCalculate(calc.getWaktu(), calc.getInvestasiAwal(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
     }
 
-    public String calcCoin(String totalInvestasi, int waktu, int perBulan){
+    public String calcCoin(String totalInvestasi, String waktuString, String perBulanString){
+        int perBulan = Integer.parseInt(perBulanString);
+        int waktu = Integer.parseInt(waktuString);
         Double temp = Double.valueOf(perBulan * waktu * 12); //aktual tabungan
         Double temp1 = Double.parseDouble(totalInvestasi);
         Double temp2 = temp1 - temp; //kurang berapa utk capai target
@@ -91,10 +103,17 @@ public class CalcuService {
         String retval = "";
         if(flag > 0){
             Double saranTambahan =  temp1 / (1 + (persentaseDariDB/100)) / 12;
+            BigDecimal saran = new BigDecimal(saranTambahan);
+            saran = round(saranTambahan, 2);
+
+            Double temporary = saranTambahan-perBulan;
+            BigDecimal penambahan = new BigDecimal(temporary);
+            penambahan = round(temporary, 2);
+            
             retval = "Koin yang disarankan: "+coin.toString()+ "\n"  
             +"Perhitungan tabungan per bulan, waktu, dan total investasi terlalu jauh!\n"
-            +"Kami menyaranakan Anda menabung " + "Rp" + String.valueOf(round(saranTambahan,0))  + " per bulan.\n"
-            +"(Perlu penambahan Rp" + String.valueOf(round((saranTambahan-perBulan), 0))  + " dari yang Anda rencanakan)";
+            +"Kami menyaranakan Anda menabung " + "Rp" + saran.toPlainString()  + " per bulan.\n"
+            +"(Perlu penambahan Rp" + penambahan.toPlainString()  + " dari yang Anda rencanakan)";
         }
         else{
             retval = "Koin yang disarankan: "+coin.toString();
@@ -108,29 +127,76 @@ public class CalcuService {
     }
 
     //ekspektasi mendapatkan TOTAL INVESTASI 
-    public String calcTotalInvestment(String koin, int waktu, int perBulan){
-        Double totalInvestasi = 0.0;
-        Double persentase = Double.valueOf(calcuMapper.getCoinReturn(koin));
-        persentase /= 100;
-        System.out.println("persentase: "+persentase);
-        waktu *= 12; //dikali 12 bulan
-        Double temp = 0.0;
-        for(int i=0 ; i<waktu ; i++){
-            temp = (totalInvestasi + perBulan) * persentase / 12;
-            totalInvestasi = totalInvestasi + perBulan + temp;
-        }
+    public String calcTotalInvestment(String coinCode, String waktuString, String perBulanString, String investasiAwalString){
+        // A = [ P(1+r/n) pangkat(nt) ] + [ PMT × (((1 + r/n) pangkat (nt) - 1) / (r/n)) ]
+        // Keterangan: 
+        // A = Total Investasi Akhir
+        // P = Nilai Investasi Awal
+        // r = Persentase Keuntungan (dalam desimal)
+        // n = 12 bulan (perhitungan bulan dalam 1 tahun)
+        // t = tahun
+        // PMT = Nilai Investasi per bulan
+        int perBulan = Integer.parseInt(perBulanString);
+        int waktu = Integer.parseInt(waktuString);
+        int investasiAwal = Integer.parseInt(investasiAwalString);
 
-        System.out.println("===============calcTotalInvestment(): "+totalInvestasi);
-        totalInvestasi = round(totalInvestasi, 2);
-        String totalInvestString = "Hasil investasi Anda dalam waktu mendatang : " + totalInvestasi;
+        Double persentase = Double.valueOf(calcuMapper.getCoinReturn(coinCode));
+        persentase /= 100;
+
+        Double temp = Math.pow((1 + (persentase/12)), (12 * waktu)); //  (1+r/n) pangkat(nt) 
+        Double totalInvestasiAkhir = (investasiAwal * temp) + (perBulan * ((temp - 1) / (persentase/12)));
+        // Double  = 0.0;
+        // totalInvestasiAkhir
+
+        // Double totalInvestasi = 0.0;
+        // Double persentase = Double.valueOf(calcuMapper.getCoinReturn(koin));
+        // System.out.println("persentase: "+persentase);
+        // waktu *= 12; //dikali 12 bulan
+        // Double temp = 0.0;
+        // for(int i=0 ; i<waktu ; i++){
+        //     temp = (totalInvestasi + perBulan) * persentase / 12;
+        //     totalInvestasi = totalInvestasi + perBulan + temp;
+        // }
+
+        System.out.println("===============calcTotalInvestment(): "+totalInvestasiAkhir);
+        // totalInvestasiAkhir = round(totalInvestasiAkhir, 2);
+        BigDecimal bd = new BigDecimal(totalInvestasiAkhir);
+        bd = round(totalInvestasiAkhir, 2);
+
+        String totalInvestString = "Hasil investasi Anda dalam waktu mendatang : " + bd.toPlainString();
         return totalInvestString;
     }
 
-    public Double round(double value, int places) {
+    public String calcCompounding(String investasiAwalString, String waktuInvestasiString, String coinCode){
+        // A = P(1 + i) pangkat (n)
+        // Keterangan:  
+        // A = Total Investasi Akhir 
+        // P = Nilai Investasi Awal 
+        // i = Persentase Keuntungan 
+        // n = Waktu Investasi (tahunan)
+        Double waktuInvestasi = Double.parseDouble(waktuInvestasiString);
+        Double investasiAwal = Double.parseDouble(investasiAwalString);
+
+        Double totalInvestasi = 0.0;
+        Double persentase = Double.valueOf(calcuMapper.getCoinReturn(coinCode));
+        persentase /= 100;
+        Double temp = (1 + persentase);
+        Double temp2 =  Math.pow(temp, waktuInvestasi);
+        totalInvestasi= investasiAwal * temp2;
+        // totalInvestasi = round(totalInvestasi, 2);
+        BigDecimal bd = new BigDecimal(totalInvestasi);
+        bd = round(totalInvestasi, 2);
+        String totalInvestString = "Hasil investasi Anda dalam waktu mendatang : " + bd.toPlainString();
+        return totalInvestString;
+
+    }
+
+    public BigDecimal round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
     
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        // return bd.doubleValue();
+        return bd;
     }
 }

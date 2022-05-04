@@ -47,11 +47,12 @@ public class CalcuController {
     @ResponseBody
     @RequestMapping("/calculate-result")
     private String calculateResult(Model model, 
-        @RequestParam("jenisPerhitungan") String jenisPerhitungan,
-        @RequestParam("totalInvestasi") String totalInvestasi,
-        @RequestParam("koin") String koin,
-        @RequestParam("waktu") int waktu,
-        @RequestParam("perBulan") int perBulan){
+        @RequestParam(value =  "jenisPerhitungan", required = true) String jenisPerhitungan,
+        @RequestParam(value =  "totalInvestasi", required = false) String totalInvestasi,
+        @RequestParam(value =  "koin", required = false) String koin,
+        @RequestParam(value =  "waktu", required = false) String waktu,
+        @RequestParam(value =  "perBulan", required = false) String perBulan,
+        @RequestParam(value =  "investasiAwal", required = false) String investasiAwal){
             
         String retval = "";
         System.out.println("jenisPerhitungan: "+jenisPerhitungan);
@@ -59,12 +60,16 @@ public class CalcuController {
         System.out.println("koin: "+koin);
         System.out.println("waktu: "+waktu);
         System.out.println("perBulan: "+perBulan);
+        System.out.println("investasiAwal: "+investasiAwal);
 
         if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
             retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
         }
         else if(Constant.HITUNG_TOTAL_INVESTASI.equals(jenisPerhitungan)){
-            retval = String.valueOf(calcuService.calcTotalInvestment(koin, waktu, perBulan));
+            retval = String.valueOf(calcuService.calcTotalInvestment(koin, waktu, perBulan,investasiAwal));
+        }
+        else if(Constant.HITUNG_COMPOUNDING_INTEREST.equals(jenisPerhitungan)){
+            retval = String.valueOf(calcuService.calcCompounding(investasiAwal, waktu, koin));
         }
         System.out.println("==========HASIL PERHITUNGAN: "+retval);
         return retval;

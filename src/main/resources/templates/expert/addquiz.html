@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/buttons.dataTables.min.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+
+    <title>Add Quiz</title>
+</head>
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+    *, body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+        height: 100%;
+        background-color: #eee;
+    }
+
+
+    .form-holder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    .form-holder .form-content {
+        position: relative;
+        text-align: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        padding: 60px;
+    }
+
+    .form-content .form-items {
+        border: 3px solid rgb(0, 0, 0);
+        padding: 40px;
+        display: inline-block;
+        width: 100%;
+        min-width: 540px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        text-align: left;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+    .form-content h3 {
+        color: rgb(0, 0, 0);
+        text-align: left;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .form-content h3.form-title {
+        margin-bottom: 30px;
+    }
+
+    .form-content p {
+        color: rgb(0, 0, 0);
+        text-align: left;
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 20px;
+        margin-bottom: 30px;
+    }
+
+
+
+    .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+        width: 100%;
+        text-align: left;
+        border: 0;
+        outline: 0;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 20px;
+        font-weight: 300;
+        color: rgb(0, 0, 0);
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        margin-bottom: 16px;
+    }
+
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+        background-color: #495056;
+        outline: none !important;
+    }
+
+
+    .invalid-feedback{
+        color: #ff606e;
+    }
+
+    .valid-feedback{
+         color: #2acc80;
+    }
+    </style>
+<body>
+
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <div  th:if="${#request.getParameter('success') == 'true'}">
+                            <div class="col-md-12 col-12">
+                                <div class="valid-feedback">
+                                    Insert Quiz Success!
+                                </div>
+                            </div>
+                        </div>
+                        <div  th:if="${#request.getParameter('error') == 'true'}">
+                            <div class="col-md-12 col-12">
+                                <div class="invalid-feedback">
+                                    Insert Quiz Error!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <div class="alert alert-danger" id="quizAlert" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Add Quiz</h3>
+                        <p>Fill in the data below.</p>
+                        <form class="requires-validation" th:object="${addQuiz}" th:action="@{'/pro/add-quiz-save'}" method="post" id="myForm" enctype="multipart/form-data">
+    
+                            <div class="col-md-12">
+                               <select class="form-select mt-3" th:field="${addQuiz.courseId}" id="selectCourse" required>
+                                    <option selected disabled value="0">Hubungkan Course</option>
+                                    <option th:each="list : ${listCourse}" th:value="${list.courseid}" th:text="${list.coursename}"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" name="name" placeholder="Nama Quiz" maxlength="50" th:field="${addQuiz.quizName}" required>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" name="name" placeholder="Deskripsi Quiz" maxlength="500" th:field="${addQuiz.quizDesc}" required>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <!-- <input class="form-control" type="text" name="name" placeholder="imageUrl" maxlength="500" th:field="${addQuiz.imageUrl}" required> -->
+                                <!-- <label class="btn btn-trans" for="inputImage">Upload Image</label> -->
+                                <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
+                            </div>
+    
+                            <div class="form-button text-center">
+                                <button type="button" class="btn btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+		
+        $('#btn-next').click(function(){
+            if($('#selectCourse').val() == 0 || $('#selectCourse').val() == null){
+                $('#quizAlert').html('Course harus dipilih!');
+                $('#quizAlert').show();
+                return false;
+            }
+            else{
+                $('#myForm').submit();
+            }
+        });
+		$("#inputImage").change(function(){
+            if((this.files[0].size / 1024 / 1024) > 1){
+                $("#quizAlert").html('Maksimal file 1MB');
+                $("#quizAlert").show();
+            } 
+            else{
+                $("#quizAlert").hide();
+            } 
+        });
+
+	</script>
+
+
+
+</body>
+</html>

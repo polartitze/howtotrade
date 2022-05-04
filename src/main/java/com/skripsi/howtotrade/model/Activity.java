@@ -10,7 +10,24 @@ public class Activity {
 	boolean isquestion;
 	Question question;
 	Chart chart;
-	
+	int courseId;
+	int activityTypeId;
+
+	public int getActivityTypeId() {
+		return this.activityTypeId;
+	}
+
+	public void setActivityTypeId(int activityTypeId) {
+		this.activityTypeId = activityTypeId;
+	}
+
+	public int getCourseId() {
+		return this.courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
 	
 	public int getActivityId() {
 		return activityId;

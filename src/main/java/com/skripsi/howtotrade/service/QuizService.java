@@ -1,6 +1,7 @@
 package com.skripsi.howtotrade.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,5 +108,47 @@ public class QuizService {
 	
 	public void saveQuizEnroll(int quizId, int userId, int score) {
 		mapper.saveQuizEnroll(userId, quizId, score);
+	}
+
+	public void addQuiz(int courseId, String quizName, String quizDesc, String imageUrl) {
+		mapper.addQuiz(courseId, quizName, quizDesc, imageUrl);
+	}
+
+	public List<Map<String,String>> getAllQuizName() {
+		return mapper.getAllQuizName();
+	}
+
+	public void addQuestion(int quizid, int stepno, String questiondesc, int correctanswer,  String choiceone, String choicetwo, String choicethree, String choicefour, String imageurl) {
+		mapper.addQuestion(quizid, stepno, questiondesc, correctanswer, choiceone, choicetwo, choicethree, choicefour, imageurl);
+	}
+
+	public int getLatestQuizId(){
+		return mapper.getLatestQuizId();
+	}
+	
+	public int getLatestStepNo(int quizId){
+		Integer latestStepNo = mapper.getLatestStepNo(quizId);
+		int result;
+		if (latestStepNo == null) {
+			result = 0;
+		}
+		else result = latestStepNo;
+		return result;
+	}
+
+	public List<Question> getAllQuizQuestion(int quizId){
+		return mapper.getAllQuizQuestion(quizId);
+	}
+
+	public void deleteQuestion(int questionId){
+		mapper.deleteQuestion(questionId);
+	}
+
+	public int countListQuestion(int quizId){
+		return mapper.countListQuestion(quizId);
+	}
+
+	public void saved(int quizId){
+		mapper.saved(quizId);
 	}
 }

@@ -84,7 +84,9 @@
                 <div class="col-1 text-center" th:each="authority : ${#authentication.getAuthorities()}"
                   th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')} OR ${#authentication.name} == ${topic.username}">
                   <div class="align-item-center">
-                    <a th:href="@{'/topic/'+${topic.topicid}+'/delete'}" class="align-self-center">
+                    <a href="#del-modal" th:data-id="${topic.topicid}" 
+                    class="align-self-center open-del-modal"
+                    data-toggle="modal">
                       <button type="button" class="btn btn-danger btn-floating">
                         <i class="fa fa-trash"></i>
                       </button>
@@ -121,6 +123,23 @@
     
     <div th:replace="fragments/logout :: logout">&nbsp;</div>
 
+	<div class="modal" id="del-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Delete Topic</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger modal-yes">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 <!-- JAVASCRIPT CODE -->
@@ -144,7 +163,11 @@
 	          } 
 	      });
 		}
-
+		
+		$(document).on("click", ".open-del-modal", function () {
+		     var topics = $(this).data('id');
+		     $("#del-modal .modal-yes").attr("href", "/topic/" + topics + "/delete")
+		});
 	</script>
 </body>
 </html>

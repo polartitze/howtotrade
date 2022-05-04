@@ -26,15 +26,16 @@ public interface CalcuMapper {
         + "VALUES (#{userId}, #{totalInvestasi}, #{waktu}, #{coinId}, #{perBulan})")
     void insert(Calculator calc, int userId, int coinId);
 
-    @Insert("INSERT INTO INVESTMENTPLANNING(USERID, TARGET, DURATION, COINID, CURRENTBALANCE, CALCTYPE, RESULT, CREATEDDATE, COINCODE) "
-        + "VALUES (#{userId}, #{totalInvestasi}, #{waktu}, null, #{perBulan}, #{jenisPerhitungan}, #{results}, CURRENT_TIMESTAMP, #{koin})")
-    void insertCalculate(@Param("totalInvestasi") String totalInvestasi, @Param("waktu") String waktu, @Param("perBulan") String perBulan
+    @Insert("INSERT INTO INVESTMENTPLANNING(USERID, DURATION, COINID, INVESTASIAWAL, INVESTASIPERBULAN, CALCTYPE, RESULT, CREATEDDATE, COINCODE) "
+        + "VALUES (#{userId}, #{waktu}, null, #{investasiAwal},  #{perBulan}, #{jenisPerhitungan}, #{results}, CURRENT_TIMESTAMP, #{koin})")
+    void insertCalculate(@Param("waktu") String waktu, @Param("investasiAwal") String investasiAwal, @Param("perBulan") String perBulan
     		, @Param("jenisPerhitungan") String jenisPerhitungan, @Param("results") String results, @Param("koin") String koin, 
     		@Param("userId") int userId);
 
     @Select("SELECT TO_CHAR(IP.CREATEDDATE,'DD Mon YYYY hh24:mi') AS CREATED, IP.*, "
-        + "CASE WHEN IP.CALCTYPE = '10_COIN' THEN 'Koin yang cocok untuk kamu' "
-        + "WHEN IP.CALCTYPE = '20_TOTAL' THEN 'Total investasi kamu di hari tua' "
+        + "CASE "
+        + "WHEN IP.CALCTYPE = '20_TOTAL' THEN 'Total Investasi (Tabung bulanan)' "
+        + "WHEN IP.CALCTYPE = '30_COMP' THEN 'Total Investasi (Tabung sekali di awal)' "
         + "END AS JENIS "
         + "FROM INVESTMENTPLANNING IP LEFT JOIN COIN C ON IP.COINID = C.COINID "
         + "WHERE USERID = #{userId} "

@@ -17,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.security.Principal;
 
-
 import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.AuthService;
 
@@ -26,7 +25,7 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
-	String userLogged;
+
 
 	@Autowired
     MailService mailSender;
@@ -141,4 +140,6 @@ public class AuthController {
 		mailSender.sendEmail(mail);
 		return "index/validate";
 	}
+
+
 }
