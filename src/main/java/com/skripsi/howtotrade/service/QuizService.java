@@ -85,7 +85,7 @@ public class QuizService {
 		}
 	}
 	
-	public boolean saveProgress(int quizId, int userId, int score) {
+	public boolean saveProgress(int userId, int quizId, int score) {
 		try {
 			mapper.saveQuizEnroll(userId, quizId, score);
 			return true;			

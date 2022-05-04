@@ -52,7 +52,7 @@
 							<h3 th:text="${listCourse[0].courseName}"></h3>
 							<p th:text="${listCourse[0].courseDesc}"></p>
 							<p>
-								<a href="#" class="btn btn-primary"
+								<a th:href="@{'/course/'+${listCourse[0].courseId}}" class="btn btn-primary"
 									style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
 									now</a>
 							</p>
