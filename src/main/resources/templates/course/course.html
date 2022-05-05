@@ -69,7 +69,7 @@
 	const activityDesc = document.getElementById('activity-desc');
 	const questionDesc = document.getElementById('question-desc');
 	const activityChart = document.getElementById('activity-chart');
-	const questionContainer = document.getElementById('activity-question');
+	const questionContainer = document.getElementById('question-container');
 	const a_text = document.getElementById('a_text');
 	const b_text = document.getElementById('b_text');
 	const c_text = document.getElementById('c_text');
@@ -91,6 +91,10 @@
 		let currentActivityData = courseData.activityList[currentActivity];
 		
 		deselectAnswers()
+		
+		if(currentActivityData.isquestion){
+			selectAnswers(currentActivityData.question.userAnswer);			
+		}
 		
 		if(currentActivityData.activityType == "chart"){
 			activityChart.style.display = "block";
@@ -120,6 +124,7 @@
 		    d_text.innerText = currentActivityData.question.choiceFour;
 			
 		} else {
+			console.log("masukk")
 			questionContainer.style.display = "none";
 		}
 	    
