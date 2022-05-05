@@ -161,8 +161,6 @@ alter table investmentplanning add column createddate timestamp;
 alter table investmentplanning add column coincode varchar(20) default '-';
 alter table investmentplanning alter column duration type varchar(20);
 alter table investmentplanning alter column currentbalance type varchar(20);
-alter table investmentplanning drop column target;
-alter table investmentplanning add column target varchar(50) default '-';
 
 alter table users add column isverified varchar(1) default '0';
 
@@ -173,3 +171,5 @@ alter table course drop column courseduration;
 ALTER TABLE INVESTMENTPLANNING RENAME COLUMN CURRENTBALANCE TO INVESTASIAWAL
 ALTER TABLE INVESTMENTPLANNING ADD COLUMN INVESTASIPERBULAN VARCHAR(20) default '-'
 ALTER TABLE INVESTMENTPLANNING DROP COLUMN TARGET
+
+ALTER TABLE TOPIC ALTER COLUMN DESCRIPTION TYPE VARCHAR(10000)

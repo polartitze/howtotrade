@@ -138,11 +138,11 @@
                         <span th:text="${list.correctAnswer}"></span>
                     </td>
                     <td>
-                        <a th:attr="data-id=${list.imageUrl}" id="imgModal" data-toggle="modal"
+                        <a th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e;"></span></a>
                     </td>
                     <td class="text-center align-middle">
-                        <a th:href="@{ '/pro/delete-question/' + ${list.questionId} }"><i class="bi-trash"></i></a>
+                        <a th:href="@{ '/pro/delete-question/' + ${list.questionId} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
                         <!-- <i class="fa fa-trash"></i> -->
                     </td>
                 </tr>
@@ -202,7 +202,7 @@
                         </div>
 
                         <div class="col-md-12 mb-2">
-                            <input class="form-control" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
+                            <input class="form-control" max="4" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
                             <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
@@ -257,10 +257,10 @@
         });
 
         function image(){
-            $("#imgModal").on('click',function(){
+            $(".imgModal").on('click',function(){
                 var id = $(this).data('id');
                 var quizId = $("#quiz").val();
-                var img = document.createElement("IMG");
+                // var img = document.createElement("IMG");
                 var dom = '<img src="/assets/images/quiz/on_quizid_' + quizId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
                 $('#imgInside').html(dom); 
 
