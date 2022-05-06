@@ -67,13 +67,19 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="userName">Username</label>
-                                <input type="text" class="form-control" id="userName" readonly th:field="${profileForm.userName}">
+                                <input type="text" class="form-control" id="userName" th:field="${profileForm.userName}" readonly>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="realName">Full Name</label>
+                                <input type="text" class="form-control" id="realName" th:field="${profileForm.realName}" readonly>
                             </div>
                         </div>
                         <div class="container">
                             <div class="form-group">
                                 <label for="userEmail">Email</label>
-                                <input type="email" class="form-control" id="userEmail" placeholder="Enter your email" th:field="${profileForm.userEmail}" readonly>
+                                <input type="email" class="form-control" id="userEmail" th:field="${profileForm.userEmail}" readonly>
                             </div>
                         </div>
                         <div class="container row gutters mb-3">
@@ -126,6 +132,7 @@
         </div>
     <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 
     <input type="hidden" th:value="${data.userEmail}" id="hiddenUserEmail"/> 
+    <input type="hidden" th:value="${data.realName}" id="hiddenRealName"/> 
 
     <div th:replace="fragments/logout :: logout">&nbsp;</div>
 
@@ -168,8 +175,10 @@
 		function initForm() {
             const hiddenUserName = $('#hiddenUserName').val();
             const hiddenUserEmail = $('#hiddenUserEmail').val();
+            const hiddenRealName = $('#hiddenRealName').val();
             $('#userName').val(hiddenUserName);
             $('#userEmail').val(hiddenUserEmail);
+            $('#realName').val(hiddenRealName);
 
             $('.btn-changePassword').click(function(){
                 $('#changePassword').show();
@@ -177,18 +186,8 @@
                 checkPass();
             });
 
-            $("#changeProfile").change(function(){
-                if((this.files[0].size / 1024 / 1024) > 1){
-                    $("#alert").show();
-                } 
-                else{
-                    $("#profilepic").submit();
-                    // return;
-                    // location.reload();
-                } 
-            });
-
-
+            
+            
             $('.overlay').on('click mouseover', function () {
             }).css("cursor", "pointer");
 		}
@@ -204,22 +203,22 @@
                 
             });
         }
-
+        
         function checkExistingPassword(){
             var old = $('#oldPassword').val();
             var username = $('#hiddenUserName').val();
             var result = false;
             $.ajax({
-				type: "GET",
+                type: "GET",
 				url: "/profile/check-old-pass",
                 data: {"oldPassword" : old,
-                        "username" : username
-                },
-				async: false,
-				success: function(data) {
-                    if (data != "" || data != null) {
-						result = data;
-					}
+                "username" : username
+            },
+            async: false,
+            success: function(data) {
+                if (data != "" || data != null) {
+                    result = data;
+                }
 					
 				}
 			});
@@ -238,7 +237,7 @@
                 buttonSaves.setAttribute('disabled', '');
             }
             else if (!pass.match(letter) || !pass.match(number)){
-				$("#passwordAlert").hide();
+                $("#passwordAlert").hide();
 				$("#passwordAlert").html("Password harus mengandung angka dan huruf!");
 				$("#passwordAlert").show();
 				buttonSaves.setAttribute('disabled', '');
@@ -249,7 +248,50 @@
             }
         }
         
-		
+        $("#changeProfile").change(function(){
+            if((this.files[0].size / 1024 / 1024) > 1){
+                $("#alert").show();
+            } 
+            else{
+                $("#profilepic").submit();
+                // return;
+                // location.reload();
+            } 
+        });
+
+        //TODO: TRY TO USE IT
+		// $(function() {
+        //     // Multiple images preview in browser
+        //     var imagesPreview = function(input, placeToInsertImagePreview) {
+        //         if (input.files) {
+        //             var filesAmount = input.files.length;
+        //             for (i = 0; i < filesAmount; i++) {
+        //                 var reader = new FileReader();
+        //                 reader.onload = function(event) {
+        //                         $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+        //                     }
+        //                 reader.readAsDataURL(input.files[i]);
+        //             }
+        //             if(filesAmount > 0){
+        //                 $("#changeProfile").show();
+        //             }else{
+        //                 $("#changeProfile").hide();
+        //             }
+        //         }
+        //     };
+
+        //     $('#damagedProductPictures').on('change', function() {
+        //         $(".picturePreview").empty();
+        //         imagesPreview(this, 'div.picturePreview');
+        //     });
+
+        //     // $('#clearDamagedPictures').on('click', function() {
+        //     //     $('#damagedProductPictures').val('');
+        //     //     $(".picturePreview").empty();
+        //     //     imagesPreview(this, 'div.picturePreview');
+        //     //     $("#clearDamagedPictures").hide();
+        //     // });
+        // });
 	</script>
 </body>
 </html>

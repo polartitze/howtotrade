@@ -71,7 +71,7 @@ public class AuthController {
 	public String addUser(@ModelAttribute("appUser") Users appUser, Model model) {
 		System.out.println("Add new user...");
 		boolean insertStatus = authService.insertUser(appUser.getUserName(), appUser.getUserEmail(),
-				passwordEncoder().encode(appUser.getUserPassword()), appUser.getUserRole());
+				passwordEncoder().encode(appUser.getUserPassword()), appUser.getUserRole(), appUser.getRealName());
 		if (insertStatus) {
 			System.out.println("Register success!...");
 			return "redirect:/user/add?success=true&username="+appUser.getUserName();

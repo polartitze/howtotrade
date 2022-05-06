@@ -43,8 +43,8 @@ public interface QuizMapper {
 			+ "VALUES (#{courseId}, #{quizName}, #{quizDesc}, #{imageUrl})")
 	void addQuiz(int courseId, String quizName, String quizDesc, String imageUrl);
 	
-	@Select("SELECT QUIZID, QUIZNAME FROM QUIZ")
-	List<Map<String,String>> getAllQuizName();
+	// @Select("SELECT QUIZID, QUIZNAME FROM QUIZ")
+	// List<Map<String,String>> getAllQuizName();
 
 	@Insert("INSERT INTO question(quizid, activityid, stepno, questiondesc, correctanswer, useranswer, choiceone, choicetwo, choicethree, choicefour, imageurl) "
 			+ "VALUES (#{quizid}, NULL, #{stepno}, #{questiondesc}, #{correctanswer}, NULL, #{choiceone}, #{choicetwo}, #{choicethree}, #{choicefour}, #{imageurl} )")
@@ -64,4 +64,8 @@ public interface QuizMapper {
 
 	@Update("UPDATE QUIZ SET ISSAVED = '1' WHERE QUIZID = #{quizId}")
 	void saved(int quizId);
+
+	@Select("SELECT SCORE FROM USERS U INNER JOIN COURSE_ENROLL CE ON U.USERID = CE.USERID INNER JOIN QUIZ_ENROLL QE ON U.USERID = QE.USERID "
+			+"WHERE USERNAME = #{userName} AND COURSEID = #{courseId} AND QUIZID = #{quizId}")
+	int isPassCourseAndQuiz(String userName, int courseId, int quizId);
 }

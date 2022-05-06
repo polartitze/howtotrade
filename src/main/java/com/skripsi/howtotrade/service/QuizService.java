@@ -114,9 +114,9 @@ public class QuizService {
 		mapper.addQuiz(courseId, quizName, quizDesc, imageUrl);
 	}
 
-	public List<Map<String,String>> getAllQuizName() {
-		return mapper.getAllQuizName();
-	}
+	// public List<Map<String,String>> getAllQuizName() {
+	// 	return mapper.getAllQuizName();
+	// }
 
 	public void addQuestion(int quizid, int stepno, String questiondesc, int correctanswer,  String choiceone, String choicetwo, String choicethree, String choicefour, String imageurl) {
 		mapper.addQuestion(quizid, stepno, questiondesc, correctanswer, choiceone, choicetwo, choicethree, choicefour, imageurl);
@@ -150,5 +150,15 @@ public class QuizService {
 
 	public void saved(int quizId){
 		mapper.saved(quizId);
+	}
+
+	public boolean isPassCourseAndQuiz(String userName, int courseId, int quizId){
+		int totalQuestion = getQuizTotalQuestion(quizId);
+		int score = mapper.isPassCourseAndQuiz(userName, courseId, quizId);
+
+		if(score /totalQuestion  >= 0.75) {
+			return true;
+		}
+		return false;
 	}
 }

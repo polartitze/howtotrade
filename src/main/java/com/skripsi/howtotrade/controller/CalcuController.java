@@ -62,10 +62,10 @@ public class CalcuController {
         System.out.println("perBulan: "+perBulan);
         System.out.println("investasiAwal: "+investasiAwal);
 
-        if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
-            retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
-        }
-        else if(Constant.HITUNG_TOTAL_INVESTASI.equals(jenisPerhitungan)){
+        // if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
+        //     retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
+        // }
+        if(Constant.HITUNG_TOTAL_INVESTASI.equals(jenisPerhitungan)){
             retval = String.valueOf(calcuService.calcTotalInvestment(koin, waktu, perBulan,investasiAwal));
         }
         else if(Constant.HITUNG_COMPOUNDING_INTEREST.equals(jenisPerhitungan)){

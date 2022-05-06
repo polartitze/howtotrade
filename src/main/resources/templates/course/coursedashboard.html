@@ -75,12 +75,14 @@
 					<h2>Course</h2>
 					<div class="row" th:each="course : ${listCourse}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 250px;">
+							style="height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
-									<img th:src="@{${course.imageUrl}}"
-										alt="Free Bootstrap Template by uicookies.com">
+									<img th:src="@{'/assets/images/course/' + ${course.courseName} + '/' + ${course.imageUrl}}" alt="Failed to load image, please reload">
 								</div>
+								<!-- <div class="center-cropped">
+										<img th:src="@{'/assets/images/course/' + ${course.courseName} + '/' + ${course.imageUrl}}" alt="Failed to load image, please reload">
+								</div> -->
 							</div>
 							<div class="text">
 								<li th:if="${course.isEnroll}"
@@ -93,13 +95,24 @@
 										class="btn btn-primary"
 										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
 										now</a> <a th:if="${course.isLock}" class="btn btn-secondary">Locked!</a>
-									<span class="text-center float-right"> <a
-										th:if="${!course.isLock}" href="javascript:genPDF()"
-										class="btn btn-primary"
+									<!-- <span class="text-center float-right" > <a
+										th:if="${!course.isLock AND course.isEnroll}" 
+										class="btn btn-primary btn-certificate"
+										th:data-name="${course.courseName}"
 										style="background: #3ec1d5; border-color: #3ec1d5;"> <i
-											class="fa fa-download"></i> Certificate
+										class="fa fa-download"></i> Certificate
 									</a>
-									</span>
+									</span> -->
+									<!-- <span class="text-center float-right" sec:authorize="isAuthenticated()"> 
+									<a
+										th:if="${!course.isLock AND course.isEnroll}" 
+										class="btn btn-primary"
+										th:href="@{'https://www.facebook.com/sharer/sharer.php?u=localhost:8080/course/certificate.html?username=' + ${username} + '&cid=' + ${course.courseId}}"
+										target="_blank"
+										style="background: #3ec1d5; border-color: #3ec1d5;"> 
+										<i class="fas fa-share"></i> Share
+									</a>
+									</span> -->
 								</p>
 							</div>
 						</div>
@@ -109,12 +122,16 @@
 					<h2>Quiz</h2>
 					<div class="row" th:each="quiz : ${listQuiz}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 250px;">
+							style="height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
-									<img th:src="@{${quiz.imageUrl}}"
-										alt="Free Bootstrap Template by uicookies.com">
+									<img th:src="@{'/assets/images/quiz/on_courseid_'+ ${quiz.courseId} + '/' + ${quiz.imageUrl}}" alt="Failed to load image, please reload">
+									<!-- <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Failed to load image, please reload"> -->
+									
 								</div>
+								<!-- <div class="center-cropped">
+									<img th:src="@{'/assets/images/quiz/on_courseid_'+ ${quiz.courseId} + '/' + ${quiz.imageUrl}}" alt="Failed to load image, please reload">
+								</div> -->
 							</div>
 							<div class="text">
 								<li th:if="${quiz.isPass}"
@@ -125,15 +142,23 @@
 									<a th:if="${!quiz.isLock}"
 										th:href="@{'/course/quiz/'+${quiz.quizId}}"
 										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
-										now</a> <a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
-									<span class="text-center float-right"> <a
-										th:if="${!quiz.isLock}"
-										th:href="@{'/course/quiz/'+${quiz.quizId}}"
-										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;"> <i
-											class="fa fa-download"></i> Certificate
-									</a>
+										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll now</a> 
+										<a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
+									<span class="text-center float-right"> 
+										<a th:if="${!quiz.isLock AND quiz.isPass}"
+											class="btn btn-primary btn-certificate" th:data-id="${quiz.courseId}"
+											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Certificate
+										</a>
+									</span>
+									<span class="text-center float-right" sec:authorize="isAuthenticated()"> 
+										<a
+											th:if="${!quiz.isLock AND quiz.isPass}" 
+											class="btn btn-primary"
+											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=localhost:8080/course/certificate.html?username=' + ${username} + '&cid=' + ${quiz.courseId} }"
+											target="_blank"
+											style="background: #3ec1d5; border-color: #3ec1d5;"> 
+											<i class="fas fa-share"></i> Share on Facebook
+										</a>
 									</span>
 								</p>
 
@@ -157,9 +182,9 @@
 				<strong>HOWTOTRADE COURSE</strong>
 			</p>
 			<h1>Certificate of Completion</h1>
-			<p class="student-name" th:text="${username}"></p>
+			<p class="student-name" th:text="${realname}"></p>
 			<div class="certificate-content">
-				<p class="about-certificate">has completed on topic [title here]
+				<p class="about-certificate">has completed on topic <span id="titleCourse"></span>
 					online</p>
 			</div>
 		</div>
@@ -237,7 +262,7 @@
 			var doc = new jsPDF("l","pt", "a4");
 			
 			doc.addImage(img, 'PNG', 0, 0);
-			doc.save();
+			doc.save('certificate.pdf');
 		})
 		
 	}
@@ -253,5 +278,31 @@
 			}
 		})
 	}
+
+	$(".btn-certificate").click(function(){
+		var courseId = $(this).data('id');
+		var courseName = getCourseName(courseId);
+		$("#titleCourse").html(courseName);
+		genPDF();
+	});
+
+	function getCourseName(courseId){
+		var result = '';
+		$.ajax({
+			type: "GET",
+			url: "/course/get-coursename",
+			data: {"id" : courseId},
+			async: false,
+			success: function(data) {
+				if (data != "" || data != null) {
+					result = data;
+				}
+			}
+		});
+		console.log(result);
+		return result;
+	}
+
 </script>
+
 </html>
