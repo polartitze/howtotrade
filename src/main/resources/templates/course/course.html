@@ -82,11 +82,17 @@
 	let courseData = /*[[${courseData}]]*/ 'default';
 	let currentActivity = 0;
 	
+	let chart = anychart.stock();
+    let dataTable = anychart.data.table();
+    
+	chart.title("test edit");
+    chart.container('chart-container');
+    chart.draw();
+    
 	loadCourse();
 	nextBtn.onclick = function() {next()};
 	backBtn.onclick = function() {back()};
 	finishBtn.onclick = function() {finish()};
-	
 	function loadCourse() {
 		let currentActivityData = courseData.activityList[currentActivity];
 		
@@ -99,7 +105,7 @@
 		if(currentActivityData.activityType == "chart"){
 			activityChart.style.display = "block";
 			activityImg.style.display = "none";
-			drawChart(currentActivityData);
+			editChart();
 		}else if(currentActivityData.activityType == "picture"){
 			activityChart.style.display = "none";
 			activityImg.style.display = "block";
@@ -124,7 +130,6 @@
 		    d_text.innerText = currentActivityData.question.choiceFour;
 			
 		} else {
-			console.log("masukk")
 			questionContainer.style.display = "none";
 		}
 	    
@@ -202,12 +207,10 @@
     	$("#course-modal .modal-text").text(` You finish the course `);
     }
     
-   
-	
-    function drawChart(){
+    function editChart(){
     	anychart.onDocumentReady(function () {
-    		let table = anychart.data.table();
-    		
+    	    dataTable.removeFirst(dataTable.oc.b.length)
+    		    		
     		let currentActivityData = courseData.activityList[currentActivity];
     			
    			let map = new Map(Object.entries(currentActivityData.chart.candleList));
@@ -224,29 +227,30 @@
    				res.push(temp);
    			}
    			
-    		table.addData(res);
+    		dataTable.addData(res);
     		
-    		mapping = table.mapAs();
+    		mapping = dataTable.mapAs();
     	    mapping.addField('open', 1);
-    	    mapping.addField('high', 2);
+    	    mapping.addField('high', 2);	
     	    mapping.addField('low', 3);
     	    mapping.addField('close', 4);
     	    
-    	 	// chart type
-    	    let chart = anychart.stock();
-
     	    // set the series
     	    let series = chart.plot(0).candlestick(mapping);
     	    
     	    series.name(currentActivityData.chart.chartName);
 
     	    chart.title(currentActivityData.chart.chartName);
-    	 	
-    	 
-    	    chart.container('chart-container');
-
-    	    chart.draw();
+    	    
+    	    //table.remove("2022-03-09", "2022-03-25");
+    	    //table.remove(currentActivityData.chart.candleList[0].candleTime, '3/25/2022')
+    	    //table.remove(currentActivityData.chart.candleList[15].candleTime, '3/25/2022');
+    	    chart.title("test Update");
+    	    series.name("test Update series");
     	});
+    };
+	
+   
     };
 	
 </script>
