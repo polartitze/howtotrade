@@ -26,10 +26,11 @@ public interface UserMapper {
 	@Select("SELECT 1 FROM USERS WHERE USERNAME = #{username} AND USERPASSWORD = #{password}")
 	String getPassword(String username, String password);
 
-	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus) "
-			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus})")
+	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus, realName) "
+			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus}, #{realName})")
 	void insertUser(@Param("userName") String userName, @Param("userEmail")String userEmail, 
-			@Param("userPassword")String userPassword, @Param("userRole")int userRole, @Param("userStatus")String userStatus);
+			@Param("userPassword")String userPassword, @Param("userRole")int userRole, @Param("userStatus")String userStatus,
+			@Param("realName")String realName);
 
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users findUserAccount(String username);
@@ -70,4 +71,5 @@ public interface UserMapper {
 	
 	@Update("UPDATE users SET userrole = '3' WHERE userid = #{userId}")
     void changetoExpert(int userId);
+	
 }

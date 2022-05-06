@@ -42,11 +42,11 @@ public interface CalcuMapper {
         + "ORDER BY IP.CREATEDDATE DESC ")
     List<Map<String,String>> checkInvestmentData(int userId);
 
-    @Select("SELECT COINRETURN FROM COIN")
-    List<Double> getAllCoinReturn();
+    // @Select("SELECT COINRETURN FROM COIN")
+    // List<Double> getAllCoinReturn();
 
-    @Select("SELECT COINCODE FROM COIN WHERE COINRETURN = #{coinReturn} ")
-    List<String> getRecommendedCoin(int coinReturn);
+    // @Select("SELECT COINCODE FROM COIN WHERE COINRETURN = #{coinReturn} ")
+    // List<String> getRecommendedCoin(int coinReturn);
 
     @Delete("DELETE FROM investmentplanning WHERE planningId = #{planningId}")
     void deletePlanning(@Param("planningId") int planningId);

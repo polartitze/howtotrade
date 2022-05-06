@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/certificate.css">
+    <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <title>Certificate</title>
+</head>
+<body>
+    <div class="certificate d-block position-absolute" id="capture" style="top: 0;">
+        <div class="water-mark-overlay"></div>
+        <div class="certificate-header">
+            <img src="/assets/images/httlogo.png" class="logo"
+                alt="logo how to trade">
+        </div>
+        <div class="certificate-body">
+    
+            <p class="certificate-title">
+                <strong>HOWTOTRADE COURSE</strong>
+            </p>
+            <h1>Certificate of Completion</h1>
+            <p class="student-name" th:text="${user.realName}"></p>
+            <div class="certificate-content">
+                <p class="about-certificate">has completed on topic <span th:text="${course.courseName}"></span>
+                    online</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="certificate-footer text-muted">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Principal: ______________________</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Accredited by</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Endorsed by</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br> <br> <br>
+        <div class="certificate-footer text-muted">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Christian Bryan Jayanto</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Jovan Reynardo</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Alvin Tanjaya</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

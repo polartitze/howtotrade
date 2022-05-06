@@ -9,6 +9,15 @@ public class Users{
     private String userStatus;
     private String imagePath;
     private String isVerified;
+    private String realName;
+
+    public String getRealName() {
+        return this.realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
     public String getIsVerified() {
         return this.isVerified;
