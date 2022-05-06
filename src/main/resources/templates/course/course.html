@@ -237,16 +237,9 @@
     	    
     	    // set the series
     	    let series = chart.plot(0).candlestick(mapping);
-    	    
     	    series.name(currentActivityData.chart.chartName);
-
-    	    chart.title(currentActivityData.chart.chartName);
     	    
-    	    //table.remove("2022-03-09", "2022-03-25");
-    	    //table.remove(currentActivityData.chart.candleList[0].candleTime, '3/25/2022')
-    	    //table.remove(currentActivityData.chart.candleList[15].candleTime, '3/25/2022');
-    	    chart.title("test Update");
-    	    series.name("test Update series");
+    	    chart.title(currentActivityData.chart.chartName);
     	});
     };
 </script>
