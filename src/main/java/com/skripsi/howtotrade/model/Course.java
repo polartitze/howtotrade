@@ -5,15 +5,15 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Course {
-	int courseId;
-	String courseName;
-	String courseDesc;
-	Time courseDuration;
-	Timestamp enrollDate;
-	List<Activity> activityList;
-	boolean isEnroll;
-	boolean isLock;
-	String imageUrl;
+	private int courseId;
+	private String courseName;
+	private String courseDesc;
+	private Time courseDuration;
+	private Timestamp enrollDate;
+	private List<Activity> activityList;
+	private boolean isEnroll;
+	private boolean isLock;
+	private String imageUrl;
 	
 	public Integer getCourseId() {
 		return courseId;

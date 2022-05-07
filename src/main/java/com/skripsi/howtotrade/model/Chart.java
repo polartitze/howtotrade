@@ -3,9 +3,9 @@ package com.skripsi.howtotrade.model;
 import java.util.List;
 
 public class Chart {
-	int chartId;
-	String chartName;
-	List<Candle> candleList;
+	private int chartId;
+	private String chartName;
+	private List<Candle> candleList;
 	
 	public int getChartId() {
 		return chartId;

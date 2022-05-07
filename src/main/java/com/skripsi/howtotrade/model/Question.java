@@ -1,18 +1,18 @@
 package com.skripsi.howtotrade.model;
 
 public class Question {
-	int quizId;
-	int activityId;
-	int questionId;
-	int stepNo;
-	String questionDesc;
-	int correctAnswer;
-	int userAnswer;
-	String choiceOne;
-	String choiceTwo;
-	String choiceThree;
-	String choiceFour;
-	String imageUrl;
+	private int quizId;
+	private int activityId;
+	private int questionId;
+	private int stepNo;
+	private String questionDesc;
+	private int correctAnswer;
+	private int userAnswer;
+	private String choiceOne;
+	private String choiceTwo;
+	private String choiceThree;
+	private String choiceFour;
+	private String imageUrl;
 
 	public int getQuizId() {
 		return this.quizId;

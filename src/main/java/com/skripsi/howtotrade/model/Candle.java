@@ -1,12 +1,12 @@
 package com.skripsi.howtotrade.model;
 
 public class Candle {
-	int candleId;
-	String candleTime;
-	Integer openPrice;
-	Integer highPrice;
-	Integer lowPrice;
-	Integer closePrice;
+	private int candleId;
+	private String candleTime;
+	private Integer openPrice;
+	private Integer highPrice;
+	private Integer lowPrice;
+	private Integer closePrice;
 	public int getCandleId() {
 		return candleId;
 	}

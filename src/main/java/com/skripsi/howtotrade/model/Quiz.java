@@ -3,17 +3,17 @@ package com.skripsi.howtotrade.model;
 import java.util.List;
 
 public class Quiz {
-	int quizId;
-	int courseId;
-	String quizName;
-	String quizDesc;
-	List<Question> questionList;
-	boolean isEnroll;
-	boolean isPass;
-	boolean isLock;
-	int highestScore;
-	int finalScore;
-	String imageUrl;
+	private int quizId;
+	private int courseId;
+	private String quizName;
+	private String quizDesc;
+	private List<Question> questionList;
+	private boolean isEnroll;
+	private boolean isPass;
+	private boolean isLock;
+	private int highestScore;
+	private int finalScore;
+	private String imageUrl;
 	
 	public int getQuizId() {
 		return quizId;

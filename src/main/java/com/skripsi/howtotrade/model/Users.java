@@ -2,6 +2,7 @@ package com.skripsi.howtotrade.model;
 
 public class Users{
     private int userId;
+    private String realName;
     private String userName;
     private String userEmail;
     private String userPassword;
@@ -9,7 +10,6 @@ public class Users{
     private String userStatus;
     private String imagePath;
     private String isVerified;
-    private String realName;
 
     public String getRealName() {
         return this.realName;

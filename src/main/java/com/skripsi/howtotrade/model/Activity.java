@@ -2,16 +2,16 @@ package com.skripsi.howtotrade.model;
 
 public class Activity {
 
-	int activityId;
-	int stepNo;
-	String activityType;
-	String activityDesc;
-	String imageUrl;
-	boolean isquestion;
-	Question question;
-	Chart chart;
-	int courseId;
-	int activityTypeId;
+	private int activityId;
+	private int stepNo;
+	private String activityType;
+	private String activityDesc;
+	private String imageUrl;
+	private boolean isquestion;
+	private Question question;
+	private Chart chart;
+	private int courseId;
+	private int activityTypeId;
 
 	public int getActivityTypeId() {
 		return this.activityTypeId;
