@@ -33,11 +33,11 @@ public interface CourseMapper {
 			+ "WHERE courseId = #{courseId}")
 	List<Activity> getAllCourseActivity(int courseId);
 	
-	@Select("SELECT a.*, at.name as activitytype, q.* FROM activity a "
-			+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
-			+ "LEFT JOIN QUESTION q ON q.activityid = a.activityid "
-			+ "WHERE courseId = #{courseId}")
-	List<HashMap<String,String>> getAllCourseActivityMap(int courseId);
+	// @Select("SELECT a.*, at.name as activitytype, q.* FROM activity a "
+	// 		+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
+	// 		+ "LEFT JOIN QUESTION q ON q.activityid = a.activityid "
+	// 		+ "WHERE courseId = #{courseId}")
+	// List<HashMap<String,String>> getAllCourseActivityMap(int courseId);
 
 	@Select("SELECT * FROM question where activityId = #{activityId}")
 	Question getQuestion(int activityId);

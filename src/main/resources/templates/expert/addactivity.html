@@ -115,6 +115,38 @@
                 </tr>
                 <tr th:each="list : ${listActivity}">
                     <td>
+                        <span th:text="${list.stepNo}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${list.activityType}"></span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <span th:text="${list.activityDesc}"></span>
+                    </td>
+                    <td>
+                        <a th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
+                            data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e; "></span></a>
+                    </td>
+                    <td class="text-center align-middle" th:if="${list.isQuestion}">
+                        <a data-toggle="modal" data-target="#questionModal" class="question"
+                        th:data-desc="${list.question.questionDesc}"
+                        th:data-one="${list.question.choiceOne}"
+                        th:data-two="${list.question.choiceTwo}"
+                        th:data-three="${list.question.choiceThree}"
+                        th:data-four="${list.question.choiceFour}"
+                        th:data-answer="${list.question.correctAnswer}"
+                        ><span style="color: #ff606e; ">Ada</span></a>
+                    </td>
+                    <td class="text-center align-middle" th:if="${!list.isQuestion}">
+                        <span>Tidak Ada</span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <a th:href="@{ '/pro/delete-activity/' + ${list.activityId} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
+                    </td>
+                </tr>
+                <!-- YANG LAMA -->
+                <!-- <tr th:each="list : ${listActivity}">
+                    <td>
                         <span th:text="${list.stepno}"></span>
                     </td>
                     <td>
@@ -143,7 +175,7 @@
                     <td class="text-center align-middle">
                         <a th:href="@{ '/pro/delete-activity/' + ${list.activityid} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div class="row gutters">

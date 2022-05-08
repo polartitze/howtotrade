@@ -7,18 +7,74 @@ public class Activity {
 	private String activityType;
 	private String activityDesc;
 	private String imageUrl;
-	private boolean isquestion;
+	private boolean isQuestion;
 	private Question question;
 	private Chart chart;
 	private int courseId;
 	private int activityTypeId;
 
-	public int getActivityTypeId() {
-		return this.activityTypeId;
+	public int getActivityId() {
+		return this.activityId;
 	}
 
-	public void setActivityTypeId(int activityTypeId) {
-		this.activityTypeId = activityTypeId;
+	public void setActivityId(int activityId) {
+		this.activityId = activityId;
+	}
+
+	public int getStepNo() {
+		return this.stepNo;
+	}
+
+	public void setStepNo(int stepNo) {
+		this.stepNo = stepNo;
+	}
+
+	public String getActivityType() {
+		return this.activityType;
+	}
+
+	public void setActivityType(String activityType) {
+		this.activityType = activityType;
+	}
+
+	public String getActivityDesc() {
+		return this.activityDesc;
+	}
+
+	public void setActivityDesc(String activityDesc) {
+		this.activityDesc = activityDesc;
+	}
+
+	public String getImageUrl() {
+		return this.imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public boolean getIsQuestion() {
+		return this.isQuestion;
+	}
+
+	public void setIsQuestion(boolean isQuestion) {
+		this.isQuestion = isQuestion;
+	}
+
+	public Question getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public Chart getChart() {
+		return this.chart;
+	}
+
+	public void setChart(Chart chart) {
+		this.chart = chart;
 	}
 
 	public int getCourseId() {
@@ -28,54 +84,14 @@ public class Activity {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-	
-	public int getActivityId() {
-		return activityId;
+
+	public int getActivityTypeId() {
+		return this.activityTypeId;
 	}
-	public void setActivityId(int activityId) {
-		this.activityId = activityId;
+
+	public void setActivityTypeId(int activityTypeId) {
+		this.activityTypeId = activityTypeId;
 	}
-	public int getStepNo() {
-		return stepNo;
-	}
-	public void setStepNo(int stepNo) {
-		this.stepNo = stepNo;
-	}
-	public String getActivityType() {
-		return activityType;
-	}
-	public void setActivityType(String activityType) {
-		this.activityType = activityType;
-	}
-	public boolean isIsquestion() {
-		return isquestion;
-	}
-	public void setIsquestion(boolean isquestion) {
-		this.isquestion = isquestion;
-	}
-	public Question getQuestion() {
-		return question;
-	}
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-	public Chart getChart() {
-		return chart;
-	}
-	public void setChart(Chart chart) {
-		this.chart = chart;
-	}
-	public String getActivityDesc() {
-		return activityDesc;
-	}
-	public void setActivityDesc(String activityDesc) {
-		this.activityDesc = activityDesc;
-	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+
 	
 }

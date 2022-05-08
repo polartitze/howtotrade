@@ -43,10 +43,10 @@ public class CourseService {
 		return course;
 	}
 	
-	private List<Activity> getCourseActivity(int courseId) {
+	public List<Activity> getCourseActivity(int courseId) {
 		List<Activity> activityList = mapper.getAllCourseActivity(courseId);
 		for (Activity activity : activityList) {
-			if(activity.isIsquestion()) {
+			if(activity.getIsQuestion()) {
 				activity.setQuestion(mapper.getQuestion(activity.getActivityId()));
 			}
 			if(activity.getActivityType().equals("chart")) {
@@ -116,9 +116,9 @@ public class CourseService {
 		return mapper.getAllCourseActivity(courseId);
 	}
 	
-	public List<HashMap<String,String>> getAllCourseActivityMap(int courseId){
-		return mapper.getAllCourseActivityMap(courseId);
-	}
+	// public List<HashMap<String,String>> getAllCourseActivityMap(int courseId){
+	// 	return mapper.getAllCourseActivityMap(courseId);
+	// }
 	public void deleteActivity(int activityId){
 		mapper.deleteActivity(activityId);
 	}

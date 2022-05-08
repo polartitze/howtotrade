@@ -167,11 +167,12 @@ public class ExpertController {
 
 	@RequestMapping(value = "/add-activity/{courseId}", method = RequestMethod.GET)
 	public String addActivity(Model model, @PathVariable int courseId) {
+		
 		model.addAttribute("count", courseService.countListActivity(courseId));
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("listActivityType", courseService.getAllActivityType());
-		System.out.println(courseService.getAllCourseActivityMap(courseId));
-		model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId));
+		// model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId));
+		model.addAttribute("listActivity", courseService.getCourseActivity(courseId));
 		model.addAttribute("addActivity", new Activity());
 		// model.addAttribute("addQuestion", new Question());
 
@@ -202,12 +203,12 @@ public class ExpertController {
         int latestActivityId =  courseService.getLatestActivityId();
 
 		try {
-			if(activity.isIsquestion()){
+			if(activity.getIsQuestion()){
 				//activity id harus sesuai dgn activity yg terbaru
 				courseService.addActivityQuestion(latestActivityId+1, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
 			}
 			System.out.println("Insert new ActivityQuestion success!");
-			courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.isIsquestion());
+			courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.getIsQuestion());
 			System.out.println("Insert new Activity success!");
 			return "redirect:/pro/add-activity/"+String.valueOf(latestCourseId);
 		} catch (PersistenceException e) {
