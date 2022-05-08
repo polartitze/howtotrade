@@ -135,8 +135,14 @@ public class ExpertController {
 	}
 
 	@RequestMapping(value = "/add-course-save", method = RequestMethod.POST)
-	public String addCourseSave(Course course, @RequestParam("image") MultipartFile multipartFile) {
-		String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+	public String addCourseSave(Course course, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
+		String filename = "";
+		try {
+			filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         String uploadDir = Constant.COURSE_IMAGE_PATH + course.getCourseName();
         
         if(filename == null || "".equals(filename)){
@@ -180,8 +186,14 @@ public class ExpertController {
 	}
 
 	@RequestMapping(value = "/add-activity-save", method = RequestMethod.POST)
-	public String addActivitySave(Activity activity, @RequestParam("image") MultipartFile multipartFile) {
-        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+	public String addActivitySave(Activity activity, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
+		String filename = "";
+		try {
+			filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         String uploadDir = Constant.ACTIVITY_IMAGE_PATH +activity.getCourseId();
         
         if(filename == null || "".equals(filename)){

@@ -30,7 +30,8 @@ public interface CourseMapper {
 	
 	@Select("SELECT a.*, at.name as activitytype FROM activity a "
 			+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
-			+ "WHERE courseId = #{courseId}")
+			+ "WHERE courseId = #{courseId} "
+			+ "ORDER BY a.stepNo asc")
 	List<Activity> getAllCourseActivity(int courseId);
 	
 	// @Select("SELECT a.*, at.name as activitytype, q.* FROM activity a "

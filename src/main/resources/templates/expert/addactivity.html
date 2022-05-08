@@ -268,16 +268,16 @@
                          </div>
                         
                         <div class="col-md-12 mt-3">
-                            <input class="form-control" type="text" placeholder="Deskripsi" maxlength="500"  th:field="${addActivity.activityDesc}" required>
+                            <input class="form-control" type="text" placeholder="Deskripsi" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
                         </div>
                         
-                        <div class="col-md-12 mt-3">
-                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
+                        <div class="col-md-12 mt-3" id="activityImageBox" style="display: none;">
+                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/>
                         </div>
                         
                         <div class="col-md-12 mt-3">
                             <label for="isQuestion">Add question?</label>
-                            <input type="checkbox" id="isQuestion" name="isquestion">
+                            <input type="checkbox" id="isQuestion" name="isQuestion">
                         </div>
 
                         <div class="col-md-12 mt-3" id="btnQuestion" style="display: none;">
@@ -307,7 +307,7 @@
                         <input type="hidden" name="courseId" th:value="${courseId}" id="course">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="btn-save-activity" type="button" class="btn btn-primary">Save</button>
+                            <button id="btn-save-activity" type="submit" class="btn btn-primary">Save</button>
                         </div>
 
                     </form>
@@ -350,9 +350,23 @@
                 $('#activityAlert2').show();
                 return false;
             }
-            else{
-                $('#myForm').submit();
+            if($("#activityDesc").val() == ''){
+                $("#alertMsg2").html('Deskripsi harus diisi!');
+                $("#activityAlert2").show();
+                return false;
+            } 
+            if($('#selectActivityType').val() == '2' &&  $("#inputImage").val() == ''){
+                $("#alertMsg2").html('Gambar harus diisi!');
+                $("#activityAlert2").show();
+                return false;
             }
+            if((this.files[0].size / 1024 / 1024) > 1){
+                $("#alertMsg2").html('Maksimal file 1MB');
+                $("#activityAlert2").show();
+                return false;
+            }
+
+            
         });
         
         $("#inputImage").change(function(){
@@ -365,6 +379,18 @@
                 $("#activityAlert2").hide();
             } 
         });
+
+        $("#selectActivityType").change(function(){
+            var activityType = $('#selectActivityType').val();
+            if(activityType == '2'){ //picture
+                $("#inputImage").removeAttr("disabled");
+                $("#activityImageBox").show();
+            } 
+            else{
+                $("#inputImage").attr("disabled", "disabled");
+                $("#activityImageBox").hide()
+            } 
+        });
         
         $("#table-question").change(function(){
             image();
@@ -373,7 +399,7 @@
             $(".imgModal").on('click',function(){
                 var id = $(this).data('id');
                 var courseId = $("#course").val();
-                var dom = '<img src="/assets/images/course/on_courseid_' + courseId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
+                var dom = '<img src="/assets/images/activity/on_courseid_' + courseId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
                 $('#imgInside').html(dom); 
 
             });
@@ -385,9 +411,6 @@
                 var three=  $(this).data('three');
                 var four=  $(this).data('four');
                 var answer=  $(this).data('answer');
-                // var courseId = $("#course").val();
-                // var dom = '<img src="/assets/images/course/on_courseid_' + courseId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
-                // $('#imgInside').html(dom);
                 $("#questiondescModal").val(desc);
                 $("#choiceoneModal").val(one);
                 $("#choicetwoModal").val(two);
