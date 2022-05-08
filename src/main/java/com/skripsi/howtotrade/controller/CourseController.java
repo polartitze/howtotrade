@@ -84,12 +84,12 @@ public class CourseController {
 		return "redirect:/course/all";
 	}
 	
-	@RequestMapping(value="/certificate.html", method = RequestMethod.GET)
+	@RequestMapping(value="/{userName}/{cid}/{qid}/certificate.html", method = RequestMethod.GET)
 	public String certificatePage(Model model,
-								@RequestParam("username") String userName,
-								@RequestParam("cid") String id,
-								@RequestParam("qid") String qid) {
-		int courseId = Integer.parseInt(id);
+								@PathVariable String userName,
+								@PathVariable String cid,
+								@PathVariable String qid) {
+		int courseId = Integer.parseInt(cid);
 		int quizId = Integer.parseInt(qid);
 		boolean isPassCourseAndQuiz = quizService.isPassCourseAndQuiz(userName, courseId, quizId);
 		System.out.println("isPassCourseAndQuiz: "+isPassCourseAndQuiz);

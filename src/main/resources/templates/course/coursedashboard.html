@@ -131,7 +131,7 @@
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
-											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=localhost:8080/course/certificate.html?username=' + ${username} + '&cid=' + ${quiz.courseId} }"
+											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=192.168.100.9:8080/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
 											target="_blank"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> 
 											<i class="fas fa-share"></i> Share on Facebook
