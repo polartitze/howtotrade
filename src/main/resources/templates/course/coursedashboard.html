@@ -127,7 +127,7 @@
 											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Certificate
 										</a>
 									</span>
-									<span class="text-center float-right mt-1" sec:authorize="isAuthenticated()"> 
+									<span class="text-center float-right mt-1" style="width:100%" sec:authorize="isAuthenticated()"> 
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
