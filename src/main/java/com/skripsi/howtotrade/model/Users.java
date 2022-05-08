@@ -2,22 +2,14 @@ package com.skripsi.howtotrade.model;
 
 public class Users{
     private int userId;
-    private String realName;
     private String userName;
+    private String userRealName;
     private String userEmail;
     private String userPassword;
     private int userRole;
     private String userStatus;
     private String imagePath;
     private String isVerified;
-
-    public String getRealName() {
-        return this.realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
 
     public String getIsVerified() {
         return this.isVerified;
@@ -85,7 +77,11 @@ public class Users{
         this.userStatus = userStatus;
     }
 
+	public String getUserRealName() {
+		return userRealName;
+	}
 
-   
-
+	public void setUserRealName(String userRealName) {
+		this.userRealName = userRealName;
+	}
 }

@@ -44,7 +44,7 @@ public class CourseController {
 			Users user = userService.findUserAccount(principal.getName());
 			int userId = userService.getUserId(principal.getName());
 			model.addAttribute("username", user.getUserName() );
-			model.addAttribute("realname", user.getRealName());
+			model.addAttribute("realname", user.getUserRealName());
 			model.addAttribute("listCourse", courseService.getAllCourse(userId));
 			model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
 			return "course/coursedashboard";

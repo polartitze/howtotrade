@@ -149,13 +149,13 @@ CREATE TABLE public.users
 (
     userid SERIAL NOT NULL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
+    userrealname varchar(200) default '-',
     useremail VARCHAR(50),
     userpassword VARCHAR(65),
     userrole integer,
     userstatus VARCHAR(1),
     imagepath varchar(65) default '-',
-    isverified varchar(1) default '0',
-    realname varchar(200) default '-'
+    isverified varchar(1) default '0'
 );
 
 drop table if exists calculator;
