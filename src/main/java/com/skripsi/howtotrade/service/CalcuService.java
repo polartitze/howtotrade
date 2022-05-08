@@ -7,9 +7,11 @@ import java.util.Map;
 
 import com.skripsi.howtotrade.mapper.CalcuMapper;
 import com.skripsi.howtotrade.model.Calculator;
+import com.skripsi.howtotrade.model.CalculatorType;
 import com.skripsi.howtotrade.model.Coin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.mapping.MappableAttributesRetriever;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +27,11 @@ public class CalcuService {
         return calcuMapper.getAllCoin();
     } 
     
-//    public List<Map<String,String>> checkInvestmentData(String username){
+    public List<CalculatorType> getAllCalculateType(){
+        return calcuMapper.getAllCalculateType();
+    }
+    
+    //    public List<Map<String,String>> checkInvestmentData(String username){
 //        int userId = userService.getUserId(username);
 //        System.out.println("==========="+calcuMapper.checkInvestmentData(userId));
 //        return calcuMapper.checkInvestmentData(userId);
@@ -33,32 +39,42 @@ public class CalcuService {
 
     public List<Calculator> checkInvestmentData(String username){
         int userId = userService.getUserId(username);
-        return calcuMapper.checkInvestmentData(userId);
+        List<Calculator> list = calcuMapper.checkInvestmentData(userId);
+        for (Calculator calculator : list) {
+            calculator.setCoin(getCoinByCalculatorId(calculator.getCalculatorId()));
+            calculator.setCalculatorType(getCalcTypeByCalculatorId(calculator.getCalculatorId()));
+        }
+        return list;
     }
     
+    private Coin getCoinByCalculatorId(int calculatorId){
+        return calcuMapper.getCoinByCalculatorId(calculatorId);
+    }
+    
+    private CalculatorType getCalcTypeByCalculatorId(int calculatorId){
+        return calcuMapper.getCalcTypeByCalculatorId(calculatorId);
+    }
+
     public void saveResult(Calculator calc, String username){
         int userId = userService.getUserId(username); 
 
-        if("".equals(calc.getTotalInvestasi()) || calc.getTotalInvestasi() == null){
-            calc.setTotalInvestasi("-");
+        if("".equals(calc.getCoin().getCoinCode()) || calc.getCoin().getCoinCode() == null){
+            calc.getCoin().setCoinCode("-");
         }
-        if("".equals(calc.getKoin()) || calc.getKoin() == null){
-            calc.setKoin("-");
-        }
-        if("".equals(calc.getPerBulan()) || calc.getPerBulan() == null){
-            calc.setPerBulan("-");
+        if("".equals(calc.getInvestasiPerbulan()) || calc.getInvestasiPerbulan() == null){
+            calc.setInvestasiPerbulan("-");
         }
         if("".equals(calc.getInvestasiAwal()) || calc.getInvestasiAwal() == null){
             calc.setInvestasiAwal("-");
         }
-        if("".equals(calc.getWaktu()) || calc.getWaktu() == null){
-            calc.setWaktu("-");
+        if("".equals(calc.getDuration()) || calc.getDuration() == null){
+            calc.setDuration("-");
         }
-        calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
-        calc.setPerBulan(calc.getPerBulan().replaceAll(",", ""));
+        // calc.setTotalInvestasi(calc.getTotalInvestasi().replaceAll(",", ""));
+        calc.setInvestasiPerbulan(calc.getInvestasiPerbulan().replaceAll(",", ""));
         calc.setInvestasiAwal(calc.getInvestasiAwal().replaceAll(",", ""));
         
-        calcuMapper.insertCalculate(calc.getWaktu(), calc.getInvestasiAwal(), calc.getPerBulan(), calc.getJenisPerhitungan(), calc.getResults(), calc.getKoin(), userId); 
+        calcuMapper.insertCalculate(calc.getDuration(), calc.getInvestasiAwal(), calc.getInvestasiPerbulan(), calc.getResult(), calc.getCoin().getCoinCode(), userId, calc.getCalculatorType().getCalculatorTypeId());
     }
 
     // public String calcCoin(String totalInvestasi, String waktuString, String perBulanString){

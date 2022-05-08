@@ -72,8 +72,8 @@
                         </div>
                         <div class="container">
                             <div class="form-group">
-                                <label for="realName">Full Name</label>
-                                <input type="text" class="form-control" id="realName" th:field="${profileForm.realName}" readonly>
+                                <label for="userRealName">Full Name</label>
+                                <input type="text" class="form-control" id="userRealName" th:field="${profileForm.userRealName}" readonly>
                             </div>
                         </div>
                         <div class="container">
@@ -132,7 +132,7 @@
         </div>
     <input type="hidden" th:value="${data.userName}" id="hiddenUserName"/> 
     <input type="hidden" th:value="${data.userEmail}" id="hiddenUserEmail"/> 
-    <input type="hidden" th:value="${data.realName}" id="hiddenRealName"/> 
+    <input type="hidden" th:value="${data.userRealName}" id="hiddenRealName"/> 
 
     <div th:replace="fragments/logout :: logout">&nbsp;</div>
 
@@ -178,7 +178,7 @@
             const hiddenRealName = $('#hiddenRealName').val();
             $('#userName').val(hiddenUserName);
             $('#userEmail').val(hiddenUserEmail);
-            $('#realName').val(hiddenRealName);
+            $('#userRealName').val(hiddenRealName);
 
             $('.btn-changePassword').click(function(){
                 $('#changePassword').show();

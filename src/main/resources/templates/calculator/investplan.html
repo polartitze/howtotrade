@@ -69,11 +69,13 @@
                       </div>
                       <div class="media-body">
                         <h4>Output Perhitungan</h4>
-                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="jenisPerhitungan" th:field="${calculatorForm.jenisPerhitungan}">
+                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="jenisPerhitungan" th:field="${calculatorForm.calculatorType.calculatorTypeId}">
                           <!-- <option value="00"></option> -->
                           <!-- <option value="10_COIN">Koin yang cocok untuk kamu</option> -->
-                          <option value="20_TOTAL">Total Investasi (Tabung bulanan)</option>
-                          <option value="30_COMP">Total Investasi (Tabung sekali di awal)</option>
+                          <!-- <option value="20_TOTAL">Total Investasi (Tabung bulanan)</option>
+                          <option value="30_COMP">Total Investasi (Tabung sekali di awal)</option> -->
+                          <option th:each="list : ${listCalcType}" th:value="${list.calculatorTypeId}" th:text="${list.calculatorTypeName}"></option>
+
                         </select>
                       </div>
                       <div class="align-self-center">
@@ -118,7 +120,7 @@
                     <div class="media-body">
                       <h4>Waktu Investasi (Tahun)</h4>
                       <div>
-                        <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.waktu}" maxlength="3">
+                        <input type="number" class="form-control" id="waktu" th:field="${calculatorForm.duration}" maxlength="3">
                       </div>
                     </div>
                   </div>
@@ -137,10 +139,11 @@
                       </div>
                       <div class="media-body">
                         <h4>Koin Pilihan</h4>
-                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}"
+                        <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.coin.coinCode}"
                           disabled="disabled">
                           <option value=""></option>
-                          <option th:each="list : ${listCoin}" th:value="${list.coinCode}" th:text="${list.coinCode} - $list.coinName"></option>
+                          <option th:each="list : ${listCoin}" th:value="${list.coinCode}" th:text="${list.coinCode} + ' - ' + ${list.coinName}"></option>
+                          <!-- <option th:each="list : ${listCoin}" th:value="${list.coinCode}" th:text="${list.coinCode} + ' - ' + $list.coinName"></option> -->
                         </select>
                       </div>
                     </div>
@@ -149,7 +152,7 @@
               </div>
             </div>
               
-            <div class="col-xl-6" id="totalInvestasiBox">
+            <!-- <div class="col-xl-6" id="totalInvestasiBox">
               <div class="card">
                 <div class="card-content">
                   <div class="card-body cleartfix">
@@ -169,7 +172,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             
             <div class="col-xl-6" id="perBulanBox">
               <div class="card">
@@ -181,7 +184,7 @@
                       </div>
                       <div class="media-body">
                         <h4>Jumlah Investasi Per Bulan</h4>
-                        <input type="text" class="form-control numeric" id="perBulan" th:field="${calculatorForm.perBulan}" maxlength="15">
+                        <input type="text" class="form-control numeric" id="perBulan" th:field="${calculatorForm.investasiPerbulan}" maxlength="15">
                       </div>
                     </div>
                   </div>
@@ -214,7 +217,7 @@
                     </div>
                     <div class="media-body">
                       <h4>Hasil</h4>
-                      <textarea rows="4" class="form-control" id="score" readonly="readonly" th:field="${calculatorForm.results}" style="white-space: pre-wrap;"></textarea>
+                      <textarea rows="4" class="form-control" id="score" readonly="readonly" th:field="${calculatorForm.result}" style="white-space: pre-wrap;"></textarea>
                       <button type="submit" class="btn btn-primary btn-save float-right mt-2">Save Result</button>
                     </div>
                     <div class="align-self-center">
@@ -261,25 +264,25 @@
                   <span th:text="${list.created}"></span>
                 </td>
                 <td>
-                  <span th:text="${list.jenis}"></span>
+                  <span th:text="${list.calculatorType.calculatorTypeName}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.investasiawal}"></span>
+                  <span th:text="${list.investasiAwal}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.investasiperbulan}"></span>
+                  <span th:text="${list.investasiPerbulan}"></span>
                 </td>
                 <td class="text-center align-middle">
                   <span th:text="${list.duration}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.coincode}"></span>
+                  <span th:text="${list.coin.coinCode}"></span>
                 </td>
                 <td>
                   <span th:text="${list.result}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <a href="#del-modal" th:data-id="${list.planningid}"
+                  <a href="#del-modal" th:data-id="${list.calculatorId}"
                   class="open-del-modal" data-toggle="modal"><i class="fa fa-trash text-danger"></i></a>
                 </td>
               </tr>
@@ -320,14 +323,14 @@
   <script type="text/javascript">
 		$(document).ready(function () {
         var jenisPerhitungan;
-        var totalInvestasi;
+        // var totalInvestasi;
         var koin;
         var waktu;
         var perBulan;
         var hasil;
-        $('#jenisPerhitungan').val("20_TOTAL");
-        $("#totalInvestasi").attr("disabled", "disabled");
-        $("#totalInvestasiBox").hide();
+        $('#jenisPerhitungan').val("1");
+        // $("#totalInvestasi").attr("disabled", "disabled");
+        // $("#totalInvestasiBox").hide();
         $("#koin").removeAttr("disabled");
         $("#perBulan").removeAttr("disabled");
         $("#waktu").removeAttr("disabled");
@@ -376,14 +379,14 @@
 
         $('.btn-calculate').click(function(){
             jenisPerhitungan = $('#jenisPerhitungan').val();
-            totalInvestasi = $('#totalInvestasi').val().replaceAll(',',''); //karena separator ikut masuk maka harus di replace
+            // totalInvestasi = $('#totalInvestasi').val().replaceAll(',',''); //karena separator ikut masuk maka harus di replace
             koin = $('#koin').val();
-            console.log(totalInvestasi);
+            // console.log(totalInvestasi);
             console.log(koin);
             waktu = $('#waktu').val();
             perBulan = $('#perBulan').val().replaceAll(',','');
             investasiAwal = $('#investasiAwal').val().replaceAll(',','');
-            hasil = getResult(jenisPerhitungan,totalInvestasi,koin,waktu,perBulan, investasiAwal);
+            hasil = getResult(jenisPerhitungan,koin,waktu,perBulan, investasiAwal);
             if(hasil == null || '' == hasil) $('.result').hide();
             else {
                 $('#score').val(hasil);
@@ -403,33 +406,33 @@
             //   // $("").removeAttr("disabled");
             //   $("#totalInvestasi,#koin,#perBulan,#waktu,#investasiAwal").val('');
             // }
-            if(option == '20_TOTAL'){
-              $("#totalInvestasiBox,#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
-              $("#totalInvestasi").attr("disabled", "disabled");
-              $("#totalInvestasiBox").hide();
+            if(option == '1'){
+              $("#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
+              // $("#totalInvestasi").attr("disabled", "disabled");
+              // $("#totalInvestasiBox").hide();
               $("#koin").removeAttr("disabled");
               $("#perBulan").removeAttr("disabled");
               $("#waktu").removeAttr("disabled");
               $("#investasiAwal").removeAttr("disabled")
-              $("#totalInvestasi,#koin,#perBulan,#waktu,#investasiAwal").val('');
+              $("#koin,#perBulan,#waktu,#investasiAwal").val('');
             }
 
-            else if(option == '30_COMP'){
-              $("#totalInvestasiBox,#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
-              $("#totalInvestasi,#perBulan").attr("disabled", "disabled");
-              $("#totalInvestasiBox,#perBulanBox").hide();
+            else if(option == '2'){
+              $("#koinBox,#perBulanBox,#waktuBox,#investasiAwalBox").show();
+              $("#perBulan").attr("disabled", "disabled");
+              $("#perBulanBox").hide();
               // $("").attr("disabled", "disabled");
               $("#koin").removeAttr("disabled");
               $("#waktu").removeAttr("disabled")
               $("#investasiAwal").removeAttr("disabled")
-              $("#totalInvestasi,#koin,#perBulan,#waktu,#investasiAwal").val('');
+              $("#koin,#perBulan,#waktu,#investasiAwal").val('');
             }
         });
 
           
 		}
 
-    function getResult(jenisPerhitungan,totalInvestasi,koin,waktu,perBulan, investasiAwal){
+    function getResult(jenisPerhitungan,koin,waktu,perBulan, investasiAwal){
         var retval;
         console.log(jenisPerhitungan);
         $.ajax({
@@ -437,7 +440,6 @@
             async: false,
             data: {
                 'jenisPerhitungan' : jenisPerhitungan,
-                'totalInvestasi' : totalInvestasi,
                 'koin' : koin,
                 'waktu' : waktu,
                 'perBulan' : perBulan,

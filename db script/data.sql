@@ -63,8 +63,10 @@ DELETE FROM ROLES;
 INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN'), (3, 'ROLE_PRO');
 
 DELETE FROM COIN;
-INSERT INTO public.coin(coincode, coinname, coinreturn, active) VALUES ('BTC', 'BITCOIN', 10, '1'),
-('DOGE', 'DOGECOIN', 10, '1'), ('ETH', 'ETHREUM', 10, '1');
+INSERT INTO COIN VALUES ('BTC','BITCOIN',20,'1'),
+('ETH','ETHEREUM',10,'1'),
+('TKO','TOKOCRYTO',5,'1'),
+('DOGE','DOGECOIN',7,'1')
 
 insert into calculatortype 
 values 

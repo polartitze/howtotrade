@@ -93,11 +93,10 @@ CREATE TABLE IF NOT EXISTS candle
 drop table if exists coin;
 CREATE TABLE coin
 (
-    coinid serial NOT NULL PRIMARY KEY,
-    coincode VARCHAR(10),
+    coincode VARCHAR(10) PRIMARY KEY,
     coinname VARCHAR(50),
     coinreturn integer,
-    active VARCHAR(1)
+    isActive VARCHAR(1)
 );
 
 drop table if exists comment;
@@ -176,3 +175,6 @@ create table calculatortype(
 	calculatortypeid integer primary key,
 	calculatortypename character varying(100)
 );
+
+alter table coin rename active to isActive;
+alter table users rename realname to userrealname;

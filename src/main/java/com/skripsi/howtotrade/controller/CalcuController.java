@@ -27,18 +27,16 @@ public class CalcuController {
         model.addAttribute("listCoin", calcuService.getAllCoin());
         model.addAttribute("calculatorForm", new Calculator());
         model.addAttribute("history", calcuService.checkInvestmentData(principal.getName()));
+        model.addAttribute("listCalcType", calcuService.getAllCalculateType());
+        
         return "calculator/investplan" ;
     }
 
     @RequestMapping("/save-calculation")
     private String saveResult(Model model, Calculator calc, Principal principal){
         System.out.println("===========SAVE RESULT===============");
-        System.out.println("calc.jenisPerhitungan: "+calc.getJenisPerhitungan());
-        System.out.println("calc.totalInvestasi: "+calc.getTotalInvestasi());
-        System.out.println("calc.koin: "+calc.getKoin());
-        System.out.println("calc.waktu: "+calc.getWaktu());
-        System.out.println("calc.perBulan: "+calc.getPerBulan());
-        System.out.println("calc.getResult(): "+calc.getResults());
+        System.out.println("calc.toString: "+calc.toString());
+        
 
         calcuService.saveResult(calc, principal.getName());
         return "redirect:/calculator" ;
@@ -47,37 +45,37 @@ public class CalcuController {
     @ResponseBody
     @RequestMapping("/calculate-result")
     private String calculateResult(Model model, 
-        @RequestParam(value =  "jenisPerhitungan", required = true) String jenisPerhitungan,
-        @RequestParam(value =  "totalInvestasi", required = false) String totalInvestasi,
-        @RequestParam(value =  "koin", required = false) String koin,
-        @RequestParam(value =  "waktu", required = false) String waktu,
-        @RequestParam(value =  "perBulan", required = false) String perBulan,
+        @RequestParam(value =  "jenisPerhitungan", required = true) String calcTypeStr,
+        @RequestParam(value =  "koin", required = false) String coinCode,
+        @RequestParam(value =  "waktu", required = false) String duration,
+        @RequestParam(value =  "perBulan", required = false) String investasiPerbulan,
         @RequestParam(value =  "investasiAwal", required = false) String investasiAwal){
             
         String retval = "";
-        System.out.println("jenisPerhitungan: "+jenisPerhitungan);
-        System.out.println("totalInvestasi: "+totalInvestasi);
-        System.out.println("koin: "+koin);
-        System.out.println("waktu: "+waktu);
-        System.out.println("perBulan: "+perBulan);
+        System.out.println("jenisPerhitungan: "+calcTypeStr);
+        System.out.println("koin: "+coinCode);
+        System.out.println("waktu: "+duration);
+        System.out.println("perBulan: "+investasiPerbulan);
         System.out.println("investasiAwal: "+investasiAwal);
+
+        int calculatorTypeId = Integer.parseInt(calcTypeStr);
 
         // if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
         //     retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
         // }
-        if(Constant.HITUNG_TOTAL_INVESTASI.equals(jenisPerhitungan)){
-            retval = String.valueOf(calcuService.calcTotalInvestment(koin, waktu, perBulan,investasiAwal));
+        if(Constant.HITUNG_TOTAL_INVESTASI == calculatorTypeId){
+            retval = String.valueOf(calcuService.calcTotalInvestment(coinCode, duration, investasiPerbulan, investasiAwal));
         }
-        else if(Constant.HITUNG_COMPOUNDING_INTEREST.equals(jenisPerhitungan)){
-            retval = String.valueOf(calcuService.calcCompounding(investasiAwal, waktu, koin));
+        else if(Constant.HITUNG_COMPOUNDING_INTEREST == calculatorTypeId){
+            retval = String.valueOf(calcuService.calcCompounding(investasiAwal, duration, coinCode));
         }
         System.out.println("==========HASIL PERHITUNGAN: "+retval);
         return retval;
     }
 
-    @RequestMapping("/delete/{planningId}")
-    private String page(Model model, Principal principal, @PathVariable int planningId){
-        calcuService.deletePlanning(planningId);
+    @RequestMapping("/delete/{calculatorId}")
+    private String page(Model model, Principal principal, @PathVariable int calculatorId){
+        calcuService.deletePlanning(calculatorId);
         return "redirect:/calculator" ;
     }
 }
