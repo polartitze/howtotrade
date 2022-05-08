@@ -57,8 +57,9 @@
 									now</a>
 							</p>
 						</div>
-						<div class="probootstrap-image probootstrap-animate"
-							th:style="'background-image:url(' + @{${listCourse[0].imageUrl}} + ');'">
+						<div class="probootstrap-image probootstrap-animate">
+							<img th:src="@{'/assets/images/course/' + ${listCourse[0].courseName} + '/' + ${listCourse[0].imageUrl}}" alt="Failed to load image, please reload"
+							style="max-width:100%; max-height:100%">
 						</div>
 					</div>
 				</div>
@@ -122,11 +123,11 @@
 										<a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
 									<span class="text-center float-right"> 
 										<a th:if="${!quiz.isLock AND quiz.isPass}"
-											class="btn btn-primary btn-certificate" th:data-id="${quiz.courseId}"
+											class="btn btn-primary btn-certificate text-white" th:data-id="${quiz.courseId}"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Certificate
 										</a>
 									</span>
-									<span class="text-center float-right" sec:authorize="isAuthenticated()"> 
+									<span class="text-center float-right mt-1" sec:authorize="isAuthenticated()"> 
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
