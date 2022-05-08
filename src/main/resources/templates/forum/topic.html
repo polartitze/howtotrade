@@ -35,7 +35,8 @@
           <div class="card mb-4 border-primary">
             <div class="card-header border-primary">
               <div class="media flex-wrap w-100 align-items-center">
-                <img th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+              	<img th:if="${data.imagePath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+                <img th:if="${data.imagePath} != '-' " th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
                 <div class="media-body ml-3">
                   <span th:text="${topicData.username}"></span>
                   <div class="text-muted small">
@@ -89,7 +90,8 @@
           </div>
     
           <div class="mr-2 align-self-center">
-            <img th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+          	<img th:if="${comment.imagepath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
+            <img th:if="${comment.imagepath} != '-' " th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
           </div>
     
           <div class="col-8 pt-2">
