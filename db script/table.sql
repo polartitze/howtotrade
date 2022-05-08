@@ -3,7 +3,6 @@ create table course(
     courseid serial primary key,
     coursename character varying(50),
     coursedesc character varying(500),
-    courseduration time without time zone,
 	imageUrl character varying(500),
 	issaved character varying(1) DEFAULT '0'
 );
