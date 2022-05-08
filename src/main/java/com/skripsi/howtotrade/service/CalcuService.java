@@ -25,12 +25,17 @@ public class CalcuService {
         return calcuMapper.getAllCoin();
     } 
     
-    public List<Map<String,String>> checkInvestmentData(String username){
+//    public List<Map<String,String>> checkInvestmentData(String username){
+//        int userId = userService.getUserId(username);
+//        System.out.println("==========="+calcuMapper.checkInvestmentData(userId));
+//        return calcuMapper.checkInvestmentData(userId);
+//    }
+
+    public List<Calculator> checkInvestmentData(String username){
         int userId = userService.getUserId(username);
-        System.out.println("==========="+calcuMapper.checkInvestmentData(userId));
         return calcuMapper.checkInvestmentData(userId);
     }
-
+    
     public void saveResult(Calculator calc, String username){
         int userId = userService.getUserId(username); 
 

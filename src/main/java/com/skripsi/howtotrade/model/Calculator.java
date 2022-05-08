@@ -1,78 +1,61 @@
 package com.skripsi.howtotrade.model;
 
 public class Calculator {
-    private String jenisPerhitungan;
+	private int planningId;
     private String totalInvestasi;
-    private String koin;
-    private String waktu;
-    private String perBulan;
-    private String flag;
-    private String results;
+    private Coin coin;
+    private String calculatorType;
+    private String duration;
     private String investasiAwal;
-
-    public String getInvestasiAwal() {
-        return this.investasiAwal;
-    }
-
-    public void setInvestasiAwal(String investasiAwal) {
-        this.investasiAwal = investasiAwal;
-    }
-
-    public String getJenisPerhitungan() {
-        return this.jenisPerhitungan;
-    }
-
-    public void setJenisPerhitungan(String jenisPerhitungan) {
-        this.jenisPerhitungan = jenisPerhitungan;
-    }
-
-    public String getTotalInvestasi() {
-        return this.totalInvestasi;
-    }
-
-    public void setTotalInvestasi(String totalInvestasi) {
-        this.totalInvestasi = totalInvestasi;
-    }
-
-    public String getKoin() {
-        return this.koin;
-    }
-
-    public void setKoin(String koin) {
-        this.koin = koin;
-    }
-
-    public String getWaktu() {
-        return this.waktu;
-    }
-
-    public void setWaktu(String waktu) {
-        this.waktu = waktu;
-    }
-
-    public String getPerBulan() {
-        return this.perBulan;
-    }
-
-    public void setPerBulan(String perBulan) {
-        this.perBulan = perBulan;
-    }
-
-    public String getFlag() {
-        return this.flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
-
-    public String getResults() {
-        return this.results;
-    }
-
-    public void setResults(String results) {
-        this.results = results;
-    }
-
-  
+    private String investasiPerbulan;
+    private String result;
+    
+	public int getPlanningId() {
+		return planningId;
+	}
+	public void setPlanningId(int planningId) {
+		this.planningId = planningId;
+	}
+	public String getTotalInvestasi() {
+		return totalInvestasi;
+	}
+	public void setTotalInvestasi(String totalInvestasi) {
+		this.totalInvestasi = totalInvestasi;
+	}
+	public Coin getCoin() {
+		return coin;
+	}
+	public void setCoin(Coin coin) {
+		this.coin = coin;
+	}
+	public String getCalculatorType() {
+		return calculatorType;
+	}
+	public void setCalculatorType(String calculatorType) {
+		this.calculatorType = calculatorType;
+	}
+	public String getDuration() {
+		return duration;
+	}
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+	public String getInvestasiAwal() {
+		return investasiAwal;
+	}
+	public void setInvestasiAwal(String investasiAwal) {
+		this.investasiAwal = investasiAwal;
+	}
+	public String getInvestasiPerbulan() {
+		return investasiPerbulan;
+	}
+	public void setInvestasiPerbulan(String investasiPerbulan) {
+		this.investasiPerbulan = investasiPerbulan;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 }

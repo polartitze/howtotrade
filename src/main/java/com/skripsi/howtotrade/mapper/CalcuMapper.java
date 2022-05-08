@@ -20,25 +20,20 @@ public interface CalcuMapper {
     @Select("SELECT COINRETURN FROM COIN WHERE COINCODE = #{coinCode} ")
     int getCoinReturn(String coinCode);
 
-    @Select("SELECT COINID FROM COIN WHERE COINCODE = #{coinCode} ")
-    int getCoinId(String coinCode);
-
     @Insert("INSERT INTO INVESTMENTPLANNING(USERID, DURATION, COINID, INVESTASIAWAL, INVESTASIPERBULAN, CALCTYPE, RESULT, CREATEDDATE, COINCODE) "
         + "VALUES (#{userId}, #{waktu}, null, #{investasiAwal},  #{perBulan}, #{jenisPerhitungan}, #{results}, CURRENT_TIMESTAMP, #{koin})")
     void insertCalculate(@Param("waktu") String waktu, @Param("investasiAwal") String investasiAwal, @Param("perBulan") String perBulan
     		, @Param("jenisPerhitungan") String jenisPerhitungan, @Param("results") String results, @Param("koin") String koin, 
     		@Param("userId") int userId);
 
-    @Select("SELECT TO_CHAR(IP.CREATEDDATE,'DD Mon YYYY hh24:mi') AS CREATED, IP.*, "
-        + "CASE "
-        + "WHEN IP.CALCTYPE = '20_TOTAL' THEN 'Total Investasi (Tabung bulanan)' "
-        + "WHEN IP.CALCTYPE = '30_COMP' THEN 'Total Investasi (Tabung sekali di awal)' "
-        + "END AS JENIS "
-        + "FROM INVESTMENTPLANNING IP LEFT JOIN COIN C ON IP.COINID = C.COINID "
-        + "WHERE USERID = #{userId} "
-        + "ORDER BY IP.CREATEDDATE DESC ")
-    List<Map<String,String>> checkInvestmentData(int userId);
-
+    @Select("SELECT ca.*, ct.calculatortypename "
+    		+ "FROM calculator ca "
+    		+ "	LEFT JOIN coin co ON ca.coincode = co.coincode "
+    		+ "	LEFT JOIN calculatortype ct on ct.calculatortypeid = ca.calculatortypeid "
+    		+ "WHERE userid = #{userId} "
+    		+ "ORDER BY ca.createddate DESC")
+    List<Calculator> checkInvestmentData(int userId);
+    
     // @Select("SELECT COINRETURN FROM COIN")
     // List<Double> getAllCoinReturn();
 

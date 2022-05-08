@@ -158,16 +158,22 @@ CREATE TABLE public.users
     realname varchar(200) default '-'
 );
 
-drop table if exists investmentplanning
-CREATE TABLE IF NOT EXISTS public.investmentplanning
+drop table if exists calculator;
+CREATE TABLE IF NOT EXISTS public.calculator
 (
-    planningid serial primary key,
+    calculatorid serial primary key,
     userid integer,
     coincode character varying(20) DEFAULT '-',
-    calctypeid integer,
+    calculatortypeid integer,
     duration character varying(20),
     investasiawal character varying(20),
     investasiperbulan character varying(20) DEFAULT '-',
     result character varying(255),
-    createddate timestamp without time zone,
-)
+    createddate timestamp without time zone
+);
+
+drop table if exists calculatortype;
+create table calculatortype(
+	calculatortypeid integer primary key,
+	calculatortypename character varying(100)
+);
