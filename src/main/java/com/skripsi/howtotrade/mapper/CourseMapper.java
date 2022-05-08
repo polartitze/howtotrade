@@ -55,7 +55,7 @@ public interface CourseMapper {
 	boolean getCourseLock(int userId, int courseId);
 
 	@Select("SELECT COURSEID, COURSENAME FROM COURSE "
-			+ "WHERE COURSEID NOT IN (SELECT DISTINCT COURSEID FROM QUIZ)")
+			+ "WHERE COURSEID NOT IN (SELECT DISTINCT COURSEID FROM QUIZ) AND ISSAVED = '1' ")
 	List<Map<String,String>> getAllCourseName();
 
 	@Insert("INSERT INTO course(coursename, coursedesc, imageurl) "

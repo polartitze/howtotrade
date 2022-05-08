@@ -17,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.AuthService;
 
@@ -25,8 +27,6 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
-
-
 	@Autowired
     MailService mailSender;
     Mail mail = new Mail();
@@ -42,7 +42,10 @@ public class AuthController {
     }
 	
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(){
+    public String index(HttpServletRequest request){
+    	if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/topic/all";
+        }
 		return "index/homepage";
     }
 

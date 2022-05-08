@@ -39,6 +39,7 @@
         align-items: center;
         text-align: center;
         min-height: 100vh;
+        margin: auto;
     }
 
     .form-holder .form-content {
@@ -108,13 +109,6 @@
         margin-bottom: 16px;
     }
 
-
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
-        background-color: #495056;
-        outline: none !important;
-    }
-
-
     .invalid-feedback{
         color: #ff606e;
     }
@@ -155,7 +149,7 @@
                         <form class="requires-validation" th:object="${addQuiz}" th:action="@{'/pro/add-quiz-save'}" method="post" id="myForm" enctype="multipart/form-data">
     
                             <div class="col-md-12">
-                               <select class="form-select mt-3" th:field="${addQuiz.courseId}" id="selectCourse" required>
+                               <select class="form-select mt-3" style="padding:10px;" th:field="${addQuiz.courseId}" id="selectCourse" required>
                                     <option selected disabled value="0">Hubungkan Course</option>
                                     <option th:each="list : ${listCourse}" th:value="${list.courseid}" th:text="${list.coursename}"></option>
                                 </select>
@@ -174,7 +168,7 @@
                                 <!-- <label class="btn btn-trans" for="inputImage">Upload Image</label> -->
                                 <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
                             </div>
-    
+    						<br>
                             <div class="form-button text-center">
                                 <button type="button" class="btn btn-primary" id="btn-next">Next</button>
                             </div>
