@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.skripsi.howtotrade.model.Calculator;
+import com.skripsi.howtotrade.model.Coin;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -13,18 +14,14 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface CalcuMapper {
-    @Select("SELECT COINCODE AS code, COINCODE ||' - '|| COINNAME AS desc FROM COIN WHERE ACTIVE = '1' ")
-    List<Map<String,String>> getAllCoin();
+    @Select("SELECT * FROM coin WHERE isactive = '1' ")
+    List<Coin> getAllCoin();
 
     @Select("SELECT COINRETURN FROM COIN WHERE COINCODE = #{coinCode} ")
     int getCoinReturn(String coinCode);
 
     @Select("SELECT COINID FROM COIN WHERE COINCODE = #{coinCode} ")
     int getCoinId(String coinCode);
-
-    @Insert("INSERT INTO INVESTMENTPLANNING(USERID, TARGET, DURATION, COINID, CURRENTBALANCE) "
-        + "VALUES (#{userId}, #{totalInvestasi}, #{waktu}, #{coinId}, #{perBulan})")
-    void insert(Calculator calc, int userId, int coinId);
 
     @Insert("INSERT INTO INVESTMENTPLANNING(USERID, DURATION, COINID, INVESTASIAWAL, INVESTASIPERBULAN, CALCTYPE, RESULT, CREATEDDATE, COINCODE) "
         + "VALUES (#{userId}, #{waktu}, null, #{investasiAwal},  #{perBulan}, #{jenisPerhitungan}, #{results}, CURRENT_TIMESTAMP, #{koin})")

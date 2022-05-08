@@ -4,7 +4,8 @@ create table course(
     coursename character varying(50),
     coursedesc character varying(500),
     courseduration time without time zone,
-	imageUrl character varying(500)
+	imageUrl character varying(500),
+	issaved character varying(1) DEFAULT '0'
 );
 
 drop table if exists course_enroll;
@@ -21,7 +22,8 @@ create table quiz(
 	courseId int,
 	quizname character varying(50),
 	quizdesc character varying(500),
-	imageUrl character varying(500)
+	imageUrl character varying(500),
+	issaved varchar(1) default '0'
 );
 
 drop table if exists quiz_enroll;
@@ -104,22 +106,26 @@ CREATE TABLE comment
 (
     commentid SERIAL NOT NULL PRIMARY KEY,
     description VARCHAR(500),
-    createddate date,
+    createddate timestamp,
     userid integer,
     topicid integer
 );
 
 drop table if exists investmentplanning;
-CREATE TABLE investmentplanning
+CREATE TABLE IF NOT EXISTS public.investmentplanning
 (
-    planningid SERIAL NOT NULL PRIMARY KEY,
-    userid integer,
-    target VARCHAR(50),
-    duration integer,
-    coinid integer,
-    currentbalance integer
-);
-
+	planningid serial NOT NULL ,
+	userid integer,
+	duration character varying(20) COLLATE pg_catalog."default",
+	coinid integer,
+	investasiawal character varying(20) COLLATE pg_catalog."default",
+	calctype character varying(20) COLLATE pg_catalog."default",
+	result character varying(255) COLLATE pg_catalog."default",
+	createddate timestamp without time zone,
+	coincode character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
+	investasiperbulan character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
+	CONSTRAINT investmentplanning_pkey PRIMARY KEY (planningid)
+)
 drop table if exists roles;
 CREATE TABLE roles
 (
@@ -132,9 +138,10 @@ CREATE TABLE topic
 (
     topicid SERIAL NOT NULL PRIMARY KEY,
     topictitle VARCHAR(255),
-    description VARCHAR(3000),
-    createddate date,
-    authorid integer NOT NULL
+    description VARCHAR(10000),
+    createddate timestamp,
+    authorid integer NOT NULL,
+    imagepath varchar(65) default '-'
 );
 
 drop table if exists users;
@@ -145,33 +152,22 @@ CREATE TABLE public.users
     useremail VARCHAR(50),
     userpassword VARCHAR(65),
     userrole integer,
-    userstatus VARCHAR(1)
+    userstatus VARCHAR(1),
+    imagepath varchar(65) default '-',
+    isverified varchar(1) default '0',
+    realname varchar(200) default '-'
 );
 
-alter table topic alter column createddate type TIMESTAMP;
-alter table comment alter column createddate type TIMESTAMP;
-
-alter table topic add column imagepath varchar(65) default '-';
-
-alter table users add column imagepath varchar(65) default '-';
-
-alter table investmentplanning add column calcType varchar(20);
-alter table investmentplanning add column result varchar(255);
-alter table investmentplanning add column createddate timestamp;
-alter table investmentplanning add column coincode varchar(20) default '-';
-alter table investmentplanning alter column duration type varchar(20);
-alter table investmentplanning alter column currentbalance type varchar(20);
-
-alter table users add column isverified varchar(1) default '0';
-
-alter table quiz add column isSaved varchar(1) default '0';
-alter table course add column isSaved varchar(1) default '0';
-alter table course drop column courseduration;
-
-ALTER TABLE INVESTMENTPLANNING RENAME COLUMN CURRENTBALANCE TO INVESTASIAWAL
-ALTER TABLE INVESTMENTPLANNING ADD COLUMN INVESTASIPERBULAN VARCHAR(20) default '-'
-ALTER TABLE INVESTMENTPLANNING DROP COLUMN TARGET
-
-ALTER TABLE TOPIC ALTER COLUMN DESCRIPTION TYPE VARCHAR(10000)
-
-alter table users add column realname varchar(200) default '-'
+drop table if exists investmentplanning
+CREATE TABLE IF NOT EXISTS public.investmentplanning
+(
+    planningid serial primary key,
+    userid integer,
+    coincode character varying(20) DEFAULT '-',
+    calctypeid integer,
+    duration character varying(20),
+    investasiawal character varying(20),
+    investasiperbulan character varying(20) DEFAULT '-',
+    result character varying(255),
+    createddate timestamp without time zone,
+)

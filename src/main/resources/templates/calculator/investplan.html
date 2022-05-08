@@ -140,7 +140,7 @@
                         <select class="form-select" style="height: calc(2.75rem + 2px)" id="koin" th:field="${calculatorForm.koin}"
                           disabled="disabled">
                           <option value=""></option>
-                          <option th:each="list : ${listCoin}" th:value="${list.code}" th:text="${list.desc}"></option>
+                          <option th:each="list : ${listCoin}" th:value="${list.coinCode}" th:text="${list.coinCode} - $list.coinName"></option>
                         </select>
                       </div>
                     </div>

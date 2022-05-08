@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.skripsi.howtotrade.mapper.CalcuMapper;
 import com.skripsi.howtotrade.model.Calculator;
+import com.skripsi.howtotrade.model.Coin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class CalcuService {
     @Autowired
     private UserService userService;
 
-    public List<Map<String,String>> getAllCoin(){
+    public List<Coin> getAllCoin(){
         return calcuMapper.getAllCoin();
     } 
     
