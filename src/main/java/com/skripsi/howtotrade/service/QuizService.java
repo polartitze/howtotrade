@@ -75,7 +75,7 @@ public class QuizService {
 		}
 	}
 	
-	private int getQuizHighestScore(int userId, int quizId) {
+	public int getQuizHighestScore(int userId, int quizId) {
 		try {
 			return mapper.getQuizHighestScore(userId, quizId);
 		} catch (Exception e) {

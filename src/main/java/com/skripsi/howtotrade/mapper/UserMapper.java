@@ -26,10 +26,10 @@ public interface UserMapper {
 	String getPassword(String username, String password);
 
 	@Insert("INSERT INTO USERS (userName, userEmail, userPassword, userRole, userStatus, userRealName) "
-			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus}, #{realName})")
+			+ "VALUES(#{userName}, #{userEmail}, #{userPassword}, #{userRole}, #{userStatus}, #{userRealName})")
 	void insertUser(@Param("userName") String userName, @Param("userEmail")String userEmail, 
 			@Param("userPassword")String userPassword, @Param("userRole")int userRole, @Param("userStatus")String userStatus,
-			@Param("userRealName")String realName);
+			@Param("userRealName")String userRealName);
 
 	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
 	Users findUserAccount(String username);

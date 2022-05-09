@@ -148,11 +148,14 @@
                             
                             
                             <div class="col-md-12">
-                                <input class="form-control" type="text" placeholder="Nama Course" maxlength="50" th:field="${addCourse.courseName}" required>
+                            	<span>Nama Kelas</span>
+                                <input class="form-control" type="text" placeholder="Nama Kelas" maxlength="50" th:field="${addCourse.courseName}" required>
                             </div>
                             
                             <div class="col-md-12">
-                                <input class="form-control" type="text" placeholder="Deskripsi Course" maxlength="500" th:field="${addCourse.courseDesc}" required>
+                            	<span>Deskripsi Kelas</span>
+                                <textarea class="form-control mb-4" type="text" placeholder="Deskripsi Kelas" maxlength="500" th:field="${addCourse.courseDesc}" required
+                                style="white-space: pre-wrap; min-height:200px;"></textarea>
                             </div>
 
                             
@@ -162,7 +165,7 @@
     
                             <div class="col-md-12">
                                 <!-- <input class="form-control" type="text" placeholder="imageUrl" maxlength="500" th:field="${addCourse.imageUrl}" required> -->
-                                <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
+                                <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required>
                             </div>
                             <br>
                             <div class="form-button mt-3 text-center">

@@ -91,11 +91,13 @@ public class CourseController {
 								@PathVariable String qid) {
 		int courseId = Integer.parseInt(cid);
 		int quizId = Integer.parseInt(qid);
+		int userId = userService.getUserId(userName);
 		boolean isPassCourseAndQuiz = quizService.isPassCourseAndQuiz(userName, courseId, quizId);
 		System.out.println("isPassCourseAndQuiz: "+isPassCourseAndQuiz);
 		if(isPassCourseAndQuiz){
 			model.addAttribute("user", userService.findUserAccount(userName));
 			model.addAttribute("course", courseService.getCourseById(courseId));
+			model.addAttribute("quiz", quizService.getQuizHighestScore(userId, quizId));
 			return "course/certificate"; //go to certificate page
 		}
 		

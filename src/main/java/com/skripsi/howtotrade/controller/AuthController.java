@@ -103,7 +103,7 @@ public class AuthController {
 	public String validateAccount(@PathVariable("username") String username) {
 		//if clicked will verified the account
 		authService.validateAccount(username);
-		return "redirect:/login";
+		return "index/emailverification";
 	}
 	
 	

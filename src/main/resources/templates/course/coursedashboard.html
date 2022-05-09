@@ -76,7 +76,7 @@
 					<h2>Course</h2>
 					<div class="row" th:each="course : ${listCourse}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 250px; flex: 1;">
+							style="min-height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
 									<img th:src="@{'/assets/images/course/' + ${course.courseName} + '/' + ${course.imageUrl}}" alt="Failed to load image, please reload">
@@ -102,7 +102,7 @@
 					<h2>Quiz</h2>
 					<div class="row" th:each="quiz : ${listQuiz}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 250px; flex: 1;">
+							style="min-height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
 									<img th:src="@{'/assets/images/quiz/on_courseid_'+ ${quiz.courseId} + '/' + ${quiz.imageUrl}}" alt="Failed to load image, please reload">
@@ -123,7 +123,7 @@
 										<a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
 									<span class="text-center float-right"> 
 										<a th:if="${!quiz.isLock AND quiz.isPass}"
-											class="btn btn-primary btn-certificate text-white" th:data-id="${quiz.courseId}"
+											class="btn btn-primary btn-certificate text-white" th:data-id="${quiz.courseId}" th:data-score="${quiz.highestScore}"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Certificate
 										</a>
 									</span>
@@ -131,7 +131,7 @@
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
-											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=192.168.100.9:8080/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
+											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=192.168.18.11:8080/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
 											target="_blank"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> 
 											<i class="fas fa-share"></i> Share on Facebook
@@ -164,7 +164,9 @@
 				<p class="about-certificate" style="color:black">has completed on topic <span id="titleCourse"></span>
 					online</p>
 			</div>
-			<br>
+			<div style="color:black">
+            	<b><p>Your score is <span id="quizScores"></span> out of 10</p></b>
+            </div>
             <div style="color:black">
             	<p>We hope participant may implement the learning given in this course.</p>
             	<p>Congratulations on your completion in this course and quiz. Text your next step to move forward!"</p>
@@ -266,6 +268,9 @@
 		var courseId = $(this).data('id');
 		var courseName = getCourseName(courseId);
 		$("#titleCourse").html(courseName);
+		
+		var quizScore = $(this).data('score');
+		$("#quizScores").html(quizScore);
 		genPDF();
 	});
 
