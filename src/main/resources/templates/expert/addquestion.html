@@ -64,13 +64,13 @@
                             </div>
                         </div>
                         <div th:if="${count}  < 3">
-                            <div class="col-md-12 col-12" style="color: #ff606e; font-size: 24px;">
-                                Minimal pertanyaan harus tiga!
+                            <div class="col-md-12 col-12" style="font-size: 24px; padding:20px; margin-left:15px;">
+                                *Notes : Minimal aktivitas harus sepuluh.
                             </div>
                         </div>
                         <div th:if="${count} == 10">
-                            <div class="col-md-12 col-12 text-center" style="color: #ff606e; font-size: 24px;">
-                                Maksimal pertanyaan sepuluh!
+                            <div class="col-md-12 col-12" style="font-size: 24px; padding:20px; margin-left:15px;">
+                                *Notes : Minimal pertanyaan harus sepuluh.
                             </div>
                         </div>
                         <input type="hidden" th:value="${count}" id="count">
@@ -94,9 +94,11 @@
                 </div>
             </div>
         </div>
+        <br>
     
+    	<caption>Daftar Pertanyaan</caption>
         <table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
-            <caption>Daftar Pertanyaan</caption>
+            
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" class="text-center align-middle"> Urutan </th>
