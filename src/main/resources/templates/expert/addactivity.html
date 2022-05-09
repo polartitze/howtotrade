@@ -101,7 +101,7 @@
         <table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="text-center align-middle"> Urutan </th>
+                    <th scope="col" class="text-center align-middle"> No </th>
                     <th scope="col" class="text-center align-middle"> Tipe Aktivitas</th>
                     <th scope="col" class="text-center align-middle"> Deskripsi </th>
                     <th scope="col" class="text-center align-middle"> Gambar </th>
@@ -114,9 +114,12 @@
                 <tr th:if="${listActivity.empty}">
                     <td colspan="9" class="text-center"> Data tidak ditemukan. </td>
                 </tr>
-                <tr th:each="list : ${listActivity}">
-                    <td>
+                <tr th:each="list,iterator : ${listActivity}">
+                    <!-- <td>
                         <span th:text="${list.stepNo}"></span>
+                    </td> -->
+                    <td>
+                        <span th:text="${iterator.index + 1}"></span>
                     </td>
                     <td>
                         <span th:text="${list.activityType}"></span>
@@ -182,7 +185,7 @@
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-center">
-                    <a th:href="@{'/pro/save-all-course/' + ${courseId}}" type="button" class="btn btn-primary" th:classappend="${count < 10  ? 'disabled' : ''}">Save Course</a>
+                    <a th:href="@{'/pro/save-all-course/' + ${courseId}}" type="button" class="btn btn-primary btn-save-course" >Save Course</a>
                 </div>
             </div>
         </div>
@@ -336,9 +339,11 @@
     <script>
 		$(document).ready(function(){
             $("#correctAnswer").val('');
-            // if($('#count').val() == 10 ){
-            //     $('.btn-add').attr("disabled", "disabled");
-            // } 
+            if($('#count').val() >= 10 ){
+                $('.btn-save-course').removeClass("disabled");
+            }else{
+                $('.btn-save-course').addClass("disabled");
+            }
 
             
             image();

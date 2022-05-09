@@ -246,8 +246,11 @@ table.table .avatar {
 						<tr th:if="${listUser.empty}">
 							<td colspan="7" class="text-center">No Data Available</td>
 						</tr>
-						<tr th:each="list : ${listUser}">
-							<td></td>
+						<tr th:each="list,iterator : ${listUser}">
+							<!-- <td></td> -->
+							<td>
+								<span th:text="${iterator.index + 1}"></span>
+							</td>
 							<td th:text="${list.userName}"><img
 								src="/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"></td>
 							<td th:text="${list.userStatus == '1' ? 'Active' : 'Inactive'}"></td>
