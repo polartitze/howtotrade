@@ -107,9 +107,15 @@
 			activityImg.style.display = "none";
 			editChart();
 		}else if(currentActivityData.activityType == "picture"){
+			var id = courseData.courseId;
+			var courseId = id.toString();
+			console.log(id);
+			console.log(courseId);
+			var path = '/assets/images/activity/on_courseid_'+ courseId + '/' +currentActivityData.imageUrl;
+			console.log(path);
 			activityChart.style.display = "none";
 			activityImg.style.display = "block";
-			activityImg.src = currentActivityData.imageUrl;
+			activityImg.src = path;
 		}else if(currentActivityData.activityType == "text"){
 			activityChart.style.display = "none";
 			activityImg.style.display = "none";

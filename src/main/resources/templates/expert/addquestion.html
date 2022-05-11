@@ -211,7 +211,7 @@
                             <input class="form-control" min="1" max="4" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
-                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/>
+                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required>
                         </div>
 
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
