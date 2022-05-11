@@ -14,7 +14,7 @@ values
 (2, 2, 'Fundamental Analysis', 'Mengetes kemampuan pengetahuan mengenai cara membaca laporan keuangan dan kesehatan suatu perusahaan', 
 	'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1378&q=80','1');
 	
-delete from question; 
+delete from question;
 insert into question
 values
 (1, 1, 1, 1, 'Quiz 1 Question 1', 1, null, 'Choice 1', 'Choice 2', 'Choice 3', 'Choice 4', 
@@ -52,9 +52,9 @@ DELETE FROM COIN;
 INSERT INTO COIN VALUES ('BTC','BITCOIN',20,'1'),
 ('ETH','ETHEREUM',10,'1'),
 ('TKO','TOKOCRYTO',5,'1'),
-('DOGE','DOGECOIN',7,'1');
+('DOGE','DOGECOIN',7,'1')
 
-insert into calculatortype
+insert into calculatortype 
 values 
 	(1, 'Total Investasi (Tabung bulanan)'),
 	(2, 'Total Investasi (Tabung sekali di awal)');

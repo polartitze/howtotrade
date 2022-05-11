@@ -183,7 +183,8 @@ public class CalcuService {
         BigDecimal bd = new BigDecimal(totalInvestasiAkhir);
         bd = round(totalInvestasiAkhir, 2);
 
-        String totalInvestString = "Hasil investasi Anda dalam " + waktu + " tahun mendatang : " + bd.toPlainString();
+        // String totalInvestString = "Hasil investasi Anda dalam " + waktu + " tahun mendatang : " + bd.toPlainString();
+        String totalInvestString = bd.toPlainString();
         return totalInvestString;
     }
 
@@ -206,7 +207,8 @@ public class CalcuService {
         // totalInvestasi = round(totalInvestasi, 2);
         BigDecimal bd = new BigDecimal(totalInvestasi);
         bd = round(totalInvestasi, 2);
-        String totalInvestString = "Hasil investasi Anda dalam " + waktuInvestasi + " tahun mendatang : " + bd.toPlainString();
+        // String totalInvestString = "Hasil investasi Anda dalam " + waktuInvestasi + " tahun mendatang : " + bd.toPlainString();
+        String totalInvestString = bd.toPlainString();
         return totalInvestString;
 
     }

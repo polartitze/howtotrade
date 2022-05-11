@@ -34,6 +34,8 @@
 	<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
+  <script th:src="@{/js/accounting.js}"></script>
+
 </head>
 <body style="background-color: #eee">
 	<div class="row gutters">
@@ -243,10 +245,12 @@
                   <span th:text="${list.calculatorType.calculatorTypeName}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.investasiAwal}"></span>
+                  <input type="hidden" th:value="${list.investasiAwal}" class="investasiAwalFormat">
+                  <span class="investasiAwalSpan"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <span th:text="${list.investasiPerbulan}"></span>
+                  <input type="hidden" th:value="${list.investasiPerbulan}" class="investasiPerbulanFormat">
+                  <span class="investasiPerbulanSpan"></span>
                 </td>
                 <td class="text-center align-middle">
                   <span th:text="${list.duration}"></span>
@@ -315,10 +319,18 @@
 
  		    $('#table-history_wrapper').hide();
         $('.result').hide();
-     
-       
         initForm();
-      });
+        
+      //formating riwayat investasi awal
+      var investasiAwalFormat = $('.investasiAwalFormat').val();
+      investasiAwalFormat = accounting.formatMoney(investasiAwalFormat, "Rp", 2, ".", ",");
+      $('.investasiAwalSpan').html(investasiAwalFormat);
+      
+      //formating riwayat investasi awal perbulan
+        var investasiPerbulanFormat = $('.investasiPerbulanFormat').val();
+        investasiPerbulanFormat = accounting.formatMoney(investasiPerbulanFormat, "Rp", 2, ".", ",");
+        $('.investasiPerbulanSpan').html(investasiPerbulanFormat);
+    });
       
       function test(){
         alert(calculateForm);
@@ -377,7 +389,8 @@
             hasil = getResult(jenisPerhitungan,koin,waktu,perBulan, investasiAwal);
             if(hasil == null || '' == hasil) $('.result').hide();
             else {
-                $('#score').val(hasil);
+              hasil = accounting.formatMoney(hasil, "Rp", 2, ".", ",");
+                $('#score').val("Hasil investasi Anda dalam " + waktu + " tahun mendatang : " + hasil);
                 $('.result').show();
             }
         });
@@ -436,6 +449,8 @@
       var root = window.location.protocol + "//" + window.location.host;
       return root;
     }
+
+
 	</script>
 	
 	<script>
@@ -450,5 +465,15 @@
 		     $("#del-modal .modal-yes").attr("href", "/calculator/delete/" + planningId)
 		});
 	</script>
+
+  <!-- JAVASCRIPT INTEGRATED WITH THYMELEAF   -->
+  <!-- <script th:inline="javascript"> 
+    /*<![CDATA[*/
+    
+        var message = /*[[${message}]]*/ 'default';
+        console.log(message);
+    
+    /*]]>*/
+    </script> -->
 </body>
 </html>
