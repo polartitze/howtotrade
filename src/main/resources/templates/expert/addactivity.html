@@ -131,7 +131,8 @@
                         <span th:text="${list.activityDesc}"></span>
                     </td>
                     <td>
-                        <a th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
+                        <span th:if="${list.imageUrl == '-'}" th:text="${list.imageUrl}"></span>
+                        <a th:if="${list.imageUrl != '-'}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e; "></span></a>
                     </td>
                     <td class="text-center align-middle" th:if="${list.isQuestion}">

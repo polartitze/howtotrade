@@ -73,7 +73,7 @@ public interface CourseMapper {
 	@Delete("DELETE FROM ACTIVITY WHERE ACTIVITYID = #{activityId}")
 	void deleteActivity(int activityId);
 
-	@Update("UPDATE COURSE SET ISSAVED = '1' AND COURSEORDER = #{courseOrder} WHERE COURSEID = #{courseId}")
+	@Update("UPDATE COURSE SET ISSAVED = '1', COURSEORDER = #{courseOrder} WHERE COURSEID = #{courseId}")
 	void saved(int courseId, int courseOrder);
 
 	@Select("INSERT INTO activity(courseid, stepno, activitytypeid, activitydesc, imageurl, isquestion) "
