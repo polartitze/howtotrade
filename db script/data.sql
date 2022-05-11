@@ -37,7 +37,7 @@ VALUES
 (4, 1, 4, 1, 'Belajar pola bullish hammer',	NULL, 'n');
 
 delete from chart;
-insert into chart(chartid, chartname)
+insert into chart(activityid, chartname)
 values
 	(0, 'BTC/USDT'),
 	(0, 'ETH/USDT'),
