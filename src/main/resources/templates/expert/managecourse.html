@@ -25,8 +25,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Manage Course</title>
 </head>
+
+<style>
+.modal-content .modal-header{
+	width: 400px;
+    height: 50px;
+}
+.modal-content .modal-body{
+	font-size: 20px;
+	color: black;
+}
+</style>
+
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div th:replace="fragments/logout :: logout" style="width:300px">&nbsp;</div>
 
 	<section class="probootstrap-section probootstrap-section-colored"
 		style="background: #343a40; padding:20px;">
@@ -148,7 +161,7 @@
 	</section>
 
     <!-- MODAL SWAP -- START-->
-	<div class="modal " id="swapModal">
+	<div class="modal" id="swapModal">
 		<div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
 			<div class="modal-content border-0" style="padding: 20px;">
 				<div class="modal-header border-0 pb-0">
@@ -199,7 +212,6 @@
 	</div>
     <!-- MODAL SWAP -- END-->
 
-	<div th:replace="fragments/logout :: logout">&nbsp;</div>
 
 </body>
 <script>
