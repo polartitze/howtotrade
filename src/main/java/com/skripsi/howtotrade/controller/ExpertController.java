@@ -177,6 +177,7 @@ public class ExpertController {
 		model.addAttribute("count", courseService.countListActivity(courseId));
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("listActivityType", courseService.getAllActivityType());
+		model.addAttribute("listChart", courseService.getChartMaster());
 		// model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId));
 		model.addAttribute("listActivity", courseService.getCourseActivity(courseId));
 		model.addAttribute("addActivity", new Activity());
@@ -192,7 +193,7 @@ public class ExpertController {
 			filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
         String uploadDir = Constant.ACTIVITY_IMAGE_PATH +activity.getCourseId();
         
@@ -212,15 +213,18 @@ public class ExpertController {
 
         int latestCourseId =  courseService.getLatestCourseId();
 		int latestStepNo = courseService.getLatestStepNo(latestCourseId);
-        int latestActivityId =  courseService.getLatestActivityId();
 
 		try {
+			int activityId = courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.getIsQuestion());
+			if(activity.getActivityTypeId() == 1) { //chart
+				courseService.saveActivityChart(activityId, activity.getChartMasterId(), activity.getStartDate(), activity.getEndDate());
+			}
+			
 			if(activity.getIsQuestion()){
 				//activity id harus sesuai dgn activity yg terbaru
-				courseService.addActivityQuestion(latestActivityId+1, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
+				courseService.addActivityQuestion(activityId, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
 			}
-			System.out.println("Insert new ActivityQuestion success!");
-			courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.getIsQuestion());
+			System.out.println("Insert new Activity Question success!");
 			System.out.println("Insert new Activity success!");
 			return "redirect:/pro/add-activity/"+String.valueOf(latestCourseId);
 		} catch (PersistenceException e) {

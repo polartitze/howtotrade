@@ -12,6 +12,9 @@
     
     <script th:src="@{/assets/js/jquery.min.js}"></script>
     <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/anychart/js/anychart-bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/anychart/js/anychart-base.min.js}"></script>
+		
 <title>Add Activity</title>
 </head>
     <style type="text/css">
@@ -235,7 +238,7 @@
 
     <!-- MODAL ACTIVITY -- START-->
     <div class="modal" id="activityModal">
-        <div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 95%;">
           <div class="modal-content border-0" style="padding: 20px;">
             <div class="modal-header border-0 pb-0">
               <h4>Add Activity</h4>
@@ -270,10 +273,22 @@
                              </select>
                          </div>
                         
+                        <div class="col-md-12 mt-3" id="activityChartBox" style="display: none;">
+                            <select class="form-select mt-3" th:field="${addActivity.chartMasterId}" id="selectChart" required> 
+                                 <option selected disabled value="0">Pilih chart</option>
+                                 <option th:each="list : ${listChart}" th:value="${list.chartId}" th:text="${list.chartName}"></option>
+                             </select>
+                            <div id="chart-container" style="height:500px"></div>
+                            <div id="chart-range-input">
+                            	<div> <label for="startdate">Start date:</label></div>
+	                            <input type="date" id="startdate"  th:field="${addActivity.startDate}">  
+                            	<div> <label for="enddate">End date:</label></div>
+	                            <input type="date" id="enddate" th:field="${addActivity.endDate}">
+                            </div>
+                        </div>
                         <div class="col-md-12 mt-3">
                             <input class="form-control" type="text" placeholder="Deskripsi" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
                         </div>
-                        
                         <div class="col-md-12 mt-3" id="activityImageBox" style="display: none;">
                             <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/>
                         </div>
@@ -336,7 +351,10 @@
       <!-- MODAL IMAGE -- END-->   
 
 
-    <script>
+    <script th:inline="javascript">
+    	let chart;
+    	let listChart = /*[[${listChart}]]*/ 'default';
+    
 		$(document).ready(function(){
             $("#correctAnswer").val('');
             if($('#count').val() >= 10 ){
@@ -387,19 +405,27 @@
 
         $("#selectActivityType").change(function(){
             var activityType = $('#selectActivityType').val();
-            if(activityType == '2'){ //picture
+            if(activityType == '1'){ //chart
+            	 $("#inputImage").attr("disabled", "true");
+            	 $("#activityImageBox").hide()
+            	 $("#activityChartBox").show()
+            }
+            else if(activityType == '2'){ //picture
                 $("#inputImage").removeAttr("disabled");
                 $("#activityImageBox").show();
+                $("#activityChartBox").hide()
             } 
             else{
-                $("#inputImage").attr("disabled", "disabled");
+                $("#inputImage").attr("disabled", "true");
                 $("#activityImageBox").hide()
+                $("#activityChartBox").hide()
             } 
         });
         
         $("#table-question").change(function(){
             image();
         });
+        
         function image(){
             $(".imgModal").on('click',function(){
                 var id = $(this).data('id');
@@ -425,7 +451,54 @@
             });
 
         }
-
+        
+        $("#selectChart").change(function(){
+       		drawChart();
+        });   
+		
+        function drawChart(){
+        	anychart.onDocumentReady(function() {
+      			if(chart) chart.dispose();
+      			var chartId = $('#selectChart').val();
+      			
+    	    	chart = anychart.stock();
+    	        let dataTable = anychart.data.table();
+    	        
+    	        let currentChart = listChart[chartId-1];
+    			
+       			let map = new Map(Object.entries(currentChart.candleList));
+       			
+       			let res = []
+       			for(let idx of map.keys()){
+       				let temp =[];
+       				temp.push(map.get(idx).candleTime);
+       				temp.push(map.get(idx).openPrice);
+       				temp.push(map.get(idx).highPrice);
+       				temp.push(map.get(idx).lowPrice);
+       				temp.push(map.get(idx).closePrice)
+       				
+       				res.push(temp);
+       			}
+       			
+        		dataTable.addData(res);
+        		
+        		mapping = dataTable.mapAs();
+        	    mapping.addField('open', 1);
+        	    mapping.addField('high', 2);	
+        	    mapping.addField('low', 3);
+        	    mapping.addField('close', 4);
+        	    
+        	    // set the series
+        	    let series = chart.plot(0).candlestick(mapping);
+        	    series.name(currentChart.chartName);
+        	    
+        	    chart.title(currentChart.chartName);
+    	        chart.container('chart-container');
+    	        chart.draw();
+        		
+        	})
+        };
+        
         $('#isQuestion').on('change',function(){
             if($('#isQuestion:checked').val()){
                 $("#questionDesc,#choiceOne,#choiceTwo,#choiceThree,#choiceFour,#correctAnswer").removeAttr("disabled");
@@ -436,7 +509,7 @@
                 $('#btnQuestion').hide();
             } 
         });
-
+		
 	</script>
 </body>
 </html>

@@ -3,10 +3,10 @@ package com.skripsi.howtotrade.model;
 public class Candle {
 	private int candleId;
 	private String candleTime;
-	private Integer openPrice;
-	private Integer highPrice;
-	private Integer lowPrice;
-	private Integer closePrice;
+	private Float openPrice;
+	private Float highPrice;
+	private Float lowPrice;
+	private Float closePrice;
 	public int getCandleId() {
 		return candleId;
 	}
@@ -19,28 +19,28 @@ public class Candle {
 	public void setCandleTime(String candleTime) {
 		this.candleTime = candleTime;
 	}
-	public Integer getOpenPrice() {
+	public Float getOpenPrice() {
 		return openPrice;
 	}
-	public void setOpenPrice(Integer openPrice) {
+	public void setOpenPrice(Float openPrice) {
 		this.openPrice = openPrice;
 	}
-	public Integer getHighPrice() {
+	public Float getHighPrice() {
 		return highPrice;
 	}
-	public void setHighPrice(Integer highPrice) {
+	public void setHighPrice(Float highPrice) {
 		this.highPrice = highPrice;
 	}
-	public Integer getLowPrice() {
+	public Float getLowPrice() {
 		return lowPrice;
 	}
-	public void setLowPrice(Integer lowPrice) {
+	public void setLowPrice(Float lowPrice) {
 		this.lowPrice = lowPrice;
 	}
-	public Integer getClosePrice() {
+	public Float getClosePrice() {
 		return closePrice;
 	}
-	public void setClosePrice(Integer closePrice) {
+	public void setClosePrice(Float closePrice) {
 		this.closePrice = closePrice;
 	}
 }

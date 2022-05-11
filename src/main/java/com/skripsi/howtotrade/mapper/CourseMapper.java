@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -49,6 +50,9 @@ public interface CourseMapper {
 	@Select("SELECT * from chart where activityId = #{activityId}")
 	Chart getChartByActivityId(int activityId);
 	
+	@Select("SELECT * from chart where activityid = 0 order by chartid")
+	List<Chart> getChartMaster();
+	
 	@Select("SELECT * FROM candle where chartId = #{chartId}")
 	List<Candle> getAllCandleByChartId(int chartId);
 	
@@ -79,9 +83,10 @@ public interface CourseMapper {
 	@Update("UPDATE COURSE SET ISSAVED = '1' WHERE COURSEID = #{courseId}")
 	void saved(int courseId);
 
-	@Insert("INSERT INTO activity(courseid, stepno, activitytypeid, activitydesc, imageurl, isquestion) "
-			+ "VALUES (#{courseid}, #{stepno}, #{activitytypeid}, #{activitydesc}, #{imageurl}, #{isQuestion})")
-	void addActivity(int courseid, int stepno, int activitytypeid, String activitydesc, String imageurl, boolean isQuestion);
+	@Select("INSERT INTO activity(courseid, stepno, activitytypeid, activitydesc, imageurl, isquestion) "
+			+ "VALUES (#{courseid}, #{stepno}, #{activitytypeid}, #{activitydesc}, #{imageurl}, #{isQuestion}) "
+			+ "returning activityid")
+	int addActivity(int courseid, int stepno, int activitytypeid, String activitydesc, String imageurl, boolean isQuestion);
 
 	@Insert("INSERT INTO question(quizid, activityid, stepno, questiondesc, correctanswer, useranswer, choiceone, choicetwo, choicethree, choicefour, imageurl) "
 			+ "VALUES (NULL, #{activityId}, #{stepno}, #{questiondesc}, #{correctanswer}, NULL, #{choiceone}, #{choicetwo}, #{choicethree}, #{choicefour}, NULL)")
@@ -92,4 +97,7 @@ public interface CourseMapper {
 
 	@Select("SELECT COUNT(ACTIVITYID) FROM ACTIVITY WHERE COURSEID = #{COURSEID}")
 	int countListActivity(int courseId);
+	
+	@Select("SELECT * FROM fn_insert_chart_activity(#{activityId}, #{chartMasterId}, #{startDate}, #{endDate})")
+	int saveActivityChart(int activityId, int chartMasterId, String startDate, String endDate);
 }

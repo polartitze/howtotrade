@@ -98,3 +98,31 @@ BEGIN
 	end if;
 END;
 $BODY$;
+
+drop function fn_insert_chart_activity;
+CREATE OR REPLACE FUNCTION public.fn_insert_chart_activity(
+	i_activityid integer,
+	i_chartmasterid integer,
+	i_startdate character varying (20),
+	i_enddate character varying (20))
+    RETURNS integer
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE v_chartid integer;
+BEGIN
+	insert into chart(activityid, chartname)
+		select i_activityid, chartname
+		from chart where chartid = i_chartmasterid
+	returning chartid into v_chartid;
+	
+	insert into candle (chartid, candletime, openprice, highprice, lowprice, closeprice, volume, tradecount)
+	select v_chartid, candletime, openprice, highprice, lowprice, closeprice, volume, tradecount 
+	from candle 
+	where chartid = i_chartmasterid and  
+		candletime::date >= i_startdate::date and candletime::date <= i_enddate::date;
+		
+	return v_chartid;
+END;
+$BODY$;

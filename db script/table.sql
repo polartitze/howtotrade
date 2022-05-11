@@ -38,7 +38,7 @@ drop table if exists question;
 create table question(
 	questionid serial primary key,
 	quizid int,
-	-- activityid int,
+	activityid int,
 	stepno int not null,
 	questiondesc character varying(500),
 	correctanswer int not null,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS chart
     chartid serial primary key,
     activityid integer,
     chartname character varying(100)
-)
+);
 
 drop table if exists candle;
 CREATE TABLE IF NOT EXISTS candle
@@ -85,8 +85,7 @@ CREATE TABLE IF NOT EXISTS candle
 	highprice integer,
 	lowprice integer,
 	closeprice integer,
-	volumebuy float,
-	volumesell float,
+	volume float,
 	tradecount integer
 );
 
@@ -123,7 +122,8 @@ CREATE TABLE IF NOT EXISTS public.investmentplanning
 	coincode character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
 	investasiperbulan character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
 	CONSTRAINT investmentplanning_pkey PRIMARY KEY (planningid)
-)
+);
+
 drop table if exists roles;
 CREATE TABLE roles
 (
@@ -175,6 +175,3 @@ create table calculatortype(
 	calculatortypeid integer primary key,
 	calculatortypename character varying(100)
 );
-
-alter table coin rename active to isActive;
-alter table users rename realname to userrealname;

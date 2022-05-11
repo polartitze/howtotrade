@@ -77,6 +77,14 @@ public class CourseService {
 		return chart;
 	}
 	
+	public List<Chart> getChartMaster() {
+		List<Chart> chartList = mapper.getChartMaster();
+		for (Chart chart : chartList) {
+			chart.setCandleList(mapper.getAllCandleByChartId(chart.getChartId()));
+		}
+		return chartList;
+	}
+	
 	public boolean saveProgress(int userId, int courseId) {
 		try {
 			mapper.saveCourseEnroll(userId, courseId);
@@ -127,8 +135,8 @@ public class CourseService {
 		mapper.saved(courseId);
 	}
 	
-	public void addActivity(int courseId, int stepNo, int activityTypeId, String activityDesc, String imageUrl, boolean isQuestion){
-		mapper.addActivity(courseId, stepNo, activityTypeId, activityDesc, imageUrl, isQuestion);;
+	public int addActivity(int courseId, int stepNo, int activityTypeId, String activityDesc, String imageUrl, boolean isQuestion){
+		return mapper.addActivity(courseId, stepNo, activityTypeId, activityDesc, imageUrl, isQuestion);
 	}
 
 	public List<Map<String,String>> getAllActivityType(){
@@ -141,5 +149,9 @@ public class CourseService {
 
 	public void addActivityQuestion(int activityId, int stepno, String questiondesc, int correctanswer,  String choiceone, String choicetwo, String choicethree, String choicefour){
 		mapper.addActivityQuestion(activityId, stepno, questiondesc, correctanswer, choiceone, choicetwo, choicethree, choicefour);
+	}
+	
+	public int saveActivityChart(int activityId, int chartMasterId, String startDate, String endDate) {
+		return mapper.saveActivityChart(activityId, chartMasterId, startDate, endDate);
 	}
 }

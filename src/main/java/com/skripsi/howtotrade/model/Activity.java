@@ -13,6 +13,10 @@ public class Activity {
 	private int courseId;
 	private int activityTypeId;
 
+	private int chartMasterId;
+	private String startDate;
+	private String endDate;
+	
 	public int getActivityId() {
 		return this.activityId;
 	}
@@ -53,21 +57,6 @@ public class Activity {
 		this.imageUrl = imageUrl;
 	}
 
-	public boolean getIsQuestion() {
-		return this.isQuestion;
-	}
-
-	public void setIsQuestion(boolean isQuestion) {
-		this.isQuestion = isQuestion;
-	}
-
-	public Question getQuestion() {
-		return this.question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
 
 	public Chart getChart() {
 		return this.chart;
@@ -92,6 +81,48 @@ public class Activity {
 	public void setActivityTypeId(int activityTypeId) {
 		this.activityTypeId = activityTypeId;
 	}
+
+	public int getChartMasterId() {
+		return chartMasterId;
+	}
+
+	public void setChartMasterId(int chartMasterId) {
+		this.chartMasterId = chartMasterId;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public boolean getIsQuestion() {
+		return isQuestion;
+	}
+
+	public void setIsQuestion(boolean isQuestion) {
+		this.isQuestion = isQuestion;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	
 
 	
 }
