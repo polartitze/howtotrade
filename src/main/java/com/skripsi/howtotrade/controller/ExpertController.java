@@ -174,8 +174,7 @@ public class ExpertController {
         }
 
 		try {
-			int getLatestCourseOrder = courseService.getLatestCourseOrder();
-			courseService.addCourse(course.getCourseName(), course.getCourseDesc(), course.getImageUrl(), getLatestCourseOrder + 1);
+			courseService.addCourse(course.getCourseName(), course.getCourseDesc(), course.getImageUrl());
 			System.out.println("Insert new coourse success!");
 			int latestCourseId = courseService.getLatestCourseId();
 			return "redirect:/pro/add-activity/"+String.valueOf(latestCourseId);
@@ -199,7 +198,7 @@ public class ExpertController {
 
 		return "expert/addactivity";
 	}
-
+	
 	@RequestMapping(value = "/add-activity-save", method = RequestMethod.POST)
 	public String addActivitySave(Activity activity, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
 		String filename = "";
@@ -220,11 +219,11 @@ public class ExpertController {
                 FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
             } catch (IOException exception) {
-                System.out.println("File uploaded with error");
+				System.out.println("File uploaded with error");
                 exception.printStackTrace();
             }
         }
-
+		
         int latestCourseId =  courseService.getLatestCourseId();
 		int latestStepNo = courseService.getLatestStepNo(latestCourseId);
 
@@ -258,7 +257,8 @@ public class ExpertController {
 	@RequestMapping(value = "/save-all-course/{courseId}", method = RequestMethod.GET)
     public String saveAllCourse(@PathVariable int courseId) {
         //LAST SAVE BEFORE
-        courseService.saved(courseId);
+		int getLatestCourseOrder = courseService.getLatestCourseOrder();
+        courseService.saved(courseId, getLatestCourseOrder + 1);
         return "redirect:/";
     }
 	

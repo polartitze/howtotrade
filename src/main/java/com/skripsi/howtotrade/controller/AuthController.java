@@ -46,6 +46,9 @@ public class AuthController {
     	if (request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/topic/all";
         }
+    	else if (request.isUserInRole("ROLE_PRO")) {
+            return "redirect:/pro/course/all";
+        }
 		return "index/homepage";
     }
 

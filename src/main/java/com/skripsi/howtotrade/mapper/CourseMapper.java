@@ -56,9 +56,9 @@ public interface CourseMapper {
 			+ "WHERE COURSEID NOT IN (SELECT DISTINCT COURSEID FROM QUIZ) AND ISSAVED = '1' ")
 	List<Map<String,String>> getAllCourseName();
 
-	@Insert("INSERT INTO course(coursename, coursedesc, imageurl, courseOrder) "
-	+ "VALUES (#{coursename}, #{coursedesc}, #{imageurl}, #{courseOrder} )")
-	void addCourse(String coursename, String coursedesc, String imageurl, int courseOrder);
+	@Insert("INSERT INTO course(coursename, coursedesc, imageurl) "
+	+ "VALUES (#{coursename}, #{coursedesc}, #{imageurl} )")
+	void addCourse(String coursename, String coursedesc, String imageurl);
 
 	@Select("SELECT COURSEID FROM COURSE ORDER BY COURSEID DESC FETCH FIRST ROW ONLY")
 	int getLatestCourseId();
@@ -73,8 +73,8 @@ public interface CourseMapper {
 	@Delete("DELETE FROM ACTIVITY WHERE ACTIVITYID = #{activityId}")
 	void deleteActivity(int activityId);
 
-	@Update("UPDATE COURSE SET ISSAVED = '1' WHERE COURSEID = #{courseId}")
-	void saved(int courseId);
+	@Update("UPDATE COURSE SET ISSAVED = '1' AND COURSEORDER = #{courseOrder} WHERE COURSEID = #{courseId}")
+	void saved(int courseId, int courseOrder);
 
 	@Select("INSERT INTO activity(courseid, stepno, activitytypeid, activitydesc, imageurl, isquestion) "
 			+ "VALUES (#{courseid}, #{stepno}, #{activitytypeid}, #{activitydesc}, #{imageurl}, #{isQuestion}) "

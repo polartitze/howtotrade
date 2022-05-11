@@ -245,12 +245,11 @@
                   <span th:text="${list.calculatorType.calculatorTypeName}"></span>
                 </td>
                 <td class="text-center align-middle">
-                  <input type="hidden" th:value="${list.investasiAwal}" class="investasiAwalFormat">
-                  <span class="investasiAwalSpan"></span>
+                  <span th:text="${list.investasiAwal}"></span>
+                  </span>
                 </td>
                 <td class="text-center align-middle">
-                  <input type="hidden" th:value="${list.investasiPerbulan}" class="investasiPerbulanFormat">
-                  <span class="investasiPerbulanSpan"></span>
+                  <span th:text="${list.investasiPerbulan}"></span>
                 </td>
                 <td class="text-center align-middle">
                   <span th:text="${list.duration}"></span>
@@ -320,17 +319,9 @@
  		    $('#table-history_wrapper').hide();
         $('.result').hide();
         initForm();
-        
-      //formating riwayat investasi awal
-      var investasiAwalFormat = $('.investasiAwalFormat').val();
-      investasiAwalFormat = accounting.formatMoney(investasiAwalFormat, "Rp", 2, ".", ",");
-      $('.investasiAwalSpan').html(investasiAwalFormat);
       
-      //formating riwayat investasi awal perbulan
-        var investasiPerbulanFormat = $('.investasiPerbulanFormat').val();
-        investasiPerbulanFormat = accounting.formatMoney(investasiPerbulanFormat, "Rp", 2, ".", ",");
-        $('.investasiPerbulanSpan').html(investasiPerbulanFormat);
     });
+
       
       function test(){
         alert(calculateForm);

@@ -97,8 +97,8 @@ public class CourseService {
         return mapper.getAllCourseName();
     } 
 
-	public void addCourse(String coursename, String coursedesc, String imageurl, int courseOrder){
-        mapper.addCourse(coursename, coursedesc, imageurl, courseOrder);
+	public void addCourse(String coursename, String coursedesc, String imageurl){
+        mapper.addCourse(coursename, coursedesc, imageurl);
     } 
 
 	public int getLatestCourseId(){
@@ -140,8 +140,8 @@ public class CourseService {
 		mapper.deleteActivity(activityId);
 	}
 
-	public void saved(int courseId){
-		mapper.saved(courseId);
+	public void saved(int courseId, int courseOrder){
+		mapper.saved(courseId, courseOrder);
 	}
 	
 	public int addActivity(int courseId, int stepNo, int activityTypeId, String activityDesc, String imageUrl, boolean isQuestion){

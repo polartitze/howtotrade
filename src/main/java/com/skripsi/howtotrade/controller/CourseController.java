@@ -100,7 +100,6 @@ public class CourseController {
 			model.addAttribute("quiz", quizService.getQuizHighestScore(userId, quizId));
 			return "course/certificate"; //go to certificate page
 		}
-		
 		return "redirect:/user/add";		//return to register ?
 	}
 
@@ -109,11 +108,7 @@ public class CourseController {
 	public String getCourseName(@RequestParam("id") String id) {
 		int courseId = Integer.parseInt(id);
 		Course course = courseService.getCourseById(courseId);
-		// if(course == null){
-		// 	return "Failed";
-		// }
-		// else{
-		// }
+
 		return course.getCourseName();
 	}
 }

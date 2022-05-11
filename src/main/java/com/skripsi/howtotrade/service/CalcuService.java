@@ -2,6 +2,7 @@ package com.skripsi.howtotrade.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.skripsi.howtotrade.mapper.CalcuMapper;
@@ -38,9 +39,15 @@ public class CalcuService {
     public List<Calculator> checkInvestmentData(String username){
         int userId = userService.getUserId(username);
         List<Calculator> list = calcuMapper.checkInvestmentData(userId);
-        for (Calculator calculator : list) {
-            calculator.setCoin(getCoinByCalculatorId(calculator.getCalculatorId()));
-            calculator.setCalculatorType(getCalcTypeByCalculatorId(calculator.getCalculatorId()));
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setCoin(getCoinByCalculatorId(list.get(i).getCalculatorId()));
+            list.get(i).setCalculatorType(getCalcTypeByCalculatorId(list.get(i).getCalculatorId()));
+            if(!"-".equals(list.get(i).getInvestasiAwal())){
+                list.get(i).setInvestasiAwal("Rp"+currFormat(list.get(i).getInvestasiAwal()));
+            }
+            if(!"-".equals(list.get(i).getInvestasiPerbulan())){
+                list.get(i).setInvestasiPerbulan("Rp"+currFormat(list.get(i).getInvestasiPerbulan()));
+            }
         }
         return list;
     }
@@ -220,5 +227,16 @@ public class CalcuService {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         // return bd.doubleValue();
         return bd;
+    }
+
+    private String currFormat(String toBeFormatted){
+        double tmpNumber = Double.parseDouble(toBeFormatted);
+        DecimalFormat formatter = new DecimalFormat("#,##0.00");
+        String formattedNumber = String.valueOf(formatter.format(tmpNumber)); //1,0000,000.00
+        formattedNumber = formattedNumber.replace(",", "*"); //1*000*000.00
+        formattedNumber = formattedNumber.replace(".", "#"); //1*000*000#00
+        formattedNumber = formattedNumber.replace("*", "."); //1.000.000#00
+        formattedNumber = formattedNumber.replace("#", ","); //1.000.000,00
+        return formattedNumber;
     }
 }
