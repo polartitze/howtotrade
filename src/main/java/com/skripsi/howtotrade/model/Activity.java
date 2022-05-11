@@ -14,8 +14,7 @@ public class Activity {
 	private int activityTypeId;
 
 	private int chartMasterId;
-	private String startDate;
-	private String endDate;
+	private String dateRange;
 	
 	public int getActivityId() {
 		return this.activityId;
@@ -105,23 +104,12 @@ public class Activity {
 		this.chartMasterId = chartMasterId;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public String getDateRange() {
+		return dateRange;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setDateRange(String dateRange) {
+		this.dateRange = dateRange;
 	}
 
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-	
-
-	
 }

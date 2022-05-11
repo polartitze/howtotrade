@@ -230,7 +230,11 @@ public class ExpertController {
 		try {
 			int activityId = courseService.addActivity(latestCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.getIsQuestion());
 			if(activity.getActivityTypeId() == 1) { //chart
-				courseService.saveActivityChart(activityId, activity.getChartMasterId(), activity.getStartDate(), activity.getEndDate());
+				//'05/12/2022 - 05/12/2022'
+				String [] parts = activity.getDateRange().split(" - ");
+				String startDate = parts[0];
+				String endDate = parts[1];
+				courseService.saveActivityChart(activityId, activity.getChartMasterId(), startDate, endDate);
 			}
 			
 			if(activity.getIsQuestion()){
