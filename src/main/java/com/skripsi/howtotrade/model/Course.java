@@ -14,7 +14,41 @@ public class Course {
 	private boolean isEnroll;
 	private boolean isLock;
 	private String imageUrl;
+	private int courseOrder;
 	
+
+	public boolean isIsEnroll() {
+		return this.isEnroll;
+	}
+
+	public boolean getIsEnroll() {
+		return this.isEnroll;
+	}
+
+	public void setIsEnroll(boolean isEnroll) {
+		this.isEnroll = isEnroll;
+	}
+
+	public boolean isIsLock() {
+		return this.isLock;
+	}
+
+	public boolean getIsLock() {
+		return this.isLock;
+	}
+
+	public void setIsLock(boolean isLock) {
+		this.isLock = isLock;
+	}
+
+	public int getCourseOrder() {
+		return this.courseOrder;
+	}
+
+	public void setCourseOrder(int courseOrder) {
+		this.courseOrder = courseOrder;
+	}
+
 	public Integer getCourseId() {
 		return courseId;
 	}

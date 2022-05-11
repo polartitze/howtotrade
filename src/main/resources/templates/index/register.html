@@ -303,7 +303,7 @@
 		
 		window.onclick = function(event) {
 			if (event.target != $('#successModal').modal) {
-				window.location.href = "http://localhost:8080/validate-mail/"+fixUsername;
+				window.location.href = getContextPath() + "/validate-mail/"+fixUsername;
 			}
 		}
 	}
@@ -313,7 +313,7 @@
 	
 	
 	$(".validate-mail").click(function(){
-		window.location.href = "http://localhost:8080/validate-mail/"+fixUsername;
+		window.location.href = getContextPath() + "/validate-mail/"+fixUsername;
 	});
 
 	$("#myForm").on('change',function(){
@@ -328,6 +328,11 @@
 			buttonRegist.attr("disabled","disabled");
 		}
 	});
+
+	function getContextPath() {
+		var root = window.location.protocol + "//" + window.location.host;
+		return root;
+	}
 </script>
 </body>
 

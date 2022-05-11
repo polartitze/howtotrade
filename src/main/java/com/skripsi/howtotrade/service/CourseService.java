@@ -1,6 +1,5 @@
 package com.skripsi.howtotrade.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -98,8 +97,8 @@ public class CourseService {
         return mapper.getAllCourseName();
     } 
 
-	public void addCourse(String coursename, String coursedesc, String imageurl){
-        mapper.addCourse(coursename, coursedesc, imageurl);
+	public void addCourse(String coursename, String coursedesc, String imageurl, int courseOrder){
+        mapper.addCourse(coursename, coursedesc, imageurl, courseOrder);
     } 
 
 	public int getLatestCourseId(){
@@ -117,6 +116,16 @@ public class CourseService {
 			result = 0;
 		}
 		else result = latestStepNo;
+		return result;
+	}
+
+	public int getLatestCourseOrder(){
+		Integer latestOrder = mapper.getLatestCourseOrder();
+		int result;
+		if (latestOrder == null) {
+			result = 0;
+		}
+		else result = latestOrder;
 		return result;
 	}
 
@@ -153,5 +162,17 @@ public class CourseService {
 	
 	public int saveActivityChart(int activityId, int chartMasterId, String startDate, String endDate) {
 		return mapper.saveActivityChart(activityId, chartMasterId, startDate, endDate);
+
+	public void deleteCourseById(int courseId){
+		//get course order that will be delete
+		Course course = mapper.getCourseById(courseId);
+		//update all course with course order > courseWhoWillBeDeleted
+		mapper.updateOrderBeforeDelete(course.getCourseOrder());
+		// the course
+		mapper.deleteCourseById(courseId);
+	}
+	
+	public void changeOrder(int courseOrder, int courseId){
+		mapper.changeOrder(courseOrder, courseId);
 	}
 }

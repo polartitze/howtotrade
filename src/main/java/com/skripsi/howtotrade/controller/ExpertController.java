@@ -2,13 +2,18 @@ package com.skripsi.howtotrade.controller;
 
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.skripsi.howtotrade.model.Activity;
 import com.skripsi.howtotrade.model.Course;
 import com.skripsi.howtotrade.model.Question;
 import com.skripsi.howtotrade.model.Quiz;
+import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.CourseService;
 import com.skripsi.howtotrade.service.QuizService;
+import com.skripsi.howtotrade.service.UserService;
 import com.skripsi.howtotrade.utility.Constant;
 import com.skripsi.howtotrade.utility.FileUploadUtil;
 
@@ -16,6 +21,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +36,14 @@ public class ExpertController {
 	
 	@Autowired
 	private QuizService quizService;
+	
+	@Autowired
+	private UserService userService;
+
+	@ModelAttribute("module")
+	public String module(){
+		return "managecourse";
+	}
 
 	@RequestMapping(value = "/add-quiz", method = RequestMethod.GET)
 	public String addQuiz(Model model) {
@@ -160,7 +174,8 @@ public class ExpertController {
         }
 
 		try {
-			courseService.addCourse(course.getCourseName(), course.getCourseDesc(), course.getImageUrl());
+			int getLatestCourseOrder = courseService.getLatestCourseOrder();
+			courseService.addCourse(course.getCourseName(), course.getCourseDesc(), course.getImageUrl(), getLatestCourseOrder + 1);
 			System.out.println("Insert new coourse success!");
 			int latestCourseId = courseService.getLatestCourseId();
 			return "redirect:/pro/add-activity/"+String.valueOf(latestCourseId);
@@ -181,7 +196,6 @@ public class ExpertController {
 		// model.addAttribute("listActivity", courseService.getAllCourseActivityMap(courseId));
 		model.addAttribute("listActivity", courseService.getCourseActivity(courseId));
 		model.addAttribute("addActivity", new Activity());
-		// model.addAttribute("addQuestion", new Question());
 
 		return "expert/addactivity";
 	}
@@ -234,24 +248,6 @@ public class ExpertController {
 		}
 	}
 
-	//khusus insert dari activity
-	// @ResponseBody
-	// @RequestMapping(value = "/activity/add-question-save", method = RequestMethod.POST)
-	// public void addActivityQuestionSave(Question question) {
-    //     int latestActivityId =  courseService.getLatestActivityId();
-	// 	// int latestStepNo = courseService.getLatestStepNo(latestQuizId);
-	// 	//GAK BUTUH STEP NO, KARNA ACTIVITY CUMAN PUNYA 1 QUESTION
-	// 	try {
-	// 		courseService.addActivityQuestion(latestActivityId, 0, question.getQuestionDesc(), question.getCorrectAnswer(), question.getChoiceOne(), question.getChoiceTwo(), question.getChoiceThree(), question.getChoiceFour());
-	// 		// System.out.println("Insert new question success!");
-	// 		// return "redirect:/pro/add-question/"+String.valueOf(latestQuizId);
-	// 	} catch (PersistenceException e) {
-	// 		e.printStackTrace();
-	// 		// System.out.println("Insert new question failed!");
-	// 		// return "redirect:/pro/add-question/"+String.valueOf(latestQuizId);
-	// 	}
-	// }
-
 	@RequestMapping(value = "/delete-activity/{activityId}", method = RequestMethod.GET)
 	public String deleteActivity(@PathVariable int activityId) {
         courseService.deleteActivity(activityId);
@@ -265,4 +261,67 @@ public class ExpertController {
         courseService.saved(courseId);
         return "redirect:/";
     }
+	
+	
+	
+	//MANAGE COURSE
+	@RequestMapping(value = "/course/all", method = RequestMethod.GET)
+    public String getAllCourse(Model model, Principal principal) {
+		try {
+			Users user = userService.findUserAccount(principal.getName());
+			int userId = userService.getUserId(principal.getName());
+			model.addAttribute("username", user.getUserName() );
+			model.addAttribute("realname", user.getUserRealName());
+			model.addAttribute("listCourse", courseService.getAllCourse(userId));
+			model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
+
+			List<Integer> listOrder = new ArrayList();
+
+			for (int index = 0; index < courseService.getLatestCourseOrder(); index++) {
+				listOrder.add(index+1);
+			}
+			model.addAttribute("listOrder", listOrder);
+			System.out.println("listOrder.toString(): "+listOrder.toString());
+
+			return "expert/managecourse";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("listCourse", courseService.getAllCourse());
+			model.addAttribute("listQuiz", quizService.getAllQuiz());
+			return "expert/managecourse";
+		}
+    }
+
+	@RequestMapping(value = "/course/delete/{courseId}", method = RequestMethod.GET)
+    public String deleteCourseById(@PathVariable int courseId) {
+        courseService.deleteCourseById(courseId);
+        return "redirect:/pro/course/all";
+    }
+	
+	@RequestMapping("/course/{courseId}")
+	public String getCourseById(Model model, @PathVariable int courseId) {
+		model.addAttribute("courseData", courseService.getCourseById(courseId));
+		return "expert/viewcourse"; 
+	}
+
+	
+	@RequestMapping(value = "/quiz/delete/{quizId}", method = RequestMethod.GET)
+	public String deleteQuizById(@PathVariable int quizId) {
+		quizService.deleteQuizById(quizId);
+		System.out.println("test");
+		return "redirect:/pro/course/all";
+	}
+	
+	@RequestMapping("/course/quiz/{quizId}")
+	public String getQuizById(Model model, @PathVariable int quizId) {
+		model.addAttribute("quizData", quizService.getQuizById(quizId));
+		return "expert/viewquiz"; 
+	}
+
+	@RequestMapping("/course/change-order/{courseId}/{order}")
+	public String changeCourseOrder(Model model, @PathVariable int courseId, @PathVariable int order) {
+		courseService.changeOrder(order, courseId);		
+		return "redirect:/pro/course/all";
+	}
+
 }

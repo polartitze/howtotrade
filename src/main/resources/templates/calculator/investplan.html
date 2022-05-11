@@ -421,7 +421,7 @@
                 'perBulan' : perBulan,
                 'investasiAwal' : investasiAwal
             },
-            url: 'http://localhost:8080/calculator/calculate-result',
+            url: getContextPath()+'/calculator/calculate-result',
             success: function(data){
                 if(data != null || data != ''){
                     retval = data;
@@ -432,6 +432,10 @@
         return retval;
     }
     
+    function getContextPath() {
+      var root = window.location.protocol + "//" + window.location.host;
+      return root;
+    }
 	</script>
 	
 	<script>
