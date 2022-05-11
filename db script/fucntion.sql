@@ -78,15 +78,30 @@ CREATE OR REPLACE FUNCTION public.fn_islocked_course(
     VOLATILE PARALLEL UNSAFE
 AS $BODY$
 DECLARE
+	v_courseorder integer;
+	v_checkquizid integer;
 	v_countquestion integer;
-	v_quizscore float;
+	v_quizscore decimal;
 BEGIN
-	if(i_courseid = 1) then
+	delete from helper_course;
+	
+	insert into helper_course
+	select row_number() over(order by courseid)::integer, courseid 
+	from course where issaved = '1';
+	
+	select courseorder into v_courseorder from helper_course where courseid = i_courseid;
+	
+	if(v_courseorder = 1) then
 		return false;
 	end if;
-	if exists (select * from quiz_enroll where userid = i_userid and quizid in (select quizid from quiz where courseid = i_courseid-1)) then 
-		select count(*) into v_countquestion from question where quizid = 1;
-		select score::float / v_countquestion into v_quizscore from quiz_enroll where quizid = 1;
+	
+	select quizid into v_checkquizid from quiz_enroll where userid = i_userid and quizid in 
+			   		(select quizid from quiz where courseid in
+					 	(select courseid from helper_course where courseorder = v_courseorder-1));
+	
+	if (v_checkquizid notnull) then 
+		select count(*) into v_countquestion from question where quizid = v_checkquizid;
+		select score::decimal / v_countquestion into v_quizscore from quiz_enroll where quizid = v_checkquizid;
 
 		if (v_quizscore >= 0.75) then 
 			return false;

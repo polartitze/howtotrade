@@ -175,3 +175,9 @@ create table calculatortype(
 	calculatortypeid integer primary key,
 	calculatortypename character varying(100)
 );
+
+CREATE TABLE IF NOT EXISTS public.helper_course
+(
+    courseorder integer,
+    courseid integer
+)
