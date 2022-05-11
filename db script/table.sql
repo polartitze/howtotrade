@@ -75,18 +75,18 @@ CREATE TABLE IF NOT EXISTS chart
     chartname character varying(100)
 );
 
-drop table if exists candle;
-CREATE TABLE IF NOT EXISTS candle
+DROP TABLE IF EXISTS public.candle;
+CREATE TABLE IF NOT EXISTS public.candle
 (
-	candleid SERIAL PRIMARY KEY, 
-	chartid integer,
-	candletime character varying(20),
-	openprice integer,
-	highprice integer,
-	lowprice integer,
-	closeprice integer,
-	volume float,
-	tradecount integer
+    candleid serial primary key,
+    chartid integer,
+    candletime character varying(20),
+    openprice decimal,
+    highprice decimal,
+    lowprice decimal,
+    closeprice decimal,
+    volume decimal,
+    tradecount integer
 );
 
 drop table if exists coin;
