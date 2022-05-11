@@ -57,6 +57,22 @@ public class Activity {
 		this.imageUrl = imageUrl;
 	}
 
+	public boolean getIsQuestion() {
+		return this.isQuestion;
+	}
+
+	public void setIsQuestion(boolean isQuestion) {
+		this.isQuestion = isQuestion;
+	}
+
+	public Question getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	public Chart getChart() {
 		return this.chart;
 	}
@@ -103,22 +119,6 @@ public class Activity {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}
-
-	public boolean getIsQuestion() {
-		return isQuestion;
-	}
-
-	public void setIsQuestion(boolean isQuestion) {
-		this.isQuestion = isQuestion;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
 	}
 
 	
