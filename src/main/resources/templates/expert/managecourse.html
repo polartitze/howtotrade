@@ -155,6 +155,12 @@
 					<button type="button" class="close" data-dismiss="modal">x</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
+				<div class="row">
+					<div class="col-md-12 col-12">
+						<div class="alert alert-danger" id="swapAlert" style="display: none;">
+						</div>
+					</div>
+				</div>
 				<caption>Ubah Urutan Course</caption>
 				<table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
 					<thead class="thead-dark">
@@ -200,8 +206,19 @@
 	var object = [];
 	var l = $('.optionOrder').length;
 
+
 	let finalArray = []
+	let arr = []
+	let unique;
 	$('.optionOrder').change(function(){
+		arr = []
+		for (i = 0; i < l; i++) { 
+			arr.push($('.optionOrder').eq(i).val());
+		}
+		unique = checkIfArrayIsUnique(arr);
+		console.log(arr);
+		console.log(unique);
+
 		finalArray = []
 		for (i = 0; i < l; i++) { 
 			finalArray.push({
@@ -209,13 +226,26 @@
 				courseId: $('.courseId').eq(i).val()
 			})
 		}
+
+		if(unique){
+			$('#swapAlert').hide();
+		}else{
+			$('#swapAlert').html('Urutan harus unik!');
+			$('#swapAlert').show();
+		}
 	});
 
+	function checkIfArrayIsUnique(myArray) {
+		return myArray.length === new Set(myArray).size;
+	}
+
 	$('.btn-save-order').click(function(){
-		let requests = finalArray.map(object => fetch(getContextPath()+`/pro/course/change-order/${object.courseId}/${object.order}`));
-		Promise.all(requests).then(
-			location.reload()
-		);
+		if(unique){
+			let requests = finalArray.map(object => fetch(getContextPath()+`/pro/course/change-order/${object.courseId}/${object.order}`));
+			Promise.all(requests).then(
+				location.reload()
+			);
+		}
 
 	});
 

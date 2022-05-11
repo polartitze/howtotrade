@@ -470,10 +470,12 @@
         $('#isQuestion').on('change',function(){
             if($('#isQuestion:checked').val()){
                 $("#questionDesc,#choiceOne,#choiceTwo,#choiceThree,#choiceFour,#correctAnswer").removeAttr("disabled");
+                $("#questionDesc,#choiceOne,#choiceTwo,#choiceThree,#choiceFour,#correctAnswer").attr("required", "true");
                 $('#btnQuestion').show();
             } 
             else{
                 $("#questionDesc,#choiceOne,#choiceTwo,#choiceThree,#choiceFour,#correctAnswer").attr("disabled", "disabled");
+                $("#questionDesc,#choiceOne,#choiceTwo,#choiceThree,#choiceFour,#correctAnswer").removeAttr("required");
                 $('#btnQuestion').hide();
             } 
         });
