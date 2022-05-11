@@ -58,6 +58,7 @@
     }
 
     .form-content .form-items {
+    	background: white;
         border: 3px solid rgb(0, 0, 0);
         padding: 40px;
         display: inline-block;
@@ -150,7 +151,7 @@
     
                             <div class="col-md-12">
                             	<span>Nama Kelas</span>
-                               <select class="form-select" style="padding:10px;" th:field="${addQuiz.courseId}" id="selectCourse" required>
+                               <select class="form-select" style="padding:10px; border:1px solid black;" th:field="${addQuiz.courseId}" id="selectCourse" required>
                                     <option selected disabled value="0">Hubungkan Kelas</option>
                                     <option th:each="list : ${listCourse}" th:value="${list.courseid}" th:text="${list.coursename}"></option>
                                 </select>
@@ -158,13 +159,13 @@
                             
                             <div class="col-md-12">
                             	<span>Nama Kuis</span>
-                                <input class="form-control" type="text" name="name" placeholder="Nama Kuis" maxlength="50" th:field="${addQuiz.quizName}" required>
+                                <input class="form-control" style="border:1px solid black;" type="text" name="name" placeholder="Nama Kuis" maxlength="50" th:field="${addQuiz.quizName}" required>
                             </div>
                             
                             <div class="col-md-12">
                             	<span>Deskripsi Kuis</span>
                                 <textarea class="form-control mb-4" type="text" name="name" placeholder="Deskripsi Kuis" maxlength="500" th:field="${addQuiz.quizDesc}" required
-                                style="white-space: pre-wrap; min-height:200px;">
+                                style="white-space: pre-wrap; min-height:200px; border:1px solid black;">
                                 </textarea>
                             </div>
                             

@@ -84,7 +84,12 @@
 		selectAnswers(currentQuizData.userAnswer)
 
 	    questionEl.innerText = currentQuizData.questionDesc;
-		questionImg.src = currentQuizData.imageUrl;
+		var id = quizData.quizId;
+		var quizId = id.toString();
+		console.log(id);
+		console.log(quizId);
+		var path = '/assets/images/quiz/on_quizid_'+ quizId + '/' +currentQuizData.imageUrl;
+		questionImg.src = path;
 	    a_text.innerText = currentQuizData.choiceOne;
 	    b_text.innerText = currentQuizData.choiceTwo;
 	    c_text.innerText = currentQuizData.choiceThree;
