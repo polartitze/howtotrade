@@ -162,7 +162,8 @@ public class CourseService {
 	
 	public int saveActivityChart(int activityId, int chartMasterId, String startDate, String endDate) {
 		return mapper.saveActivityChart(activityId, chartMasterId, startDate, endDate);
-
+	}
+	
 	public void deleteCourseById(int courseId){
 		//get course order that will be delete
 		Course course = mapper.getCourseById(courseId);
