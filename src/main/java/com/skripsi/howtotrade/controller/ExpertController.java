@@ -258,8 +258,10 @@ public class ExpertController {
     public String saveAllCourse(@PathVariable int courseId) {
         //LAST SAVE BEFORE
 		int getLatestCourseOrder = courseService.getLatestCourseOrder();
+		System.out.println("courseId: "+courseId);
+		System.out.println("getLatestCourseOrder: "+getLatestCourseOrder);
         courseService.saved(courseId, getLatestCourseOrder + 1);
-        return "redirect:/";
+        return "redirect:/pro/course/all";
     }
 	
 	

@@ -25,12 +25,12 @@
           <a class="nav-link" href="/pro/course/all">Manage Course</a>
         </li>
 
-        <li class="nav-item" th:classappend="${module == 'index/addquiz' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
-          <a class="nav-link" href="/pro/add-quiz">Add Quiz</a>
-        </li>
-
         <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
           <a class="nav-link" href="/pro/add-course">Add Course</a>
+        </li>
+        
+        <li class="nav-item" th:classappend="${module == 'index/addquiz' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
+          <a class="nav-link" href="/pro/add-quiz">Add Quiz</a>
         </li>
         
         <!-- <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
