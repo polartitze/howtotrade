@@ -58,6 +58,7 @@
     }
 
     .form-content .form-items {
+    	background: white;
         border: 3px solid rgb(0, 0, 0);
         padding: 40px;
         display: inline-block;
@@ -149,13 +150,13 @@
                             
                             <div class="col-md-12">
                             	<span>Nama Kelas</span>
-                                <input class="form-control" type="text" placeholder="Nama Kelas" maxlength="50" th:field="${addCourse.courseName}" required>
+                                <input style="border:1px solid black;"class="form-control" type="text" placeholder="Nama Kelas" maxlength="50" th:field="${addCourse.courseName}" required>
                             </div>
                             
                             <div class="col-md-12">
                             	<span>Deskripsi Kelas</span>
                                 <textarea class="form-control mb-4" type="text" placeholder="Deskripsi Kelas" maxlength="500" th:field="${addCourse.courseDesc}" required
-                                style="white-space: pre-wrap; min-height:200px;"></textarea>
+                                style="white-space: pre-wrap; min-height:200px; border:1px solid black;"></textarea>
                             </div>
 
                             
