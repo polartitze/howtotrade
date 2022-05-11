@@ -22,12 +22,10 @@ public class QuizService {
 			quiz.setLock(mapper.getQuizLock(userId, quiz.getQuizId()));
 			
 			quiz.setEnroll(isQuizEnroll(userId, quiz.getQuizId()));
-			
 			if(quiz.isEnroll()) {
 				quiz.setHighestScore(getQuizHighestScore(userId, quiz.getQuizId()));
 				int totalQuestion = getQuizTotalQuestion(quiz.getQuizId());
-				
-				if(quiz.getHighestScore() /totalQuestion  >= 0.75) {
+				if((float)quiz.getHighestScore() /totalQuestion  >= 0.75) {
 					quiz.setPass(true);
 				}else {
 					quiz.setPass(false);
@@ -62,9 +60,9 @@ public class QuizService {
 		return quiz;
 	}
 	
-	private boolean isQuizEnroll(int userId, int courseId) {
+	private boolean isQuizEnroll(int userId, int quizId) {
 		try {
-			if(mapper.isExistQuizEnroll(userId, courseId) > 0) {
+			if(mapper.isExistQuizEnroll(userId, quizId) > 0) {
 				return true;
 			} else {
 				return false;
