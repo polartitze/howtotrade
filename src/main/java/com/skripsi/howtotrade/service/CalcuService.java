@@ -3,7 +3,6 @@ package com.skripsi.howtotrade.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Map;
 
 import com.skripsi.howtotrade.mapper.CalcuMapper;
 import com.skripsi.howtotrade.model.Calculator;
@@ -11,7 +10,6 @@ import com.skripsi.howtotrade.model.CalculatorType;
 import com.skripsi.howtotrade.model.Coin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.mapping.MappableAttributesRetriever;
 import org.springframework.stereotype.Service;
 
 @Service

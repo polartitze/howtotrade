@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/course.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/certificate.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<!-- 
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+ -->
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage Course</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<section class="probootstrap-section probootstrap-section-colored"
+		style="background: #343a40">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-md-12 text-left section-heading probootstrap-animate">
+					<h1>Our Courses</h1>
+				</div>
+			</div>
+			<div class="row">
+				<span class="text-center float-right"> 
+					<a data-toggle="modal" data-target="#swapModal"
+						class="btn btn-primary text-white btn-order"  
+						style="background: #ff606e; border-color: #ff606e;"> 
+						<i class="fa fa-share"></i> Change Course Order
+					</a>
+				</span>
+				
+			</div>
+		</div>
+	</section>
+
+	<!-- featured course -->
+	<!-- <section class="probootstrap-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="probootstrap-flex-block">
+						<div class="probootstrap-text probootstrap-animate">
+							<div class="text-uppercase probootstrap-uppercase">Featured
+								Course</div>
+							<h3 th:text="${listCourse[0].courseName}"></h3>
+							<p th:text="${listCourse[0].courseDesc}"></p>
+							<p>
+								<a th:href="@{'/course/'+${listCourse[0].courseId}}" class="btn btn-primary"
+									style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
+									now</a>
+							</p>
+						</div>
+						<div class="probootstrap-image probootstrap-animate">
+							<img th:src="@{'/assets/images/course/' + ${listCourse[0].courseName} + '/' + ${listCourse[0].imageUrl}}" alt="Failed to load image, please reload"
+							style="max-width:100%; max-height:100%">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+
+	<!-- course and quiz list -->
+
+	<section class="probootstrap-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Course</h2>
+					<div class="row" th:each="course : ${listCourse}">
+						<div class="probootstrap-service-2 probootstrap-animate"
+							style="height: 250px; flex: 1;">
+							<div class="image">
+								<div class="image-bg fit-in-background">
+									<img th:src="@{'/assets/images/course/' + ${course.courseName} + '/' + ${course.imageUrl}}" alt="Failed to load image, please reload">
+								</div>
+							</div>
+							<div class="text">
+								<h3 th:text="${course.courseName}"></h3>
+								<p th:text="${course.courseDesc}"></p>
+								<p>
+									<a 
+										th:href="@{'/pro/course/'+${course.courseId}}"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;">View Course
+									</a>
+									<span class="text-center float-right"> 
+										<a th:href="@{'/pro/course/delete/' + ${course.courseId}}"
+											class="btn btn-primary text-white"  
+											style="background: #ff606e; border-color: #ff606e;"> 
+											<i class="fa fa-trash"></i> Delete
+										</a>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h2>Quiz</h2>
+					<div class="row" th:each="quiz,iterator : ${listQuiz}">
+						<div class="probootstrap-service-2 probootstrap-animate"
+							style="height: 250px; flex: 1;" >
+							<div class="image">
+								<div class="image-bg fit-in-background">
+									<img th:src="@{'/assets/images/quiz/on_courseid_'+ ${quiz.courseId} + '/' + ${quiz.imageUrl}}" alt="Failed to load image, please reload">
+								</div>
+							</div>
+							<div class="text">
+								<h3 th:text="${quiz.quizName}"></h3>
+								<p th:text="${quiz.quizDesc}"></p>
+								<p>
+									<a th:href="@{'/pro/course/quiz/'+${quiz.quizId} }"
+										class="btn btn-primary"
+										style="background: #3ec1d5; border-color: #3ec1d5;">View Quiz
+									</a> 
+									<span class="text-center float-right"> 
+										<a th:href="@{'/pro/quiz/delete/' + ${quiz.quizId} }"
+											class="btn btn-primary text-white"  
+											style="background: #ff606e; border-color: #ff606e;"> 
+											<i class="fa fa-trash"></i> Delete
+										</a>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- MODAL SWAP -- START-->
+	<div class="modal " id="swapModal">
+		<div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
+			<div class="modal-content border-0" style="padding: 20px;">
+				<div class="modal-header border-0 pb-0">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+				</div>
+				<div class="modal-body border-0 pb-0">
+				<caption>Ubah Urutan Course</caption>
+				<table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col" class="text-center align-middle"> Course Name</th>
+							<th scope="col" class="text-center align-middle"> Urutan </th>
+						</tr>
+					</thead>
+					<tbody>
+			
+						<tr th:if="${listCourse.empty}">
+							<td colspan="2" class="text-center"> Data tidak ditemukan. </td>
+						</tr>
+						<tr th:each="list : ${listCourse}">
+							<td>
+								<span th:text="${list.courseName}"></span>
+							</td>
+							<td>
+								<select class="optionOrder" required>
+									<option th:each="order : ${listOrder}" th:value="${order}" th:text="${order}" th:selected="${order==list.courseOrder}"></option>
+								</select>
+							</td>
+							<input type="hidden" class="courseId" th:value="${list.courseId}">
+						</tr>
+					</tbody>
+				</table>
+				<div class="row gutters">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="text-center">
+							<a type="button" class="btn btn-primary btn-save-order" >Save New Order</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- MODAL SWAP -- END-->
+
+	<div th:replace="fragments/logout :: logout">&nbsp;</div>
+
+</body>
+<script>
+	var object = [];
+	var l = $('.optionOrder').length;
+
+	let finalArray = []
+	$('.optionOrder').change(function(){
+		finalArray = []
+		for (i = 0; i < l; i++) { 
+			finalArray.push({
+				order: $('.optionOrder').eq(i).val(),
+				courseId: $('.courseId').eq(i).val()
+			})
+		}
+	});
+
+	$('.btn-save-order').click(function(){
+		let requests = finalArray.map(object => fetch(getContextPath()+`/pro/course/change-order/${object.courseId}/${object.order}`));
+		Promise.all(requests).then(
+			location.reload()
+		);
+
+	});
+
+	function getContextPath() {
+		var root = window.location.protocol + "//" + window.location.host;
+		return root;
+	}
+	
+</script>
+
+</html>

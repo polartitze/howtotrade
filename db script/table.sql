@@ -178,3 +178,5 @@ create table calculatortype(
 
 alter table coin rename active to isActive;
 alter table users rename realname to userrealname;
+
+alter table course add courseOrder integer;

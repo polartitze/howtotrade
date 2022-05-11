@@ -121,7 +121,7 @@
             var username = $("#username").val();
             $.ajax({
               type: "GET",
-              url: "http://localhost:8080/user/check/" + username,
+              url: getContextPath() + "/user/check/" + username,
               async: false,
               success: function (response, event) {
                 if (response == "Blokir") {
@@ -140,6 +140,11 @@
                 }
               }
             });
+          }
+
+          function getContextPath() {
+            var root = window.location.protocol + "//" + window.location.host;
+            return root;
           }
       </script>
       

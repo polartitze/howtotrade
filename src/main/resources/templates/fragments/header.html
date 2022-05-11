@@ -21,6 +21,10 @@
       </ul>
       <ul class="navbar-nav">
         <!-- ROLE PRO -->
+        <li class="nav-item" th:classappend="${module == 'managecourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
+          <a class="nav-link" href="/pro/course/all">Manage Course</a>
+        </li>
+
         <li class="nav-item" th:classappend="${module == 'index/addquiz' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
           <a class="nav-link" href="/pro/add-quiz">Add Quiz</a>
         </li>

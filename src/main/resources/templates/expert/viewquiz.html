@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/quiz.css">
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quiz</title>
+</head>
+<body>
+	<div class="quiz">
+		<div class="quiz-container" id="quiz">
+			<div class="quiz-header">
+				<img class="col-md-12" id="question_img" alt="Gambar Pertanyaan">
+				<h2 id="question"></h2>
+				<ul>
+					<li>
+						<input type="radio" name="answer" id="1" class="answer">
+						<label for="a" id="a_text"></label>
+					</li>
+	
+					<li>
+						<input type="radio" name="answer" id="2" class="answer">
+						<label for="b" id="b_text"></label>
+					</li>
+	
+					<li>
+						<input type="radio" name="answer" id="3" class="answer">
+						<label for="c" id="c_text"></label>
+					</li>
+	
+					<li>
+						<input type="radio" name="answer" id="4" class="answer">
+						<label for="d" id="d_text"></label>
+					</li>
+	
+				</ul>
+			</div>
+			<button id="back-btn" class="btn-floating">Back</button>
+			<button id="next-btn" class="btn-floating float-right">Next</button>
+			<button id="finish-btn" style="display: none;" class="float-right">Finish</button>		
+		</div>
+	</div>
+	
+	<div id="quiz-modal" class="modal">
+		<div class="modal-content">
+			<h2 class="modal-text"></h2>
+			<a class="modal-continue text-center" href="">Continue</a>	
+		</div>
+	</div>
+	
+</body>
+
+<script th:inline="javascript">
+	
+	const answerEls = document.querySelectorAll('.answer');
+	const questionEl = document.getElementById('question');
+	const questionImg = document.getElementById('question_img');
+	const a_text = document.getElementById('a_text');
+	const b_text = document.getElementById('b_text');
+	const c_text = document.getElementById('c_text');
+	const d_text = document.getElementById('d_text');
+	const nextBtn = document.getElementById('next-btn')
+	const backBtn = document.getElementById('back-btn')
+	const finishBtn = document.getElementById('finish-btn')
+	const modal = document.getElementById('quiz-modal');
+	
+	let quizData = /*[[${quizData}]]*/ 'default';
+	let currentQuiz = 0;
+	
+	loadQuiz();
+	nextBtn.onclick = function() {next()};
+	backBtn.onclick = function() {back()};
+	finishBtn.onclick = function() {finish()};	
+	
+	function loadQuiz() {
+		
+		deselectAnswers()
+		
+		const currentQuizData = quizData.questionList[currentQuiz];
+		
+		selectAnswers(currentQuizData.userAnswer)
+
+	    questionEl.innerText = currentQuizData.questionDesc;
+		questionImg.src = currentQuizData.imageUrl;
+	    a_text.innerText = currentQuizData.choiceOne;
+	    b_text.innerText = currentQuizData.choiceTwo;
+	    c_text.innerText = currentQuizData.choiceThree;
+	    d_text.innerText = currentQuizData.choiceFour;
+	    
+	    displayBtn();
+	}
+	
+	function deselectAnswers() {
+	    answerEls.forEach(answerEl => answerEl.checked = false)
+	}
+	
+	function selectAnswers(userAnswer) {
+	    if(userAnswer > 0){
+	    	answerEls[userAnswer-1].checked = true
+	    }
+	}
+	
+
+	function getSelected() {
+	    let answer
+	    answerEls.forEach(answerEl => {
+	        if(answerEl.checked) {
+	            answer = answerEl.id
+	        }
+	    })
+	    return answer
+	}
+	
+	function displayBtn(){
+		if(currentQuiz == quizData.questionList.length-1){
+	    	nextBtn.style.display = "none"
+	    	backBtn.style.display = "inline"
+	    	finishBtn.style.display = "inline"
+	    	backBtn.style.borderRadius = "0px"
+	    	finishBtn.style.borderRadius = "0px"
+	    	nextBtn.style.width = "50%"
+	    	backBtn.style.borderRight = "2px white"
+	    } else if(currentQuiz == 0){
+	    	backBtn.style.display = "none"
+	    	nextBtn.style.display = "inline"
+	    	finishBtn.style.display = "none"
+	    	nextBtn.style.width = "100%"
+	    } else {
+	    	nextBtn.style.display = "inline"
+	    	nextBtn.style.borderRadius = "0px"
+	    	backBtn.style.display = "inline"
+	    	backBtn.style.borderRadius = "0px"
+	    	finishBtn.style.display = "none"
+	    	nextBtn.style.width = "50%"
+	    	backBtn.style.borderTop = "2px white"
+	    }
+	}
+	
+	function next(){
+		quizData.questionList[currentQuiz].userAnswer = getSelected()
+		currentQuiz++;
+       	loadQuiz();
+       	
+    };
+    function back(){
+		quizData.questionList[currentQuiz].userAnswer = getSelected()
+       	currentQuiz--;
+       	loadQuiz();        
+    };
+    
+    function finish(){
+    	quizData.questionList[currentQuiz].userAnswer = getSelected()
+    	quizData.finalScore = 0;
+    	for (let i = 0; i < quizData.questionList.length; i++) {
+			if(quizData.questionList[i].userAnswer == quizData.questionList[i].correctAnswer) {
+				quizData.finalScore++;
+    		}
+		}
+    	
+    	modal.style.display = "block";
+    	
+    	//$("#quiz-modal .modal-text").text(` You answered ${quizData.finalScore}/${quizData.questionList.length} questions correctly `);
+    	$("#quiz-modal .modal-text").text(" You answered " + quizData.finalScore + "/" + quizData.questionList.length + " questions correctly ");
+    	$("#quiz-modal .modal-continue").attr("href", "/pro/course/all");
+    	
+    }
+    
+</script>
+
+</html>
+

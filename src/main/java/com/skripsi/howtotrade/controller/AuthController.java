@@ -28,8 +28,8 @@ public class AuthController {
 	private AuthService authService;
 	
 	@Autowired
-    MailService mailSender;
-    Mail mail = new Mail();
+    private MailService mailSender;
+    private Mail mail = new Mail();
     
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -114,7 +114,7 @@ public class AuthController {
 
 		try {
 			StringBuilder contentBuilder = new StringBuilder();
-			FileReader fileIn = new FileReader("src/main/resources/templates/index/email.html");
+			FileReader fileIn = new FileReader("src/main/resources/templates/index/emailverify.html");
 			BufferedReader br = new BufferedReader(fileIn);
 			String str;
 			while ((str = br.readLine()) != null) {

@@ -1,6 +1,5 @@
 package com.skripsi.howtotrade.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public interface CourseMapper {
 	@Select ("SELECT COUNT(*) FROM course_enroll WHERE userid = #{userId} AND courseid = #{courseId}")
 	int isExistCourseEnroll(int userId, int courseId);
 	
-	@Select("SELECT * FROM course WHERE ISSAVED = '1' ORDER BY courseid ")
+	@Select("SELECT * FROM course WHERE ISSAVED = '1' ORDER BY courseOrder ")
 	List<Course> getAllCourse();
 	
 	@Select("SELECT * FROM course WHERE courseid = #{courseId}")
@@ -33,12 +32,6 @@ public interface CourseMapper {
 			+ "WHERE courseId = #{courseId} "
 			+ "ORDER BY a.stepNo asc")
 	List<Activity> getAllCourseActivity(int courseId);
-	
-	// @Select("SELECT a.*, at.name as activitytype, q.* FROM activity a "
-	// 		+ "INNER JOIN activity_type at ON at.id = a.activitytypeid "
-	// 		+ "LEFT JOIN QUESTION q ON q.activityid = a.activityid "
-	// 		+ "WHERE courseId = #{courseId}")
-	// List<HashMap<String,String>> getAllCourseActivityMap(int courseId);
 
 	@Select("SELECT * FROM question where activityId = #{activityId}")
 	Question getQuestion(int activityId);
@@ -59,9 +52,9 @@ public interface CourseMapper {
 			+ "WHERE COURSEID NOT IN (SELECT DISTINCT COURSEID FROM QUIZ) AND ISSAVED = '1' ")
 	List<Map<String,String>> getAllCourseName();
 
-	@Insert("INSERT INTO course(coursename, coursedesc, imageurl) "
-	+ "VALUES (#{coursename}, #{coursedesc}, #{imageurl} )")
-	void addCourse(String coursename, String coursedesc, String imageurl);
+	@Insert("INSERT INTO course(coursename, coursedesc, imageurl, courseOrder) "
+	+ "VALUES (#{coursename}, #{coursedesc}, #{imageurl}, #{courseOrder} )")
+	void addCourse(String coursename, String coursedesc, String imageurl, int courseOrder);
 
 	@Select("SELECT COURSEID FROM COURSE ORDER BY COURSEID DESC FETCH FIRST ROW ONLY")
 	int getLatestCourseId();
@@ -92,4 +85,16 @@ public interface CourseMapper {
 
 	@Select("SELECT COUNT(ACTIVITYID) FROM ACTIVITY WHERE COURSEID = #{COURSEID}")
 	int countListActivity(int courseId);
+
+	@Delete("DELETE FROM COURSE WHERE COURSEID = #{courseId}")
+	void deleteCourseById(int courseId);
+	
+	@Select("SELECT COURSEORDER FROM COURSE ORDER BY COURSEORDER DESC FETCH FIRST ROW ONLY")
+	Integer getLatestCourseOrder();
+
+	@Update("UPDATE COURSE SET COURSEORDER = #{courseOrder} WHERE COURSEID = #{courseId}")
+	void changeOrder(int courseOrder, int courseId);
+
+	@Update("UPDATE COURSE SET COURSEORDER = COURSEORDER-1 WHERE COURSEID IN (SELECT COURSEID FROM COURSE WHERE COURSEORDER > #{courseOrder} )")
+	void updateOrderBeforeDelete(int courseOrder);
 }

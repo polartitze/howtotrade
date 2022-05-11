@@ -160,4 +160,8 @@ public class QuizService {
 		}
 		return false;
 	}
+
+	public void deleteQuizById(int quizId){
+		mapper.deleteQuizById(quizId);
+	}
 }

@@ -148,38 +148,6 @@
                         <a th:href="@{ '/pro/delete-activity/' + ${list.activityId} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
                     </td>
                 </tr>
-                <!-- YANG LAMA -->
-                <!-- <tr th:each="list : ${listActivity}">
-                    <td>
-                        <span th:text="${list.stepno}"></span>
-                    </td>
-                    <td>
-                        <span th:text="${list.activitytype}"></span>
-                    </td>
-                    <td class="text-center align-middle">
-                        <span th:text="${list.activitydesc}"></span>
-                    </td>
-                    <td>
-                        <a th:data-id="${list.imageurl}" class="imgModal" data-toggle="modal"
-                            data-target="#imageModal"><span th:text="${list.imageurl}" style="color: #ff606e; "></span></a>
-                    </td>
-                    <td class="text-center align-middle" th:if="${list.isquestion}">
-                        <a data-toggle="modal" data-target="#questionModal" class="question"
-                        th:data-desc="${list.questiondesc}"
-                        th:data-one="${list.choiceone}"
-                        th:data-two="${list.choicetwo}"
-                        th:data-three="${list.choicethree}"
-                        th:data-four="${list.choicefour}"
-                        th:data-answer="${list.correctanswer}"
-                        ><span style="color: #ff606e; ">Ada</span></a>
-                    </td>
-                    <td class="text-center align-middle" th:if="${!list.isquestion}">
-                        <span>Tidak Ada</span>
-                    </td>
-                    <td class="text-center align-middle">
-                        <a th:href="@{ '/pro/delete-activity/' + ${list.activityid} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
-                    </td>
-                </tr> -->
             </tbody>
         </table>
         <div class="row gutters">

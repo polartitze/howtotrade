@@ -17,7 +17,7 @@ public interface QuizMapper {
 	@Select("SELECT * FROM quiz WHERE quizid = #{quizId}")
 	Quiz getQuizById(int quizId);
 	
-	@Select("SELECT * FROM quiz WHERE ISSAVED = '1' ORDER BY quizid ")
+	@Select("SELECT Q.* FROM QUIZ Q LEFT JOIN COURSE C ON Q.COURSEID = C.COURSEID WHERE Q.ISSAVED = '1' ORDER BY C.COURSEORDER ")
 	List<Quiz> getAllQuiz();
 	
 	@Select("SELECT * FROM question where quizid = #{quizId} order by quizid asc, stepno asc")
@@ -67,4 +67,7 @@ public interface QuizMapper {
 	@Select("SELECT SCORE FROM USERS U INNER JOIN COURSE_ENROLL CE ON U.USERID = CE.USERID INNER JOIN QUIZ_ENROLL QE ON U.USERID = QE.USERID "
 			+"WHERE USERNAME = #{userName} AND COURSEID = #{courseId} AND QUIZID = #{quizId}")
 	int isPassCourseAndQuiz(String userName, int courseId, int quizId);
+
+	@Delete("DELETE FROM QUIZ WHERE QUIZID = #{quizId}")
+	void deleteQuizById(int quizId);
 }
