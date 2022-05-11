@@ -4,7 +4,8 @@ create table course(
     coursename character varying(50),
     coursedesc character varying(500),
 	imageUrl character varying(500),
-	issaved character varying(1) DEFAULT '0'
+	issaved character varying(1) DEFAULT '0',
+	courseOrder integer
 );
 
 drop table if exists course_enroll;
@@ -123,7 +124,6 @@ CREATE TABLE IF NOT EXISTS public.investmentplanning
 	investasiperbulan character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
 	CONSTRAINT investmentplanning_pkey PRIMARY KEY (planningid)
 );
-
 drop table if exists roles;
 CREATE TABLE roles
 (
@@ -175,8 +175,3 @@ create table calculatortype(
 	calculatortypeid integer primary key,
 	calculatortypename character varying(100)
 );
-
-alter table coin rename active to isActive;
-alter table users rename realname to userrealname;
-
-alter table course add courseOrder integer;
