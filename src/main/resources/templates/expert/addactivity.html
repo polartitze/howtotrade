@@ -255,7 +255,8 @@
                             </div>
                         </div>
                         <div class="col-md-12 mt-3">
-                            <input class="form-control" type="text" placeholder="Deskripsi" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
+                        	<span>Deskripsi</span>
+                            <input class="form-control" type="text" placeholder="Penjelasan Activity" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
                         </div>
                         <div class="col-md-12 mt-3" id="activityImageBox" style="display: none;">
                             <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/>
@@ -270,21 +271,27 @@
                             <br>
                             <h4>Add Question</h4>
                             <div class="col-md-12 mt-3">
+                            	<span>Pertanyaan</span>
                                 <input class="form-control" type="text" placeholder="Pertanyaan" maxlength="500" id="questionDesc" th:field="${addActivity.question.questionDesc}" disabled>
                             </div>
                             <div class="col-md-12 mt-3">
+                           		<span>Pilihan 1</span>
                                 <input class="form-control" type="text" placeholder="Pilihan 1" maxlength="500" id="choiceOne"  th:field="${addActivity.question.choiceOne}" disabled>
                             </div>
                             <div class="col-md-12 mt-3">
+                            	<span>Pilihan 2</span>
                                 <input class="form-control" type="text" placeholder="Pilihan 2" maxlength="500" id="choiceTwo"  th:field="${addActivity.question.choiceTwo}" disabled>
                             </div>
                             <div class="col-md-12 mt-3">
+                            	<span>Pilihan 3</span>
                                 <input class="form-control" type="text" placeholder="Pilihan 3" maxlength="500" id="choiceThree"  th:field="${addActivity.question.choiceThree}" disabled>
                             </div>
                             <div class="col-md-12 mt-3">
+                            	<span>Pilihan 4</span>
                                 <input class="form-control" type="text" placeholder="Pilihan 4" maxlength="500" id="choiceFour"  th:field="${addActivity.question.choiceFour}" disabled>
                             </div>
                             <div class="col-md-12 mt-3">
+                            	<span>Kunci Jawaban (1/2/3/4)</span>
                                 <input class="form-control" type="number" min="1" max="4" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addActivity.question.correctAnswer}" disabled>
                             </div>
                         </div>

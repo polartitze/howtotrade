@@ -65,7 +65,7 @@
                         </div>
                         <div th:if="${count}  < 10">
                             <div class="col-md-12 col-12" style="font-size: 24px; padding:20px; margin-left:15px;">
-                                *Notes : Minimal pertanyaan harus sepuluh.
+                                *Notes : Pertanyaan harus berjumlah sepuluh!
                             </div>
                         </div>
                         <input type="hidden" th:value="${count}" id="count">
@@ -185,23 +185,29 @@
                     <p>Fill in the data below.</p>
                     <form class="requires-validation" th:object="${addQuestion}" th:action="@{'/pro/add-question-save'}" method="post" enctype="multipart/form-data">
                         <div class="col-md-12 mb-2">
+                        	<span>Pertanyaan</span>
                             <input class="form-control" type="text" placeholder="Pertanyaan" maxlength="500" th:field="${addQuestion.questionDesc}" required>
                         </div>
                         
                         <div class="col-md-12 mb-2">
+                        	<span>Pilihan 1</span>
                             <input class="form-control" type="text" placeholder="Pilihan 1" maxlength="500"  th:field="${addQuestion.choiceOne}" required>
                         </div>
                         <div class="col-md-12 mb-2">
+                        	<span>Pilihan 2</span>
                             <input class="form-control" type="text" placeholder="Pilihan 2" maxlength="500"  th:field="${addQuestion.choiceTwo}" required>
                         </div>
                         <div class="col-md-12 mb-2">
+                        	<span>Pilihan 3</span>
                             <input class="form-control" type="text" placeholder="Pilihan 3" maxlength="500"  th:field="${addQuestion.choiceThree}" required>
                         </div>
                         <div class="col-md-12 mb-2">
+                        	<span>Pilihan 4</span>
                             <input class="form-control" type="text" placeholder="Pilihan 4" maxlength="500"  th:field="${addQuestion.choiceFour}" required>
                         </div>
 
                         <div class="col-md-12 mb-2">
+                        	<span>Pilihan Jawaban (1/2/3/4)</span>
                             <input class="form-control" min="1" max="4" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
