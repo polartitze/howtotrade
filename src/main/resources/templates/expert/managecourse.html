@@ -29,24 +29,24 @@
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
 	<section class="probootstrap-section probootstrap-section-colored"
-		style="background: #343a40">
+		style="background: #343a40; padding:20px;">
 		<div class="container">
 			<div class="row">
 				<div
 					class="col-md-12 text-left section-heading probootstrap-animate">
 					<h1>Our Courses</h1>
+					<div class="row pl-3">
+						<span class="text-center float-right"> 
+							<a data-toggle="modal" data-target="#swapModal"
+								class="btn text-white btn-order"  
+								style="background: #3ec1d5;"> 
+								<i class="fa fa-share"></i> Change Course Order
+							</a>
+						</span>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<span class="text-center float-right"> 
-					<a data-toggle="modal" data-target="#swapModal"
-						class="btn btn-primary text-white btn-order"  
-						style="background: #ff606e; border-color: #ff606e;"> 
-						<i class="fa fa-share"></i> Change Course Order
-					</a>
-				</span>
-				
-			</div>
+			
 		</div>
 	</section>
 

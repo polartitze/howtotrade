@@ -97,7 +97,7 @@ public interface CourseMapper {
 	@Delete("DELETE FROM COURSE WHERE COURSEID = #{courseId}")
 	void deleteCourseById(int courseId);
 	
-	@Select("SELECT COURSEORDER FROM COURSE ORDER BY COURSEORDER DESC FETCH FIRST ROW ONLY")
+	@Select("SELECT COURSEORDER FROM COURSE WHERE ISSAVED = '1' ORDER BY COURSEORDER DESC FETCH FIRST ROW ONLY ")
 	Integer getLatestCourseOrder();
 
 	@Update("UPDATE COURSE SET COURSEORDER = #{courseOrder} WHERE COURSEID = #{courseId}")

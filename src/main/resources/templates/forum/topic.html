@@ -89,7 +89,7 @@
             <time th:text="${comment.posted}"></time>
           </div>
     
-          <div class="mr-2 align-self-center">
+          <div class="col-1 align-self-center">
           	<img th:if="${comment.imagepath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
             <img th:if="${comment.imagepath} != '-' " th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
           </div>
