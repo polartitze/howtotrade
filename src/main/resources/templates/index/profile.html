@@ -33,7 +33,7 @@
                 <!-- jika belum memiliki profile picture -->
                 <form id="profilepic" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
                 <div class="wrapper py-5" th:if="${data.userImage} == '' ">
-                    <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg)' ";>
+                    <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg); background-position: center;' ">
                         <!-- <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data">  -->
                             <div class="about d-flex flex-column" style="right:200px;">
 			                    <!--<h5 class="user-name" th:text="${data.userName}"></h5>-->
@@ -48,7 +48,7 @@
 			        
 		    	</div>
 	            <div class="wrapper py-5" th:if="${data.userImage} != '' ">
-			        <div class="profile" th:style=" 'background-image: url(' + ${data.userImage} + ')' ";>
+			        <div class="profile" th:style=" 'background-image: url(' + ${data.userImage} + '); background-position: center;' ";>
 			                <div class="about d-flex flex-column">
 			                    <!--<h5 class="user-name" th:text="${data.userName}"></h5>-->
 		                        <!--<h6 class="user-email" th:text="${data.userEmail}"></h6>-->
