@@ -23,7 +23,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manage Course</title>
+<title>Kelola Kelas</title>
 </head>
 
 <style>
@@ -45,15 +45,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Delete Course</h4>
+            <h4>Hapus Kelas</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to delete?</p>
+            <p>Apakah anda yakin untuk menghapus?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger text-white modal-yes">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger text-white modal-yes">Iya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
@@ -63,15 +63,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Delete Quiz</h4>
+            <h4>Hapus Kuis</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to delete?</p>
+            <p>Apakah anda yakin untuk menghapus?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger text-white modal-yes-quiz">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger text-white modal-yes-quiz">Iya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
@@ -83,13 +83,13 @@
 			<div class="row">
 				<div
 					class="col-md-12 text-left section-heading probootstrap-animate">
-					<h1>Our Courses</h1>
+					<h1>Kelola Kelas dan Kuis</h1>
 					<div class="row pl-3">
 						<span class="text-center float-right"> 
 							<a data-toggle="modal" data-target="#swapModal"
 								class="btn text-white btn-order"  
 								style="background: #3ec1d5;"> 
-								<i class="fa fa-share"></i> Change Course Order
+								<i class="fa fa-share"></i> Ubah urutan kelas
 							</a>
 						</span>
 					</div>
@@ -105,7 +105,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<h2>Course</h2>
+					<h2>Kelas</h2>
 					<div class="row" th:each="course : ${listCourse}">
 						<div class="probootstrap-service-2 probootstrap-animate"
 							style="height: 250px; flex: 1;">
@@ -119,7 +119,7 @@
 								<p th:text="${course.courseDesc}"></p>
 								<a th:href="@{'/pro/course/'+${course.courseId}}"
 									class="btn btn-primary"
-									style="background: #3ec1d5; border-color: #3ec1d5;"> View
+									style="background: #3ec1d5; border-color: #3ec1d5;">Lihat
 								</a>
 								<a th:href="@{'/pro/add-activity/'+${course.courseId}}"
 									class="btn btn-primary">
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<h2>Quiz</h2>
+					<h2>Kuis</h2>
 					<div class="row" th:each="quiz,iterator : ${listQuiz}">
 						<div class="probootstrap-service-2 probootstrap-animate"
 							style="height: 250px; flex: 1;" >
@@ -150,7 +150,7 @@
 								<p th:text="${quiz.quizDesc}"></p>
 								<a th:href="@{'/pro/course/quiz/'+${quiz.quizId} }"
 									class="btn btn-primary"
-									style="background: #3ec1d5; border-color: #3ec1d5;">View
+									style="background: #3ec1d5; border-color: #3ec1d5;">Lihat
 								</a> 
 								<a th:href="@{'/pro/add-question/'+${quiz.quizId}}"
 									class="btn btn-primary">
@@ -184,11 +184,11 @@
 						</div>
 					</div>
 				</div>
-				<caption>Ubah Urutan Course</caption>
+				<caption>Ubah urutan kelas</caption>
 				<table id="table-question" class="table paging table-striped table-bordered table-hover mt-2">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col" class="text-center align-middle"> Course Name</th>
+							<th scope="col" class="text-center align-middle"> Nama kelas</th>
 							<th scope="col" class="text-center align-middle"> Urutan </th>
 						</tr>
 					</thead>
@@ -213,7 +213,7 @@
 				<div class="row gutters">
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<div class="text-center">
-							<a type="button" class="btn btn-primary btn-save-order" >Save New Order</a>
+							<a type="button" class="btn btn-primary btn-save-order" >Simpan Urutan Kelas</a>
 						</div>
 					</div>
 				</div>
