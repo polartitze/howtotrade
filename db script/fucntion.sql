@@ -86,7 +86,7 @@ BEGIN
 	delete from helper_course;
 	
 	insert into helper_course
-	select row_number() over(order by courseid)::integer, courseid 
+	select row_number() over(order by courseorder)::integer, courseid 
 	from course where issaved = '1' order by courseorder;
 		
 	select courseorder into v_courseorder from helper_course where courseid = i_courseid;

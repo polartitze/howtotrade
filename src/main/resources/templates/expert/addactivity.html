@@ -59,20 +59,20 @@
                         <div th:if="${#request.getParameter('success') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="alert alert-success valid-feedback">
-                                    Insert Activity Success!
+                                    Berhasil tambah aktivitas!
                                 </div>
                             </div>
                         </div>
                         <div th:if="${#request.getParameter('error') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class=" invalid-feedback">
-                                    Insert Activity Error!
+                                    Gagal tambah aktivitas!
                                 </div>
                             </div>
                         </div>
                         <div th:if="${count} < 10">
-                            <div class="col-md-12 col-12" style="font-size: 24px; padding:20px; margin-left:15px;">
-                                *Notes : Minimal aktivitas harus sepuluh.
+                            <div class="col-md-12 col-12 text-danger" style="font-size: 24px; padding:20px; margin-left:15px;">
+                                *Minimal aktivitas harus sepuluh.
                             </div>
                         </div> 
                         <div class="row">
@@ -98,7 +98,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-primary">
                     <button type="button" class="btn btn-primary btn-add" data-toggle="modal"
-                        data-target="#activityModal">Add Activity</button>
+                        data-target="#activityModal">Tambah Aktivitas</button>
                 </div>
             </div>
         </div>
