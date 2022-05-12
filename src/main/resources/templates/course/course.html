@@ -94,6 +94,12 @@
 	nextBtn.onclick = function() {next()};
 	backBtn.onclick = function() {back()};
 	finishBtn.onclick = function() {finish()};
+	
+	// Enable navigation prompt
+	window.onbeforeunload = function() {
+	    return true;
+	};
+	
 	function loadCourse() {
 		let currentActivityData = courseData.activityList[currentActivity];
 		
@@ -217,10 +223,11 @@
     };
     
     function finish(){
+    	window.onbeforeunload = null; // Remove navigation prompt
+    	
     	saveAnswer()
     	
     	modal.style.display = "block";
-    	
     	$("#course-modal .modal-text").text(` You finish the course `);
     }
     
