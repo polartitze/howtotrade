@@ -9,11 +9,14 @@
     <link rel="stylesheet" th:href="@{/assets/css/dataTables.bootstrap4.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/css/buttons.dataTables.min.css}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />    
+	
     <script th:src="@{/assets/js/jquery.min.js}"></script>
     <script th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/anychart/js/anychart-bundle.min.js}"></script>
 	<script type="text/javascript" th:src="@{/anychart/js/anychart-base.min.js}"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 		
 <title>Add Activity</title>
 </head>
@@ -248,11 +251,9 @@
                                  <option th:each="list : ${listChart}" th:value="${list.chartId}" th:text="${list.chartName}"></option>
                              </select>
                             <div id="chart-container" style="height:500px"></div>
-                            <div id="chart-range-input">
-                            	<div> <label for="startdate">Start date:</label></div>
-	                            <input type="date" id="startdate"  th:field="${addActivity.startDate}">  
-                            	<div> <label for="enddate">End date:</label></div>
-	                            <input type="date" id="enddate" th:field="${addActivity.endDate}">
+                            <div class="d-flex justify-content-center" id="chart-range-input">
+                            	<div>Date range:&nbsp</div> 
+                            	<input type="text" id="daterange" value="" th:field="${addActivity.dateRange}"/>
                             </div>
                         </div>
                         <div class="col-md-12 mt-3">
@@ -331,6 +332,8 @@
     	let chart;
     	let listChart = /*[[${listChart}]]*/ 'default';
     
+    	$('#daterange').daterangepicker();
+    	
 		$(document).ready(function(){
             $("#correctAnswer").val('');
             if($('#count').val() >= 10 ){
