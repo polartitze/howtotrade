@@ -38,16 +38,16 @@
 	
 				</ul>
 			</div>
-			<button id="back-btn" class="btn-floating">Back</button>
-			<button id="next-btn" class="btn-floating float-right">Next</button>
-			<button id="finish-btn" style="display: none;" class="float-right">Finish</button>		
+			<button id="back-btn" class="btn-floating">Kembali</button>
+			<button id="next-btn" class="btn-floating float-right">Lanjut</button>
+			<button id="finish-btn" style="display: none;" class="float-right">Selesai</button>		
 		</div>
 	</div>
 	
 	<div id="quiz-modal" class="modal">
 		<div class="modal-content">
 			<h2 class="modal-text"></h2>
-			<a class="modal-continue text-center" href="">Continue</a>	
+			<a class="modal-continue text-center" href="">Lanjut</a>	
 		</div>
 	</div>
 	
@@ -156,6 +156,8 @@
     };
     
     function finish(){
+    	window.onbeforeunload = null; // Remove navigation prompt
+    	
     	quizData.questionList[currentQuiz].userAnswer = getSelected()
     	quizData.finalScore = 0;
     	for (let i = 0; i < quizData.questionList.length; i++) {

@@ -126,14 +126,14 @@
                         <div  th:if="${#request.getParameter('success') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="valid-feedback">
-                                    Insert Course Success!
+                                    Berhasil tambah kelas!
                                 </div>
                             </div>
                         </div>
                         <div  th:if="${#request.getParameter('error') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="invalid-feedback">
-                                    Insert Course Error!
+                                    Gagal tambah kelas!
                                 </div>
                             </div>
                         </div>
@@ -143,19 +143,19 @@
                                 </div>
                             </div>
                         </div>
-                        <h3>Add Course</h3>
-                        <p>Fill in the data below.</p>
+                        <h3>Tambah kelas</h3>
+                        <p>Isi data dibawah ini.</p>
                         <form class="requires-validation" th:object="${addCourse}" th:action="@{'/pro/add-course-save'}" method="post" id="myForm" enctype="multipart/form-data">
                             
                             
                             <div class="col-md-12">
                             	<span>Nama Kelas</span>
-                                <input style="border:1px solid black;"class="form-control" type="text" placeholder="Nama Kelas" maxlength="50" th:field="${addCourse.courseName}" required>
+                                <input style="border:1px solid black;"class="form-control" type="text" maxlength="50" th:field="${addCourse.courseName}" required>
                             </div>
                             
                             <div class="col-md-12">
                             	<span>Deskripsi Kelas</span>
-                                <textarea class="form-control mb-4" type="text" placeholder="Deskripsi Kelas" maxlength="500" th:field="${addCourse.courseDesc}" required
+                                <textarea class="form-control mb-4" type="text" maxlength="500" th:field="${addCourse.courseDesc}" required
                                 style="white-space: pre-wrap; min-height:200px; border:1px solid black;"></textarea>
                             </div>
 
@@ -172,7 +172,7 @@
                             </div>
                             <br>
                             <div class="form-button mt-3 text-center">
-                                <button type="submit" class="btn btn-primary btn-next" disabled>Next</button>
+                                <button type="submit" class="btn btn-primary btn-next" disabled>Selanjutnya</button>
                             </div>
                         </form>
                     </div>

@@ -53,20 +53,20 @@
                         <div th:if="${#request.getParameter('success') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="alert alert-success valid-feedback">
-                                    Insert Question Success!
+                                    Berhasil tambah pertanyaan!
                                 </div>
                             </div>
                         </div>
                         <div th:if="${#request.getParameter('error') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class=" invalid-feedback">
-                                    Insert Question Error!
+                                    Gagal tambah pertanyaan!
                                 </div>
                             </div>
                         </div>
                         <div th:if="${count}  < 10">
-                            <div class="col-md-12 col-12" style="font-size: 24px; padding:20px; margin-left:15px;">
-                                *Notes : Pertanyaan harus berjumlah sepuluh!
+                            <div class="col-md-12 col-12 text-danger" style="font-size: 24px; padding:20px; margin-left:15px;">
+                                *Pertanyaan harus berjumlah sepuluh!
                             </div>
                         </div>
                         <input type="hidden" th:value="${count}" id="count">
@@ -81,7 +81,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-primary">
                     <button type="button" class="btn btn-primary btn-add" data-toggle="modal"
-                        data-target="#questionModal">Add Question</button>
+                        data-target="#questionModal">Tambah Pertanyaan</button>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                     <th scope="col" class="text-center align-middle"> Pilihan 4 </th>
                     <th scope="col" class="text-center align-middle"> Kunci Jawaban </th>
                     <th scope="col" class="text-center align-middle"> Gambar </th>
-                    <th scope="col" class="text-center align-middle"> Action </th>
+                    <th scope="col" class="text-center align-middle"> Hapus </th>
                 </tr>
             </thead>
             <tbody>
@@ -147,7 +147,7 @@
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-center">
-                    <a th:href="@{'/pro/save-all-quiz/' + ${quizId}}" type="button" class="btn btn-primary btn-save-quiz" >Save Quiz</a>
+                    <a th:href="@{'/pro/save-all-quiz/' + ${quizId}}" type="button" class="btn btn-primary btn-save-quiz" >Simpan Kuis</a>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
         <div class="modal-dialog modal-dialog-centered" style="min-width: 700px;">
           <div class="modal-content border-0" style="padding: 20px;">
             <div class="modal-header border-0 pb-0">
-              <h4>Add Question</h4>
+              <h4>Tambah pertanyaan</h4>
               <button type="button" class="close" data-dismiss="modal">x</button>
             </div>
             <div class="modal-body border-0 pb-0" >
@@ -167,14 +167,14 @@
                     <div  th:if="${#request.getParameter('success') == 'true'}">
                         <div class="col-md-12 col-12">
                             <div class="alert alert-success valid-feedback">
-                                Insert Question Success!
+                                Berhasil tambah pertanyaan!
                             </div>
                         </div>
                     </div>
                     <div  th:if="${#request.getParameter('error') == 'true'}">
                         <div class="col-md-12 col-12">
                             <div class=" invalid-feedback">
-                                Insert Question Error!
+                                Gagal tambah pertanyaan!
                             </div>
                         </div>
                     </div>
@@ -184,33 +184,33 @@
                             </div>
                         </div>
                     </div>
-                    <p>Fill in the data below.</p>
+                    <p>Isi data dibawah ini.</p>
                     <form class="requires-validation" th:object="${addQuestion}" th:action="@{'/pro/add-question-save'}" method="post" enctype="multipart/form-data">
                         <div class="col-md-12 mb-2">
                         	<span>Pertanyaan</span>
-                            <input class="form-control" type="text" placeholder="Pertanyaan" maxlength="500" th:field="${addQuestion.questionDesc}" required>
+                            <input class="form-control" type="text" maxlength="500" th:field="${addQuestion.questionDesc}" required>
                         </div>
                         
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan 1</span>
-                            <input class="form-control" type="text" placeholder="Pilihan 1" maxlength="500"  th:field="${addQuestion.choiceOne}" required>
+                            <input class="form-control" type="text" maxlength="500"  th:field="${addQuestion.choiceOne}" required>
                         </div>
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan 2</span>
-                            <input class="form-control" type="text" placeholder="Pilihan 2" maxlength="500"  th:field="${addQuestion.choiceTwo}" required>
+                            <input class="form-control" type="text" maxlength="500"  th:field="${addQuestion.choiceTwo}" required>
                         </div>
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan 3</span>
-                            <input class="form-control" type="text" placeholder="Pilihan 3" maxlength="500"  th:field="${addQuestion.choiceThree}" required>
+                            <input class="form-control" type="text" maxlength="500"  th:field="${addQuestion.choiceThree}" required>
                         </div>
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan 4</span>
-                            <input class="form-control" type="text" placeholder="Pilihan 4" maxlength="500"  th:field="${addQuestion.choiceFour}" required>
+                            <input class="form-control" type="text" maxlength="500"  th:field="${addQuestion.choiceFour}" required>
                         </div>
 
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan Jawaban (1/2/3/4)</span>
-                            <input class="form-control" min="1" max="4" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
+                            <input class="form-control" min="1" max="4" type="number" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
                             <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
@@ -221,7 +221,7 @@
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="submit" type="submit" class="btn btn-primary btn-save" disabled>Save</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-save" disabled>Simpan</button>
                         </div>
 
                     </form>
@@ -249,6 +249,11 @@
 
     <script>
     	const el = document.getElementById("uploader-file");
+    	
+    	// Enable navigation prompt
+    	window.onbeforeunload = function() {
+    	    return true;
+    	};
     	
     	el.addEventListener("fileUploadSuccess", function(e) {
     		$(".btn-save").removeAttr("disabled");
