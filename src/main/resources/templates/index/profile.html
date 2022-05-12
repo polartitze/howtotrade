@@ -35,28 +35,37 @@
                 <div class="wrapper py-5" th:if="${data.userImage} == '' ">
                     <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg)' ";>
                         <!-- <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data">  -->
-                            <div class="about d-flex flex-column">
-			                    <h5 class="user-name" th:text="${data.userName}"></h5>
-		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
-                                <label for="changeProfile">Change Picture</label>
+                            <div class="about d-flex flex-column" style="right:200px;">
+			                    <!--<h5 class="user-name" th:text="${data.userName}"></h5>-->
+		                        <!--<h6 class="user-email" th:text="${data.userEmail}"></h6>-->
+                                <!--<label for="changeProfile">Change Picture</label>-->
                                 <!-- <input type="file" name="image"  accept="image/png, image/jpeg" id="changeProfile" class="inputFile" style="opacity: 0;"> -->
-                                <input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload">
+                                
 			                </div>
+			                
 			            <!-- </form> -->
 			        </div>
+			        
 		    	</div>
 	            <div class="wrapper py-5" th:if="${data.userImage} != '' ">
 			        <div class="profile" th:style=" 'background-image: url(' + ${data.userImage} + ')' ";>
 			                <div class="about d-flex flex-column">
-			                    <h5 class="user-name" th:text="${data.userName}"></h5>
-		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
-                                <label for="changeProfile">Change Picture</label>
+			                    <!--<h5 class="user-name" th:text="${data.userName}"></h5>-->
+		                        <!--<h6 class="user-email" th:text="${data.userEmail}"></h6>-->
+                                <!--<label for="changeProfile">Change Picture</label>-->
                                 <!-- <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;"> -->
-                                <input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload invisible">
+                                
 			                </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary pull-right" id="btn-add" type="submit"><i class="fa fa-pencil fa-fw"></i>Change Picture</button>
+                    <div class="text-center">
+                    	<input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload invisible row ">
+                    </div>
+                    <div class="text-center">
+                    	<button class="btn btn-primary m-5" id="btn-add" type="submit">Change Picture</button>
+                    </div>
+                    
+                    
                 </form>
                 <!-- TESTING CODE WILLIAM -->
 	            <!-- <div class="wrapper py-5 has-bg-image">
