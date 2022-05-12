@@ -12,7 +12,7 @@ public class Topic extends Users{
     private int authorId;
     private String userName;
     private MultipartFile image;
-    private String imagePath;
+    // private String imagePath;
     private String topicImage;
 
 
@@ -33,13 +33,13 @@ public class Topic extends Users{
         this.image = image;
     }
 
-    public String getImagePath() {
-        return this.imagePath;
-    }
+    // public String getImagePath() {
+    //     return this.imagePath;
+    // }
 
-    public void setImagePath(String imgPath) {
-        this.imagePath = imgPath;
-    }
+    // public void setImagePath(String imgPath) {
+    //     this.imagePath = imgPath;
+    // }
 
     public String getUserName() {
         return this.userName;

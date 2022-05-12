@@ -125,18 +125,18 @@
                     <!-- <td>
                         <span th:text="${list.stepNo}"></span>
                     </td> -->
-                    <td>
+                    <td class="text-center align-middle">
                         <span th:text="${iterator.index + 1}"></span>
                     </td>
-                    <td>
+                    <td class="text-center align-middle">
                         <span th:text="${list.activityType}"></span>
                     </td>
                     <td class="text-center align-middle">
                         <span th:text="${list.activityDesc}"></span>
                     </td>
-                    <td>
-                        <span th:if="${list.imageUrl == '-'}" th:text="${list.imageUrl}"></span>
-                        <a th:if="${list.imageUrl != '-'}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
+                    <td style="max-width: 800px;word-break: break-all;">
+                        <span th:if="${list.imageUrl == ''}" th:text="${list.imageUrl}"></span>
+                        <a th:if="${list.imageUrl != ''}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e; "></span></a>
                     </td>
                     <td class="text-center align-middle" th:if="${list.isQuestion}">
@@ -424,7 +424,7 @@
             $(".imgModal").on('click',function(){
                 var id = $(this).data('id');
                 var courseId = $("#course").val();
-                var dom = '<img src="/assets/images/activity/on_courseid_' + courseId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
+                var dom = '<img src="' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
                 $('#imgInside').html(dom); 
 
             });

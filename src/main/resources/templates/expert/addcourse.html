@@ -167,12 +167,12 @@
                             <div class="col-md-12">
                                 <!-- <input class="form-control" type="text" placeholder="imageUrl" maxlength="500" th:field="${addCourse.imageUrl}" required> -->
                                 <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
-                                <input type="hidden" data-accepted="image/*" data-tag="course"  th:field="${addCourse.imageUrl}" class="simple-file-upload" required>
+                                <input type="hidden" data-accepted="image/*" id="uploader-file" data-tag="course"  th:field="${addCourse.imageUrl}" class="simple-file-upload" required>
 
                             </div>
                             <br>
                             <div class="form-button mt-3 text-center">
-                                <button type="submit" class="btn btn-primary btn-next">Next</button>
+                                <button type="submit" class="btn btn-primary btn-next" disabled>Next</button>
                             </div>
                         </form>
                     </div>
@@ -181,6 +181,12 @@
         </div>
     </div>
     <script>
+    	const el = document.getElementById("uploader-file");
+    	
+    	el.addEventListener("fileUploadSuccess", function(e) {
+    		$(".btn-next").removeAttr("disabled");
+    	});
+    
 		$(".btn-next").click(function(){
             if((this.files[0].size / 1024 / 1024) > 1){
                 return false;

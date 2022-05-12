@@ -181,3 +181,9 @@ CREATE TABLE IF NOT EXISTS public.helper_course
     courseorder integer,
     courseid integer
 )
+
+
+alter table topic add topicImage varchar(1000) default ''
+alter table users add userImage varchar(1000) default ''
+alter table users drop imagepath
+alter table topic drop imagepath

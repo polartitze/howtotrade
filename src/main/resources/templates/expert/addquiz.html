@@ -171,12 +171,12 @@
                             
                             <div class="col-md-12">
                                 <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
-                                <input type="hidden" data-accepted="image/*" data-tag="quiz"  th:field="${addQuiz.imageUrl}" class="simple-file-upload" required>
+                                <input type="hidden" data-accepted="image/*" id="uploader-file" data-tag="quiz"  th:field="${addQuiz.imageUrl}" class="simple-file-upload" required>
 
                             </div>
     						<br>
                             <div class="form-button text-center">
-                                <button type="submit" class="btn btn-primary" id="btn-next">Next</button>
+                                <button type="submit" class="btn btn-primary" id="btn-next" disabled>Next</button>
                             </div>
                         </form>
                     </div>
@@ -186,6 +186,12 @@
     </div>
  
     <script>
+    
+    	const el = document.getElementById("uploader-file");
+    	
+    	el.addEventListener("fileUploadSuccess", function(e) {
+    		$("#btn-next").removeAttr("disabled");
+    	});
 		
         $('#btn-next').click(function(){
             if($('#selectCourse').val() == 0 || $('#selectCourse').val() == null){
