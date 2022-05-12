@@ -128,14 +128,14 @@
                         <div  th:if="${#request.getParameter('success') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="valid-feedback">
-                                    Insert Quiz Success!
+                                    Berhasil tambah kuis!
                                 </div>
                             </div>
                         </div>
                         <div  th:if="${#request.getParameter('error') == 'true'}">
                             <div class="col-md-12 col-12">
                                 <div class="invalid-feedback">
-                                    Insert Quiz Error!
+                                    Gagal tambah kuis!
                                 </div>
                             </div>
                         </div>
@@ -145,8 +145,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h3>Add Quiz</h3>
-                        <p>Fill in the data below.</p>
+                        <h3>Tambah Kuis</h3>
+                        <p>Isi data dibawah ini.</p>
                         <form class="requires-validation" th:object="${addQuiz}" th:action="@{'/pro/add-quiz-save'}" method="post" id="myForm" enctype="multipart/form-data">
     
                             <div class="col-md-12">
@@ -159,12 +159,12 @@
                             
                             <div class="col-md-12">
                             	<span>Nama Kuis</span>
-                                <input class="form-control" style="border:1px solid black;" type="text" name="name" placeholder="Nama Kuis" maxlength="50" th:field="${addQuiz.quizName}" required>
+                                <input class="form-control" style="border:1px solid black;" type="text" name="name" maxlength="50" th:field="${addQuiz.quizName}" required>
                             </div>
                             
                             <div class="col-md-12">
                             	<span>Deskripsi Kuis</span>
-                                <textarea class="form-control mb-4" type="text" name="name" placeholder="Deskripsi Kuis" maxlength="500" th:field="${addQuiz.quizDesc}" required
+                                <textarea class="form-control mb-4" type="text" name="name" maxlength="500" th:field="${addQuiz.quizDesc}" required
                                 style="white-space: pre-wrap; min-height:200px; border:1px solid black;">
                                 </textarea>
                             </div>
@@ -176,7 +176,7 @@
                             </div>
     						<br>
                             <div class="form-button text-center">
-                                <button type="submit" class="btn btn-primary" id="btn-next" disabled>Next</button>
+                                <button type="submit" class="btn btn-primary" id="btn-next" disabled>Selanjutnya</button>
                             </div>
                         </form>
                     </div>

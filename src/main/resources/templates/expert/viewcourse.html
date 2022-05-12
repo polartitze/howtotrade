@@ -50,15 +50,15 @@
 				</div>
 			</div>
 		</div>
-		<button id="back-btn">Back</button>
-		<button id="next-btn" class="btn-floating float-right">Next</button>
-		<button id="finish-btn" style="display: none;" class="btn-floating float-right">Finish</button>		
+		<button id="back-btn">Kembali</button>
+		<button id="next-btn" class="btn-floating float-right">Lanjut</button>
+		<button id="finish-btn" style="display: none;" class="btn-floating float-right">Selesai</button>		
 	</div>
 	
 	<div id="course-modal" class="modal">
 		<div class="modal-content">
 			<h2 class="modal-text"></h2>
-			<a href="/pro/course/all" class="text-center">Continue</button>
+			<a href="/pro/course/all" class="text-center">Lanjut</button>
 		</div>
 	</div>
 	
@@ -202,6 +202,8 @@
     };
     
     function finish(){
+    	window.onbeforeunload = null; // Remove navigation prompt
+    	
     	saveAnswer()
     	
     	modal.style.display = "block";
