@@ -44,7 +44,7 @@
 			<div class="row">
 				<div
 					class="col-md-12 text-left section-heading probootstrap-animate">
-					<h1>Our Courses</h1>
+					<h1>List Kelas</h1>
 				</div>
 			</div>
 		</div>
@@ -57,18 +57,16 @@
 				<div class="col-md-12">
 					<div class="probootstrap-flex-block">
 						<div class="probootstrap-text probootstrap-animate">
-							<div class="text-uppercase probootstrap-uppercase">Featured
-								Course</div>
+							<div class="text-uppercase probootstrap-uppercase">Fitur Kelas</div>
 							<h3 th:text="${listCourse[0].courseName}"></h3>
 							<p th:text="${listCourse[0].courseDesc}"></p>
 							<p>
 								<a th:href="@{'/course/'+${listCourse[0].courseId}}" class="btn btn-primary"
-									style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
-									now</a>
+									style="background: #3ec1d5; border-color: #3ec1d5;">Mulai Kelas</a>
 							</p>
 						</div>
 						<div class="probootstrap-image probootstrap-animate">
-							<img th:src="@{${listCourse[0].imageUrl}}" alt="Failed to load image, please reload"
+							<img th:src="@{${listCourse[0].imageUrl}}" alt="Gagal mengambil gambar, mohon dimuat ulang"
 							style="max-width:100%; max-height:100%">
 						</div>
 					</div>
@@ -83,13 +81,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<h2>Course</h2>
+					<h2>Kelas</h2>
 					<div class="row" th:each="course : ${listCourse}">
 						<div class="probootstrap-service-2 probootstrap-animate"
 							style="min-height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
-									<img th:src="@{${course.imageUrl}}" alt="Failed to load image, please reload">
+									<img th:src="@{${course.imageUrl}}" alt="Gagal mengambil gambar, mohon dimuat ulang">
 								</div>
 							</div>
 							<div class="text">
@@ -101,22 +99,21 @@
 									<a th:if="${!course.isLock}"
 										th:href="@{'/course/'+${course.courseId}}"
 										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll
-										now</a> <a th:if="${course.isLock}" class="btn btn-secondary">Locked!</a>
+										style="background: #3ec1d5; border-color: #3ec1d5;">Mulai Kelas</a> <a th:if="${course.isLock}" class="btn btn-secondary">Terkunci!</a>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<h2>Quiz</h2>
+					<h2>Kuis</h2>
 					<div class="row" th:each="quiz : ${listQuiz}">
 						<div class="probootstrap-service-2 probootstrap-animate"
 							style="min-height: 250px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
-									<img th:src="@{${quiz.imageUrl}}" alt="Failed to load image, please reload">
-									<!-- <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Failed to load image, please reload"> -->
+									<img th:src="@{${quiz.imageUrl}}" alt="Gagal mengambil gambar, mohon dimuat ulang">
+									<!-- <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Gagal mengambil gambar, mohon dimuat ulang"> -->
 									
 								</div>
 							</div>
@@ -129,12 +126,12 @@
 									<a th:if="${!quiz.isLock}"
 										th:href="@{'/course/quiz/'+${quiz.quizId}}"
 										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;">Enroll now</a> 
-										<a th:if="${quiz.isLock}" class="btn btn-secondary">Locked!</a>
+										style="background: #3ec1d5; border-color: #3ec1d5;">Mulai Kuis</a> 
+										<a th:if="${quiz.isLock}" class="btn btn-secondary">Terkunci!</a>
 									<span class="text-center float-right"> 
 										<a th:if="${!quiz.isLock AND quiz.isPass}"
 											class="btn btn-primary btn-certificate text-white" th:data-id="${quiz.courseId}" th:data-score="${quiz.highestScore}"
-											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Certificate
+											style="background: #3ec1d5; border-color: #3ec1d5;"> <i class="fa fa-download"></i> Sertifikat
 										</a>
 									</span>
 									<span class="text-center float-right mt-1" style="width:100%" sec:authorize="isAuthenticated()"> 
@@ -144,7 +141,7 @@
 											th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+getContextPath()+'/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
 											target="_blank"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> 
-											<i class="fas fa-share"></i> Share on Facebook
+											<i class="fas fa-share"></i> Bagikan ke Facebook
 										</a>
 									</span>
 								</p>
@@ -168,34 +165,34 @@
 			<p class="certificate-title" style="color:black">
 				<strong>HOWTOTRADE COURSE</strong>
 			</p>
-			<h1>Certificate of Completion</h1>
+			<h1>SERTIFIKAT KELULUSAN</h1>
 			<p class="student-name" style="color:black" th:text="${realname}"></p>
 			<div class="certificate-content">
-				<p class="about-certificate" style="color:black">has completed on topic <span id="titleCourse"></span>
+				<p class="about-certificate" style="color:black">telah menyelesaikan topik <span id="titleCourse"></span>
 					online</p>
 			</div>
 			<div style="color:black">
-            	<b><p>Your score is <span id="quizScores"></span> out of 10</p></b>
+            	<b><p>Nilai kamu adalah <span id="quizScores"></span> dari 10</p></b>
             </div>
             <div style="color:black">
-            	<p>We hope participant may implement the learning given in this course.</p>
-            	<p>Congratulations on your completion in this course and quiz. Text your next step to move forward!"</p>
-            	<p>Learn more and gain more</p>
+            	<p>Selamat atas kelulusan Anda! Kami berharap ilmu yang didapatkan dalam mempelajari kelas dan mengisi kuis dapat 
+            	diterapkan di pengalaman trading dan investing yang Anda lakukan! Ambil langkah untuk menempuh perjalanan lebih jauh
+            	dan dapatkan keuntungan di sekitar Anda. </p>
             </div>
 		</div>
 		<br><br>
 		<div class="certificate-footer" style="color:black">
 			<div class="row">
 				<div class="col-md-6">
-					<p>Principal:</p>
+					<p>Kepala Pembelajaran Howtotrade</p>
 				</div>
 				<div class="col-md-6">
 					<div class="row">
 						<div class="col-md-6">
-							<p style="float:right">Accredited by</p>
+							<p style="float:right">Disetujui oleh</p>
 						</div>
 						<div class="col-md-6">
-							<p style="float:right">Endorsed by</p>
+							<p style="float:right">Disetujui oleh</p>
 						</div>
 					</div>
 				</div>

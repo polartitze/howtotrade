@@ -236,10 +236,10 @@ table.table .avatar {
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Name</th>
+							<th>Nama</th>
 							<th>Status</th>
-							<th class="text-center">Action</th>
-							<th class="text-center">Change Expert</th>
+							<th class="text-center">Aksi</th>
+							<th class="text-center">Ubah Expert</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -253,7 +253,7 @@ table.table .avatar {
 							</td>
 							<td th:text="${list.userName}"><img
 								src="/examples/images/avatar/1.jpg" class="avatar" alt="Avatar"></td>
-							<td th:text="${list.userStatus == '1' ? 'Active' : 'Inactive'}"></td>
+							<td th:text="${list.userStatus == '1' ? 'Aktif' : 'Tidak Aktif'}"></td>
 							<td class="text-center">
 							
 								<a href="#block-modal"
@@ -285,15 +285,15 @@ table.table .avatar {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Block User</h4>
+            <h4>Blokir User</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to block?</p>
+            <p>Apakah Anda yakin untuk memblokir?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger modal-yes">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger modal-yes">Ya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
@@ -303,15 +303,15 @@ table.table .avatar {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Unblock User</h4>
+            <h4>Aktifkan User</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to unblock?</p>
+            <p>Apakah Anda yakin untuk mengaktifkan?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger modal-yes text-white">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger modal-yes text-white">Ya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
@@ -321,15 +321,15 @@ table.table .avatar {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Change User to Expert</h4>
+            <h4>Ubah jadi Expert</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to change to expert?</p>
+            <p>Apakah Anda yakin untuk mengubah?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger modal-yes text-white">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger modal-yes text-white">Ya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
