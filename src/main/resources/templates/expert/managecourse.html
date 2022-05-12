@@ -117,21 +117,20 @@
 							<div class="text">
 								<h3 th:text="${course.courseName}"></h3>
 								<p th:text="${course.courseDesc}"></p>
-								<p>
-									<a 
-										th:href="@{'/pro/course/'+${course.courseId}}"
-										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;">View Course
-									</a>
-									<span class="text-center float-right"> 
-										<a href="#del-modal" th:data-id="${course.courseId}"
-										 data-toggle="modal"
-											class="btn btn-primary text-white open-del-modal"  
-											style="background: #ff606e; border-color: #ff606e;"> 
-											<i class="fa fa-trash"></i> Delete
-										</a>
-									</span>
-								</p>
+								<a th:href="@{'/pro/course/'+${course.courseId}}"
+									class="btn btn-primary"
+									style="background: #3ec1d5; border-color: #3ec1d5;"> View
+								</a>
+								<a th:href="@{'/pro/add-activity/'+${course.courseId}}"
+									class="btn btn-primary">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a href="#del-modal" th:data-id="${course.courseId}"
+								 data-toggle="modal"
+									class="btn btn-primary text-white open-del-modal"  
+									style="background: #ff606e; border-color: #ff606e;"> 
+									<i class="fa fa-trash"></i>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -149,21 +148,20 @@
 							<div class="text">
 								<h3 th:text="${quiz.quizName}"></h3>
 								<p th:text="${quiz.quizDesc}"></p>
-								<p>
-									<a th:href="@{'/pro/course/quiz/'+${quiz.quizId} }"
-										class="btn btn-primary"
-										style="background: #3ec1d5; border-color: #3ec1d5;">View Quiz
-									</a> 
-									<span class="text-center float-right"> 
-										<a href="#del-modal-quiz" th:data-id="${quiz.quizId}"
-										data-toggle="modal"
-											class="btn btn-primary text-white open-del-modal-quiz"  
-											style="background: #ff606e; border-color: #ff606e;"> 
-											<i class="fa fa-trash"></i> Delete
-										</a>
-										
-									</span>
-								</p>
+								<a th:href="@{'/pro/course/quiz/'+${quiz.quizId} }"
+									class="btn btn-primary"
+									style="background: #3ec1d5; border-color: #3ec1d5;">View
+								</a> 
+								<a th:href="@{'/pro/add-question/'+${quiz.quizId}}"
+									class="btn btn-primary">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a href="#del-modal-quiz" th:data-id="${quiz.quizId}"
+								data-toggle="modal"
+									class="btn btn-primary text-white open-del-modal-quiz"  
+									style="background: #ff606e; border-color: #ff606e;"> 
+									<i class="fa fa-trash"></i>
+								</a>
 							</div>
 						</div>
 					</div>

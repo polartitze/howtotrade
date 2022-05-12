@@ -119,14 +119,20 @@ public class CourseService {
 		return result;
 	}
 
-	public int getLatestCourseOrder(){
-		Integer latestOrder = mapper.getLatestCourseOrder();
-		int result;
-		if (latestOrder == null) {
-			result = 0;
+	public int getLatestCourseOrder(int courseId){
+		Integer currentOrder = mapper.getCourseOrder(courseId);
+		
+		if (currentOrder != null) {
+			return currentOrder;
 		}
-		else result = latestOrder;
-		return result;
+		
+		Integer latestOrder = mapper.getLatestCourseOrder();
+		
+		if (latestOrder == null) {
+			return 0;
+		}
+		
+		return latestOrder;
 	}
 
 	public List<Activity> getAllCourseActivity(int courseId){

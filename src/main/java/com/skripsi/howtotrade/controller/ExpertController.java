@@ -261,9 +261,7 @@ public class ExpertController {
 	@RequestMapping(value = "/save-all-course/{courseId}", method = RequestMethod.GET)
     public String saveAllCourse(@PathVariable int courseId) {
         //LAST SAVE BEFORE
-		int getLatestCourseOrder = courseService.getLatestCourseOrder();
-		System.out.println("courseId: "+courseId);
-		System.out.println("getLatestCourseOrder: "+getLatestCourseOrder);
+		int getLatestCourseOrder = courseService.getLatestCourseOrder(courseId);
         courseService.saved(courseId, getLatestCourseOrder + 1);
         return "redirect:/pro/course/all";
     }
@@ -282,13 +280,12 @@ public class ExpertController {
 			model.addAttribute("listQuiz", quizService.getAllQuiz(userId));
 
 			List<Integer> listOrder = new ArrayList();
-
-			for (int index = 0; index < courseService.getLatestCourseOrder(); index++) {
+			List<Course> list = courseService.getAllCourse(userId);
+			for (int index = 0; index < list.size(); index++) {
 				listOrder.add(index+1);
 			}
 			model.addAttribute("listOrder", listOrder);
-			System.out.println("listOrder.toString(): "+listOrder.toString());
-
+			
 			return "expert/managecourse";
 		} catch (Exception e) {
 			e.printStackTrace();
