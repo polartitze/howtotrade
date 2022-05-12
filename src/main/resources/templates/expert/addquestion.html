@@ -75,12 +75,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-12 col-12">
-                <div class="alert alert-danger" id="questionAlert" style="display: none;">
-                </div>
-            </div>
-        </div>
+        
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-primary">
@@ -182,6 +177,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 col-12">
+                            <div class="alert alert-danger" id="questionAlert" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
                     <p>Fill in the data below.</p>
                     <form class="requires-validation" th:object="${addQuestion}" th:action="@{'/pro/add-question-save'}" method="post" enctype="multipart/form-data">
                         <div class="col-md-12 mb-2">
@@ -217,7 +218,7 @@
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="submit" type="submit" class="btn btn-primary">Save</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-save">Save</button>
                         </div>
 
                     </form>
@@ -257,16 +258,23 @@
 
             image();
         });
+
+        $(".btn-save").click(function(){
+
+        });
+
         $("#inputImage").change(function(){
             if((this.files[0].size / 1024 / 1024) > 1){
                 $("#questionAlert").html('Maksimal file 1MB');
                 $("#questionAlert").show();
+                $(".btn-save").attr("disabled", "disabled");
             } 
             else{
                 $("#questionAlert").hide();
+                $(".btn-save").removeAttr("disabled");
             } 
         });
-
+        
         function image(){
             $(".imgModal").on('click',function(){
                 var id = $(this).data('id');

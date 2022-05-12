@@ -170,7 +170,7 @@
                             </div>
                             <br>
                             <div class="form-button mt-3 text-center">
-                                <button type="submit" class="btn btn-primary">Next</button>
+                                <button type="submit" class="btn btn-primary btn-next">Next</button>
                             </div>
                         </form>
                     </div>
@@ -179,15 +179,21 @@
         </div>
     </div>
     <script>
-		
+		$(".btn-next").click(function(){
+            if((this.files[0].size / 1024 / 1024) > 1){
+                return false;
+            } 
+        });
        
 		$("#inputImage").change(function(){
             if((this.files[0].size / 1024 / 1024) > 1){
                 $("#courseAlert").html('Maksimal file 1MB');
                 $("#courseAlert").show();
+                $(".btn-next").attr("disabled", "disabled");
             } 
             else{
                 $("#courseAlert").hide();
+                $(".btn-next").removeAttr("disabled");
             } 
         });
 

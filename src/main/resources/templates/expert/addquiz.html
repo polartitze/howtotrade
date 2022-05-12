@@ -174,7 +174,7 @@
                             </div>
     						<br>
                             <div class="form-button text-center">
-                                <button type="button" class="btn btn-primary" id="btn-next">Next</button>
+                                <button type="submit" class="btn btn-primary" id="btn-next">Next</button>
                             </div>
                         </form>
                     </div>
@@ -191,9 +191,9 @@
                 $('#quizAlert').show();
                 return false;
             }
-            else{
-                $('#myForm').submit();
-            }
+            // else{
+            //     $('#myForm').submit();
+            // }
         });
 		$("#inputImage").change(function(){
             if((this.files[0].size / 1024 / 1024) > 1){

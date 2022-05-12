@@ -332,7 +332,11 @@
     	let chart;
     	let listChart = /*[[${listChart}]]*/ 'default';
     
-    	$('#daterange').daterangepicker();
+    	$('#daterange').daterangepicker({
+            "startDate": "06/01/2021",
+            "endDate": "06/01/2021",
+            "maxDate": "12/31/2021"
+        });
     	
 		$(document).ready(function(){
             $("#correctAnswer").val('');
@@ -359,6 +363,11 @@
             } 
             if($('#selectActivityType').val() == '2' &&  $("#inputImage").val() == ''){
                 $("#alertMsg2").html('Gambar harus diisi!');
+                $("#activityAlert2").show();
+                return false;
+            }
+            if($('#selectActivityType').val() == '1' &&  $("#selectChart").val() == null){
+                $("#alertMsg2").html('Chart harus dipilih!');
                 $("#activityAlert2").show();
                 return false;
             }
