@@ -38,7 +38,6 @@ public interface TopicMapper {
     + "                END "
     + "	END AS CREATEDDATE, "
     + "	T.AUTHORID, "
-    + "	T.IMAGEPATH, "
     + "	T.TOPICIMAGE, "
     + "	U.USERNAME,  "
     + "	COUNT(C.COMMENTID) AS COUNTCOMMENT  "
@@ -84,7 +83,7 @@ public interface TopicMapper {
     @Delete("DELETE FROM comment WHERE commentid = #{commentId} AND topicid = #{topicId}")
     void deleteComment(@Param("commentId") int commentId, @Param("topicId") int topicId);
 
-    @Insert("INSERT INTO topic(topictitle, description, createddate, authorid, imagepath, topicimage) VALUES (#{topicTitle}, #{description}, CURRENT_TIMESTAMP, #{authorId}, #{imagePath}, #{topicImage})")
+    @Insert("INSERT INTO topic(topictitle, description, createddate, authorid, topicimage) VALUES (#{topicTitle}, #{description}, CURRENT_TIMESTAMP, #{authorId}, #{topicImage})")
     void insertTopic(Topic newTopic);
 
     @Delete("DELETE FROM topic WHERE authorid = #{authorId} AND topicid = #{topicId}")

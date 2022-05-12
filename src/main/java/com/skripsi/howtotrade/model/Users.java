@@ -8,7 +8,7 @@ public class Users{
     private String userPassword;
     private int userRole;
     private String userStatus;
-    private String imagePath;
+    // private String imagePath;
     private String isVerified;
 
     private String userImage;
@@ -31,13 +31,13 @@ public class Users{
         this.isVerified = isVerified;
     }
 
-    public String getImagePath() {
-        return this.imagePath;
-    }
+    // public String getImagePath() {
+    //     return this.imagePath;
+    // }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+    // public void setImagePath(String imagePath) {
+    //     this.imagePath = imagePath;
+    // }
 
     public int getUserId() {
         return this.userId;
