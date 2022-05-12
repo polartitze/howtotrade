@@ -41,6 +41,42 @@
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div th:replace="fragments/logout :: logout" style="width:300px">&nbsp;</div>
 
+	<div class="modal" id="del-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Delete Course</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger text-white modal-yes">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal" id="del-modal-quiz">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header border-0 pb-0">
+            <h4>Delete Quiz</h4>
+            <button type="button" class="close" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body border-0 pb-0">
+            <p>Are you sure to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-danger text-white modal-yes-quiz">Yes</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
 	<section class="probootstrap-section probootstrap-section-colored"
 		style="background: #343a40; padding:20px;">
 		<div class="container">
@@ -115,8 +151,9 @@
 										style="background: #3ec1d5; border-color: #3ec1d5;">View Course
 									</a>
 									<span class="text-center float-right"> 
-										<a th:href="@{'/pro/course/delete/' + ${course.courseId}}"
-											class="btn btn-primary text-white"  
+										<a href="#del-modal" th:data-id="${course.courseId}"
+										 data-toggle="modal"
+											class="btn btn-primary text-white open-del-modal"  
 											style="background: #ff606e; border-color: #ff606e;"> 
 											<i class="fa fa-trash"></i> Delete
 										</a>
@@ -145,11 +182,13 @@
 										style="background: #3ec1d5; border-color: #3ec1d5;">View Quiz
 									</a> 
 									<span class="text-center float-right"> 
-										<a th:href="@{'/pro/quiz/delete/' + ${quiz.quizId} }"
-											class="btn btn-primary text-white"  
+										<a href="#del-modal-quiz" th:data-id="${quiz.quizId}"
+										data-toggle="modal"
+											class="btn btn-primary text-white open-del-modal-quiz"  
 											style="background: #ff606e; border-color: #ff606e;"> 
 											<i class="fa fa-trash"></i> Delete
 										</a>
+										
 									</span>
 								</p>
 							</div>
@@ -212,9 +251,11 @@
 	</div>
     <!-- MODAL SWAP -- END-->
 
+	
 
 </body>
 <script>
+
 	var object = [];
 	var l = $('.optionOrder').length;
 
@@ -265,6 +306,17 @@
 		var root = window.location.protocol + "//" + window.location.host;
 		return root;
 	}
+	
+	$(document).on("click", ".open-del-modal", function () {
+		     var courseId = $(this).data('id');
+		     $("#del-modal .modal-yes").attr("href", "/pro/course/delete/" + courseId)
+	});
+	
+	$(document).on("click", ".open-del-modal-quiz", function () {
+		     var quizId = $(this).data('id');
+		     $("#del-modal-quiz .modal-yes-quiz").attr("href", "/pro/quiz/delete/" + quizId)
+		     
+	});
 	
 </script>
 
