@@ -53,8 +53,8 @@ public interface UserMapper {
 	@Select("SELECT USERPASSWORD FROM USERS WHERE USERNAME = #{userName}")
     String getOldPassword(String userName);
 
-	@Update("UPDATE USERS SET imagePath = #{imagePath} WHERE USERID = #{userId}")
-	void changeProfile(@Param("imagePath") String imagePath, @Param("userId") int userId);
+	@Update("UPDATE USERS SET userImage = #{userImage} WHERE USERID = #{userId}")
+	void changeProfile(@Param("userImage") String userImage, @Param("userId") int userId);
 
 	@Update("UPDATE USERS SET isVerified = '1' WHERE USERNAME = #{username}")
 	void validateAccount(@Param("username") String username);

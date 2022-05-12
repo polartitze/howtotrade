@@ -71,21 +71,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/change-profile", method = RequestMethod.POST)
-    public String changeProfile(Model model, Principal principal, @RequestParam("image") MultipartFile multipartFile){
-        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        String uploadDir = Constant.PROFILE_IMAGE_PATH + principal.getName();
+    public String changeProfile(Model model, Principal principal, @RequestParam(value = "userImage", required = false) String userImage){
+        // String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        // String uploadDir = Constant.PROFILE_IMAGE_PATH + principal.getName();
         
-        try {
-            FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // try {
+        //     FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
             
-        } catch (IOException exception) {
-            System.out.println("File uploaded with error");
-            exception.printStackTrace();
-        }
+        // } catch (IOException exception) {
+        //     System.out.println("File uploaded with error");
+        //     exception.printStackTrace();
+        // }
 
         int userId = userService.getUserId(principal.getName());
 
-        userService.changeProfile(filename, userId);
+        userService.changeProfile(userImage, userId);
         
         model.addAttribute("profileForm", new Users());
         model.addAttribute("data", userService.findUserAccount(principal.getName()));

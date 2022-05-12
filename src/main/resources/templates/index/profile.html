@@ -10,6 +10,7 @@
         
 	<script th:src="@{/assets/js/jquery.min.js}"></script>
 	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script src="https://app.simplefileupload.com/buckets/7ae667ebbf93ce431ead8453052082aa.js"></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,42 +19,59 @@
 </head>
 
 <body>
-	    
-	<div th:replace="fragments/header :: header">&nbsp;</div>
-	    
+    
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    
     <div class="container mt-3">
         <div class="container ">
-	        <div class="card mb-1">
+            <div class="card mb-1">
                 <div class="row">
                     <div class="col-md-3 col-3 text-center">
                         <div class="alert alert-danger" id="alert" style="display: none;">Maksimal file 1MB</div>
                     </div>
                 </div>
                 <!-- jika belum memiliki profile picture -->
-                <div class="wrapper py-5" th:if="${data.imagePath} == '-' ">
-			        <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg' ";>
-			            <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
+                <form id="profilepic" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
+                <div class="wrapper py-5" th:if="${data.userImage} == '' ">
+                    <div class="profile" th:style=" 'background-image: url(/assets/images/default.jpg)' ";>
+                        <!-- <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data">  -->
+                            <div class="about d-flex flex-column">
+			                    <h5 class="user-name" th:text="${data.userName}"></h5>
+		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
+                                <label for="changeProfile">Change Picture</label>
+                                <!-- <input type="file" name="image"  accept="image/png, image/jpeg" id="changeProfile" class="inputFile" style="opacity: 0;"> -->
+                                <input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload">
+			                </div>
+			            <!-- </form> -->
+			        </div>
+		    	</div>
+	            <div class="wrapper py-5" th:if="${data.userImage} != '' ">
+			        <div class="profile" th:style=" 'background-image: url(' + ${data.userImage} + ')' ";>
 			                <div class="about d-flex flex-column">
 			                    <h5 class="user-name" th:text="${data.userName}"></h5>
 		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
                                 <label for="changeProfile">Change Picture</label>
-                                <input type="file" name="image"  accept="image/png, image/jpeg" id="changeProfile" class="inputFile" style="opacity: 0;">
+                                <!-- <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;"> -->
+                                <input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload invisible">
 			                </div>
-			            </form>
-			        </div>
-		    	</div>
-	            <div class="wrapper py-5" th:if="${data.imagePath} != '-' ">
-			        <div class="profile" th:style=" 'background-image: url(/assets/images/' + ${data.userName} + '/' + ${data.imagePath} + ')' ";>
-			            <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
-			                <div class="about d-flex flex-column">
-			                    <h5 class="user-name" th:text="${data.userName}"></h5>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary pull-right" id="btn-add" type="submit"><i class="fa fa-pencil fa-fw"></i>Change Picture</button>
+                </form>
+                <!-- TESTING CODE WILLIAM -->
+	            <!-- <div class="wrapper py-5 has-bg-image">
+			        <div class="profile " >
+                        <form id="profilepic" class="overlay" th:action="@{/profile/change-profile}" method="post" enctype="multipart/form-data"> 
+                            <div class="about d-flex flex-column">
+                                <h5 class="user-name" th:text="${data.userName}"></h5>
 		                        <h6 class="user-email" th:text="${data.userEmail}"></h6>
                                 <label for="changeProfile">Change Picture</label>
                                 <input type="file" name="image" id="changeProfile" class="inputFile" style="opacity: 0;">
 			                </div>
 			            </form>
+                        <img th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath} }" alt="test" class="bg-image">
 			        </div>
-		    	</div>
+		    	</div> -->
 	        </div>
         </div>
         <div class="container mb-3">
@@ -249,14 +267,14 @@
         }
         
         $("#changeProfile").change(function(){
-            if((this.files[0].size / 1024 / 1024) > 1){
-                $("#alert").show();
-            } 
-            else{
+            // if((this.files[0].size / 1024 / 1024) > 1){
+            //     $("#alert").show();
+            // } 
+            // else{
+            //     // return;
+            //     // location.reload();
+            // } 
                 $("#profilepic").submit();
-                // return;
-                // location.reload();
-            } 
         });
 
         //TODO: TRY TO USE IT
@@ -280,7 +298,7 @@
         //         }
         //     };
 
-        //     $('#damagedProductPictures').on('change', function() {
+        //     $('#changeProfile').on('change', function() {
         //         $(".picturePreview").empty();
         //         imagesPreview(this, 'div.picturePreview');
         //     });

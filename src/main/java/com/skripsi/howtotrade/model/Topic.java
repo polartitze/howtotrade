@@ -13,6 +13,17 @@ public class Topic extends Users{
     private String userName;
     private MultipartFile image;
     private String imagePath;
+    private String topicImage;
+
+
+    public String getTopicImage() {
+        return this.topicImage;
+    }
+
+    public void setTopicImage(String topicImage) {
+        this.topicImage = topicImage;
+    }
+
 
     public MultipartFile getImage() {
         return this.image;

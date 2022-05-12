@@ -65,23 +65,23 @@ public class TopicController {
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addNewTopic(Topic topic, Principal principal, @RequestParam("image") MultipartFile multipartFile){
-        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        String uploadDir = Constant.TOPIC_IMAGE_PATH + principal.getName() + "/topic/" + topic.getTopicTitle();
+    public String addNewTopic(Topic topic, Principal principal){
+        // String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        // String uploadDir = Constant.TOPIC_IMAGE_PATH + principal.getName() + "/topic/" + topic.getTopicTitle();
         
-        if(filename == null || "".equals(filename)){
-            topic.setImagePath("-");
-        } 
-        else{
-            topic.setImagePath(filename);
-            try {
-                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // if(filename == null || "".equals(filename)){
+        //     topic.setImagePath("-");
+        // } 
+        // else{
+        //     topic.setImagePath(filename);
+        //     try {
+        //         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
-            } catch (IOException exception) {
-                System.out.println("File uploaded with error");
-                exception.printStackTrace();
-            }
-        } 
+        //     } catch (IOException exception) {
+        //         System.out.println("File uploaded with error");
+        //         exception.printStackTrace();
+        //     }
+        // } 
 
         topic.setAuthorId(topicService.getUserId(principal.getName()));
 

@@ -10,9 +10,10 @@
   <script th:src="@{/assets/js/jquery.min.js}"></script>
   <script th:src="@{/assets/js/bootstrap.min.js}"></script>
 
-
   <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet"> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://app.simplefileupload.com/buckets/7ae667ebbf93ce431ead8453052082aa.js"></script>
 <head>
 	<title>Forum</title>
 </head>
@@ -37,7 +38,9 @@
                       <div class="card mb-4">
                           <div class="card-header">
                               <div class="media flex-wrap w-100 align-items-center"> 
-                                  <img th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+                                  <!-- <img th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;"> -->
+                                  <img th:if="${data.userImage == ''}" th:src="@{/assets/images/default.jpg}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+                                  <img th:if="${data.userImage != ''}" th:src="@{${data.userImage}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
                                   <div class="media-body ml-3"> 
                                     <span class="text-primary" sec:authentication="name"></span> 
                                   </div>
@@ -52,8 +55,9 @@
                                 <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it" required></textarea>
                                 <div class="mar-top clearfix">
                                   <button class="btn btn-primary pull-right" id="btn-add" type="submit"><i class="fa fa-pencil fa-fw"></i>Add</button>
-                                  <label class="btn btn-trans btn-icon fa fa-camera add-tooltip" for="inputImage">
-		                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" style="opacity: 0;"/>
+                                  <!-- <label class="btn btn-trans btn-icon fa fa-camera add-tooltip" for="inputImage"> -->
+		                            <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" style="opacity: 0;"/> -->
+                                <input type="hidden" data-accepted="image/*" data-tag="topic" id="topicImage" name="topicImage" class="simple-file-upload">
 		                          </label>
 		                          <div class="alert alert-danger" id="alert" style="display: none;">Maksimal file 1MB</div>
                                 </div>
@@ -75,11 +79,11 @@
                   <p class="text-sm"><span class="op-6"></span> <span class="text-primary" th:text="${topic.createddate}"></span>
                     <span class="op-6">ago by</span> <span class="text-primary" th:text="${topic.username}"></span></p>
                   <p th:text="${topic.description}" style="max-height:200px; overflow:auto;"></p>
-                  <div th:if="${topic.imagepath} != '-'">
+                  <div >
                     <img class="img-thumbnail"
-                      th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }"
-                      alt="Failed to load image, please reload">
-                  </div>
+                      th:src="@{${topic.topicimage}}" alt="Failed to load image, please reload">
+                    </div>
+                    <!-- th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }" alt="Failed to load image, please reload"> -->
                 </div>
                 
                 <div class="col-1 text-center" th:each="authority : ${#authentication.getAuthorities()}"

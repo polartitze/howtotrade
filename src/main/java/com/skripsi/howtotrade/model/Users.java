@@ -11,6 +11,18 @@ public class Users{
     private String imagePath;
     private String isVerified;
 
+    private String userImage;
+
+
+    public String getUserImage() {
+        return this.userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+
     public String getIsVerified() {
         return this.isVerified;
     }

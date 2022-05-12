@@ -17,6 +17,7 @@
 	<script type="text/javascript" th:src="@{/anychart/js/anychart-base.min.js}"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://app.simplefileupload.com/buckets/7ae667ebbf93ce431ead8453052082aa.js"></script>
 		
 <title>Add Activity</title>
 </head>
@@ -261,7 +262,9 @@
                             <input class="form-control" type="text" placeholder="Penjelasan Activity" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
                         </div>
                         <div class="col-md-12 mt-3" id="activityImageBox" style="display: none;">
-                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/>
+                            <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/> -->
+                            <input type="hidden" data-accepted="image/*" data-tag="activity"  th:field="${addActivity.imageUrl}" id="activityImage" class="simple-file-upload" required>
+
                         </div>
                         
                         <div class="col-md-12 mt-3">
@@ -395,16 +398,19 @@
             var activityType = $('#selectActivityType').val();
             if(activityType == '1'){ //chart
             	 $("#inputImage").attr("disabled", "true");
+            	 $("#activityImage").attr("disabled", "true");
             	 $("#activityImageBox").hide()
             	 $("#activityChartBox").show()
             }
             else if(activityType == '2'){ //picture
                 $("#inputImage").removeAttr("disabled");
+                $("#activityImage").removeAttr("disabled");
                 $("#activityImageBox").show();
                 $("#activityChartBox").hide()
             } 
             else{
                 $("#inputImage").attr("disabled", "true");
+                $("#activityImage").attr("disabled", "true");
                 $("#activityImageBox").hide()
                 $("#activityChartBox").hide()
             } 

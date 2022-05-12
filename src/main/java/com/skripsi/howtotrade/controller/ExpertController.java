@@ -54,23 +54,23 @@ public class ExpertController {
 	}
 
 	@RequestMapping(value = "/add-quiz-save", method = RequestMethod.POST)
-	public String addQuizSave(Quiz quiz, @RequestParam("image") MultipartFile multipartFile) {
+	public String addQuizSave(Quiz quiz) {
         String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
         String uploadDir = Constant.QUIZ_IMAGE_PATH + quiz.getCourseId();   //karna quiz belum terbentuk idnya
         
-        if(filename == null || "".equals(filename)){
-            quiz.setImageUrl("-");
-        } 
-        else{
-            quiz.setImageUrl(filename);
-            try {
-                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // if(filename == null || "".equals(filename)){
+        //     quiz.setImageUrl("-");
+        // } 
+        // else{
+        //     quiz.setImageUrl(filename);
+        //     try {
+        //         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
-            } catch (IOException exception) {
-                System.out.println("File uploaded with error");
-                exception.printStackTrace();
-            }
-        }
+        //     } catch (IOException exception) {
+        //         System.out.println("File uploaded with error");
+        //         exception.printStackTrace();
+        //     }
+        // }
 
 		try {
 			quizService.addQuiz(quiz.getCourseId(), quiz.getQuizName(), quiz.getQuizDesc(), quiz.getImageUrl());
@@ -95,23 +95,23 @@ public class ExpertController {
 	}
 
 	@RequestMapping(value = "/add-question-save", method = RequestMethod.POST)
-	public String addQuestionSave(Question question, @RequestParam("image") MultipartFile multipartFile) {
+	public String addQuestionSave(Question question) {
         String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
         String uploadDir = Constant.QUESTION_IMAGE_PATH +question.getQuizId();
         
-        if(filename == null || "".equals(filename)){
-            question.setImageUrl("-");
-        } 
-        else{
-            question.setImageUrl(filename);
-            try {
-                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // if(filename == null || "".equals(filename)){
+        //     question.setImageUrl("-");
+        // } 
+        // else{
+        //     question.setImageUrl(filename);
+        //     try {
+        //         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
-            } catch (IOException exception) {
-                System.out.println("File uploaded with error");
-                exception.printStackTrace();
-            }
-        }
+        //     } catch (IOException exception) {
+        //         System.out.println("File uploaded with error");
+        //         exception.printStackTrace();
+        //     }
+        // }
 
         int latestQuizId =  quizService.getLatestQuizId();
 		int latestStepNo = quizService.getLatestStepNo(latestQuizId);
@@ -150,28 +150,28 @@ public class ExpertController {
 
 	@RequestMapping(value = "/add-course-save", method = RequestMethod.POST)
 	public String addCourseSave(Course course, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
-		String filename = "";
-		try {
-			filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		// String filename = "";
+		// try {
+		// 	filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        String uploadDir = Constant.COURSE_IMAGE_PATH + course.getCourseName();
+		// } catch (Exception e) {
+		// 	e.printStackTrace();
+		// }
+        // String uploadDir = Constant.COURSE_IMAGE_PATH + course.getCourseName();
         
-        if(filename == null || "".equals(filename)){
-            course.setImageUrl("-");
-        } 
-        else{
-            course.setImageUrl(filename);
-            try {
-                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // if(filename == null || "".equals(filename)){
+        //     course.setImageUrl("-");
+        // } 
+        // else{
+        //     course.setImageUrl(filename);
+        //     try {
+        //         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
-            } catch (IOException exception) {
-                System.out.println("File uploaded with error");
-                exception.printStackTrace();
-            }
-        }
+        //     } catch (IOException exception) {
+        //         System.out.println("File uploaded with error");
+        //         exception.printStackTrace();
+        //     }
+        // }
 
 		try {
 			courseService.addCourse(course.getCourseName(), course.getCourseDesc(), course.getImageUrl());
@@ -201,28 +201,28 @@ public class ExpertController {
 	
 	@RequestMapping(value = "/add-activity-save", method = RequestMethod.POST)
 	public String addActivitySave(Activity activity, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
-		String filename = "";
-		try {
-			filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		// String filename = "";
+		// try {
+		// 	filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
-        String uploadDir = Constant.ACTIVITY_IMAGE_PATH +activity.getCourseId();
+		// } catch (Exception e) {
+		// 	//e.printStackTrace();
+		// }
+        // String uploadDir = Constant.ACTIVITY_IMAGE_PATH +activity.getCourseId();
         
-        if(filename == null || "".equals(filename)){
-            activity.setImageUrl("-");
-        } 
-        else{
-            activity.setImageUrl(filename);
-            try {
-                FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+        // if(filename == null || "".equals(filename)){
+        //     activity.setImageUrl("-");
+        // } 
+        // else{
+        //     activity.setImageUrl(filename);
+        //     try {
+        //         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
                 
-            } catch (IOException exception) {
-				System.out.println("File uploaded with error");
-                exception.printStackTrace();
-            }
-        }
+        //     } catch (IOException exception) {
+		// 		System.out.println("File uploaded with error");
+        //         exception.printStackTrace();
+        //     }
+        // }
 		
         int latestCourseId =  courseService.getLatestCourseId();
 		int latestStepNo = courseService.getLatestStepNo(latestCourseId);

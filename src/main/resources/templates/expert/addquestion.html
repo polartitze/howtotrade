@@ -12,7 +12,8 @@
     
     <script th:src="@{/assets/js/jquery.min.js}"></script>
     <script th:src="@{/assets/js/bootstrap.min.js}"></script>
-<title>Add Question</title>
+    <script src="https://app.simplefileupload.com/buckets/7ae667ebbf93ce431ead8453052082aa.js"></script>
+    <title>Add Question</title>
 </head>
     <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
@@ -212,7 +213,9 @@
                             <input class="form-control" min="1" max="4" type="number" placeholder="Kunci Jawaban" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
-                            <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required>
+                            <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
+                            <input type="hidden" data-accepted="image/*" data-tag="question"  th:field="${addQuestion.imageUrl}" class="simple-file-upload" required>
+
                         </div>
 
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">

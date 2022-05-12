@@ -11,6 +11,9 @@
   <script th:src="@{/assets/js/bootstrap.min.js}"></script>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <script src="https://app.simplefileupload.com/buckets/7ae667ebbf93ce431ead8453052082aa.js"></script>
+
   <head>
     <title>Forum</title>
   </head>
@@ -35,8 +38,8 @@
           <div class="card mb-4 border-primary">
             <div class="card-header border-primary">
               <div class="media flex-wrap w-100 align-items-center">
-              	<img th:if="${data.imagePath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
-                <img th:if="${data.imagePath} != '-' " th:src="@{'/assets/images/' + ${data.userName} + '/' + ${data.imagePath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+              	<img th:if="${data.userImage} == '' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+                <img th:if="${data.userImage} != '' " th:src="@{${data.userImage}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
                 <div class="media-body ml-3">
                   <span th:text="${topicData.username}"></span>
                   <div class="text-muted small">
@@ -56,8 +59,9 @@
             </div>
             <div class="card-body pt-1">
               <p th:text="${topicData.description}"></p>
-              <div th:if="${topicData.imagepath} != '-'">
-                <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topicData.username} + '/topic/' + ${topicData.topictitle} + '/' + ${topicData.imagepath} }" 
+              <div th:if="${topicData.topicimage} != '' ">
+                <!-- <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topicData.username} + '/topic/' + ${topicData.topictitle} + '/' + ${topicData.imagepath} }"  -->
+                <img class="img-thumbnail" th:src="@{${topicData.topicimage}}" 
                 alt="Failed to load image, please reload">
               </div>
             </div>
@@ -90,8 +94,10 @@
           </div>
     
           <div class="col-1 align-self-center">
-          	<img th:if="${comment.imagepath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
-            <img th:if="${comment.imagepath} != '-' " th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+          	<!-- <img th:if="${comment.imagepath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
+            <img th:if="${comment.imagepath} != '-' " th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;"> -->
+          	<img th:if="${comment.userimage} == '' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
+            <img th:if="${comment.userimage} != '' " th:src="@{${comment.userimage}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
           </div>
     
           <div class="col-8 pt-2">
