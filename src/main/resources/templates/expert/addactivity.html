@@ -305,7 +305,7 @@
                         <input type="hidden" name="courseId" th:value="${courseId}" id="course">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="btn-save-activity" type="submit" class="btn btn-primary">Save</button>
+                            <button id="btn-save-activity"  type="submit" class="btn btn-primary" disabled>Save</button>
                         </div>
 
                     </form>
@@ -401,8 +401,15 @@
             	 $("#activityImage").attr("disabled", "true");
             	 $("#activityImageBox").hide()
             	 $("#activityChartBox").show()
-            }
+                 $("#btn-save-activity").removeAttr("disabled");
+                }
             else if(activityType == '2'){ //picture
+                $("#btn-save-activity").attr("disabled", "true");
+                
+                const el = document.getElementById("activityImage");
+                el.addEventListener("fileUploadSuccess", function(e) {
+                    $("#btn-save-activity").removeAttr("disabled");
+                });
                 $("#inputImage").removeAttr("disabled");
                 $("#activityImage").removeAttr("disabled");
                 $("#activityImageBox").show();
@@ -413,6 +420,7 @@
                 $("#activityImage").attr("disabled", "true");
                 $("#activityImageBox").hide()
                 $("#activityChartBox").hide()
+                $("#btn-save-activity").removeAttr("disabled");
             } 
         });
         
