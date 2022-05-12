@@ -147,7 +147,7 @@
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-center">
-                    <a th:href="@{'/pro/save-all-quiz/' + ${quizId}}" type="button" class="btn btn-primary btn-save-quiz" >Simpan Kuis</a>
+                    <a th:href="@{'/pro/save-all-quiz/' + ${quizId}}" type="button" class="btn btn-primary btn-save-quiz" >Simpan kuis</a>
                 </div>
             </div>
         </div>
@@ -254,6 +254,10 @@
     	window.onbeforeunload = function() {
     	    return true;
     	};
+    	
+    	$('.btn-save-course').click(
+    		window.onbeforeunload = null // Remove navigation prompt
+    	);
     	
     	el.addEventListener("fileUploadSuccess", function(e) {
     		$(".btn-save").removeAttr("disabled");

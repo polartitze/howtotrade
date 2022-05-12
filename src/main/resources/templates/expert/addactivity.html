@@ -161,7 +161,7 @@
         <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="text-center">
-                    <a th:href="@{'/pro/save-all-course/' + ${courseId}}" type="button" class="btn btn-primary btn-save-course" >Simpan Kelas</a>
+                    <a th:href="@{'/pro/save-all-course/' + ${courseId}}" type="button" class="btn btn-primary btn-save-course">Simpan kelas</a>
                 </div>
             </div>
         </div>
@@ -339,6 +339,14 @@
     	window.onbeforeunload = function() {
     	    return true;
     	};
+    	
+    	$('.btn-save-course').click(
+    		window.onbeforeunload = null // Remove navigation prompt
+    	);
+    	
+    	$('#delete-activity-btn').click(
+    		window.onbeforeunload = null // Remove navigation prompt
+    	);
     	
     	$('#daterange').daterangepicker({
             "startDate": "06/01/2021",
