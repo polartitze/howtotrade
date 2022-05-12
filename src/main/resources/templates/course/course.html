@@ -56,15 +56,15 @@
 				</div>
 			</div>
 		</div>
-		<button id="back-btn">Back</button>
-		<button id="next-btn" class="btn-floating float-right">Next</button>
-		<button id="finish-btn" style="display: none;" class="btn-floating float-right">Finish</button>		
+		<button id="back-btn">Kembali</button>
+		<button id="next-btn" class="btn-floating float-right">Lanjut</button>
+		<button id="finish-btn" style="display: none;" class="btn-floating float-right">Selesai</button>		
 	</div>
 	
 	<div id="course-modal" class="modal">
 		<div class="modal-content">
 			<h2 class="modal-text"></h2>
-			<a th:href="@{'/course/finish/' + ${courseData.courseId}}" class="text-center">Continue</button>
+			<a th:href="@{'/course/finish/' + ${courseData.courseId}}" class="text-center">Lanjut</button>
 		</div>
 	</div>
 	
@@ -228,7 +228,7 @@
     	saveAnswer()
     	
     	modal.style.display = "block";
-    	$("#course-modal .modal-text").text(` You finish the course `);
+    	$("#course-modal .modal-text").text(` Anda telah menyelesaikan kelas `);
     }
     
     function drawChart(){

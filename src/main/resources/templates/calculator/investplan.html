@@ -70,7 +70,7 @@
                         <i class="icon-calculator primary font-large-2 mr-2"></i>
                       </div>
                       <div class="media-body">
-                        <h4>Output Perhitungan</h4>
+                        <h4>Hasil Perhitungan</h4>
                         <select class="form-select" style="height: calc(2.75rem + 2px)" id="jenisPerhitungan" th:field="${calculatorForm.calculatorType.calculatorTypeId}">
                           <option th:each="list : ${listCalcType}" th:value="${list.calculatorTypeId}" th:text="${list.calculatorTypeName}"></option>
                         </select>
@@ -196,7 +196,7 @@
                     <div class="media-body">
                       <h4>Hasil</h4>
                       <textarea rows="4" class="form-control" id="score" readonly="readonly" th:field="${calculatorForm.result}" style="white-space: pre-wrap;"></textarea>
-                      <button type="submit" class="btn btn-primary btn-save float-right mt-2">Save Result</button>
+                      <button type="submit" class="btn btn-primary btn-save float-right mt-2">Simpan Hasil</button>
                     </div>
                     <div class="align-self-center">
                       <h1></h1>
@@ -219,8 +219,7 @@
           <br><br>
           
           
-          <table id="table-history" class="table paging table-bordered table-hover bg-white mt-2 mydatatable">
-            <caption>Perencanaan kamu sebelumnya</caption>
+          <table id="table-history" class="table paging table-bordered table-hover bg-white mt-2 mydatatable">  
             <thead class="thead-dark">
               <tr>
                 <th scope="col" class="text-center align-middle"> Tanggal Dibuat </th>
@@ -230,7 +229,7 @@
                 <th scope="col" class="text-center align-middle"> Waktu Investasi </th>
                 <th scope="col" class="text-center align-middle"> Koin </th>
                 <th scope="col" class="text-center align-middle"> Hasil </th>
-                <th scope="col" class="text-center align-middle"> Action </th>
+                <th scope="col" class="text-center align-middle"> Aksi </th>
               </tr>
             </thead>
             <tbody>
@@ -277,15 +276,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
           <div class="modal-header border-0 pb-0">
-            <h4>Delete Investment Planning</h4>
+            <h4>Hapus Perencanaan Investasi?</h4>
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Are you sure to delete?</p>
+            <p>Apakah Anda yakin untuk menghapus?</p>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-danger text-white modal-yes">Yes</a>
-            <a class="btn btn-info text-white" data-dismiss="modal">No</a>
+            <a class="btn btn-danger text-white modal-yes">Ya</a>
+            <a class="btn btn-info text-white" data-dismiss="modal">Tidak</a>
           </div>
         </div>
       </div>
