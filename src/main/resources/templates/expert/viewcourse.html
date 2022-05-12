@@ -16,7 +16,7 @@
 		<div class="course-container" id="quiz">
 			<div class="quiz-header">
 				<div class="col-md-12" id="activity-container" alt="Chart course">
-				<img id="activity-image" style="max-width:100%"></img>
+				<img id="activity-image" class="mw-100 mx-auto"></img>
 				<div id="activity-chart">
 					<h2 id="chart-name"></h2>
 					<div id="chart-container" style="height:500px"></div>
@@ -109,13 +109,9 @@
 		}else if(currentActivityData.activityType == "picture"){
 			var id = courseData.courseId;
 			var courseId = id.toString();
-			console.log(id);
-			console.log(courseId);
-			var path = '/assets/images/activity/on_courseid_'+ courseId + '/' +currentActivityData.imageUrl;
-			console.log(path);
 			activityChart.style.display = "none";
 			activityImg.style.display = "block";
-			activityImg.src = path;
+			activityImg.src = currentActivityData.imageUrl;
 		}else if(currentActivityData.activityType == "text"){
 			activityChart.style.display = "none";
 			activityImg.style.display = "none";

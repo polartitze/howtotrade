@@ -12,8 +12,8 @@
 <body>
 	<div class="quiz">
 		<div class="quiz-container" id="quiz">
-			<div class="quiz-header">
-				<img class="col-md-12" id="question_img" alt="Gambar Pertanyaan">
+			<div class="quiz-header col-md-12 d-flex flex-column" >
+				<img id="question_img" class="mw-100 mx-auto" alt="Gambar Pertanyaan">
 				<h2 id="question"></h2>
 				<ul>
 					<li>
@@ -86,10 +86,7 @@
 	    questionEl.innerText = currentQuizData.questionDesc;
 		var id = quizData.quizId;
 		var quizId = id.toString();
-		console.log(id);
-		console.log(quizId);
-		var path = '/assets/images/quiz/on_quizid_'+ quizId + '/' +currentQuizData.imageUrl;
-		questionImg.src = path;
+		questionImg.src = currentQuizData.imageUrl;
 	    a_text.innerText = currentQuizData.choiceOne;
 	    b_text.innerText = currentQuizData.choiceTwo;
 	    c_text.innerText = currentQuizData.choiceThree;
