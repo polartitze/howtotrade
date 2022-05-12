@@ -22,15 +22,15 @@
       <ul class="navbar-nav">
         <!-- ROLE PRO -->
         <li class="nav-item" th:classappend="${module == 'managecourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
-          <a class="nav-link" href="/pro/course/all">Manage Course</a>
+          <a class="nav-link" href="/pro/course/all">Kelola Kelas</a>
         </li>
 
         <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
-          <a class="nav-link" href="/pro/add-course">Add Course</a>
+          <a class="nav-link" href="/pro/add-course">Tambah Kelas</a>
         </li>
         
         <li class="nav-item" th:classappend="${module == 'index/addquiz' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
-          <a class="nav-link" href="/pro/add-quiz">Add Quiz</a>
+          <a class="nav-link" href="/pro/add-quiz">Tambah Kuis</a>
         </li>
         
         <!-- <li class="nav-item" th:classappend="${module == 'index/addcourse' ? 'active' : ''}" sec:authorize="hasRole('ROLE_PRO')">
@@ -42,7 +42,7 @@
         </li>
         
         <li class="nav-item" th:classappend="${module == 'course' ? 'active' : ''}" sec:authorize="hasRole('ROLE_USER')">
-          <a class="nav-link" href="/course/all">Course</a>
+          <a class="nav-link" href="/course/all">Kelas</a>
         </li>
         
         <li class="nav-item" th:classappend="${module == 'manageuser' ? 'active' : ''}" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -61,7 +61,7 @@
             <i class="fa fa-user nav-item"></i>
           </div>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="/profile" sec:authorize="hasRole('ROLE_USER')">Profile</a>
+            <a class="dropdown-item" href="/profile" sec:authorize="hasRole('ROLE_USER')">Profil</a>
             <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
           </div>
         </li>

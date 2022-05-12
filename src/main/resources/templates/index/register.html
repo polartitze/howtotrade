@@ -50,7 +50,7 @@
 										<div class="align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<i class="fas fa-user fa-lg me-3 fa-fw"></i>
-												<label class="form-label" for="userRealName">Full Name</label>
+												<label class="form-label" for="userRealName">Nama Lengkap</label>
 												<input type="text" class="form-control" th:field="*{userRealName}"
 													id="userRealName" name="userRealName" placeholder="Let us know your name" maxlength="200" required/>
 											</div>
@@ -100,8 +100,7 @@
 										<div class="align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<i class="fas fa-key fa-lg me-3 fa-fw"></i>
-												<label class="form-label" for="confirmPassword">Confirm your
-													password</label>
+												<label class="form-label" for="confirmPassword">Konfirmasi Password</label>
 												<input type="password" onchange="checkPassword()" class="form-control"
 													id="confirmPassword" name="confirmPassword" required="required"
 													placeholder="Confirm your password" />
@@ -143,7 +142,7 @@
 					<button class="close validate-mail">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
-					<p>User has been created!</p>
+					<p>Akun berhasil dibuat!</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success validate-mail">Ok</button>
@@ -161,7 +160,7 @@
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
-					<p>Register user failed!</p>
+					<p>Akun gagal dibuat!</p>
 				</div>
 				<div class="modal-footer">
 					<a class="btn btn-danger" data-dismiss="modal">Ok</a>
@@ -183,7 +182,7 @@
 		var result = false;
 		if (username.length < 6 || username.length > 20){
 			$("#usernameAlert").show();
-			$("#usernameAlert").html("Username must be 6-20 characters!");
+			$("#usernameAlert").html("Username harus memiliki 6-20 karakter!");
 			return false;
 		}
 		else {
@@ -193,7 +192,7 @@
 				async: false,
 				success: function(response) {
 					if (response != "TidakTerdaftar") {
-						$("#usernameAlert").html("Username must be unique!");
+						$("#usernameAlert").html("Username harus unik!");
 						$("#usernameAlert").show();
 						result = false;
 					}
@@ -213,7 +212,7 @@
 
 		if (!email.match(mailformat)){
 			$("#emailAlert").show();
-			$("#emailAlert").html("Invalid email address!");
+			$("#emailAlert").html("Alamat email tidak sesuai!");
 			return false;
 		}
 		else {
@@ -223,7 +222,7 @@
 				async: false,
 				success: function(response) {
 					if (response == "Terdaftar") {
-						$("#emailAlert").html("Email must be unique!");
+						$("#emailAlert").html("Email harus unik!");
 						$("#emailAlert").show();
 						result = false;
 					}
@@ -245,10 +244,10 @@
 		
 		
 		if (pass.length < 6 || pass.length > 50){
-			$("#passwordAlert").html("Password must be at 6-50 characters!");
+			$("#passwordAlert").html("Password harus memiliki 6-50 karakter!");
 			$("#passwordAlert").show();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Invalid confirm password!");
+				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}
@@ -262,7 +261,7 @@
 			$("#passwordAlert").html("Password harus mengandung angka dan huruf!");
 			$("#passwordAlert").show();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Invalid confirm password!");
+				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}
@@ -274,7 +273,7 @@
 		else {
 			$("#passwordAlert").hide();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Invalid confirm password!");
+				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}

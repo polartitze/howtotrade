@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profil</title>
 </head>
 
 <body>
@@ -62,7 +62,7 @@
                     	<input type="hidden" data-accepted="image/*" data-tag="user" id="changeProfile" name="userImage" class="simple-file-upload invisible row ">
                     </div>
                     <div class="text-center">
-                    	<button class="btn btn-primary m-5" id="btn-add" type="submit">Change Picture</button>
+                    	<button class="btn btn-primary m-5" id="btn-add" type="submit">Ubah gambar</button>
                     </div>
                     
                     
@@ -89,7 +89,7 @@
                 <div class="card-body p-5">
                     <div class="row gutters">
                         <div class="container">
-                            <h6 class="mb-2 text-primary">Personal Details</h6>
+                            <h6 class="mb-2 text-primary">Data diri</h6>
                         </div>
                         <div class="container">
                             <div class="form-group">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="container">
                             <div class="form-group">
-                                <label for="userRealName">Full Name</label>
+                                <label for="userRealName">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="userRealName" th:field="${profileForm.userRealName}" readonly>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                         <div class="container row gutters mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-left">
-                                    <button type="button" class="btn btn-primary btn-changePassword">Change Password</button>
+                                    <button type="button" class="btn btn-primary btn-changePassword">Ubah Password</button>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="">
                                 <div class="form-group">
-                                    <label for="password">Old Password</label>
+                                    <label for="password">Password Sebelumnya</label>
                                     <input type="password" class="form-control" id="oldPassword" placeholder="Enter old password" name="oldPassword"/>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                             </div>
                             <div class="">
                                 <div class="form-group">
-                                    <label for="password">New Password</label>
+                                    <label for="password">Password Baru</label>
                                     <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="newPassword" onchange="checkPassword()" 
                                      th:field="${profileForm.userPassword}"/>
                                 </div>
@@ -148,7 +148,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary btn-save save-button" disabled
-                                 >Save</button>
+                                 >Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -176,11 +176,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p class="msg">Remember your new password after you change it</p>
+				<p class="msg">Ingat password barumu setelah diubah</p>
 			</div>
 			<div class="modal-footer justify-content-center">
-                <a href="javascript: profileForm.submit();" class="btn btn-success">Save</a>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="javascript: profileForm.submit();" class="btn btn-success">Simpan</a>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 			</div>
 		</div>
 	</div>
@@ -222,7 +222,7 @@
         function checkPass() {
             $("#btn-save-with-password").on('click', function() {
                 if(!checkExistingPassword()){
-                    $("#oldPassAlert").html("Incorect Old Password!");
+                    $("#oldPassAlert").html("Password sebelumnya tidak sesuai!");
                     $("#oldPassAlert").show();
                     return false;
                 }
@@ -259,7 +259,7 @@
     		var number = /[0-9]/;
     		
             if (pass.length < 6 || pass.length > 50){
-                $("#passwordAlert").html("New Password must be at 6-50 characters!");
+                $("#passwordAlert").html("Password Baru harus memiliki 6-50 karakter!");
                 $("#passwordAlert").show();
                 buttonSaves.setAttribute('disabled', '');
             }
