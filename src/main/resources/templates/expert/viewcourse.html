@@ -98,7 +98,7 @@
 		
 		deselectAnswers()
 		
-		if(currentActivityData.isquestion){
+		if(currentActivityData.isQuestion){
 			selectAnswers(currentActivityData.question.userAnswer);			
 		}
 		
@@ -124,7 +124,7 @@
 		activityDesc.innerText = currentActivityData.activityDesc;
 		
 		
-		if(currentActivityData.isquestion){
+		if(currentActivityData.isQuestion){
 			questionContainer.style.display = "block";
 			
 			selectAnswers(currentActivityData.userAnswer)
@@ -189,7 +189,7 @@
 	}
 	
 	function saveAnswer(){
-		if(courseData.activityList[currentActivity].isquestion){
+		if(courseData.activityList[currentActivity].isQuestion){
 			courseData.activityList[currentActivity].question.userAnswer = getSelected();			
 		}
 	}

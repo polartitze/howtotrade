@@ -24,10 +24,16 @@
 				<div id="activity-desc"></div>
 				<h2 id="activity-question"></h2>
 				<div id="question-container">
+					<div class="row">
+						<div class="col-md-12 col-12">
+							<div class="alert alert-danger" id="courseAlert" style="display: none;">
+							</div>
+						</div>
+					</div>
 					<h2 id="question-desc"></h2>
 					<ul>
 						<li>
-							<input type="radio" name="answer" id="1" class="answer">
+							<input type="radio" name="answer" id="1" class="answer" required>
 							<label for="a" id="a_text"></label>
 						</li>
 		
@@ -93,7 +99,7 @@
 		
 		deselectAnswers()
 		
-		if(currentActivityData.isquestion){
+		if(currentActivityData.isQuestion){
 			selectAnswers(currentActivityData.question.userAnswer);			
 		}
 		
@@ -120,7 +126,7 @@
 		activityDesc.innerText = currentActivityData.activityDesc;
 		
 		
-		if(currentActivityData.isquestion){
+		if(currentActivityData.isQuestion){
 			questionContainer.style.display = "block";
 			
 			selectAnswers(currentActivityData.userAnswer)
@@ -185,14 +191,28 @@
 	}
 	
 	function saveAnswer(){
-		if(courseData.activityList[currentActivity].isquestion){
+		if(courseData.activityList[currentActivity].isQuestion){
 			courseData.activityList[currentActivity].question.userAnswer = getSelected();			
 		}
 	}
 	function next(){
-		saveAnswer();
-		currentActivity++;
-       	loadCourse();
+		if(courseData.activityList[currentActivity].isQuestion){// jika isquestion
+			if($('.answer:checked').val()){
+				$("#courseAlert").hide();
+				saveAnswer();
+				currentActivity++;
+				loadCourse();
+			}
+			else{
+				$("#courseAlert").html('Jawaban harus diisi!');
+				$("#courseAlert").show();
+			} 
+		}
+		else{
+			saveAnswer();
+			currentActivity++;
+			loadCourse();
+		}
        	
     };
     function back(){

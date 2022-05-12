@@ -141,7 +141,7 @@
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
-											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=192.168.18.11:8080/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
+											th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+getContextPath()+'/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
 											target="_blank"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> 
 											<i class="fas fa-share"></i> Share on Facebook
@@ -301,6 +301,10 @@
 		return result;
 	}
 
+	function getContextPath() {
+		var root = window.location.protocol + "//" + window.location.host;
+		return root;
+	}
 </script>
 
 </html>
