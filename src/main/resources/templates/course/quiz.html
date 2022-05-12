@@ -75,6 +75,11 @@
 	backBtn.onclick = function() {back()};
 	finishBtn.onclick = function() {finish()};	
 	
+	// Enable navigation prompt
+	window.onbeforeunload = function() {
+	    return true;
+	};
+	
 	function loadQuiz() {
 		
 		deselectAnswers()
@@ -154,6 +159,8 @@
     };
     
     function finish(){
+    	window.onbeforeunload = null; // Remove navigation prompt
+    	
     	quizData.questionList[currentQuiz].userAnswer = getSelected()
     	quizData.finalScore = 0;
     	for (let i = 0; i < quizData.questionList.length; i++) {
