@@ -130,10 +130,10 @@
                     <td class="text-center align-middle">
                         <span th:text="${list.choiceFour}"></span>
                     </td>
-                    <td>
+                    <td class="text-center align-middle">
                         <span th:text="${list.correctAnswer}"></span>
                     </td>
-                    <td>
+                    <td style="word-break:break-all">
                         <a th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e;"></span></a>
                     </td>
@@ -214,14 +214,14 @@
                         </div>
                         <div class="col-md-12 mb-2">
                             <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
-                            <input type="hidden" data-accepted="image/*" data-tag="question"  th:field="${addQuestion.imageUrl}" class="simple-file-upload" required>
+                            <input type="hidden" data-accepted="image/*" id="uploader-file" data-tag="question"  th:field="${addQuestion.imageUrl}" class="simple-file-upload" required>
 
                         </div>
 
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="submit" type="submit" class="btn btn-primary btn-save">Save</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-save" disabled>Save</button>
                         </div>
 
                     </form>
@@ -248,6 +248,12 @@
 
 
     <script>
+    	const el = document.getElementById("uploader-file");
+    	
+    	el.addEventListener("fileUploadSuccess", function(e) {
+    		$(".btn-save").removeAttr("disabled");
+    	});
+    	
 		$(document).ready(function(){
             $("#correctAnswer").val('');
             if($('#count').val() == 10 ){
@@ -283,7 +289,7 @@
                 var id = $(this).data('id');
                 var quizId = $("#quiz").val();
                 // var img = document.createElement("IMG");
-                var dom = '<img src="/assets/images/quiz/on_quizid_' + quizId + '/' + id  + '" alt="Failed to load image, please reload" class="img-thumbnail"> ';
+                var dom = '<img src="'+id+'" alt="Failed to load image, please reload" class="img-thumbnail"> ';
                 $('#imgInside').html(dom); 
 
             });
