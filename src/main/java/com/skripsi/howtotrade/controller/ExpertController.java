@@ -55,8 +55,8 @@ public class ExpertController {
 
 	@RequestMapping(value = "/add-quiz-save", method = RequestMethod.POST)
 	public String addQuizSave(Quiz quiz) {
-        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        String uploadDir = Constant.QUIZ_IMAGE_PATH + quiz.getCourseId();   //karna quiz belum terbentuk idnya
+//        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//        String uploadDir = Constant.QUIZ_IMAGE_PATH + quiz.getCourseId();   //karna quiz belum terbentuk idnya
         
         // if(filename == null || "".equals(filename)){
         //     quiz.setImageUrl("-");
@@ -96,8 +96,8 @@ public class ExpertController {
 
 	@RequestMapping(value = "/add-question-save", method = RequestMethod.POST)
 	public String addQuestionSave(Question question) {
-        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        String uploadDir = Constant.QUESTION_IMAGE_PATH +question.getQuizId();
+//        String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//        String uploadDir = Constant.QUESTION_IMAGE_PATH +question.getQuizId();
         
         // if(filename == null || "".equals(filename)){
         //     question.setImageUrl("-");
