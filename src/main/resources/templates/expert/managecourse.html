@@ -108,7 +108,7 @@
 					<h2>Kelas</h2>
 					<div class="row" th:each="course : ${listCourse}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 300px; flex: 1;">
+							style="min-height: 300px; flex: 1;">
 							<div class="image">
 								<div class="image-bg fit-in-background">
 									<img th:src="@{${course.imageUrl}}" style="object-fit:cover" alt="Gagal mengambil gambar, mohon dimuat ulang">
@@ -139,7 +139,7 @@
 					<h2>Kuis</h2>
 					<div class="row" th:each="quiz,iterator : ${listQuiz}">
 						<div class="probootstrap-service-2 probootstrap-animate"
-							style="height: 250px; flex: 1;" >
+							style="min-height: 250px; flex: 1;" >
 							<div class="image">
 								<div class="image-bg fit-in-background">
 									<img th:src="@{${quiz.imageUrl}}" style="object-fit:cover" alt="Gagal mengambil gambar, mohon dimuat ulang">
