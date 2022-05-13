@@ -47,7 +47,7 @@
                   </div>
                 </div>
                 <div class="text-muted small ml-3">
-                  <div> Posted on <strong>
+                  <div> Diunggah pada <strong>
                       <span th:text="${topicData.posted}"></span>
                     </strong>
                   </div>
@@ -62,14 +62,14 @@
               <div th:if="${topicData.topicimage} != '' ">
                 <!-- <img class="img-thumbnail" th:src="@{'/assets/images/' + ${topicData.username} + '/topic/' + ${topicData.topictitle} + '/' + ${topicData.imagepath} }"  -->
                 <img class="img-thumbnail" th:src="@{${topicData.topicimage}}" 
-                alt="Failed to load image, please reload">
+                alt="Gagal mengambil gambar, mohon dimuat ulang">
               </div>
             </div>
             <form th:action="@{'/topic/'+${topicData.topicid}+'/comment'}" th:object="${commentForm}" method="post">
               <div class="panel">
                 <div class="panel-body">
                 <div class="d-flex">
-                	<textarea class="form-control m-3 border-primary" th:field="*{description}" rows="4" placeholder="Type your comment" required></textarea>
+                	<textarea class="form-control m-3 border-primary" th:field="*{description}" rows="4" placeholder="Masukkan komentar Anda" required></textarea>
                 </div>
                   
                   <div class="mar-top mb-3 clearfix">
@@ -96,8 +96,8 @@
           <div class="col-1 align-self-center">
           	<!-- <img th:if="${comment.imagepath} == '-' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
             <img th:if="${comment.imagepath} != '-' " th:src="@{'/assets/images/' + ${comment.username} + '/' + ${comment.imagepath}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;"> -->
-          	<img th:if="${comment.userimage} == '' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Failed to load image" style="max-width: 50px;max-height: 50px;">
-            <img th:if="${comment.userimage} != '' " th:src="@{${comment.userimage}}" class="d-block ui-w-40 rounded-circle" alt="" style="max-width: 50px;max-height: 50px;">
+          	<img th:if="${comment.userimage} == '' " th:src="@{'/assets/images/default.jpg'}" class="d-block ui-w-40 rounded-circle" alt="Gagal mengambil gambar, mohon dimuat ulang" style="max-width: 50px;max-height: 50px;">
+            <img th:if="${comment.userimage} != '' " th:src="@{${comment.userimage}}" class="d-block ui-w-40 rounded-circle" alt="Gagal mengambil gambar, mohon dimuat ulang" style="max-width: 50px;max-height: 50px;">
           </div>
     
           <div class="col-8 pt-2">
@@ -136,7 +136,7 @@
 	            <button type="button" class="close" data-dismiss="modal">X</button>
 	          </div>
 	          <div class="modal-body border-0 pb-0">
-	            <p>Apakah anda yakin untuk menghapus?</p>
+	            <p>Apakah Anda yakin untuk menghapus?</p>
 	          </div>
 	          <div class="modal-footer">
 	            <a class="btn btn-danger modal-yes">Ya</a>

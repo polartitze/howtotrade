@@ -51,8 +51,8 @@
                           <form th:action="@{'/topic/add'}" th:object="${topicForm}" method="post" enctype="multipart/form-data">
                             <div class="panel">
                               <div class="panel-body p-3">
-                                <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Your title" required></input>
-                                <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Describe it" required></textarea>
+                                <input class="form-control" th:field="*{topicTitle}" rows="1" placeholder="Judul" required></input>
+                                <textarea class="form-control my-2" th:field="*{description}" rows="5" placeholder="Deskripsi" required></textarea>
                                 <div class="mar-top clearfix">
                                   <button class="btn btn-primary pull-right" id="btn-add" type="submit"><i class="fa fa-pencil fa-fw"></i>Tambah</button>
                                   <!-- <label class="btn btn-trans btn-icon fa fa-camera add-tooltip" for="inputImage"> -->
@@ -77,12 +77,12 @@
                     <a th:href="@{'/topic/'+${topic.topicid}}" class="text-dark" th:text="${topic.topictitle}"></a>
                   </h5>
                   <p class="text-sm"><span class="op-6"></span> <span class="text-primary" th:text="${topic.createddate}"></span>
-                    <span class="op-6">ago by</span> <span class="text-primary" th:text="${topic.username}"></span></p>
+                    <span class="op-6">oleh</span> <span class="text-primary" th:text="${topic.username}"></span></p>
                   <p th:text="${topic.description}" style="max-height:200px; overflow:auto;"></p>
                   <div >
-                    <img class="img-thumbnail"
-                      th:src="@{${topic.topicimage}}" alt="Failed to load image, please reload">
-                    </div>
+                    <img th:if="${topic.topicimage} != '' " class="img-thumbnail" th:src="@{${topic.topicimage}}" alt="Gagal mengambil gambar, mohon dimuat ulang">
+                    <!-- <img class="img-thumbnail" th:src="@{${topic.topicimage}}" alt="Failed to load image, please reload"> -->
+                  </div>
                     <!-- th:src="@{'/assets/images/' + ${topic.username} + '/topic/' + ${topic.topictitle} + '/' + ${topic.imagepath} }" alt="Failed to load image, please reload"> -->
                 </div>
                 
@@ -136,7 +136,7 @@
             <button type="button" class="close" data-dismiss="modal">X</button>
           </div>
           <div class="modal-body border-0 pb-0">
-            <p>Apakah anda yakin untuk menghapus?</p>
+            <p>Apakah Anda yakin untuk menghapus?</p>
           </div>
           <div class="modal-footer">
             <a class="btn btn-danger modal-yes">Ya</a>
