@@ -112,10 +112,10 @@
                     <!-- <td>
                         <span th:text="${list.stepNo}"></span>
                     </td> -->
-                    <td>
+                    <td class="text-center align-middle">
                         <span th:text="${iterator.index + 1}"></span>
                     </td>
-                    <td>
+                    <td class="text-center align-middle">
                         <span th:text="${list.questionDesc}"></span>
                     </td>
                     <td class="text-center align-middle">
@@ -133,9 +133,10 @@
                     <td class="text-center align-middle">
                         <span th:text="${list.correctAnswer}"></span>
                     </td>
-                    <td style="word-break:break-all">
-                        <a th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
-                            data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e;"></span></a>
+                    <td class="text-primary text-center align-middle">
+                        <a th:if="${list.imageUrl != ''}" th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
+                            data-target="#imageModal">Lihat Gambar
+						</a>
                     </td>
                     <td class="text-center align-middle">
                         <a th:href="@{ '/pro/delete-question/' + ${list.questionId} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
@@ -188,9 +189,9 @@
                     <form class="requires-validation" th:object="${addQuestion}" th:action="@{'/pro/add-question-save'}" method="post" enctype="multipart/form-data">
                         <div class="col-md-12 mb-2">
                         	<span>Pertanyaan</span>
-                            <input class="form-control" type="text" maxlength="500" th:field="${addQuestion.questionDesc}" required>
+                            <textarea class="form-control" type="text" maxlength="500" th:field="${addQuestion.questionDesc}" required
+                                style="white-space: pre-wrap; min-height:200px; border:1px solid black;"></textarea>
                         </div>
-                        
                         <div class="col-md-12 mb-2">
                         	<span>Pilihan 1</span>
                             <input class="form-control" type="text" maxlength="500"  th:field="${addQuestion.choiceOne}" required>
@@ -213,15 +214,13 @@
                             <input class="form-control" min="1" max="4" type="number" id="correctAnswer" th:field="${addQuestion.correctAnswer}" required>
                         </div>
                         <div class="col-md-12 mb-2">
-                            <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg"/ required> -->
                             <input type="hidden" data-accepted="image/*" id="uploader-file" data-tag="question"  th:field="${addQuestion.imageUrl}" class="simple-file-upload" required>
-
                         </div>
 
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
-    
+
                         <div class="form-button mt-3 text-center">
-                            <button id="submit" type="submit" class="btn btn-primary btn-save" disabled>Simpan</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-save">Simpan</button>
                         </div>
 
                     </form>
@@ -239,7 +238,7 @@
                 <div class="modal-header border-0 pb-0">
                     <button type="button" class="close" data-dismiss="modal">x</button>
                 </div>
-                <div class="modal-body border-0 pb-0" id="imgInside">
+                <div class="modal-body border-0 mw-100 mx-auto" id="imgInside">
                 </div>
             </div>
         </div>
@@ -259,10 +258,6 @@
     		window.onbeforeunload = null // Remove navigation prompt
     	);
     	
-    	el.addEventListener("fileUploadSuccess", function(e) {
-    		$(".btn-save").removeAttr("disabled");
-    	});
-    	
 		$(document).ready(function(){
             $("#correctAnswer").val('');
             if($('#count').val() == 10 ){
@@ -279,18 +274,6 @@
 
         $(".btn-save").click(function(){
 
-        });
-
-        $("#inputImage").change(function(){
-            if((this.files[0].size / 1024 / 1024) > 1){
-                $("#questionAlert").html('Maksimal file 1MB');
-                $("#questionAlert").show();
-                $(".btn-save").attr("disabled", "disabled");
-            } 
-            else{
-                $("#questionAlert").hide();
-                $(".btn-save").removeAttr("disabled");
-            } 
         });
         
         function image(){

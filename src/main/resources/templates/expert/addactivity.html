@@ -111,9 +111,9 @@
                     <th scope="col" class="text-center align-middle"> No </th>
                     <th scope="col" class="text-center align-middle"> Tipe Aktivitas</th>
                     <th scope="col" class="text-center align-middle"> Deskripsi </th>
-                    <th scope="col" class="text-center align-middle"> Gambar </th>
-                    <th scope="col" class="text-center align-middle"> Pertanyaan? </th>
-                    <th scope="col" class="text-center align-middle"> Hapus </th>
+                    <th scope="col" class="text-center align-middle"> Gambar</th>
+                    <th scope="col" class="text-center align-middle"> Pertanyaan</th>
+                    <th scope="col" class="text-center align-middle"> Hapus</th>
                 </tr>
             </thead>
             <tbody>
@@ -134,26 +134,23 @@
                     <td class="text-center align-middle">
                         <span th:text="${list.activityDesc}"></span>
                     </td>
-                    <td style="max-width: 800px;word-break: break-all;">
-                        <span th:if="${list.imageUrl == ''}" th:text="${list.imageUrl}"></span>
+                    <td style="max-width: 800px;" class="text-primary text-center align-middle">
                         <a th:if="${list.imageUrl != ''}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
-                            data-target="#imageModal"><span th:text="${list.imageUrl}" style="color: #ff606e; "></span></a>
+                            data-target="#imageModal">Lihat Gambar
+                         </a>
                     </td>
-                    <td class="text-center align-middle" th:if="${list.isQuestion}">
-                        <a data-toggle="modal" data-target="#questionModal" class="question"
+                    <td class="text-center align-middle text-primary">
+                        <a th:if="${list.isQuestion}" data-toggle="modal" data-target="#questionModal" class="question"
                         th:data-desc="${list.question.questionDesc}"
                         th:data-one="${list.question.choiceOne}"
                         th:data-two="${list.question.choiceTwo}"
                         th:data-three="${list.question.choiceThree}"
                         th:data-four="${list.question.choiceFour}"
                         th:data-answer="${list.question.correctAnswer}"
-                        ><span style="color: #ff606e; ">Ada</span></a>
-                    </td>
-                    <td class="text-center align-middle" th:if="${!list.isQuestion}">
-                        <span>Tidak Ada</span>
+                        ><span>Lihat Pertanyaan</span></a>
                     </td>
                     <td class="text-center align-middle">
-                        <a th:href="@{ '/pro/delete-activity/' + ${list.activityId} }"><i class="bi-trash" style="color: #ff606e;"></i></a>
+                        <a th:href="@{ '/pro/delete-activity/' + ${list.activityId} }"><i class="bi-trash text-danger"></i></a>
                     </td>
                 </tr>
             </tbody>
@@ -259,7 +256,8 @@
                         </div>
                         <div class="col-md-12 mt-3">
                         	<span>Deskripsi</span>
-                            <input class="form-control" type="text" maxlength="500" id="activityDesc" th:field="${addActivity.activityDesc}" required>
+                        	<textarea id="activityDesc" class="form-control" type="text" maxlength="500" th:field="${addActivity.activityDesc}" required
+                                style="white-space: pre-wrap; min-height:200px; border:1px solid black;"></textarea>
                         </div>
                         <div class="col-md-12 mt-3" id="activityImageBox" style="display: none;">
                             <!-- <input id="inputImage" type="file" name="image" accept="image/png, image/jpeg" disabled/> -->
@@ -305,7 +303,7 @@
                         <input type="hidden" name="courseId" th:value="${courseId}" id="course">
     
                         <div class="form-button mt-3 text-center">
-                            <button id="btn-save-activity"  type="submit" class="btn btn-primary" disabled>Save</button>
+                            <button id="btn-save-activity"  type="submit" class="btn btn-primary" disabled>Simpan</button>
                         </div>
 
                     </form>
