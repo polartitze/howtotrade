@@ -1,40 +1,9 @@
-delete from course;
-insert into course
-values 
-(1, 'Technical Analysis', 'Mempelajari cara membaca teknikal grafik dan pola-pola berulang yang seringkali muncul pada saat membaca grafik candlestick',
-	'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '1'),
-(2, 'Fundamental Analysis', 'Mempelajari cara membaca laporan keuangan dan menilai kesehatan suatu perusahaan',
-	'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '1');
-
-delete from quiz;
-insert into quiz
-values 
-(1, 1, 'Technical Analysis', 'Mempelajari cara membaca teknikal grafik dan pola-pola berulang yang seringkali muncul pada saat membaca grafik candlestick', 
-	'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1378&q=80','1'),
-(2, 2, 'Fundamental Analysis', 'Mengetes kemampuan pengetahuan mengenai cara membaca laporan keuangan dan kesehatan suatu perusahaan', 
-	'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1378&q=80','1');
-	
-delete from question;
-insert into question
-values
-(1, 1, 1, 1, 'Quiz 1 Question 1', 1, null, 'Choice 1', 'Choice 2', 'Choice 3', 'Choice 4', 
-	'https://canopylab.com/wp-content/uploads/2020/05/Working-with-adaptive-quizzes-A-beginners-guide.jpg'),
-(2, 1, 2, 2, 'Quiz 1 Question 2', 1, null, 'Choice 1', 'Choice 2', 'Choice 3', 'Choice 4', 
-	'https://canopylab.com/wp-content/uploads/2020/05/Working-with-adaptive-quizzes-A-beginners-guide.jpg'),
-(3, 1, 3, 3, 'Saham apakah ini?', 2, null, 'BSML', 'DEWA', 'TAMA', 'GOTO',  
-	'https://facsekuritas.co.id/storage/media/original/dewa.jpg');
+DELETE FROM ROLES;
+INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN'), (3, 'ROLE_PRO');
 
 delete from activity_type;
 insert into activity_type 
 values (1, 'chart'), (2, 'picture'), (3, 'text');
-
-delete from activity;
-INSERT INTO public.activity
-VALUES 
-(1, 1, 1, 2, 'Halo semua, selamat datang di howtotrade :D', 'https://images.unsplash.com/photo-1600577916048-804c9191e36c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80', 'y'),
-(2, 1, 2, 2, 'Pada course kali ini kita akan mempelajari mengenai analisa teknikal dan cara membaca chart', 'https://wallpaperaccess.com/full/4040865.jpg', 'n'),
-(3, 1, 3, 1, 'Belajar membaca grafik BTC/USDT', 'https://wallpaperaccess.com/full/4040865.jpg', 'n'),
-(4, 1, 4, 1, 'Belajar pola bullish hammer',	NULL, 'n');
 
 delete from chart;
 insert into chart(activityid, chartname)
@@ -44,21 +13,20 @@ values
 	(0, 'MATIC/USDT'),
 	(0, 'DOGE/USDT'),
 	(0, 'BNB/USDT');
-
-DELETE FROM ROLES;
-INSERT INTO roles(roleid, rolename) VALUES (1, 'ROLE_USER'), (2, 'ROLE_ADMIN'), (3, 'ROLE_PRO');
-
-DELETE FROM COIN;
-INSERT INTO COIN VALUES ('BTC','BITCOIN',20,'1'),
-('ETH','ETHEREUM',10,'1'),
-('TKO','TOKOCRYTO',5,'1'),
-('DOGE','DOGECOIN',7,'1')
-
+	
+delete from calculatortype;
 insert into calculatortype 
 values 
 	(1, 'Total Investasi (Tabung bulanan)'),
 	(2, 'Total Investasi (Tabung sekali di awal)');
 	
+DELETE FROM COIN;
+INSERT INTO COIN VALUES ('BTC','BITCOIN',30,'1'),
+	('ETH','ETHEREUM',20,'1'),
+	('BNB','BINANCE',15,'1'),
+	('XRP','RIPPLE',5,'1');
+	
+delete from candle;
 INSERT INTO candle(chartid, candletime, openprice, highprice, lowprice, closeprice, volume, tradecount) values 
 (1, '5/10/2022', 30074, 30691, 29730, 29919, 10110, 138710),
 (1, '5/9/2022', 34038, 34243, 30033, 30076, 191877, 2564538),

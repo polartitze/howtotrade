@@ -1,8 +1,8 @@
 drop table if exists course;
 create table course(
     courseid serial primary key,
-    coursename character varying(50),
-    coursedesc character varying(500),
+    coursename character varying(100),
+    coursedesc character varying(1000),
 	imageUrl character varying(500),
 	issaved character varying(1) DEFAULT '0',
 	courseOrder integer
@@ -20,8 +20,8 @@ drop table if exists quiz;
 create table quiz(
 	quizid serial primary key,
 	courseId int,
-	quizname character varying(50),
-	quizdesc character varying(500),
+	quizname character varying(100),
+	quizdesc character varying(1000),
 	imageUrl character varying(500),
 	issaved varchar(1) default '0'
 );
@@ -41,7 +41,7 @@ create table question(
 	quizid int,
 	activityid int,
 	stepno int not null,
-	questiondesc character varying(500),
+	questiondesc character varying(1000),
 	correctanswer int not null,
 	useranswer int,
 	choiceone character varying(500) not null,
@@ -57,7 +57,7 @@ create table activity(
 	courseid int,
 	stepno int,
 	activitytypeid int,
-	activitydesc character varying(100),
+	activitydesc character varying(1000),
 	imageUrl character varying(500),
 	isquestion boolean
 );
@@ -103,7 +103,7 @@ drop table if exists comment;
 CREATE TABLE comment
 (
     commentid SERIAL NOT NULL PRIMARY KEY,
-    description VARCHAR(500),
+    description VARCHAR(1000),
     createddate timestamp,
     userid integer,
     topicid integer
@@ -112,17 +112,16 @@ CREATE TABLE comment
 drop table if exists investmentplanning;
 CREATE TABLE IF NOT EXISTS public.investmentplanning
 (
-	planningid serial NOT NULL ,
+	planningid serial primary key,
 	userid integer,
-	duration character varying(20) COLLATE pg_catalog."default",
+	duration character varying(20),
 	coinid integer,
-	investasiawal character varying(20) COLLATE pg_catalog."default",
-	calctype character varying(20) COLLATE pg_catalog."default",
-	result character varying(255) COLLATE pg_catalog."default",
+	investasiawal character varying(20),
+	calctype character varying(20),
+	result character varying(255),
 	createddate timestamp without time zone,
-	coincode character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
-	investasiperbulan character varying(20) COLLATE pg_catalog."default" DEFAULT '-'::character varying,
-	CONSTRAINT investmentplanning_pkey PRIMARY KEY (planningid)
+	coincode character varying(20) DEFAULT '-'::character varying,
+	investasiperbulan character varying(20) DEFAULT '-'::character varying
 );
 drop table if exists roles;
 CREATE TABLE roles
@@ -139,7 +138,7 @@ CREATE TABLE topic
     description VARCHAR(10000),
     createddate timestamp,
     authorid integer NOT NULL,
-    imagepath varchar(65) default '-'
+    topicImage varchar(1000) default ''
 );
 
 drop table if exists users;
@@ -152,7 +151,7 @@ CREATE TABLE public.users
     userpassword VARCHAR(65),
     userrole integer,
     userstatus VARCHAR(1),
-    imagepath varchar(65) default '-',
+    userImage varchar(1000) default '',
     isverified varchar(1) default '0'
 );
 
@@ -176,14 +175,9 @@ create table calculatortype(
 	calculatortypename character varying(100)
 );
 
-CREATE TABLE IF NOT EXISTS public.helper_course
+drop table if exists helper_course;
+CREATE TABLE IF NOT EXISTS helper_course
 (
     courseorder integer,
     courseid integer
 )
-
-
-alter table topic add topicImage varchar(1000) default ''
-alter table users add userImage varchar(1000) default ''
-alter table users drop imagepath
-alter table topic drop imagepath

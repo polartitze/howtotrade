@@ -18,22 +18,22 @@
 				<ul>
 					<li>
 						<input type="radio" name="answer" id="1" class="answer">
-						<label for="a" id="a_text"></label>
+						<label for="1" id="a_text"></label>
 					</li>
 	
 					<li>
 						<input type="radio" name="answer" id="2" class="answer">
-						<label for="b" id="b_text"></label>
+						<label for="2" id="b_text"></label>
 					</li>
 	
 					<li>
 						<input type="radio" name="answer" id="3" class="answer">
-						<label for="c" id="c_text"></label>
+						<label for="3" id="c_text"></label>
 					</li>
 	
 					<li>
 						<input type="radio" name="answer" id="4" class="answer">
-						<label for="d" id="d_text"></label>
+						<label for="4" id="d_text"></label>
 					</li>
 	
 				</ul>
@@ -169,7 +169,7 @@
     	modal.style.display = "block";
     	
     	//$("#quiz-modal .modal-text").text(` You answered ${quizData.finalScore}/${quizData.questionList.length} questions correctly `);
-    	$("#quiz-modal .modal-text").text(" You answered " + quizData.finalScore + "/" + quizData.questionList.length + " questions correctly ");
+    	$("#quiz-modal .modal-text").text(" Anda menjawab " + quizData.finalScore + "/" + quizData.questionList.length + " soal dengan benar ");
     	$("#quiz-modal .modal-continue").attr("href", "/pro/course/all");
     	
     }
