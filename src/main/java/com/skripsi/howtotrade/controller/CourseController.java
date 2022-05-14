@@ -84,10 +84,15 @@ public class CourseController {
 		return "redirect:/course/all";
 	}
 	
-	@RequestMapping(value="/{userName}/{cid}/{qid}/certificate.html", method = RequestMethod.GET)
+	// @RequestMapping(value="/certificate", method = RequestMethod.GET)
+	// public String certificatePage(Model model,
+	// 							@RequestParam ("uName") String userName,
+	// 							@RequestParam ("cid") String cid,
+	// 							@RequestParam ("qid") String qid) {
+	@RequestMapping(value="/certificate/{userName}/{cid}/{qid}", method = RequestMethod.GET)
 	public String certificatePage(Model model,
-								@PathVariable String userName,
-								@PathVariable String cid,
+								@PathVariable  String userName,
+								@PathVariable  String cid,
 								@PathVariable String qid) {
 		int courseId = Integer.parseInt(cid);
 		int quizId = Integer.parseInt(qid);

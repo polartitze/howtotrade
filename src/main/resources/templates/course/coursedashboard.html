@@ -138,11 +138,12 @@
 										<a
 											th:if="${!quiz.isLock AND quiz.isPass}" 
 											class="btn btn-primary"
-											th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+getContextPath()+'/course/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} + '/certificate.html' }"
 											target="_blank"
+											th:href="@{'https://www.facebook.com/sharer/sharer.php?u=https://howtotrade.herokuapp.com/course/certificate/' + ${username} + '/' + ${quiz.courseId} + '/' + ${quiz.quizId} }"
 											style="background: #3ec1d5; border-color: #3ec1d5;"> 
 											<i class="fas fa-share"></i> Bagikan ke Facebook
 										</a>
+										<!-- th:href="@{'https://www.facebook.com/sharer/sharer.php?u=https://howtotrade.herokuapp.com/course/certificate?uName=' + ${username} + '&cid=' + ${quiz.courseId} + '&qid=' + ${quiz.quizId} }" -->
 									</span>
 								</p>
 

@@ -153,7 +153,7 @@ public class QuizService {
 		int totalQuestion = getQuizTotalQuestion(quizId);
 		int score = mapper.isPassCourseAndQuiz(userName, courseId, quizId);
 
-		if(score /totalQuestion  >= 0.75) {
+		if((float) score / totalQuestion  >= 0.75) {
 			return true;
 		}
 		return false;
