@@ -44,13 +44,9 @@ public class UserController {
         System.out.println("------------------Updating profile");
         System.out.println(user.getUserPassword());
         
-        if("".equals(user.getUserPassword()) || user.getUserPassword() == null){
-            userService.saveProfile(user.getUserEmail(), user.getUserId());
-        }else{
-            String encoded = passwordEncoder().encode(user.getUserPassword());
-            System.out.println("encoded: "+encoded); 
-            userService.saveProfileWithPassword(user.getUserEmail(), encoded, user.getUserId());
-        }
+        String encoded = passwordEncoder().encode(user.getUserPassword());
+        System.out.println("encoded: "+encoded); 
+        userService.saveProfile(user.getUserEmail(), encoded, user.getUserId());
         
         System.out.println("----------------Update user berhasil!");
         return "redirect:/profile";
