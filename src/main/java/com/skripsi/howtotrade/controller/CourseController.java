@@ -23,18 +23,18 @@ import com.skripsi.howtotrade.service.UserService;
 public class CourseController {
 	
 	@Autowired
-	CourseService courseService;
+	private CourseService courseService;
 	
 	@Autowired
-	QuizService quizService;
+	private QuizService quizService;
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	public CourseController() {}
 
 	@ModelAttribute("module")
-    public String module() {
+    private String module() {
         return "course";
     }
 	

@@ -13,13 +13,13 @@ import com.skripsi.howtotrade.model.Quiz;
 public class QuizService {
 	
 	@Autowired
-	QuizMapper mapper;
+	QuizMapper quizMapper;
 	
 	public List<Quiz> getAllQuiz(int userId) {
-		List<Quiz> quizList = mapper.getAllQuiz();
+		List<Quiz> quizList = quizMapper.getAllQuiz();
 		
 		for (Quiz quiz : quizList) {
-			quiz.setLock(mapper.getQuizLock(userId, quiz.getQuizId()));
+			quiz.setLock(quizMapper.getQuizLock(userId, quiz.getQuizId()));
 			
 			quiz.setEnroll(isQuizEnroll(userId, quiz.getQuizId()));
 			if(quiz.isEnroll()) {
@@ -37,7 +37,7 @@ public class QuizService {
 	}
 	
 	public List<Quiz> getAllQuiz() {
-		List<Quiz> quizList = mapper.getAllQuiz();
+		List<Quiz> quizList = quizMapper.getAllQuiz();
 		
 		for (Quiz quiz : quizList) {
 			quiz.setLock(false);
@@ -49,20 +49,16 @@ public class QuizService {
 		return quizList;
 	}
 	
-	private int getQuizTotalQuestion (int quizId) {
-		return mapper.getQuizTotalQuestion(quizId);
-	}
-	
 	public Quiz getQuizById(int quizId) {
-		Quiz quiz = mapper.getQuizById(quizId);
-		quiz.setQuestionList(mapper.getAllQuizQuestion(quizId));
+		Quiz quiz = quizMapper.getQuizById(quizId);
+		quiz.setQuestionList(quizMapper.getAllQuizQuestion(quizId));
 		
 		return quiz;
 	}
 	
 	private boolean isQuizEnroll(int userId, int quizId) {
 		try {
-			if(mapper.isExistQuizEnroll(userId, quizId) > 0) {
+			if(quizMapper.isExistQuizEnroll(userId, quizId) > 0) {
 				return true;
 			} else {
 				return false;
@@ -73,9 +69,13 @@ public class QuizService {
 		}
 	}
 	
+	private int getQuizTotalQuestion (int quizId) {
+		return quizMapper.getQuizTotalQuestion(quizId);
+	}
+	
 	public int getQuizHighestScore(int userId, int quizId) {
 		try {
-			return mapper.getQuizHighestScore(userId, quizId);
+			return quizMapper.getQuizHighestScore(userId, quizId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -84,7 +84,7 @@ public class QuizService {
 	
 	public boolean saveProgress(int userId, int quizId, int score) {
 		try {
-			mapper.saveQuizEnroll(userId, quizId, score);
+			quizMapper.saveQuizEnroll(userId, quizId, score);
 			return true;			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,27 +104,27 @@ public class QuizService {
 	}
 	
 	public void saveQuizEnroll(int quizId, int userId, int score) {
-		mapper.saveQuizEnroll(userId, quizId, score);
+		quizMapper.saveQuizEnroll(userId, quizId, score);
 	}
 
 	public void addQuiz(int courseId, String quizName, String quizDesc, String imageUrl) {
-		mapper.addQuiz(courseId, quizName, quizDesc, imageUrl);
+		quizMapper.addQuiz(courseId, quizName, quizDesc, imageUrl);
 	}
 
 	// public List<Map<String,String>> getAllQuizName() {
-	// 	return mapper.getAllQuizName();
+	// 	return quizMapper.getAllQuizName();
 	// }
 
 	public void addQuestion(int quizid, int stepno, String questiondesc, int correctanswer,  String choiceone, String choicetwo, String choicethree, String choicefour, String imageurl) {
-		mapper.addQuestion(quizid, stepno, questiondesc, correctanswer, choiceone, choicetwo, choicethree, choicefour, imageurl);
+		quizMapper.addQuestion(quizid, stepno, questiondesc, correctanswer, choiceone, choicetwo, choicethree, choicefour, imageurl);
 	}
 
 	public int getLatestQuizId(){
-		return mapper.getLatestQuizId();
+		return quizMapper.getLatestQuizId();
 	}
 	
 	public int getLatestStepNo(int quizId){
-		Integer latestStepNo = mapper.getLatestStepNo(quizId);
+		Integer latestStepNo = quizMapper.getLatestStepNo(quizId);
 		int result;
 		if (latestStepNo == null) {
 			result = 0;
@@ -134,24 +134,24 @@ public class QuizService {
 	}
 
 	public List<Question> getAllQuizQuestion(int quizId){
-		return mapper.getAllQuizQuestion(quizId);
+		return quizMapper.getAllQuizQuestion(quizId);
 	}
 
 	public void deleteQuestion(int questionId){
-		mapper.deleteQuestion(questionId);
+		quizMapper.deleteQuestion(questionId);
 	}
 
 	public int countListQuestion(int quizId){
-		return mapper.countListQuestion(quizId);
+		return quizMapper.countListQuestion(quizId);
 	}
 
 	public void saved(int quizId){
-		mapper.saved(quizId);
+		quizMapper.saved(quizId);
 	}
 
 	public boolean isPassCourseAndQuiz(String userName, int courseId, int quizId){
 		int totalQuestion = getQuizTotalQuestion(quizId);
-		int score = mapper.isPassCourseAndQuiz(userName, courseId, quizId);
+		int score = quizMapper.isPassCourseAndQuiz(userName, courseId, quizId);
 
 		if((float) score / totalQuestion  >= 0.75) {
 			return true;
@@ -160,6 +160,6 @@ public class QuizService {
 	}
 
 	public void deleteQuizById(int quizId){
-		mapper.deleteQuizById(quizId);
+		quizMapper.deleteQuizById(quizId);
 	}
 }
