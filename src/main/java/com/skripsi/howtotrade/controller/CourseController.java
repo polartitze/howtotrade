@@ -42,7 +42,8 @@ public class CourseController {
 	public String getAllCourse(Principal principal, Model model) {
 		try {
 			Users user = userService.findUserAccount(principal.getName());
-			int userId = userService.getUserId(principal.getName());
+			// int userId = userService.getUserId(principal.getName());
+			int userId = user.getUserId();
 			model.addAttribute("username", user.getUserName() );
 			model.addAttribute("realname", user.getUserRealName());
 			model.addAttribute("listCourse", courseService.getAllCourse(userId));
