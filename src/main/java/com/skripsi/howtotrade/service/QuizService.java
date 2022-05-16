@@ -13,7 +13,7 @@ import com.skripsi.howtotrade.model.Quiz;
 public class QuizService {
 	
 	@Autowired
-	QuizMapper quizMapper;
+	private QuizMapper quizMapper;
 	
 	public List<Quiz> getAllQuiz(int userId) {
 		List<Quiz> quizList = quizMapper.getAllQuiz();

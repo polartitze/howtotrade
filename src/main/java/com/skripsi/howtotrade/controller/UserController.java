@@ -6,8 +6,6 @@ import java.security.Principal;
 
 import com.skripsi.howtotrade.model.Users;
 import com.skripsi.howtotrade.service.UserService;
-import com.skripsi.howtotrade.utility.Constant;
-import com.skripsi.howtotrade.utility.FileUploadUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/profile")
@@ -68,16 +65,6 @@ public class UserController {
 
     @RequestMapping(value = "/change-profile", method = RequestMethod.POST)
     public String changeProfile(Model model, Principal principal, @RequestParam(value = "userImage", required = false) String userImage){
-        // String filename = org.springframework.util.StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        // String uploadDir = Constant.PROFILE_IMAGE_PATH + principal.getName();
-        
-        // try {
-        //     FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
-            
-        // } catch (IOException exception) {
-        //     System.out.println("File uploaded with error");
-        //     exception.printStackTrace();
-        // }
 
         int userId = userService.getUserId(principal.getName());
 
@@ -86,6 +73,5 @@ public class UserController {
         model.addAttribute("profileForm", new Users());
         model.addAttribute("data", userService.findUserAccount(principal.getName()));
         return "index/profile";
-        // return "redirect:/profile"; 
     }
 }

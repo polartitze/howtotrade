@@ -1,15 +1,12 @@
 package com.skripsi.howtotrade.controller;
 
 
-import java.io.IOException;
 import java.security.Principal;
 
 import com.skripsi.howtotrade.model.Comment;
 import com.skripsi.howtotrade.model.Topic;
 import com.skripsi.howtotrade.service.TopicService;
 import com.skripsi.howtotrade.service.UserService;
-import com.skripsi.howtotrade.utility.Constant;
-import com.skripsi.howtotrade.utility.FileUploadUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,18 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
 @RequestMapping("/topic")
 public class TopicController {
     @Autowired
-    TopicService topicService;
+    private TopicService topicService;
     
     @Autowired
-    UserService userService;
+    private UserService userService;
     
     
     public TopicController(){
