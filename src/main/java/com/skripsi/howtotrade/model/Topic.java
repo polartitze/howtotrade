@@ -11,7 +11,6 @@ public class Topic {
     private Date createdDate;
     private int authorId;
     private String userName;
-    private MultipartFile image;
     private String topicImage;
 
     public String getTopicImage() {
@@ -20,15 +19,6 @@ public class Topic {
 
     public void setTopicImage(String topicImage) {
         this.topicImage = topicImage;
-    }
-
-
-    public MultipartFile getImage() {
-        return this.image;
-    }
-
-    public void setImage(MultipartFile image) {
-        this.image = image;
     }
 
     public String getUserName() {
