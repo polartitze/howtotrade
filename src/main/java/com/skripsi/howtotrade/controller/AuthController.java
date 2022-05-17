@@ -64,7 +64,7 @@ public class AuthController {
     }
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
-	public String addUser(Model model) {
+	public String register(Model model) {
 		System.out.println("Redirecting /user/add...");
 		// System.out.println("==========username: "+principal.getName());
 		Users appUser = new Users();

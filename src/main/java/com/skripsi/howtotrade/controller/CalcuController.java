@@ -70,7 +70,7 @@ public class CalcuController {
     }
 
     @RequestMapping("/delete/{calculatorId}")
-    public String page(Model model, Principal principal, @PathVariable int calculatorId){
+    public String deleteHistory(Model model, Principal principal, @PathVariable int calculatorId){
         calcuService.deletePlanning(calculatorId);
         return "redirect:/calculator" ;
     }

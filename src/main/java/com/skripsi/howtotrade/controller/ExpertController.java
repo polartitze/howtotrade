@@ -43,7 +43,7 @@ public class ExpertController {
 	}
 	//TAMBAH KUIS
 	@RequestMapping(value = "/add-quiz", method = RequestMethod.GET)
-	public String addQuiz(Model model) {
+	public String openAddQuiz(Model model) {
 		model.addAttribute("listCourse", courseService.getAllCourseName());
 		model.addAttribute("addQuiz", new Quiz());
 
@@ -66,7 +66,7 @@ public class ExpertController {
 
 
 	@RequestMapping(value = "/add-question/{quizId}", method = RequestMethod.GET)
-	public String addQuestion(Model model, @PathVariable int quizId) {
+	public String openAddQuestion(Model model, @PathVariable int quizId) {
 		model.addAttribute("quizId", quizId);
 		model.addAttribute("count", quizService.countListQuestion(quizId));
 		model.addAttribute("listQuestion", quizService.getAllQuizQuestion(quizId));
@@ -106,7 +106,7 @@ public class ExpertController {
 
 	//TAMBAH COURSE
 	@RequestMapping(value = "/add-course", method = RequestMethod.GET)
-	public String addCourse(Model model) {
+	public String openAddCourse(Model model) {
 		model.addAttribute("addCourse", new Course());
 		return "expert/addcourse";
 	}
@@ -127,7 +127,7 @@ public class ExpertController {
 	}
 
 	@RequestMapping(value = "/add-activity/{courseId}", method = RequestMethod.GET)
-	public String addActivity(Model model, @PathVariable int courseId) {
+	public String openAddActivity(Model model, @PathVariable int courseId) {
 		
 		model.addAttribute("count", courseService.countListActivity(courseId));
 		model.addAttribute("courseId", courseId);
@@ -191,7 +191,7 @@ public class ExpertController {
     public String getAllCourse(Model model, Principal principal) {
 		try {
 			Users user = userService.findUserAccount(principal.getName());
-			int userId = userService.getUserId(principal.getName());
+			int userId = user.getUserId();
 			model.addAttribute("username", user.getUserName() );
 			model.addAttribute("realname", user.getUserRealName());
 			model.addAttribute("listCourse", courseService.getAllCourse(userId));
