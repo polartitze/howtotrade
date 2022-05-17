@@ -8,36 +8,8 @@ public class Users{
     private String userPassword;
     private int userRole;
     private String userStatus;
-    // private String imagePath;
-    private String isVerified;
-
     private String userImage;
-
-
-    public String getUserImage() {
-        return this.userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
-    }
-
-
-    public String getIsVerified() {
-        return this.isVerified;
-    }
-
-    public void setIsVerified(String isVerified) {
-        this.isVerified = isVerified;
-    }
-
-    // public String getImagePath() {
-    //     return this.imagePath;
-    // }
-
-    // public void setImagePath(String imagePath) {
-    //     this.imagePath = imagePath;
-    // }
+    private String isVerified;
 
     public int getUserId() {
         return this.userId;
@@ -49,12 +21,19 @@ public class Users{
 
     public String getUserName() {
         return this.userName;
-        // return "user";
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
+    
+    public String getUserRealName() {
+		return userRealName;
+	}
+
+	public void setUserRealName(String userRealName) {
+		this.userRealName = userRealName;
+	}
 
     public String getUserEmail() {
         return this.userEmail;
@@ -66,7 +45,6 @@ public class Users{
 
     public String getUserPassword() {
         return this.userPassword;
-        // return "pass";
     }
 
     public void setUserPassword(String userPassword) {
@@ -89,11 +67,19 @@ public class Users{
         this.userStatus = userStatus;
     }
 
-	public String getUserRealName() {
-		return userRealName;
-	}
+	public String getUserImage() {
+        return this.userImage;
+    }
 
-	public void setUserRealName(String userRealName) {
-		this.userRealName = userRealName;
-	}
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    public String getIsVerified() {
+        return this.isVerified;
+    }
+
+    public void setIsVerified(String isVerified) {
+        this.isVerified = isVerified;
+    }
 }

@@ -22,18 +22,17 @@ public class CalcuController {
     private CalcuService calcuService;
 
     @RequestMapping("")
-    private String page(Model model, Principal principal){
-        System.out.println("================: "+calcuService.getAllCoin());
+    public String page(Model model, Principal principal){
         model.addAttribute("listCoin", calcuService.getAllCoin());
         model.addAttribute("calculatorForm", new Calculator());
         model.addAttribute("history", calcuService.checkInvestmentData(principal.getName()));
-        model.addAttribute("listCalcType", calcuService.getAllCalculateType());
+        model.addAttribute("listCalcType", calcuService.getAllCalculatorType());
         
         return "calculator/investplan" ;
     }
 
     @RequestMapping("/save-calculation")
-    private String saveResult(Model model, Calculator calc, Principal principal){
+    public String saveResult(Model model, Calculator calc, Principal principal){
         System.out.println("===========SAVE RESULT===============");
         System.out.println("calc.toString: "+calc.toString());
         
@@ -44,7 +43,7 @@ public class CalcuController {
 
     @ResponseBody
     @RequestMapping("/calculate-result")
-    private String calculateResult(Model model, 
+    public String calculateResult(Model model, 
         @RequestParam(value =  "jenisPerhitungan", required = true) String calcTypeStr,
         @RequestParam(value =  "koin", required = false) String coinCode,
         @RequestParam(value =  "waktu", required = false) String duration,
@@ -60,9 +59,6 @@ public class CalcuController {
 
         int calculatorTypeId = Integer.parseInt(calcTypeStr);
 
-        // if(Constant.HITUNG_COIN_YANG_COCOK.equals(jenisPerhitungan)){
-        //     retval = calcuService.calcCoin(totalInvestasi, waktu, perBulan);
-        // }
         if(Constant.HITUNG_TOTAL_INVESTASI == calculatorTypeId){
             retval = String.valueOf(calcuService.calcTotalInvestment(coinCode, duration, investasiPerbulan, investasiAwal));
         }
@@ -74,7 +70,7 @@ public class CalcuController {
     }
 
     @RequestMapping("/delete/{calculatorId}")
-    private String page(Model model, Principal principal, @PathVariable int calculatorId){
+    public String page(Model model, Principal principal, @PathVariable int calculatorId){
         calcuService.deletePlanning(calculatorId);
         return "redirect:/calculator" ;
     }

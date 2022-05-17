@@ -26,22 +26,16 @@ public class CalcuService {
         return calcuMapper.getAllCoin();
     } 
     
-    public List<CalculatorType> getAllCalculateType(){
-        return calcuMapper.getAllCalculateType();
+    public List<CalculatorType> getAllCalculatorType(){
+        return calcuMapper.getAllCalculatorType();
     }
-    
-    //    public List<Map<String,String>> checkInvestmentData(String username){
-//        int userId = userService.getUserId(username);
-//        System.out.println("==========="+calcuMapper.checkInvestmentData(userId));
-//        return calcuMapper.checkInvestmentData(userId);
-//    }
 
     public List<Calculator> checkInvestmentData(String username){
         int userId = userService.getUserId(username);
         List<Calculator> list = calcuMapper.checkInvestmentData(userId);
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setCoin(getCoinByCalculatorId(list.get(i).getCalculatorId()));
-            list.get(i).setCalculatorType(getCalcTypeByCalculatorId(list.get(i).getCalculatorId()));
+            list.get(i).setCalculatorType(getCalcuTypeByCalculatorId(list.get(i).getCalculatorId()));
             if(!"-".equals(list.get(i).getInvestasiAwal())){
                 list.get(i).setInvestasiAwal("Rp"+currFormat(list.get(i).getInvestasiAwal()));
             }
@@ -56,8 +50,8 @@ public class CalcuService {
         return calcuMapper.getCoinByCalculatorId(calculatorId);
     }
     
-    private CalculatorType getCalcTypeByCalculatorId(int calculatorId){
-        return calcuMapper.getCalcTypeByCalculatorId(calculatorId);
+    private CalculatorType getCalcuTypeByCalculatorId(int calculatorId){
+        return calcuMapper.getCalcuTypeByCalculatorId(calculatorId);
     }
 
     public void saveResult(Calculator calc, String username){

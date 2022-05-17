@@ -14,62 +14,51 @@ import org.springframework.stereotype.Service;
 @Service
 public class TopicService {
     @Autowired
-    private TopicMapper mapper;
-
-    @Autowired
-    private UserMapper userMapper;
+    private TopicMapper topicMapper;
 
     public TopicService(){
         
     }
 
     public List<Map<String,String>> getAllTopic(){
-        return mapper.getAllTopics();
+        return topicMapper.getAllTopics();
     }
 
     public HashMap<String, String> getTopicById(int id){
-        return mapper.getTopicById(id);
+        return topicMapper.getTopicById(id);
     }
 
     public void insertTopic(Topic topic){
-        mapper.insertTopic(topic);
+        topicMapper.insertTopic(topic);
     }
 
     public void deleteTopic(int userId, int topicId){
-        mapper.deleteTopic(userId, topicId);
+        topicMapper.deleteTopic(userId, topicId);
     }
 
     public void deleteTopicAdmin(int topicId){
-        mapper.deleteTopicAdmin(topicId);
+        topicMapper.deleteTopicAdmin(topicId);
     }
     
     public List<HashMap<String, String>> getCommentOnTopic(int id){
-        return mapper.getCommentOnTopic(id);
+        return topicMapper.getCommentOnTopic(id);
     }
 
-    public int getUserId(String userName){
-        return userMapper.getUserId(userName);
-    }
-    
     public void insertComment(Comment comment){
        
-        mapper.insertComment(comment);
+        topicMapper.insertComment(comment);
     }
 
     public void deleteComment(int commentId, int topicId){
-        mapper.deleteComment(commentId, topicId);
-    }
-
-    public String getRole(String username){
-        return userMapper.getRole(username);
+        topicMapper.deleteComment(commentId, topicId);
     }
 
     public void blockMember(int userId){
-        mapper.blockMember(userId);
+        topicMapper.blockMember(userId);
     }
 
     public int getAuthor(int topicId){
-        return mapper.getAuthor(topicId);
+        return topicMapper.getAuthor(topicId);
     }
 
     

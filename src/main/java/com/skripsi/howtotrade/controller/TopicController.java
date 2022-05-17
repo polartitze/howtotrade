@@ -31,7 +31,7 @@ public class TopicController {
     }
     
     @ModelAttribute("module")
-    public String module() {
+    private String module() {
         return "forum";
     }
 
@@ -78,7 +78,7 @@ public class TopicController {
         //     }
         // } 
 
-        topic.setAuthorId(topicService.getUserId(principal.getName()));
+        topic.setAuthorId(userService.getUserId(principal.getName()));
 
         topicService.insertTopic(topic);
         return "redirect:/topic/all";
@@ -89,7 +89,7 @@ public class TopicController {
     	if(userService.getUserRole(principal.getName()).equals("ROLE_ADMIN")) {
     		topicService.deleteTopicAdmin(topicId);
     	}
-    	else topicService.deleteTopic(topicService.getUserId(principal.getName()), topicId);
+    	else topicService.deleteTopic(userService.getUserId(principal.getName()), topicId);
         return "redirect:/topic/all";
     }
 
@@ -97,7 +97,7 @@ public class TopicController {
     @RequestMapping(value = "/{topicId}/comment", method = RequestMethod.POST)
     public String saveCommentOnTopicId(Model model, @PathVariable int topicId, Comment comment, Principal principal){
         comment.setTopicId(topicId);
-        comment.setUserId(topicService.getUserId(principal.getName()));
+        comment.setUserId(userService.getUserId(principal.getName()));
         topicService.insertComment(comment);
         model.addAttribute("commentForm", new Comment());
         return "redirect:/topic/{topicId}";
@@ -112,7 +112,7 @@ public class TopicController {
     //BLOCK USER ON TOPIC PAGE
     @RequestMapping("/block/{username}")
     public String blockMember(@PathVariable String username){
-        topicService.blockMember(topicService.getUserId(username));
+        topicService.blockMember(userService.getUserId(username));
         return "redirect:/topic/all";
     }
 }

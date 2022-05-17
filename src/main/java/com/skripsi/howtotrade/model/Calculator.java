@@ -28,8 +28,6 @@ public class Calculator {
         this.coinCode = coinCode;
     }
 
-
-
     public Coin getCoin() {
         return this.coin;
     }

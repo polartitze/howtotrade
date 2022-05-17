@@ -43,11 +43,11 @@ public class AuthService {
 
 	
 	public boolean insertUser(String username, String userEmail, String password, int userRole, String realName) {
-		if(!isUsernameExist(username).equals("TidakTerdaftar")){
-			System.out.println("Username exist!...");
+		try {
+			userMapper.insertUser(username, userEmail, password, userRole, "1", realName);
+		} catch (Exception e) {
 			return false;
 		}
-		userMapper.insertUser(username, userEmail, password, userRole, "1", realName);
 		return true;
 	}
 

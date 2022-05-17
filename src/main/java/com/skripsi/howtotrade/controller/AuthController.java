@@ -28,7 +28,7 @@ public class AuthController {
 	private AuthService authService;
 	
 	@Autowired
-    private MailService mailSender;
+    private MailService mailService;
     private Mail mail = new Mail();
     
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -109,8 +109,6 @@ public class AuthController {
 		return "index/emailverification";
 	}
 	
-	
-	
 	@RequestMapping(value = "/validate-mail/{username}", method = RequestMethod.GET)
 	public String validateMail(@PathVariable("username") String username) {
 		String content = "";
@@ -143,7 +141,7 @@ public class AuthController {
 		mail.setMailTo(users.getUserEmail());
 		mail.setMailSubject("Verify your email!");
 		mail.setMailContent(content);
-		mailSender.sendEmail(mail);
+		mailService.sendEmail(mail);
 		return "index/validate";
 	}
 

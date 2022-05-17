@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class Topic extends Users{
+public class Topic {
     private int topicId;
     private String topicTitle;
     private String description;
@@ -12,9 +12,7 @@ public class Topic extends Users{
     private int authorId;
     private String userName;
     private MultipartFile image;
-    // private String imagePath;
     private String topicImage;
-
 
     public String getTopicImage() {
         return this.topicImage;
@@ -33,14 +31,6 @@ public class Topic extends Users{
         this.image = image;
     }
 
-    // public String getImagePath() {
-    //     return this.imagePath;
-    // }
-
-    // public void setImagePath(String imgPath) {
-    //     this.imagePath = imgPath;
-    // }
-
     public String getUserName() {
         return this.userName;
     }
@@ -57,7 +47,6 @@ public class Topic extends Users{
         this.authorId = authorId;
     }
     
-
     public int getTopicId() {
         return this.topicId;
     }
