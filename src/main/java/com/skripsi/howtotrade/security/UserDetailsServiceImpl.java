@@ -18,14 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
-	private UserMapper appUserDAO;
-
-	
-
+	private UserMapper userMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users appUser = this.appUserDAO.findUserAccount(username);
+		Users appUser = this.userMapper.findUserAccount(username);
 		// HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         // String password = request.getParameter("password"); // get from request parameter
 		if (appUser == null) {
@@ -33,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("User " + username + " was not found in the database");
 		}
 
-		String role = this.appUserDAO.getRole(username);
+		String role = this.userMapper.getRole(username);
 		System.out.println("============ROLE: "+role);
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 		if (role != null) {

@@ -29,11 +29,10 @@ public class AdminController {
 	private AuthService authService;
 	
 	@Autowired
-    private MailService mailSender;
-    private Mail mail = new Mail();
+    private MailService mailService;
 
 	@ModelAttribute("module")
-    public String module() {
+    private String module() {
         return "manageuser";
     }
 	
@@ -74,12 +73,13 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Users users = authService.userDetaiil(username);
+        Mail mail = new Mail();
+		Users users = userService.findUserAccount(username);
 		mail.setMailFrom("polaritze@gmail.com"); //TODO: MAKE BUSSINESS EMAIL
 		mail.setMailTo(users.getUserEmail());
 		mail.setMailSubject("Account has been blocked!");
 		mail.setMailContent(content);
-		mailSender.sendEmail(mail);
+		mailService.sendEmail(mail);
 
 
         return "redirect:/admin/manage-member";

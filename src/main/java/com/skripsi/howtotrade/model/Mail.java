@@ -8,7 +8,6 @@ public class Mail {
     private String mailSubject;
     private String mailContent;
     private String contentType;
-    // private List < Object > attachments;
     
     public Mail() {
         this.contentType = "text/html";

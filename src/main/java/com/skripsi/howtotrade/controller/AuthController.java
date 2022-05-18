@@ -29,7 +29,6 @@ public class AuthController {
 	
 	@Autowired
     private MailService mailService;
-    private Mail mail = new Mail();
     
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -136,6 +135,7 @@ public class AuthController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Mail mail = new Mail();
 		Users users = authService.userDetaiil(username);
 		mail.setMailFrom("polaritze@gmail.com"); //TODO: MAKE BUSSINESS EMAIL
 		mail.setMailTo(users.getUserEmail());
