@@ -135,9 +135,9 @@
                         <span th:text="${list.activityDesc}"></span>
                     </td>
                     <td style="max-width: 800px;" class="text-primary text-center align-middle">
-                        <a th:if="${list.imageUrl != ''}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
+                        <a th:if="${list.imageUrl != '' and list.imageUrl != null}" th:data-id="${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal">Lihat Gambar
-                         </a>
+                        </a>
                     </td>
                     <td class="text-center align-middle text-primary">
                         <a th:if="${list.isQuestion}" data-toggle="modal" data-target="#questionModal" class="question"
@@ -235,7 +235,9 @@
                         </div>
                     </div> 
                     <p>Isi data dibawah ini.</p>
-                    <form class="requires-validation" id="myForm" th:object="${addActivity}" th:action="@{'/pro/add-activity-save'}" method="post" enctype="multipart/form-data">
+                    <!-- ADD ACTIVITY LAMA -->
+                    <!-- <form class="requires-validation" id="myForm" th:object="${addActivity}" th:action="@{'/pro/add-activity-save'}" method="post" enctype="multipart/form-data"> -->
+                    <form class="requires-validation" id="myForm" th:object="${addActivity}" method="post" enctype="multipart/form-data">
                         <div class="col-md-12">
                             <select class="form-select mt-3" th:field="${addActivity.activityTypeId}" id="selectActivityType" required>
                                  <option selected disabled value="0">Pilih tipe aktivitas</option>
@@ -524,7 +526,17 @@
                 $('#btnQuestion').hide();
             } 
         });
-		
+        
+        $('.btn-add').on('click',function(){
+            // var dom = '<img src="' + id  + '" alt="Gagal mengambil gambar, mohon dimuat ulang" class="img-thumbnail"> ';
+                // $('#imgInside').html(dom); 
+                let str = window.location.href;
+                let courseId = str.substring(str.lastIndexOf('/') + 1);
+                let attribute =  "/pro/add-activity-save/"+courseId
+                $('#myForm').attr("action", attribute); 
+                // th:action="@{'/pro/add-activity-save'}"
+        });
+            
 	</script>
 </body>
 </html>

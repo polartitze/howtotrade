@@ -145,5 +145,13 @@ public class AuthController {
 		return "index/validate";
 	}
 
+	@RequestMapping(value = "/doLogin", method = RequestMethod.GET)
+	public String doLogin(){
+		return "redirect:/";
+	}
 
+	@RequestMapping(value = "/doLogout", method = RequestMethod.GET)
+	public String doLogout(){
+		return "redirect:/";
+	}
 }

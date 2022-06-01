@@ -140,6 +140,8 @@ public class ExpertController {
 		return "expert/addactivity";
 	}
 	
+	//ADD ACTIVITY LAMA
+	/*
 	@RequestMapping(value = "/add-activity-save", method = RequestMethod.POST)
 	public String addActivitySave(Activity activity, @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
         int latestCourseId =  courseService.getLatestCourseId();
@@ -166,6 +168,35 @@ public class ExpertController {
 			e.printStackTrace();
 			System.out.println("Insert new Activity failed!");
 			return "redirect:/pro/add-activity/"+String.valueOf(latestCourseId);
+		}
+	}
+	*/
+	@RequestMapping(value = "/add-activity-save/{courseId}", method = RequestMethod.POST)
+	public String addActivitySave(Activity activity, @PathVariable int courseId) {
+        int latestCourseId =  courseService.getLatestCourseId();
+		int latestStepNo = courseService.getLatestStepNo(latestCourseId);
+		int currCourseId = courseId; //currCourseId = courseId yg akan disave aktivitasnya
+		try {
+			int activityId = courseService.addActivity(currCourseId, latestStepNo+1, activity.getActivityTypeId(), activity.getActivityDesc(), activity.getImageUrl(), activity.getIsQuestion());
+			if(activity.getActivityTypeId() == 1) { //chart
+				//'05/12/2022 - 05/12/2022'
+				String [] parts = activity.getDateRange().split(" - ");
+				String startDate = parts[0];
+				String endDate = parts[1];
+				courseService.saveActivityChart(activityId, activity.getChartMasterId(), startDate, endDate);
+			}
+			
+			if(activity.getIsQuestion()){
+				//activity id harus sesuai dgn activity yg terbaru
+				courseService.addActivityQuestion(activityId, 0, activity.getQuestion().getQuestionDesc(), activity.getQuestion().getCorrectAnswer(), activity.getQuestion().getChoiceOne(), activity.getQuestion().getChoiceTwo(), activity.getQuestion().getChoiceThree(), activity.getQuestion().getChoiceFour());
+			}
+			System.out.println("Insert new Activity Question success!");
+			System.out.println("Insert new Activity success!");
+			return "redirect:/pro/add-activity/"+String.valueOf(currCourseId);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			System.out.println("Insert new Activity failed!");
+			return "redirect:/pro/add-activity/"+String.valueOf(currCourseId);
 		}
 	}
 

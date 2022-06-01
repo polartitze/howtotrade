@@ -48,7 +48,7 @@ public class AdminController {
     public String blockUser(@PathVariable String username){
         userService.blockUser(userService.getUserId(username));
         
-        //SEND MAIL TODO: CHANGE EMAIL HTML
+        //SEND MAIL
         String content = "";
         try {
 			StringBuilder contentBuilder = new StringBuilder();

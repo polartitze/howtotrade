@@ -134,7 +134,7 @@
                         <span th:text="${list.correctAnswer}"></span>
                     </td>
                     <td class="text-primary text-center align-middle">
-                        <a th:if="${list.imageUrl != ''}" th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
+                        <a th:if="${list.imageUrl != '' and list.imageUrl != null}" th:attr="data-id=${list.imageUrl}" class="imgModal" data-toggle="modal"
                             data-target="#imageModal">Lihat Gambar
 						</a>
                     </td>
@@ -220,7 +220,7 @@
                         <input type="hidden" name="quizId" th:value="${quizId}" id="quiz">
 
                         <div class="form-button mt-3 text-center">
-                            <button id="submit" type="submit" class="btn btn-primary btn-save">Simpan</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-save" disabled>Simpan</button>
                         </div>
 
                     </form>
@@ -269,6 +269,9 @@
                 $('.btn-save-quiz').addClass("disabled");
             } 
 
+            el.addEventListener("fileUploadSuccess", function(e) {
+                $(".btn-save").removeAttr("disabled");
+            });
             image();
         });
 
