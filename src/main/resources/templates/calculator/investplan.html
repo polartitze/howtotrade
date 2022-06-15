@@ -39,11 +39,14 @@
 </head>
 <body style="background-color: #eee">
 	<div class="row gutters">
-    	<div class="">
+    	<div class="d-flex">
       		<div class="">
         		<a th:href="@{'/'}" class="btn text-black" style="text-decoration:none">
         			<i class="fa fa-arrow-left"></i>
         		</a>
+      		</div>
+      		<div class="ml-auto my-auto mr-2">
+            <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#disclaimerModal">Disklaimer</button>
       		</div>
     	</div>
   	</div>
@@ -172,8 +175,6 @@
             
         </div>
           
-          
-          
         </section>
         
         <div class="row gutters">
@@ -289,7 +290,22 @@
         </div>
       </div>
     </div>
-	    
+	
+<!-- MODAL DISCLAIMER -- START-->
+    <div class="modal" id="disclaimerModal">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;">
+            <div class="modal-content border-0" style="padding: 10px;">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                </div>
+                <h3 class="text-center">DISKLAIMER</h3>
+                <div class="modal-body border-0 pb-0" >
+                    <p>Perhitungan yang dilakukan merupakan perhitungan sederhana menggunakan rumus compounding interest. Mohon pengguna untuk dapat menyesuaikan sendiri hasil perhitungan berdasarkan return tahunan masing-masing koin terkait.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- MODAL DISCLAIMER -- END-->
   
   
   <script th:if="${#request.getParameter('error') == 'true'}">

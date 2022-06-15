@@ -25,7 +25,7 @@
 							<div class="row justify-content-center">
 								<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 	
-									<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register</p>
+									<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Daftar</p>
 	
 									<form class="mx-1 mx-md-4" th:action="@{/user/add}" th:object="${appUser}" id="myForm"
 										method="post">
@@ -83,10 +83,10 @@
 										<div class="align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-												<label class="form-label" for="password">Password</label>
+												<label class="form-label" for="password">Kata Sandi</label>
 												<input type="password" onchange="checkPassword(); checkdata();" class="form-control"
 													th:field="*{userPassword}" id="password" name="password"
-													required="required" placeholder="Masukkan password Anda" />
+													required="required" placeholder="Masukkan kata sandi Anda" />
 											</div>
 										</div>
 	
@@ -100,10 +100,10 @@
 										<div class="align-items-center mb-4">
 											<div class="form-outline flex-fill mb-0">
 												<i class="fas fa-key fa-lg me-3 fa-fw"></i>
-												<label class="form-label" for="confirmPassword">Konfirmasi Password</label>
+												<label class="form-label" for="confirmPassword">Konfirmasi Kata Sandi</label>
 												<input type="password" onchange="checkPassword()" class="form-control"
 													id="confirmPassword" name="confirmPassword" required="required"
-													placeholder="Konfirmasi password Anda" />
+													placeholder="Konfirmasi kata sandi Anda" />
 												
 											</div>
 										</div>
@@ -113,7 +113,7 @@
 
 										<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 											<button type="submit" class="btn btn-primary btn-lg buttonRegis" disabled
-												onclick="checkData()">Register</button>
+												onclick="checkData()">Daftar</button>
 										</div>
 	
 									</form>
@@ -138,7 +138,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content border-0">
 				<div class="modal-header border-0 pb-0">
-					<h4>Register</h4>
+					<h4>Daftar</h4>
 					<button class="close validate-mail">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
@@ -156,7 +156,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content border-0">
 				<div class="modal-header border-0 pb-0">
-					<h4>Register</h4>
+					<h4>Daftar</h4>
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div>
 				<div class="modal-body border-0 pb-0">
@@ -244,10 +244,10 @@
 		
 		
 		if (pass.length < 6 || pass.length > 50){
-			$("#passwordAlert").html("Password harus memiliki 6-50 karakter!");
+			$("#passwordAlert").html("Kata sandi harus memiliki 6-50 karakter!");
 			$("#passwordAlert").show();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
+				$("#confirmPasswordAlert").html("Konfirmasi kata sandi tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}
@@ -258,10 +258,10 @@
 		}
 		else if (!pass.match(letter) || !pass.match(number)){
 			$("#passwordAlert").hide();
-			$("#passwordAlert").html("Password harus mengandung angka dan huruf!");
+			$("#passwordAlert").html("Kata sandi harus mengandung angka dan huruf!");
 			$("#passwordAlert").show();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
+				$("#confirmPasswordAlert").html("Konfirmasi kata sandi tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}
@@ -273,7 +273,7 @@
 		else {
 			$("#passwordAlert").hide();
 			if (pass != confirmPass) {
-				$("#confirmPasswordAlert").html("Konfirmasi password tidak sesuai!");
+				$("#confirmPasswordAlert").html("Konfirmasi kata sandi tidak sesuai!");
 				$("#confirmPasswordAlert").show();
 				return false;
 			}

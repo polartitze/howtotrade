@@ -50,10 +50,10 @@
         </li>
         
         <li class="nav-item" sec:authorize="isAnonymous()">
-          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/login">Masuk</a>
         </li>
         <li class="nav-item" sec:authorize="isAnonymous()">
-          <a class="nav-link" href="/user/add">Register</a>
+          <a class="nav-link" href="/user/add">Daftar</a>
         </li>
         
         <li class="nav-item dropdown my-auto mx-3 text-white" sec:authorize="isAuthenticated()">
@@ -62,7 +62,7 @@
           </div>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="/profile" sec:authorize="hasRole('ROLE_USER')">Profil</a>
-            <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Keluar</a>
           </div>
         </li>
         
